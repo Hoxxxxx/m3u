@@ -1,29 +1,55 @@
 .workSpace {
+
   // 内容区域
   .formContent {
     width: 1280px;
     margin: 0 auto;
     margin-top: 20px;
     border-radius: 10px 10px 0 0;
+
     // tab标签
     .el-tabs /deep/ .el-tabs__header {
       margin: 0 -20px 15px;
     }
+
     .el-tabs /deep/ .el-tabs__item {
       padding: 0;
       text-align: center;
       min-width: 86px;
     }
+
     .el-tabs /deep/ .el-tabs__active-bar {
       min-width: 86px !important;
       height: 5px;
       border-radius: 2px;
     }
   }
+
   .uploadContent {
     width: 1280px;
     margin: 0 auto;
     margin-top: 4px;
-    border-radius: 0 0 10px 10px ;
+    border-radius: 0 0 10px 10px;
   }
+
+  .potBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 20px;
+
+    .pot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #D8D8D8;
+      margin: 0 5px 0 0;
+
+      &.potActive {
+        background: #409EFD;
+      }
+    }
+  }
+
 }
