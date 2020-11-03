@@ -6,7 +6,13 @@
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
           <span slot="label"> 表单</span>
-          1111
+          <!-- 内容 -->
+          <div class="firContent">
+            <div class="title">固定资产付款</div>
+            <div class="table_Info">
+              <span class="code">编号：20201102134</span>
+            </div>
+          </div>
         </el-tab-pane>
         <el-tab-pane label="流程进度" name="secTab">
           <span slot="label"> 流程进度</span>
@@ -16,7 +22,7 @@
     </el-card>
     <!-- 附件区域 -->
     <el-card class="uploadContent">
-      
+
     </el-card>
 
   </div>
