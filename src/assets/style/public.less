@@ -1,0 +1,215 @@
+.workDetail {
+  padding: 150px 0 24px 0;
+}
+
+// 顶部菜单
+.menuOuter {
+  position: fixed;
+  z-index: 999;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+
+  .menuList {
+    min-width: 1440px;
+    padding: 0 30px;
+    height: 70px;
+    background: #fff;
+    box-shadow: 0px 4px 6px 0px rgba(0, 21, 41, 0.12);
+    position: relative;
+    overflow: hidden;
+
+    >ul {
+      width: 1000px;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+
+      li {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        .iconfont {
+          margin-bottom: 4px;
+        }
+
+        .numInput {
+          width: 80px;
+          height: 26px;
+          box-sizing: border-box;
+          border: 1px solid #666666;
+          border-radius: 2px;
+          text-align: center;
+          padding: 0 2px;
+          margin-bottom: 4px;
+
+          &::-webkit-input-placeholder {
+            font-size: 14px;
+            color: #000;
+          }
+        }
+
+        &:hover {
+          span {
+            color: #409efd;
+          }
+        }
+      }
+    }
+
+    // 不可点击的li
+    .unclick {
+      cursor: not-allowed;
+      color: lightgray;
+
+      &:hover {
+        span {
+          color: lightgray;
+        }
+      }
+    }
+
+    .saveBtns {
+      width: 230px;
+      margin: 15px auto;
+
+      .cancel {
+        width: 100px;
+        border-color: #409efd;
+        color: #409efd;
+      }
+
+      .sure {
+        width: 100px;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+
+// 状态区域样式
+.states {
+  >ul {
+    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    >li {
+      width: 340px;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      width: 340px;
+      height: 0;
+      visibility: hidden;
+    }
+  }
+}
+
+// 输入框label
+.label {
+  font-size: 14px;
+  color: #666666;
+  font-weight: 400;
+  display: table;
+}
+
+.shortLabel {
+  width: 70px;
+}
+
+// 小红点
+.redPot {
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 1px;
+  vertical-align: sub;
+}
+
+// 输入框不可编辑时显示的div的样式
+.msgBox {
+  width: 248px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 1px solid #e4e7ed;
+  color: #333333;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.short_msgBox {
+  width: 132px !important;
+  margin-right: 5px;
+}
+
+// 请款资料处的那个小输入框
+.doubles {
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 1px solid #e4e7ed;
+  color: #333333;
+  font-size: 14px;
+}
+
+// 表格卡片
+.tableCard {
+  width: 1202px;
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+// ele
+
+.elInput {
+  width: 248px;
+}
+
+.el-table /deep/ .cell {
+  line-height: 40px;
+}
+
+// 并排显示两个框的外层div
+.doubleOuter {
+  width: 248px;
+  height: 40px;
+  display: flex
+}
+
+.el-card /deep/ .el-card__body {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.el-tabs /deep/ .el-tabs__item {
+  height: 40px;
+  line-height: 30px;
+}
+.backList{
+  font-weight: bold;
+}
