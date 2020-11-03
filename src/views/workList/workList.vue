@@ -9,23 +9,6 @@
         </ul>
       </div>
       <div class="cardBox">
-        <!-- 公司 -->
-        <el-card class="company">
-          <el-select
-            v-model="company"
-            class="companySelect"
-            placeholder="请选择公司"
-            @change="selected('change')"
-          >
-            <el-option
-              v-for="item in companys"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
-        </el-card>
         <!-- 作业列表 -->
         <el-card class="content">
           <ul class="workUl">
@@ -41,158 +24,34 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import { sobsList } from "@/api/basic";
 
 export default {
   data() {
     return {
       workList: [
         {
-          name: "一般凭证维护作业aglt110",
-          path: "/aglt110",
-          pathName: "aglt110",
-          workName: "aglt110",
+          name: "预付款作业",
+          path: "/adCharge",
+          pathName: "adCharge",
+          workName: "adCharge",
         },
-        {
-          name: "杂项应付款请款作业aapt120",
-          path: "/aapt120",
-          pathName: "aapt120",
-          workName: "aapt120",
-        },
-        {
-          name: "厂商预付款作业aapt150",
-          path: "/aapt150",
-          pathName: "aapt150",
-          workName: "aapt150",
-        },
-        {
-          name: "付款冲账作业aapt330",
-          path: "/aapt330",
-          pathName: "aapt330",
-          workName: "aapt330",
-        },
-        {
-          name: "借支单维护作业aapt151",
-          path: "/aapt151",
-          pathName: "aapt151",
-          workName: "aapt151",
-        },
-        {
-          name: "报销还款维护作业aapt121",
-          path: "/aapt121",
-          pathName: "aapt121",
-          workName: "aapt121",
-        },
-        {
-          name: "应收账款维护作业axrt300",
-          path: "/axrt300",
-          pathName: "axrt300",
-          workName: "axrt300",
-        },
-        {
-          name: "收款冲账单维护作业axrt400",
-          path: "/axrt400",
-          pathName: "axrt400",
-          workName: "axrt400",
-        },
-        {
-          name: "银行存款收支维护作业anmt302",
-          path: "/anmt302",
-          pathName: "anmt302",
-          workName: "anmt302",
-        },
-        {
-          name: "固定资产维护作业afai100",
-          path: "/afai100",
-          pathName: "afai100",
-          workName: "afai100",
-        },
-        {
-          name: "折旧分录维护作业afai104",
-          path: "/afai104",
-          pathName: "afai104",
-          workName: "afai104",
-        },
-      ],
-      // 公司
-      companys: [
-        {
-          id: 2,
-          name: '北京'
-        }
-      ],
-      company: 2,
-      userInfo: {
-        name: "test",
-        id: "007",
-        root: true,
-      }, //用户信息
+      ]
     };
   },
   created() {
-    this.getCompanyList();
-    sessionStorage.setItem("roleId", this.company);
-    this.CHANGE_USER_INFO(this.userInfo); //保存用户信息到vuex
-    // 清空暂存数据
-    sessionStorage.removeItem('nowTheadList')
-    sessionStorage.removeItem("allWorksList");
-    sessionStorage.removeItem("operation_code");
   },
 
   methods: {
-
-    ...mapMutations([
-      "CHANGE_WORK_INFO",
-      "CHANGE_USER_INFO",
-      "CHANGE_COMPANY_INFO",
-    ]),
-
     detail(item) {
-      this.CHANGE_WORK_INFO(item); //保存当前点击的作业信息到vuex
       this.$router.push({
-        name: item.pathName,
-        params: {
-          workName: item.workName,
-        },
+        name: item.pathName
       });
-    },
-
-    getCompanyList() {
-      sobsList()
-      .then(result => {
-        if (result.status == '200') {
-          this.companys = result.data
-          this.selected('init')
-        } else {
-          this.$message.error("获取账套列表失败：" + result.error.message);
-        }
-      })
-    },
-
-    selected(info) {
-      sessionStorage.setItem("roleId", this.company);
-      this.companys.forEach(item => {
-        if (item.id == this.company) {
-          let info = {
-            name: item.name,
-            id: this.company,
-          };
-          this.CHANGE_COMPANY_INFO(info); //保存当前选中的公司信息到vuex
-        }
-      })
-      if (info == 'change') {
-        this.$message.success("切换公司成功！");
-      }
     },
   },
 };
 </script>
 
 <style lang="less">
-.headContainer{
-  box-shadow: 0px 2px 6px 0px rgba(0, 21, 41, 0.12);
-}
 .workList {
   padding: 0 30px;
   .contentBox {
@@ -255,7 +114,6 @@ export default {
       // 作业列表
       .content {
         min-width: 700px;
-        min-height: 500px;
         background: #fff;
         .workUl {
           .workItem {
