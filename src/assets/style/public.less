@@ -1,5 +1,11 @@
+.el-card /deep/ .el-card__body {
+  padding: 10px 20px 20px 20px;
+}
+
 .workSpace {
   position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
 
   // 表单卡片
   .formContent {
@@ -7,6 +13,20 @@
     margin: 0 auto;
     margin-top: 20px;
     border-radius: 10px 10px 0 0;
+    position: relative;
+
+    // btn
+    .btnBox {
+      position: absolute;
+      z-index: 99;
+      right: 20px;
+      .el-button {
+        height: 32px;
+        width: 90px;
+        line-height: 32px;
+        padding: 0 16px 0 16px !important;
+      }
+    }
 
     // tab标签区域
     .potBox {
@@ -46,7 +66,7 @@
     }
 
     // 内容区域
-    .firContent {
+    .tabContent {
       .title {
         width: 100%;
         height: 20px;
@@ -56,14 +76,68 @@
         line-height: 20px;
         text-align: center;
         margin-bottom: 15px;
-        background: lightpink;
       }
 
       .table_Info {
-        background: lightgreen;
         height: 12px;
         font-size: 12px;
+        line-height: 12px;
         color: #333333;
+        margin-bottom: 15px;
+        .code {
+          float: left;
+        }
+        .name {
+          float: right;
+        }
+      }
+      .tableBox {
+        width: 1240px;
+        box-sizing: border-box;
+        border: 1px solid #CCCCCC;
+        .title_line {
+          width: 100%;
+          height: 40px;
+          background: #F3F5F9;
+          text-align: center;
+          line-height: 40px;
+          font-size: 12px;
+          font-weight: bold;
+          color: #409EFD;
+        }
+        .form_line {
+          width: 100%;
+          height: 40px;
+          line-height: 40px;
+          border-bottom: 1px solid #CCCCCC;
+          display: flex;
+          color: #666666;
+          font-size: 12px;
+          .titlebox {
+            width: 133px;
+            text-align: center;
+            border-right: 1px solid #CCCCCC;
+            background: #FCFDFF;
+          }
+          .infobox {
+            width: 282px;
+            padding-left: 24px;
+            padding-right: 24px;
+            box-sizing: border-box;
+            border-right: 1px solid #CCCCCC;
+            background: #FFFFFF;
+          }
+          .nulldata {
+            background: #FCFDFF;
+          }
+          .last_row {
+            border: none;
+          }
+        }
+        .last_line{
+          border: none;
+        }
+
       }
 
     }
@@ -256,6 +330,22 @@
     margin: 0 auto;
     margin-top: 4px;
     border-radius: 0 0 10px 10px;
+     // 内容区域
+    .tabContent {
+      .title {
+        width: 100%;
+        height: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333333;
+        line-height: 20px;
+        text-align: left;
+        margin-bottom: 15px;
+      }
+      .upload_annex /deep/ .el-upload-list__item {
+        width: 300px;
+      }
+    }
   }
 
   // 小标题
