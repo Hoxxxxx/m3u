@@ -20,6 +20,7 @@
       position: absolute;
       z-index: 99;
       right: 20px;
+
       .el-button {
         height: 32px;
         width: 90px;
@@ -84,17 +85,21 @@
         line-height: 12px;
         color: #333333;
         margin-bottom: 15px;
+
         .code {
           float: left;
         }
+
         .name {
           float: right;
         }
       }
+
       .tableBox {
         width: 1240px;
         box-sizing: border-box;
         border: 1px solid #CCCCCC;
+
         .title_line {
           width: 100%;
           height: 40px;
@@ -105,6 +110,7 @@
           font-weight: bold;
           color: #409EFD;
         }
+
         .form_line {
           width: 100%;
           height: 40px;
@@ -113,12 +119,14 @@
           display: flex;
           color: #666666;
           font-size: 12px;
+
           .titlebox {
             width: 133px;
             text-align: center;
             border-right: 1px solid #CCCCCC;
             background: #FCFDFF;
           }
+
           .infobox {
             width: 282px;
             padding-left: 24px;
@@ -127,14 +135,17 @@
             border-right: 1px solid #CCCCCC;
             background: #FFFFFF;
           }
+
           .nulldata {
             background: #FCFDFF;
           }
+
           .last_row {
             border: none;
           }
         }
-        .last_line{
+
+        .last_line {
           border: none;
         }
 
@@ -197,7 +208,7 @@
         span {
           display: block;
           width: 80px;
-          line-height: 26px;
+          line-height: 27px;
           font-size: 16px;
           color: #666666;
         }
@@ -215,6 +226,31 @@
         .mainSelect {
           width: 258px;
           height: 26px;
+
+          .el-dropdown-link {
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 228px;
+            height: 26px;
+            line-height: 28px;
+            background: #f5f5f5;
+            padding: 0 15px;
+            font-size: 16px;
+            color: #333333;
+
+            span {
+              width: 100%;
+              color: #333333;
+            }
+
+            img {
+              width: 20px;
+              height: 20px;
+            }
+          }
         }
 
         .memeberSelect {
@@ -283,6 +319,12 @@
           line-height: 20px;
         }
       }
+
+      .el-dropdown-link {
+        color: #409efd;
+        font-weight: bold;
+        cursor: pointer;
+      }
     }
   }
 
@@ -319,7 +361,7 @@
       margin-top: 30px;
 
       button {
-        width: 98px;
+        width: 90px;
       }
     }
   }
@@ -330,7 +372,8 @@
     margin: 0 auto;
     margin-top: 4px;
     border-radius: 0 0 10px 10px;
-     // 内容区域
+
+    // 内容区域
     .tabContent {
       .title {
         width: 100%;
@@ -342,10 +385,17 @@
         text-align: left;
         margin-bottom: 15px;
       }
+
       .upload_annex /deep/ .el-upload-list__item {
         width: 300px;
       }
     }
+  }
+
+  .moreImg {
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
   }
 
   // 小标题
@@ -355,7 +405,7 @@
     color: #333333;
     height: 40px;
     line-height: 40px;
-    margin-right: 15px;
+    margin-right: 20px;
   }
 
   // 同意流程标题
