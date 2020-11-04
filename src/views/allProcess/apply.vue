@@ -62,7 +62,7 @@
                     @command="memberSelect"
                   >
                     <div class="el-dropdown-link">
-                      <span>{{fixedData.memberMsg}}</span
+                      <span>{{ fixedData.memberMsg }}</span
                       ><img src="../../assets/img/more.png" class="moreImg" />
                     </div>
                     <el-dropdown-menu slot="dropdown">
@@ -158,9 +158,12 @@
       </div>
       <div class="remindMember">
         <div class="opinionName">消息内容</div>
-        <div class="msgBox">
-          您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员
-        </div>
+        <el-input
+          type="textarea"
+          :autosize="{ minRows: 1, maxRows: 4 }"
+          v-model="uploadData.msgNote"
+        >
+        </el-input>
       </div>
       <div class="btns">
         <el-button @click="$router.push('/newPro')">返回</el-button>
@@ -184,7 +187,7 @@ export default {
             label: "黄金糕",
           },
         ],
-        memberMsg:"请选择主办人员",
+        memberMsg: "请选择主办人员",
         msgs: [
           { label: "第一个常用语", value: 0 },
           { label: "第二个常用语", value: 0 },
@@ -195,6 +198,7 @@ export default {
       uploadData: {
         member: "", //下一步的审批人员
         note: "", //流程审批意见
+        msgNote:"您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员",//消息内容
         checked1: "",
         checked2: "",
         checked3: "",
@@ -208,13 +212,13 @@ export default {
   methods: {
     handleClick() {},
     // 主办人员选择
-    memberSelect(command){
-      this.fixedData.memberMsg = command.label
+    memberSelect(command) {
+      this.fixedData.memberMsg = command.label;
     },
     // 常用语选择
     handleCommand(command) {
       console.log(command);
-      this.uploadData.note = command.label
+      this.uploadData.note = command.label;
     },
   },
 };

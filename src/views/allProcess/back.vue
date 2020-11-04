@@ -143,9 +143,12 @@
       </div>
       <div class="remindMember">
         <div class="opinionName">消息内容</div>
-        <div class="msgBox">
-          您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员
-        </div>
+        <el-input
+          type="textarea"
+          :autosize="{ minRows: 1, maxRows: 4 }"
+          v-model="uploadData.msgNote"
+        >
+        </el-input>
       </div>
       <div class="btns">
         <el-button @click="$router.push('/approvalPro')">返回</el-button>
@@ -180,6 +183,7 @@ export default {
       uploadData: {
         member: "", //下一步的审批人员
         note: "", //流程审批意见
+        msgNote:"您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员",//消息内容
         checked1: "",
         checked2: "",
         checked3: "",
