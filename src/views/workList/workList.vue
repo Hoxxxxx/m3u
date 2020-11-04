@@ -35,6 +35,12 @@ export default {
           pathName: "adCharge",
           workName: "adCharge",
         },
+        {
+          name: "固定资产付款",
+          path: "/steady",
+          pathName: "steady",
+          workName: "steady",
+        },
       ]
     };
   },

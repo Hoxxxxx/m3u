@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 const Home = () => import('@/views/Home')
 const workList = () => import('@/views/workList/workList')
 const adCharge = () => import('@/views/adCharge_01/adCharge') // 一般凭证
+const steady = () => import('@/views/steady/steady') // 固定资产
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,6 +30,18 @@ const routes = [
         path: 'index',
         name: 'adCharge',
         component: adCharge
+      }
+    ]
+  },
+  // 固定资产
+  {
+    path: '/steady',
+    component: Home,
+    children: [
+      {
+        path: 'index',
+        name: 'steady',
+        component: steady
       }
     ]
   },
