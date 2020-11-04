@@ -24,8 +24,26 @@
         height: 32px;
         width: 90px;
         line-height: 32px;
-        padding: 0 16px 0 16px !important;
+        padding: 0;
       }
+      .normal {
+        color: #409EFD;
+        border-color: #409EFD;
+      }
+      .agree,
+      .next {
+        background-color: #6DD400;
+        border-color:#6DD400;
+      }
+      .reject {
+        background-color: #FBD951;
+        border-color:#FBD951;
+      }
+      .back {
+        background-color: #F56C6C;
+        border-color:#F56C6C;
+      }
+      
     }
 
     // tab标签区域
@@ -34,6 +52,7 @@
       flex-direction: row;
       align-items: center;
       margin: 0 20px;
+      font-weight: bold;
 
       .pot {
         display: inline-block;
@@ -207,6 +226,7 @@
           height: 26px;
           line-height: 28px;
           background: #f5f5f5;
+          border-radius: 4px;
           padding: 0 15px;
           font-size: 16px;
           color: #333333;
@@ -215,6 +235,9 @@
         .mainSelect {
           width: 258px;
           height: 26px;
+          .el-select /deep/ .el-input__inner {
+            border: none;
+          }
         }
 
         .memeberSelect {
@@ -303,12 +326,13 @@
 
       .msgBox {
         width: 1240px;
+        min-height: 36px;
         border-radius: 4px;
         box-sizing: border-box;
         border: 1px solid #dcdfe6;
         font-size: 14px;
         color: #333;
-        padding: 15px;
+        padding: 8px 15px;
         line-height: 20px;
       }
     }
@@ -319,13 +343,16 @@
       margin-top: 30px;
 
       button {
-        width: 98px;
+        width: 90px;
+        height: 36px;
+        line-height: 36px;
+        padding: 0;
       }
     }
   }
 
   // 附件卡片
-  .uploadContent {
+  .secContentCard {
     width: 1280px;
     margin: 0 auto;
     margin-top: 4px;
@@ -342,9 +369,55 @@
         text-align: left;
         margin-bottom: 15px;
       }
+      .saveList {
+        width: 300px;
+        color: #606266;
+        margin-bottom: 20px;
+        .saveItem {
+          height: 25px;
+          line-height: 25px;
+          margin-bottom: 4px;
+          .btnBox{
+            .el-button{
+              padding: 0;
+            }
+            float: right;
+          }
+        }
+      }
       .upload_annex /deep/ .el-upload-list__item {
         width: 300px;
       }
+      .timeline{
+        .el-timeline-item__timestamp {
+          color: #CCCCCC;
+          font-size: 12px;
+        }
+        .el-timeline-item__content {
+          width: 400px;
+        }
+        .el-card {
+          .el-card__body {
+            padding: 15px 20px;
+          }
+          .step,
+          .result {
+            color: #409EFD;
+            font-size: 14px;
+            margin-bottom: 10px;
+          }
+          .result,
+          .admin {
+            color: #333333;
+          }
+          .admin {
+            margin-bottom: 0;
+          }
+          .handling {
+            color: #F56C6C;
+          }
+        }
+      } 
     }
   }
 
@@ -362,22 +435,32 @@
   .agreeMsg,
   .rejectMsg,
   .backMsg {
+    width: 100px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 4px;
     position: absolute;
     z-index: 999;
     left: 50%;
     transform: translateX(-50%);
-    top: 20px;
-    color: #6DD400;
+    top: 8px;
     font-size: 14px;
     font-weight: 600;
     text-align: center;
   }
 
+  .agreeMsg {
+    color: #6DD400;
+    background-color: rgba(109, 212, 0, 0.2);
+  }
+
   .rejectMsg {
     color: #FBD951;
+    background-color: rgba(251, 217, 81, 0.2);
   }
 
   .backMsg {
     color: #F56C6C;
+    background-color: rgba(245, 108, 108, 0.2);
   }
 }

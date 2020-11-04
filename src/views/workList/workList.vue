@@ -30,34 +30,16 @@ export default {
     return {
       workList: [
         {
-          name: "预付款作业",
-          path: "/adCharge",
-          pathName: "adCharge",
-          workName: "adCharge",
+          name: "新建流程",
+          path: "/newPro",
         },
         {
-          name: "申请人签批",
-          path: "/apply",
-          pathName: "apply",
-          workName: "apply",
+          name: "审批流程",
+          path: "/approvalPro",
         },
         {
-          name: "同意",
-          path: "/agree",
-          pathName: "agree",
-          workName: "agree",
-        },
-        {
-          name: "拒绝",
-          path: "/reject",
-          pathName: "reject",
-          workName: "reject",
-        },
-        {
-          name: "退回",
-          path: "/back",
-          pathName: "back",
-          workName: "back",
+          name: "查看",
+          path: "/check",
         },
       ]
     };
@@ -67,9 +49,7 @@ export default {
 
   methods: {
     detail(item) {
-      this.$router.push({
-        name: item.pathName
-      });
+      this.$router.push(item.path);
     },
   },
 };

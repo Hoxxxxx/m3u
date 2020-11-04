@@ -151,7 +151,7 @@
         </div>
       </div>
       <div class="btns">
-        <el-button>返回</el-button>
+        <el-button @click="$router.push('/approvalPro')">返回</el-button>
         <el-button type="primary">提交</el-button>
       </div>
     </el-card>

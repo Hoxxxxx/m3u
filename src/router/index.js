@@ -3,11 +3,13 @@ import VueRouter from 'vue-router'
 
 const Home = () => import('@/views/Home')
 const workList = () => import('@/views/workList/workList')
-const adCharge = () => import('@/views/adCharge_01/adCharge') // 一般凭证
-const apply = () => import('@/views/operations/apply') // 申请
-const agree = () => import('@/views/operations/agree') // 同意
-const reject = () => import('@/views/operations/reject') // 拒绝
-const back = () => import('@/views/operations/back') // 退回
+const newPro = () => import('@/views/allProcess/newProcess') // 新建流程
+const apply = () => import('@/views/allProcess/apply') // 申请
+const newApp = () => import('@/views/allProcess/newApproval') // 新建流程
+const agree = () => import('@/views/allProcess/agree') // 同意
+const reject = () => import('@/views/allProcess/reject') // 拒绝
+const back = () => import('@/views/allProcess/back') // 退回
+const check = () => import('@/views/allProcess/check') // 退回
 Vue.use(VueRouter)
 
 const routes = [
@@ -24,66 +26,49 @@ const routes = [
       }
     ]
   },
-  // 预付款申请
+  // 新建流程
   {
-    path: '/adCharge',
-    component: Home,
-    children: [
-      {
-        path: 'index',
-        name: 'adCharge',
-        component: adCharge
-      }
-    ]
+    path: '/newPro',
+    name: 'newPro',
+    component: newPro
   },
-  // 申请
+  // 申请人签批
   {
     path: '/apply',
-    component: Home,
-    children: [
-      {
-        path: 'index',
-        name: 'apply',
-        component: apply
-      }
-    ]
+    name: 'apply',
+    component: apply
   },
-  // 同意
+  // 审批人进入
+  {
+    path: '/approvalPro',
+    name: 'newApp',
+    component: newApp
+  },
+  // 审批人同意
   {
     path: '/agree',
-    component: Home,
-    children: [
-      {
-        path: 'index',
-        name: 'agree',
-        component: agree
-      }
-    ]
+    name: 'agree',
+    component: agree
   },
-  // 拒绝
+  // 审批人拒绝
   {
     path: '/reject',
-    component: Home,
-    children: [
-      {
-        path: 'index',
-        name: 'reject',
-        component: reject
-      }
-    ]
+    name: 'reject',
+    component: reject
   },
-  // 同意
+  // 审批人退回
   {
     path: '/back',
-    component: Home,
-    children: [
-      {
-        path: 'index',
-        name: 'back',
-        component: back
-      }
-    ]
+    name: 'back',
+    component: back
   },
+  // 查看
+  {
+    path: '/check',
+    name: 'check',
+    component: check
+  },
+
 ]
 
 const router = new VueRouter({

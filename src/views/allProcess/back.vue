@@ -1,5 +1,8 @@
 <template>
   <div class="workSpace">
+    <div class="backMsg">
+      退回流程
+    </div>
     <!-- 签批 -->
     <el-card class="formContent">
       <el-tabs v-model="activeTab" @tab-click="handleClick">
@@ -101,25 +104,7 @@
           <el-checkbox
             v-model="uploadData.checked1"
             class="check"
-            label="备选项1"
-            border
-          ></el-checkbox>
-          <el-checkbox
-            v-model="uploadData.checked2"
-            class="check"
-            label="备选项1"
-            border
-          ></el-checkbox>
-          <el-checkbox
-            v-model="uploadData.checked3"
-            class="check"
-            label="备选项1"
-            border
-          ></el-checkbox>
-          <el-checkbox
-            v-model="uploadData.checked4"
-            class="check"
-            label="备选项1"
+            label="回退步骤人员"
             border
           ></el-checkbox>
         </div>
@@ -128,13 +113,13 @@
         <div class="opinionName">提醒方式</div>
         <div class="checks">
           <el-checkbox
-            v-model="uploadData.checked5"
+            v-model="uploadData.checked2"
             class="check"
             label="站内信"
             border
           ></el-checkbox>
           <el-checkbox
-            v-model="uploadData.checked6"
+            v-model="uploadData.checked3"
             class="check"
             label="短信息"
             border
@@ -148,7 +133,7 @@
         </div>
       </div>
       <div class="btns">
-        <el-button>返回</el-button>
+        <el-button @click="$router.push('/approvalPro')">返回</el-button>
         <el-button type="primary">提交</el-button>
       </div>
     </el-card>
@@ -188,9 +173,6 @@ export default {
         checked1: "",
         checked2: "",
         checked3: "",
-        checked4: "",
-        checked5: "",
-        checked6: "",
       },
     };
   },

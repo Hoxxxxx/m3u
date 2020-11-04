@@ -1,8 +1,5 @@
 <template>
   <div class="workSpace">
-    <div class="agreeMsg">
-      同意流程
-    </div>
     <!-- 签批 -->
     <el-card class="formContent">
       <el-tabs v-model="activeTab" @tab-click="handleClick">
@@ -151,7 +148,7 @@
         </div>
       </div>
       <div class="btns">
-        <el-button>返回</el-button>
+        <el-button @click="$router.push('/newPro')">返回</el-button>
         <el-button type="primary">提交</el-button>
       </div>
     </el-card>
