@@ -1,55 +1,73 @@
 .workSpace {
-
-  // 内容区域
+  // 表单卡片
   .formContent {
     width: 1280px;
     margin: 0 auto;
     margin-top: 20px;
     border-radius: 10px 10px 0 0;
 
-    // tab标签
+    // tab标签区域
+    .potBox {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 0 20px;
+  
+      .pot {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #D8D8D8;
+        margin: 0 5px 0 0;
+  
+        &.potActive {
+          background: #409EFD;
+        }
+      }
+    }
     .el-tabs /deep/ .el-tabs__header {
       margin: 0 -20px 15px;
     }
-
     .el-tabs /deep/ .el-tabs__item {
       padding: 0;
       text-align: center;
       min-width: 86px;
     }
-
     .el-tabs /deep/ .el-tabs__active-bar {
       min-width: 86px !important;
-      height: 5px;
+      height: 4px;
       border-radius: 2px;
     }
-  }
 
+    // 内容区域
+    .firContent {
+      .title {
+        width: 100%;
+        height: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333333;
+        line-height: 20px;
+        text-align: center;
+        margin-bottom: 15px;
+        background: lightpink;
+      }
+      .table_Info {
+        background: lightgreen;
+        height: 12px;
+        font-size: 12px;
+        color: #333333;
+      }
+    }
+  }
+  
+  // 附件卡片
   .uploadContent {
     width: 1280px;
     margin: 0 auto;
     margin-top: 4px;
     border-radius: 0 0 10px 10px;
-  }
-
-  .potBox {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0 20px;
-
-    .pot {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #D8D8D8;
-      margin: 0 5px 0 0;
-
-      &.potActive {
-        background: #409EFD;
-      }
-    }
   }
 
 }
