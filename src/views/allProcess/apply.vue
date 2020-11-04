@@ -43,7 +43,7 @@
                 <img src="../../assets/img/person.png" />
                 <span>主办人员：</span>
                 <div class="mainSelect">
-                  <el-select
+                  <!-- <el-select
                     v-model="uploadData.member"
                     class="memeberSelect"
                     placeholder="请选择"
@@ -55,7 +55,25 @@
                       :value="item.value"
                     >
                     </el-option>
-                  </el-select>
+                  </el-select> -->
+                  <el-dropdown
+                    class="memberSelect"
+                    trigger="click"
+                    @command="memberSelect"
+                  >
+                    <div class="el-dropdown-link">
+                      <span>{{fixedData.memberMsg}}</span
+                      ><img src="../../assets/img/more.png" class="moreImg" />
+                    </div>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item
+                        v-for="(item, index) in fixedData.members"
+                        :key="index"
+                        :command="item"
+                        >{{ item.label }}</el-dropdown-item
+                      >
+                    </el-dropdown-menu>
+                  </el-dropdown>
                 </div>
               </div>
             </div>
@@ -64,22 +82,19 @@
           <div class="opinion">
             <div class="top">
               <div class="opinionName">流程审批意见</div>
-              <div>
-                <el-select
-                  v-model="fixedData.opinion"
-                  class="opinionSelect"
-                  placeholder="常用语"
-                  @change="opinionChange"
-                >
-                  <el-option
-                    v-for="item in fixedData.opinions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+              <el-dropdown trigger="click" @command="handleCommand">
+                <span class="el-dropdown-link">
+                  常用语<img src="../../assets/img/more.png" class="moreImg" />
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item
+                    v-for="(item, index) in fixedData.msgs"
+                    :key="index"
+                    :command="item"
+                    >{{ item.label }}</el-dropdown-item
                   >
-                  </el-option>
-                </el-select>
-              </div>
+                </el-dropdown-menu>
+              </el-dropdown>
             </div>
             <div class="note">
               <el-input
@@ -169,16 +184,11 @@ export default {
             label: "黄金糕",
           },
         ],
-        opinion: "",
-        opinions: [
-          {
-            value: "1",
-            label: "黄金糕123",
-          },
-          {
-            value: "2",
-            label: "黄金糕456",
-          },
+        memberMsg:"请选择主办人员",
+        msgs: [
+          { label: "第一个常用语", value: 0 },
+          { label: "第二个常用语", value: 0 },
+          { label: "第三个常用语", value: 0 },
         ],
       },
       // 需上传的数据
@@ -196,12 +206,15 @@ export default {
   },
   created() {},
   methods: {
-    handleClick() {
-      console.log(this.activeTab);
+    handleClick() {},
+    // 主办人员选择
+    memberSelect(command){
+      this.fixedData.memberMsg = command.label
     },
-    opinionChange(val) {
-      this.fixedData.opinion = "常用语";
-      this.uploadData.note = val;
+    // 常用语选择
+    handleCommand(command) {
+      console.log(command);
+      this.uploadData.note = command.label
     },
   },
 };
