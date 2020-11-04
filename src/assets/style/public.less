@@ -1,4 +1,6 @@
 .workSpace {
+  position: relative;
+
   // 表单卡片
   .formContent {
     width: 1280px;
@@ -12,7 +14,7 @@
       flex-direction: row;
       align-items: center;
       margin: 0 20px;
-  
+
       .pot {
         display: inline-block;
         width: 14px;
@@ -20,20 +22,23 @@
         border-radius: 50%;
         background: #D8D8D8;
         margin: 0 5px 0 0;
-  
+
         &.potActive {
           background: #409EFD;
         }
       }
     }
+
     .el-tabs /deep/ .el-tabs__header {
       margin: 0 -20px 15px;
     }
+
     .el-tabs /deep/ .el-tabs__item {
       padding: 0;
       text-align: center;
       min-width: 86px;
     }
+
     .el-tabs /deep/ .el-tabs__active-bar {
       min-width: 86px !important;
       height: 4px;
@@ -53,15 +58,198 @@
         margin-bottom: 15px;
         background: lightpink;
       }
+
       .table_Info {
         background: lightgreen;
         height: 12px;
         font-size: 12px;
         color: #333333;
       }
+
     }
   }
-  
+
+  // 流程编号/名称
+  .workName {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 20px 0;
+
+    div {
+      color: #333;
+      font-size: 12px;
+    }
+  }
+
+  // 步骤区域
+  .processBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .arrowImg {
+      width: 27px;
+      height: 27px;
+      margin: 0 40px;
+    }
+
+    .curProcess {
+      width: 400px;
+      height: 90px;
+      box-sizing: border-box;
+      background: #ffffff;
+      box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.06);
+      border-radius: 4px;
+      border: 1px solid #e4e7ed;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      .processName,
+      .processPeo {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 10px;
+
+        img {
+          width: 16px;
+          height: 16px;
+        }
+
+        span {
+          display: block;
+          width: 80px;
+          line-height: 26px;
+          font-size: 16px;
+          color: #666666;
+        }
+
+        .mainPeo {
+          width: 228px;
+          height: 26px;
+          line-height: 28px;
+          background: #f5f5f5;
+          padding: 0 15px;
+          font-size: 16px;
+          color: #333333;
+        }
+
+        .mainSelect {
+          width: 258px;
+          height: 26px;
+        }
+
+        .memeberSelect {
+          .el-input {
+            width: 258px !important;
+
+            .el-select__caret {
+              color: #409efd;
+              font-weight: bold;
+            }
+          }
+
+          .el-input__inner {
+            height: 26px;
+            line-height: 26px;
+            background: #f5f5f5;
+          }
+
+          .el-input__icon {
+            line-height: 26px;
+          }
+
+          .el-input__suffix {
+            width: 56px;
+          }
+        }
+      }
+    }
+  }
+
+  // 流程审批意见
+  .opinion {
+    margin-top: 10px;
+
+    .top {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .opinionSelect {
+        .el-input__inner {
+          height: 20px;
+          line-height: 20px;
+          border: none;
+          color: #409efd;
+          font-weight: bold;
+
+          &::-webkit-input-placeholder {
+            color: #409efd;
+            font-size: 14px;
+            font-weight: bolder;
+          }
+        }
+
+        .el-input {
+          width: 100px !important;
+
+          .el-select__caret {
+            color: #409efd;
+            font-weight: bold;
+          }
+        }
+
+        .el-input__icon {
+          height: 20px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+
+  // 提醒功能
+  .messageCont {
+    width: 1280px;
+    margin: 0 auto;
+    margin-top: 4px;
+    border-radius: 0 0 10px 10px;
+
+    .remindMember {
+      margin-bottom: 7px;
+
+      .check {
+        margin-right: 0;
+        min-width: 120px;
+      }
+
+      .msgBox {
+        width: 1240px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        border: 1px solid #dcdfe6;
+        font-size: 14px;
+        color: #333;
+        padding: 15px;
+        line-height: 20px;
+      }
+    }
+
+    .btns {
+      width: 210px;
+      margin: 0 auto;
+      margin-top: 30px;
+
+      button {
+        width: 98px;
+      }
+    }
+  }
+
   // 附件卡片
   .uploadContent {
     width: 1280px;
@@ -70,4 +258,35 @@
     border-radius: 0 0 10px 10px;
   }
 
+  // 小标题
+  .opinionName {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333333;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 15px;
+  }
+
+  // 同意流程标题
+  .agreeMsg,
+  .rejectMsg,
+  .backMsg {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+    color: #6DD400;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .rejectMsg {
+    color: #FBD951;
+  }
+
+  .backMsg {
+    color: #F56C6C;
+  }
 }

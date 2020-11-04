@@ -36,10 +36,28 @@ export default {
           workName: "adCharge",
         },
         {
-          name: "固定资产付款",
-          path: "/steady",
-          pathName: "steady",
-          workName: "steady",
+          name: "申请人签批",
+          path: "/apply",
+          pathName: "apply",
+          workName: "apply",
+        },
+        {
+          name: "同意",
+          path: "/agree",
+          pathName: "agree",
+          workName: "agree",
+        },
+        {
+          name: "拒绝",
+          path: "/reject",
+          pathName: "reject",
+          workName: "reject",
+        },
+        {
+          name: "退回",
+          path: "/back",
+          pathName: "back",
+          workName: "back",
         },
       ]
     };
