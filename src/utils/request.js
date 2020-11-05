@@ -11,8 +11,8 @@ axios.defaults.baseURL = 'http://test-erp.hualumedia.com/api/v2/'
 //http request 
 axios.interceptors.request.use(
 	config => {
-		let roleId = sessionStorage.getItem('roleId')
-		config.headers['Org-Id'] = roleId
+		// let roleId = sessionStorage.getItem('roleId')
+		config.headers['Org-Id'] = 2
 		// 配置公共请求头Authorization
 		return config;
 	},
