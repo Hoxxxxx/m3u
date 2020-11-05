@@ -31,6 +31,7 @@
               >
             </div>
             <div class="tableBox">
+              <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
@@ -58,7 +59,6 @@
                     >
                     </el-option>
                   </el-select>
-                  {{ tableData.company }}
                 </div>
                 <div class="titlebox">员工编号</div>
                 <div
@@ -97,51 +97,172 @@
                   :class="tableData.company == '' ? 'nulldata' : ''"
                 ></div>
               </div>
+              <!-- 报销信息 -->
               <div class="title_line">报销信息</div>
+              <!-- 1 -->
               <div class="form_line">
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">币种</div>
                 <div
                   class="infobox"
                   :class="tableData.name == '' ? 'nulldata' : ''"
                 >
-                  {{ tableData.name }}
+                  <el-select
+                    v-model="tableData.cointype"
+                    class="select"
+                    placeholder="请选择币种"
+                  >
+                    <el-option
+                      v-for="item in fixedData.cointypes"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
                 </div>
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">汇率</div>
                 <div
                   class="infobox"
                   :class="tableData.name == '' ? 'nulldata' : ''"
                 >
-                  {{ tableData.name }}
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.rate"
+                    placeholder="请输入汇率"
+                  />
                 </div>
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">支付金额</div>
                 <div
-                  class="infobox last_row"
+                  class="infobox last_row editNot"
                   :class="tableData.name == '' ? 'nulldata' : ''"
                 >
-                  {{ tableData.name }}
+                  {{ tableData.payMoney }}
                 </div>
               </div>
-              <div class="form_line last_line">
-                <div class="titlebox">申请人</div>
+              <!-- 2 -->
+              <div class="form_line">
+                <div class="titlebox">报销金额</div>
                 <div
-                  class="infobox"
+                  class="infobox editNot"
                   :class="tableData.name == '' ? 'nulldata' : ''"
                 >
-                  {{ tableData.name }}
+                  {{ tableData.expenseMoney }}
                 </div>
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">报销金额大写</div>
                 <div
-                  class="infobox"
+                  class="infobox editNot"
                   :class="tableData.name == '' ? 'nulldata' : ''"
                 >
-                  {{ tableData.name }}
+                  {{ tableData.expenseMoneyF }}
                 </div>
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">支付方式</div>
                 <div
                   class="infobox last_row"
                   :class="tableData.company == '' ? 'nulldata' : ''"
                 >
-                  {{ tableData.company }}
+                  <el-select
+                    v-model="tableData.payType"
+                    class="select"
+                    placeholder="请选择支付方式"
+                  >
+                    <el-option
+                      v-for="item in fixedData.payTypes"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
+              </div>
+              <!-- 3 -->
+              <div class="form_line">
+                <div class="titlebox">发票张数</div>
+                <div
+                  class="infobox longbox"
+                  :class="tableData.company == '' ? 'nulldata' : ''"
+                >
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.rate"
+                    placeholder="请输入发票张数"
+                  />
+                </div>
+              </div>
+              <!-- 4 -->
+              <div class="form_line">
+                <div class="titlebox">出差申请单</div>
+                <div
+                  class="infobox longbox"
+                  :class="tableData.company == '' ? 'nulldata' : ''"
+                >
+                  <el-select
+                    v-model="tableData.applyType"
+                    class="select"
+                    placeholder="请选择出差申请单"
+                  >
+                    <el-option
+                      v-for="item in fixedData.applyTypes"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
+              </div>
+              <!-- 5 -->
+              <div class="form_line last_line">
+                <div class="titlebox">说明</div>
+                <div
+                  class="infobox last_row longbox"
+                  style="width:100%"
+                  :class="tableData.company == '' ? 'nulldata' : ''"
+                >
+                  <input
+                    class="abstracInput"
+                    type="textarea"
+                    :autosize="{ minRows: 2, maxRows: 4 }"
+                    v-model="tableData.rate"
+                    placeholder="请输入说明"
+                  />
+                </div>
+              </div>
+              <!-- 收款信息 -->
+              <div class="title_line">收款信息</div>
+              <div class="form_line">
+                <div class="titlebox">收款人</div>
+                <div
+                  class="infobox"
+                  :class="tableData.name == '' ? 'nulldata' : ''"
+                >
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.name"
+                    placeholder="请输入员工编号"
+                  />
+                </div>
+                <div class="titlebox">申请人</div>
+                <div
+                  class="infobox"
+                  :class="tableData.company == '' ? 'nulldata' : ''"
+                >
+                <input
+                    class="abstracInput"
+                    v-model="tableData.name"
+                    placeholder="请输入员工编号"
+                  />
+                </div>
+                <div class="titlebox">员工编号</div>
+                <div
+                  class="infobox last_row"
+                  :class="tableData.name == '' ? 'nulldata' : ''"
+                >
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.name"
+                    placeholder="请输入员工编号"
+                  />
                 </div>
               </div>
               <div
@@ -234,10 +355,34 @@ export default {
         name: "张明",
         apply: "", //申请人
         company: "",
+        cointype: "", //币种
+        rate: "", //汇率
+        payMoney: "", //支付金额
+        payType: "", //支付方式
+        applyType: "", //出差申请单
       },
       fixedData: {
         // 申请人列表
         applys: [
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        // 币种列表
+        cointypes: [
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        payTypes: [
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        applyTypes: [
           {
             value: "选项1",
             label: "黄金糕",
@@ -285,5 +430,4 @@ export default {
 
 <style lang="less" scoped>
 @import "../../assets/style/public.less";
-
 </style>
