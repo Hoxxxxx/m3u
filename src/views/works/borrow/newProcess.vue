@@ -46,6 +46,17 @@
                 <div class="titlebox">申请人</div>
                 <div class="infobox middlebox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
               </div>
+              <!-- 一排四个中号文本框示例 -->
+              <div class="form_line">
+                <div class="titlebox">申请人</div>
+                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="titlebox">申请人</div>
+                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="titlebox">申请人</div>
+                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="titlebox">申请人</div>
+                <div class="infobox middlebox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+              </div>
               <!-- 长文本框中含有checkbox/radio示例 -->
               <div class="form_line">
                 <div class="titlebox">申请人</div>
