@@ -89,8 +89,8 @@ const routes = [
 
   // 外地差旅报销单
   {
-    path: '/travelExpense',
-    name: 'travelExpense',
+    path: '/travel',
+    name: 'travel',
     component: () => import('@/views/works/travel/newProcess')
   },
   {
