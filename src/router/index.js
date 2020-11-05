@@ -10,6 +10,9 @@ const agree = () => import('@/views/allProcess/agree') // 同意
 const reject = () => import('@/views/allProcess/reject') // 拒绝
 const back = () => import('@/views/allProcess/back') // 退回
 const check = () => import('@/views/allProcess/check') // 退回
+
+// 申请单
+const travelExpense = () => import('@/views/works/travelExpense') // 外地差旅报销单
 Vue.use(VueRouter)
 
 const routes = [
@@ -68,7 +71,12 @@ const routes = [
     name: 'check',
     component: check
   },
-
+  // 外地差旅报销单
+  {
+    path: '/travelExpense',
+    name: 'travelExpense',
+    component: travelExpense
+  },
 ]
 
 const router = new VueRouter({
