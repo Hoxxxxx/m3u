@@ -46,7 +46,7 @@ export default {
           path: "/travelExpense",
         },
         {
-          name: "借款申请",
+          name: "出差借款申请",
           path: "/borrow",
         },
       ]

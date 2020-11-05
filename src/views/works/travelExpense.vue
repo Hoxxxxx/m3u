@@ -36,14 +36,13 @@
                 <div class="titlebox">经办人</div>
                 <div
                   class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   {{ tableData.name }}
                 </div>
                 <div class="titlebox">申请人</div>
                 <div
-                  class="infobox"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
+                  class="infobox selectbox"
                 >
                   <el-select
                     v-model="tableData.apply"
@@ -63,7 +62,7 @@
                 <div class="titlebox">员工编号</div>
                 <div
                   class="infobox last_row"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   <input
                     class="abstracInput"
@@ -76,14 +75,14 @@
                 <div class="titlebox">所属部门</div>
                 <div
                   class="infobox editNot"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
+                  
                 >
                   {{ tableData.company }}
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div
                   class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   <input
                     class="abstracInput"
@@ -94,7 +93,7 @@
                 <div class="titlebox"></div>
                 <div
                   class="infobox last_row"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
+                  
                 ></div>
               </div>
               <div class="title_line">报销信息</div>
@@ -102,21 +101,21 @@
                 <div class="titlebox">申请人</div>
                 <div
                   class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   {{ tableData.name }}
                 </div>
                 <div class="titlebox">申请人</div>
                 <div
                   class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   {{ tableData.name }}
                 </div>
                 <div class="titlebox">申请人</div>
                 <div
                   class="infobox last_row"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   {{ tableData.name }}
                 </div>
@@ -125,21 +124,21 @@
                 <div class="titlebox">申请人</div>
                 <div
                   class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   {{ tableData.name }}
                 </div>
                 <div class="titlebox">申请人</div>
                 <div
                   class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
+                 
                 >
                   {{ tableData.name }}
                 </div>
                 <div class="titlebox">申请人</div>
                 <div
                   class="infobox last_row"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
+                  
                 >
                   {{ tableData.company }}
                 </div>
