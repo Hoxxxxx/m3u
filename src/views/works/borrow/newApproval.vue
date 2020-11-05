@@ -1,18 +1,11 @@
 <template>
   <div class="workSpace">
-    
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <el-button type="primary" @click="$router.push('/')">回到首页</el-button>
         <el-button type="primary" class="save">保存</el-button>
-        <el-button class="normal" style="margin-left: 50px">委托</el-button>
-        <el-button class="normal">挂起</el-button>
-        <el-button class="normal">增加会签人</el-button>
-        <el-button class="normal" style="margin-right: 70px">抛转</el-button>
-        <el-button type="primary" class="agree" @click="$router.push('/agree')">同意</el-button>
-        <el-button type="primary" class="reject" @click="$router.push('/reject')">拒绝</el-button>
-        <el-button type="primary" class="back" @click="$router.push('/back')">退回</el-button>
+        <el-button type="primary" class="next" @click="$router.push('/apply')">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -26,47 +19,125 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">固定资产付款</div>
+            <div class="title">出差借款申请</div>
             <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name">流程名称：固定资产付款(No:20201102134630)张康成</span>
+              <span class="code">业务日期：{{tableData.oaa02}}</span>
+              <span class="name">申请单编号：{{tableData.oaa01}}</span>
             </div>
             <div class="tableBox">
+              <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
+              <div class="form_line  last_line">
+                <div class="titlebox">经办人</div>
+                <div class="infobox">{{tableData.oaa03}}</div>
+                <div class="titlebox">申请人</div>
+                <div class="infobox">{{tableData.oaa04}}</div>
+                <div class="titlebox">联系电话</div>
+                <div class="infobox last_row">{{tableData.oaa05}}</div>
+              </div>
+              <!-- 出差信息 -->
+              <div class="title_line">出差信息</div>
               <div class="form_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="titlebox">预计开始时间</div>
+                <div class="infobox middlebox">{{tableData.oaa31}}</div>
+                <div class="titlebox">预计结束时间</div>
+                <div class="infobox middlebox">{{tableData.oaa32}}</div>
+                <div class="titlebox">实际开始时间</div>
+                <div class="infobox middlebox">{{tableData.oaa33}}</div>
+                <div class="titlebox">实际结束时间</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa34}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">出差目的</div>
+                <div class="infobox longbox">{{tableData.oaa30}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">出差地点</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa35">
+                    <el-radio :label="1">一般地区</el-radio>
+                    <el-radio :label="2">特殊地区</el-radio>
+                  </el-radio-group>
+                  {{tableData.oaa36}}
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">交通工具</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa36">
+                    <el-radio :label="1">一般地区</el-radio>
+                    <el-radio :label="2">特殊地区</el-radio>
+                  </el-radio-group>
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">访问单位</div>
+                <div class="infobox longbox">{{tableData.oaa38}}</div>
+              </div>
+              <div class="form_line  last_line">
+                <div class="titlebox">是否需要借款</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa39">
+                    <el-radio :label="1">是</el-radio>
+                    <el-radio :label="2">否</el-radio>
+                  </el-radio-group>
+                </div>
+              </div>
+              <!-- 借款信息 -->
+              <div class="title_line">借款信息</div>
+              <div class="form_line">
+                <div class="titlebox">币种</div>
+                <div class="infobox">{{tableData.oaa06}}</div>
+                <div class="titlebox">借款金额</div>
+                <div class="infobox">{{tableData.oaa07}}</div>
+                <div class="titlebox">汇率</div>
+                <div class="infobox last_row">{{tableData.oaa08}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">收款人</div>
+                <div class="infobox">{{tableData.oaa09}}</div>
+                <div class="titlebox">账号</div>
+                <div class="infobox">{{tableData.oaa10}}</div>
+                <div class="titlebox">开户行</div>
+                <div class="infobox last_row">{{tableData.oaa11}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">支付方式</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa12">
+                    <el-radio :label="1">是</el-radio>
+                    <el-radio :label="2">否</el-radio>
+                  </el-radio-group>
+                </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
+                <div class="titlebox">借款事由</div>
+                <div class="infobox longbox">{{tableData.oaa13}}</div>
               </div>
-              <div class="title_line">基本信息</div>
+              <!-- 交际信息 -->
+              <div class="title_line">交际信息</div>
               <div class="form_line">
+                <div class="titlebox">支出项目</div>
+                <div class="infobox middlebox">{{tableData.oaa20}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">我方参加部门</div>
+                <div class="infobox middlebox">{{tableData.oaa22}}</div>
+                <div class="titlebox">对方参加部门</div>
+                <div class="infobox middlebox">{{tableData.oaa23}}</div>
+                <div class="titlebox">我方参加人员</div>
+                <div class="infobox middlebox">{{tableData.oaa24}}</div>
+                <div class="titlebox">对方参加人员</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa25}}</div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
+                <div class="titlebox">付款预算金额</div>
+                <div class="infobox middlebox">{{tableData.oaa26}}</div>
+                <div class="titlebox">区分</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa27}}</div>
               </div>
-              <div style="width:100%;height:505px;background:#EBF5FE"></div>
             </div>
           </div>
         </el-tab-pane>
@@ -97,18 +168,6 @@
       <!-- 内容 -->
       <div class="tabContent">
         <div class="title">附件内容</div>
-        <!-- 已有文件部分 -->
-        <div class="saveList">
-          <div class="saveItem" v-for="(item,index) in fileList" :key="index">
-            <i class="el-icon-document" style="margin-right: 7px"></i>
-            <span>{{item.name}}</span>
-            <div class="btnBox">
-              <el-button type="text">预览</el-button>
-              <el-button type="text">下载</el-button>
-            </div>
-          </div>
-        </div>
-        <!-- 上传部分 -->
         <el-upload
           class="upload_annex"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -158,7 +217,38 @@ export default {
   data() {
     return {
       activeTab: "firTab",
+      radio: 3,
       tableData: {
+        oaa01: '',
+        oaa02: this.getCurrentTime(),
+        oaa03: '',
+        oaa04: '',
+        oaa05: '',
+        oaa06: '',
+        oaa07: '',
+        oaa08: '',
+        oaa09: '',
+        oaa10: '',
+        oaa11: '',
+        oaa12: '',
+        oaa13: '',
+        oaa20: '',
+        oaa21: '',
+        oaa22: '',
+        oaa23: '',
+        oaa24: '',
+        oaa25: '',
+        oaa26: '',
+        oaa27: '',
+        oaa30: '',
+        oaa31: '',
+        oaa32: '',
+        oaa33: '',
+        oaa34: '',
+        oaa35: '',
+        oaa36: '',
+        oaa38: '',
+        oaa39: '',
         name: '张明',
         company: ''
       },
@@ -176,6 +266,29 @@ export default {
   },
   created() {},
   methods: {
+    
+    // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
+    getCurrentTime() {
+      var date = new Date();//当前时间
+      var month = this.zeroFill(date.getMonth() + 1);//月
+      var day = this.zeroFill(date.getDate());//日
+      var hour = this.zeroFill(date.getHours());//时
+      var minute = this.zeroFill(date.getMinutes());//分
+      var second = this.zeroFill(date.getSeconds());//秒
+      //当前时间
+      var curTime = date.getFullYear() + "-" + month + "-" + day
+              + " " + hour + ":" + minute + ":" + second;
+      return curTime;
+    },
+    // 补零
+    zeroFill(i) {
+      if (i >= 0 && i <= 9) {
+        return "0" + i;
+      } else {
+        return i;
+      }
+    },
+
     handleClick() {
       // console.log(this.activeTab);
     },

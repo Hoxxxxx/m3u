@@ -31,25 +31,84 @@
                 <div class="titlebox">经办人</div>
                 <div class="infobox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox">{{tableData.oaa04}}</div>
+                <div class="infobox selectbox">
+                  <el-select
+                    v-model="tableData.oaa04"
+                    class="select"
+                    placeholder="请选择申请人"
+                    :loading="fixedData.selectLoading"
+                  >
+                    <el-option
+                      v-for="item in fixedData.genList"
+                      :key="item.gen01"
+                      :label="item.gen02"
+                      :value="item.gen01"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox last_row">{{tableData.oaa05}}</div>
+                <div class="infobox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa05"
+                    placeholder="请输入联系电话"
+                  />
+                </div>
               </div>
               <!-- 出差信息 -->
               <div class="title_line">出差信息</div>
               <div class="form_line">
                 <div class="titlebox">预计开始时间</div>
-                <div class="infobox middlebox">{{tableData.oaa31}}</div>
+                <div class="infobox middlebox databox">
+                  <el-date-picker
+                    v-model="tableData.oaa31"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
                 <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox">{{tableData.oaa32}}</div>
+                <div class="infobox middlebox databox">
+                  <el-date-picker
+                    v-model="tableData.oaa32"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
                 <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox">{{tableData.oaa33}}</div>
+                <div class="infobox middlebox databox">
+                  <el-date-picker
+                    v-model="tableData.oaa33"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
                 <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa34}}</div>
+                <div class="infobox middlebox databox last_row">
+                  <el-date-picker
+                    v-model="tableData.oaa34"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">出差目的</div>
-                <div class="infobox longbox">{{tableData.oaa30}}</div>
+                <div class="infobox longbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa30"
+                    placeholder="请输入出差目的"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">出差地点</div>
@@ -58,13 +117,17 @@
                     <el-radio :label="1">一般地区</el-radio>
                     <el-radio :label="2">特殊地区</el-radio>
                   </el-radio-group>
-                  {{tableData.oaa36}}
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa36"
+                    placeholder="请输入出差地点"
+                  />
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">交通工具</div>
                 <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa36">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa37">
                     <el-radio :label="1">一般地区</el-radio>
                     <el-radio :label="2">特殊地区</el-radio>
                   </el-radio-group>
@@ -72,7 +135,13 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">访问单位</div>
-                <div class="infobox longbox">{{tableData.oaa38}}</div>
+                <div class="infobox longbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa38"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
               </div>
               <div class="form_line  last_line">
                 <div class="titlebox">是否需要借款</div>
@@ -87,56 +156,164 @@
               <div class="title_line">借款信息</div>
               <div class="form_line">
                 <div class="titlebox">币种</div>
-                <div class="infobox">{{tableData.oaa06}}</div>
+                <div class="infobox selectbox">
+                  <el-select
+                    v-model="tableData.oaa06"
+                    class="select"
+                    placeholder="请选择申请人"
+                  >
+                    <el-option
+                      v-for="item in fixedData.genList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
                 <div class="titlebox">借款金额</div>
-                <div class="infobox">{{tableData.oaa07}}</div>
+                <div class="infobox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa07"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
                 <div class="titlebox">汇率</div>
-                <div class="infobox last_row">{{tableData.oaa08}}</div>
+                <div class="infobox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa08"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">收款人</div>
-                <div class="infobox">{{tableData.oaa09}}</div>
+                <div class="infobox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa09"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
                 <div class="titlebox">账号</div>
-                <div class="infobox">{{tableData.oaa10}}</div>
+                <div class="infobox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa10"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
                 <div class="titlebox">开户行</div>
-                <div class="infobox last_row">{{tableData.oaa11}}</div>
+                <div class="infobox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa11"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">支付方式</div>
-                <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa12">
-                    <el-radio :label="1">是</el-radio>
-                    <el-radio :label="2">否</el-radio>
-                  </el-radio-group>
+                <div class="infobox longbox  selectbox">
+                  <el-select
+                    v-model="tableData.oaa12"
+                    class="select"
+                    placeholder="请选择申请人"
+                  >
+                    <el-option
+                      v-for="item in fixedData.genList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
                 </div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">借款事由</div>
-                <div class="infobox longbox">{{tableData.oaa13}}</div>
+                <div class="infobox longbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa13"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
               </div>
               <!-- 交际信息 -->
               <div class="title_line">交际信息</div>
               <div class="form_line">
                 <div class="titlebox">支出项目</div>
-                <div class="infobox middlebox">{{tableData.oaa20}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
+                <div class="infobox middlebox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa20"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
+                <div class="titlebox">实施时间</div>
+                <div class="infobox middlebox databox last_row">
+                  <el-date-picker
+                    v-model="tableData.oaa21"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">我方参加部门</div>
-                <div class="infobox middlebox">{{tableData.oaa22}}</div>
+                <div class="infobox middlebox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa22"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
                 <div class="titlebox">对方参加部门</div>
-                <div class="infobox middlebox">{{tableData.oaa23}}</div>
+                <div class="infobox middlebox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa23"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
                 <div class="titlebox">我方参加人员</div>
-                <div class="infobox middlebox">{{tableData.oaa24}}</div>
+                <div class="infobox middlebox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa24"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
                 <div class="titlebox">对方参加人员</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa25}}</div>
+                <div class="infobox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa25"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">付款预算金额</div>
-                <div class="infobox middlebox">{{tableData.oaa26}}</div>
+                <div class="infobox middlebox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa26"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
                 <div class="titlebox">区分</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa27}}</div>
+                <div class="infobox middlebox last_row">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa27">
+                    <el-radio :label="1">会议费</el-radio>
+                    <el-radio :label="2">置装费</el-radio>
+                  </el-radio-group>
+                </div>
               </div>
             </div>
           </div>
@@ -210,7 +387,8 @@
 </template>
 
 <script>
-// import FixedBtns from "@/components/fixedBtns";
+// api
+import { gensList,  } from "@/api/basic";
 
 export default {
   components: {},
@@ -252,6 +430,24 @@ export default {
         name: '张明',
         company: ''
       },
+      fixedData: {
+        selectLoading: true,
+        // 申请人列表
+        genList: [],
+        // 币种列表
+        cointypes: [
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        payTypes: [
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+      },
       fileList: [
         {
           name: 'food.jpeg', 
@@ -264,9 +460,10 @@ export default {
       ],
     };
   },
-  created() {},
+  created() {
+    this.getGens()
+  },
   methods: {
-    
     // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
     getCurrentTime() {
       var date = new Date();//当前时间
@@ -288,9 +485,23 @@ export default {
         return i;
       }
     },
-
     handleClick() {
       // console.log(this.activeTab);
+    },
+    // ***********获取下拉列表信息************
+    getGens () {
+      const params = {
+        name: '技术部'
+      }
+      gensList(params)
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.genList = result.data;
+          this.fixedData.selectLoading = false;
+        } else {
+          this.$message.error("获取员工列表失败：" + result.error.message);
+        }
+      })
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);

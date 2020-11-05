@@ -179,35 +179,41 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-          }
 
-          .selectbox {
-            padding-top: 0;
-            padding-bottom: 0;
+            .el-date-editor.el-input {
+              width: 100%;
+            }
+            /deep/ .el-input__inner {
+              border: none !important;
+            }
           }
-
           .middlebox {
             flex: 1 1 auto;
           }
-
           .longbox {
             border-right: none;
             flex: 1 1 auto;
             .radioGroup {
               padding-right: 20px;
               margin-right: 20px;
+              flex-shrink: 0;
+              flex-grow: 0;
             }
           }
-
+          .selectbox {
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+          .databox {
+            padding: 0;
+          }
           .nulldata {
             background: #FCFDFF;
           }
-
           .last_row {
             border: none;
           }
         }
-
         .last_line {
           border: none;
         }
