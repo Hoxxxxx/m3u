@@ -35,17 +35,11 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div
-                  class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox">
                   {{ tableData.name }}
                 </div>
                 <div class="titlebox">申请人</div>
-                <div
-                  class="infobox"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox">
                   <el-select
                     v-model="tableData.apply"
                     class="select"
@@ -61,10 +55,7 @@
                   </el-select>
                 </div>
                 <div class="titlebox">员工编号</div>
-                <div
-                  class="infobox last_row"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.name"
@@ -74,17 +65,11 @@
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">所属部门</div>
-                <div
-                  class="infobox editNot"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox editNot">
                   {{ tableData.company }}
                 </div>
                 <div class="titlebox">联系电话</div>
-                <div
-                  class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox">
                   <input
                     class="abstracInput"
                     v-model="tableData.name"
@@ -92,20 +77,14 @@
                   />
                 </div>
                 <div class="titlebox"></div>
-                <div
-                  class="infobox last_row"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                ></div>
+                <div class="infobox last_row"></div>
               </div>
               <!-- 报销信息 -->
               <div class="title_line">报销信息</div>
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">币种</div>
-                <div
-                  class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox">
                   <el-select
                     v-model="tableData.cointype"
                     class="select"
@@ -121,10 +100,7 @@
                   </el-select>
                 </div>
                 <div class="titlebox">汇率</div>
-                <div
-                  class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox">
                   <input
                     class="abstracInput"
                     v-model="tableData.rate"
@@ -132,34 +108,22 @@
                   />
                 </div>
                 <div class="titlebox">支付金额</div>
-                <div
-                  class="infobox last_row editNot"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox last_row editNot">
                   {{ tableData.payMoney }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">报销金额</div>
-                <div
-                  class="infobox editNot"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox editNot">
                   {{ tableData.expenseMoney }}
                 </div>
                 <div class="titlebox">报销金额大写</div>
-                <div
-                  class="infobox editNot"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox editNot">
                   {{ tableData.expenseMoneyF }}
                 </div>
                 <div class="titlebox">支付方式</div>
-                <div
-                  class="infobox last_row"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox last_row">
                   <el-select
                     v-model="tableData.payType"
                     class="select"
@@ -178,10 +142,7 @@
               <!-- 3 -->
               <div class="form_line">
                 <div class="titlebox">发票张数</div>
-                <div
-                  class="infobox longbox"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox longbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.rate"
@@ -192,10 +153,7 @@
               <!-- 4 -->
               <div class="form_line">
                 <div class="titlebox">出差申请单</div>
-                <div
-                  class="infobox longbox"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox longbox">
                   <el-select
                     v-model="tableData.applyType"
                     class="select"
@@ -214,11 +172,7 @@
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">说明</div>
-                <div
-                  class="infobox last_row longbox"
-                  style="width:100%"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox last_row longbox" style="width: 100%">
                   <input
                     class="abstracInput"
                     type="textarea"
@@ -232,42 +186,355 @@
               <div class="title_line">收款信息</div>
               <div class="form_line">
                 <div class="titlebox">收款人</div>
-                <div
-                  class="infobox"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="infobox">
                   <input
                     class="abstracInput"
                     v-model="tableData.name"
-                    placeholder="请输入员工编号"
+                    placeholder="请输入收款人"
                   />
                 </div>
-                <div class="titlebox">申请人</div>
-                <div
-                  class="infobox"
-                  :class="tableData.company == '' ? 'nulldata' : ''"
-                >
-                <input
-                    class="abstracInput"
-                    v-model="tableData.name"
-                    placeholder="请输入员工编号"
-                  />
-                </div>
-                <div class="titlebox">员工编号</div>
-                <div
-                  class="infobox last_row"
-                  :class="tableData.name == '' ? 'nulldata' : ''"
-                >
+                <div class="titlebox">开户行</div>
+                <div class="infobox">
                   <input
                     class="abstracInput"
                     v-model="tableData.name"
-                    placeholder="请输入员工编号"
+                    placeholder="请输入开户行"
+                  />
+                </div>
+                <div class="titlebox">收款账号</div>
+                <div class="infobox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.name"
+                    placeholder="请输入收款账号"
                   />
                 </div>
               </div>
-              <div
-                style="width: 100%; height: 505px; background: #ebf5fe"
-              ></div>
+              <div class="form_line last_line">
+                <div class="titlebox">支票号</div>
+                <div class="infobox last_row longbox" style="width: 100%">
+                  <input
+                    class="abstracInput"
+                    type="textarea"
+                    :autosize="{ minRows: 2, maxRows: 4 }"
+                    v-model="tableData.rate"
+                    placeholder="请输入支票号"
+                  />
+                </div>
+              </div>
+              <!-- 费用明细行项目 -->
+              <div class="title_line">费用明细行项目</div>
+              <div>
+                <el-table
+                  :data="tableData.formData"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
+                >
+                  <el-table-column
+                    prop="id"
+                    label="增 / 删"
+                    fixed="left"
+                    min-width="100px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div style="font-size: 24px; width: 100%; height: 100%">
+                          <i
+                            v-if="scope.$index == tableData.formData.length - 1"
+                            @click="addRow()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i>
+                          <i
+                            @click="deleteRow(scope.$index)"
+                            class="el-icon-remove"
+                            style="color: #f56c6c; width: 30px; cursor: pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb02"
+                    label="会计科目"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-select v-model="scope.row.apb02" placeholder="请选择会计科目">
+                          <el-option
+                            v-for="item in fixedData.options_01"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb09"
+                    label="项目"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-select v-model="scope.row.apb09" placeholder="请选择项目">
+                          <el-option
+                            v-for="item in fixedData.options_02"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb28"
+                    label="项目WBS"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-select v-model="scope.row.apb09" placeholder="请选择项目WBS">
+                          <el-option
+                            v-for="item in fixedData.options_03"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb35"
+                    label="摘要"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb28"
+                          placeholder="单位"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb36"
+                    label="金额（不含税）"
+                    min-width="180px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb28"
+                          placeholder="单位"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb25"
+                    label="折合后金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb28"
+                          placeholder="单位"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb26"
+                    label="核算项一"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-select v-model="scope.row.apb26" placeholder="请选择项目WBS">
+                          <el-option
+                            v-for="item in fixedData.options_04"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb23"
+                    label="核算项二"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-select v-model="scope.row.apb23" placeholder="请选择项目WBS">
+                          <el-option
+                            v-for="item in fixedData.options_05"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </div>
+              <!-- 冲销信息 -->
+              <div class="title_line">冲销信息</div>
+              <div>
+                <el-table
+                  :data="tableData.formData"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
+                >
+                  <el-table-column
+                    prop="id"
+                    label="增 / 删"
+                    fixed="left"
+                    min-width="100px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div style="font-size: 24px; width: 100%; height: 100%">
+                          <i
+                            v-if="scope.$index == tableData.formData.length - 1"
+                            @click="addRow()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i>
+                          <i
+                            @click="deleteRow(scope.$index)"
+                            class="el-icon-remove"
+                            style="color: #f56c6c; width: 30px; cursor: pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb02"
+                    label="待抵单号"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb02"
+                          placeholder="项次"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb09"
+                    label="借款日期"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb09"
+                          placeholder="数量"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb28"
+                    label="借款人"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb28"
+                          placeholder="单位"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb35"
+                    label="借款总金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb28"
+                          placeholder="单位"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb36"
+                    label="还款金额"
+                    min-width="180px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb28"
+                          placeholder="单位"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="apb25"
+                    label="凭证号"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.apb28"
+                          placeholder="单位"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </div>
             </div>
           </div>
         </el-tab-pane>
@@ -360,6 +627,7 @@ export default {
         payMoney: "", //支付金额
         payType: "", //支付方式
         applyType: "", //出差申请单
+        formData: [{}],
       },
       fixedData: {
         // 申请人列表
@@ -388,6 +656,42 @@ export default {
             label: "黄金糕",
           },
         ],
+        // 表格部分
+        // 会计科目
+        options_01:[
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        //项目
+        options_02:[
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        //项目WBS
+        options_03:[
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        // 核算项一
+        options_04:[
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ],
+        // 核算项二
+        options_05:[
+          {
+            value: "选项1",
+            label: "黄金糕",
+          },
+        ]
       },
       fileList: [
         {
