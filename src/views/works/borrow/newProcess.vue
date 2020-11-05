@@ -19,20 +19,44 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">固定资产付款</div>
+            <div class="title">出差借款申请</div>
             <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name">流程名称：固定资产付款(No:20201102134630)张康成</span>
+              <span class="code">业务日期：{{tableData.oaa02}}</span>
+              <span class="name">申请单编号：{{tableData.oaa01}}</span>
             </div>
             <div class="tableBox">
               <div class="title_line">基本信息</div>
               <div class="form_line">
+                <div class="titlebox">经办人</div>
+                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.oaa04}}</div>
+                <div class="titlebox">联系电话</div>
+                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.oaa05}}</div>
+              </div>
+              <!-- 长文本框示例 -->
+              <div class="form_line">
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
+                <div class="infobox longbox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+              </div>
+              <!-- 一排两个中号文本框示例 -->
+              <div class="form_line">
                 <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="titlebox">申请人</div>
+                <div class="infobox middlebox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+              </div>
+              <!-- 长文本框中含有checkbox/radio示例 -->
+              <div class="form_line">
+                <div class="titlebox">申请人</div>
+                <div class="infobox longbox" :class="tableData.name == '' ? 'nulldata' : ''">
+                  <el-radio-group class="radioGroup" v-model="radio">
+                    <el-radio :label="3">备选项</el-radio>
+                    <el-radio :label="6">备选项</el-radio>
+                    <el-radio :label="9">备选项</el-radio>
+                  </el-radio-group>
+                  {{tableData.name}}
+                </div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">申请人</div>
@@ -139,7 +163,38 @@ export default {
   data() {
     return {
       activeTab: "firTab",
+      radio: 3,
       tableData: {
+        oaa01: '',
+        oaa02: this.getCurrentTime(),
+        oaa03: '',
+        oaa04: '',
+        oaa05: '',
+        oaa06: '',
+        oaa07: '',
+        oaa08: '',
+        oaa09: '',
+        oaa10: '',
+        oaa11: '',
+        oaa12: '',
+        oaa13: '',
+        oaa20: '',
+        oaa21: '',
+        oaa22: '',
+        oaa23: '',
+        oaa24: '',
+        oaa25: '',
+        oaa26: '',
+        oaa27: '',
+        oaa30: '',
+        oaa31: '',
+        oaa32: '',
+        oaa33: '',
+        oaa34: '',
+        oaa35: '',
+        oaa36: '',
+        oaa38: '',
+        oaa39: '',
         name: '张明',
         company: ''
       },
@@ -157,6 +212,29 @@ export default {
   },
   created() {},
   methods: {
+    
+    // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
+    getCurrentTime() {
+      var date = new Date();//当前时间
+      var month = this.zeroFill(date.getMonth() + 1);//月
+      var day = this.zeroFill(date.getDate());//日
+      var hour = this.zeroFill(date.getHours());//时
+      var minute = this.zeroFill(date.getMinutes());//分
+      var second = this.zeroFill(date.getSeconds());//秒
+      //当前时间
+      var curTime = date.getFullYear() + "-" + month + "-" + day
+              + " " + hour + ":" + minute + ":" + second;
+      return curTime;
+    },
+    // 补零
+    zeroFill(i) {
+      if (i >= 0 && i <= 9) {
+        return "0" + i;
+      } else {
+        return i;
+      }
+    },
+
     handleClick() {
       // console.log(this.activeTab);
     },
