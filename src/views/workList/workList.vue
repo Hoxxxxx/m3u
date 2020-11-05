@@ -45,6 +45,10 @@ export default {
           name: "外地差旅报销单",
           path: "/travelExpense",
         },
+        {
+          name: "借款申请",
+          path: "/borrow",
+        },
       ]
     };
   },

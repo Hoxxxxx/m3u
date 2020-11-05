@@ -19,8 +19,8 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    redirect: '/workList',
     component: Home,
+    redirect: '/workList',
     children: [
       {
         path: '/workList',
@@ -71,6 +71,13 @@ const routes = [
     name: 'check',
     component: check
   },
+  // 借款申请
+  {
+    path: '/borrow',
+    name: 'borrow',
+    component: () => import('@/views/works/borrow/newProcess')
+  },
+
   // 外地差旅报销单
   {
     path: '/travelExpense',
