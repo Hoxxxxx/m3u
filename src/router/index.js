@@ -68,6 +68,12 @@ const routes = [
     name: 'check',
     component: check
   },
+  // 借款申请
+  {
+    path: '/borrow',
+    name: 'borrow',
+    component: () => import('@/views/works/borrow/newProcess')
+  },
 
 ]
 
