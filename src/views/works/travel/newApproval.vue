@@ -6,9 +6,22 @@
         <el-button type="primary" @click="$router.push('/')"
           >回到首页</el-button
         >
-        <el-button type="primary" class="save" @click="save">保存</el-button>
-        <el-button type="primary" class="next" @click="$router.push('/apply')"
-          >下一步</el-button
+        <el-button type="primary" class="save">保存</el-button>
+        <el-button class="normal" style="margin-left: 50px">委托</el-button>
+        <el-button class="normal">挂起</el-button>
+        <el-button class="normal">增加会签人</el-button>
+        <el-button class="normal" style="margin-right: 70px">抛转</el-button>
+        <el-button type="primary" class="agree" @click="$router.push('/agree')"
+          >同意</el-button
+        >
+        <el-button
+          type="primary"
+          class="reject"
+          @click="$router.push('/reject')"
+          >拒绝</el-button
+        >
+        <el-button type="primary" class="back" @click="$router.push('/back')"
+          >退回</el-button
         >
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
@@ -38,15 +51,11 @@
                 </div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
-                  {{tableData.oaa04}}
+                  {{ tableData.oaa04 }}
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa05"
-                    placeholder="请输入联系电话"
-                  />
+                  {{ tableData.oaa05 }}
                 </div>
               </div>
               <!-- 报销信息 -->
@@ -55,27 +64,11 @@
               <div class="form_line">
                 <div class="titlebox">币种</div>
                 <div class="infobox selectbox">
-                  <el-select
-                    v-model="tableData.oaa06"
-                    class="select"
-                    placeholder="请选择币种"
-                  >
-                    <el-option
-                      v-for="item in fixedData.cointypes"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
+                  {{ tableData.oaa06 }}
                 </div>
                 <div class="titlebox">汇率</div>
                 <div class="infobox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa08"
-                    placeholder="请输入汇率"
-                  />
+                  {{ tableData.oaa08 }}
                 </div>
                 <div class="titlebox">支付金额</div>
                 <div class="infobox last_row editNot">
@@ -94,62 +87,28 @@
                 </div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox">
-                  <el-select
-                    v-model="tableData.oaa12"
-                    class="select"
-                    placeholder="请选择支付方式"
-                  >
-                    <el-option
-                      v-for="item in fixedData.payTypes"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
+                  {{ tableData.oaa12 }}
                 </div>
               </div>
               <!-- 3 -->
               <div class="form_line">
                 <div class="titlebox">发票张数</div>
                 <div class="infobox longbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa14"
-                    placeholder="请输入发票张数"
-                  />
+                  {{ tableData.oaa14 }}
                 </div>
               </div>
               <!-- 4 -->
               <div class="form_line">
                 <div class="titlebox">出差申请单</div>
                 <div class="infobox longbox selectbox">
-                  <el-select
-                    v-model="tableData.oaa15"
-                    class="select"
-                    placeholder="请选择出差申请单"
-                  >
-                    <el-option
-                      v-for="item in fixedData.applyTypes"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
+                  {{ tableData.oaa15 }}
                 </div>
               </div>
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">说明</div>
                 <div class="infobox last_row longbox" style="width: 100%">
-                  <input
-                    class="abstracInput"
-                    type="textarea"
-                    :autosize="{ minRows: 2, maxRows: 4 }"
-                    v-model="tableData.oaa16"
-                    placeholder="请输入说明"
-                  />
+                  {{ tableData.oaa16 }}
                 </div>
               </div>
               <!-- 收款信息 -->
@@ -157,39 +116,21 @@
               <div class="form_line">
                 <div class="titlebox">收款人</div>
                 <div class="infobox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa09"
-                    placeholder="请输入收款人"
-                  />
+                  {{ tableData.oaa09 }}
                 </div>
                 <div class="titlebox">开户行</div>
                 <div class="infobox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa10"
-                    placeholder="请输入开户行"
-                  />
+                  {{ tableData.oaa10 }}
                 </div>
                 <div class="titlebox">收款账号</div>
                 <div class="infobox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa11"
-                    placeholder="请输入收款账号"
-                  />
+                  {{ tableData.oaa11 }}
                 </div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">支票号</div>
                 <div class="infobox last_row longbox" style="width: 100%">
-                  <input
-                    class="abstracInput"
-                    type="textarea"
-                    :autosize="{ minRows: 2, maxRows: 4 }"
-                    v-model="tableData.oaa17"
-                    placeholder="请输入支票号"
-                  />
+                  {{ tableData.oaa17 }}
                 </div>
               </div>
               <!-- 差旅明细 -->
@@ -205,47 +146,11 @@
                   :cell-style="{ background: '#FCFDFF', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="id"
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oab.length - 1"
-                            @click="addRow1()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow1(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
                     prop="oab01"
                     label="开始日期"
                     min-width="160px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oab01"
-                          style="width: 100%"
-                          type="date"
-                          placeholder="开始日期"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab02"
@@ -253,17 +158,6 @@
                     min-width="160px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oab02"
-                          style="width: 100%"
-                          type="date"
-                          placeholder="结束日期"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab03"
@@ -271,14 +165,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab03"
-                          placeholder="单据号"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab04"
@@ -286,22 +172,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oab04"
-                          placeholder="请选择出发地"
-                        >
-                          <el-option
-                            v-for="item in fixedData.options_01"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab05"
@@ -309,22 +179,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oab05"
-                          placeholder="请选择目的地"
-                        >
-                          <el-option
-                            v-for="item in fixedData.options_01"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab06"
@@ -332,14 +186,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab06"
-                          placeholder="车船费"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab07"
@@ -347,14 +193,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab07"
-                          placeholder="车补"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab08"
@@ -362,14 +200,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab08"
-                          placeholder="住宿费"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab09"
@@ -377,14 +207,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab09"
-                          placeholder="住补"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab10"
@@ -392,14 +214,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab10"
-                          placeholder="市内交通费"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab11"
@@ -407,14 +221,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab11"
-                          placeholder="市补"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab12"
@@ -422,14 +228,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab12"
-                          placeholder="会议费"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab13"
@@ -437,14 +235,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab13"
-                          placeholder="交际费"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab14"
@@ -452,14 +242,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab14"
-                          placeholder="其他"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab15"
@@ -467,14 +249,6 @@
                     min-width="120px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab15"
-                          placeholder="伙食补助"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                 </el-table>
                 <div class="summry">
@@ -524,52 +298,11 @@
                   :cell-style="{ background: '#FCFDFF', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="id"
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oac.length - 1"
-                            @click="addRow2()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow2(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
                     prop="oac01"
                     label="会计科目"
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oac01"
-                          placeholder="请选择会计科目"
-                        >
-                          <el-option
-                            v-for="item in fixedData.options_01"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac04"
@@ -577,22 +310,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oac04"
-                          placeholder="请选择项目"
-                        >
-                          <el-option
-                            v-for="item in fixedData.options_02"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac05"
@@ -600,22 +317,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oac05"
-                          placeholder="请选择项目WBS"
-                        >
-                          <el-option
-                            v-for="item in fixedData.options_03"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac06"
@@ -623,14 +324,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac06"
-                          placeholder="单位"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac07"
@@ -638,14 +331,6 @@
                     min-width="180px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac07"
-                          placeholder="单位"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="apb25"
@@ -653,14 +338,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.apb28"
-                          placeholder="单位"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac11"
@@ -668,22 +345,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oac11"
-                          placeholder="请选择核算项一"
-                        >
-                          <el-option
-                            v-for="item in fixedData.options_04"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac12"
@@ -691,22 +352,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oac12"
-                          placeholder="请选择核算项二"
-                        >
-                          <el-option
-                            v-for="item in fixedData.options_05"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                 </el-table>
               </div>
@@ -723,44 +368,11 @@
                   :cell-style="{ background: '#FCFDFF', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="id"
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oad.length - 1"
-                            @click="addRow3()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow3(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
                     prop="apb02"
                     label="待抵单号"
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.apb02"
-                          placeholder="请输入待抵单号"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="apb09"
@@ -768,17 +380,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.borrowDate"
-                          style="width: 100%"
-                          type="date"
-                          placeholder="选择借款日期"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="apb28"
@@ -786,14 +387,6 @@
                     min-width="110px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.apb28"
-                          placeholder="请输入借款人"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="apb35"
@@ -801,14 +394,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.apb28"
-                          placeholder="请输入借款总金额"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad02"
@@ -816,14 +401,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.apb28"
-                          placeholder="请输入还款金额"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="apb25"
@@ -831,14 +408,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.apb28"
-                          placeholder="请输入凭证号"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                 </el-table>
               </div>
@@ -874,6 +443,18 @@
       <!-- 内容 -->
       <div class="tabContent">
         <div class="title">附件内容</div>
+        <!-- 已有文件部分 -->
+        <div class="saveList">
+          <div class="saveItem" v-for="(item, index) in fileList" :key="index">
+            <i class="el-icon-document" style="margin-right: 7px"></i>
+            <span>{{ item.name }}</span>
+            <div class="btnBox">
+              <el-button type="text">预览</el-button>
+              <el-button type="text">下载</el-button>
+            </div>
+          </div>
+        </div>
+        <!-- 上传部分 -->
         <el-upload
           class="upload_annex"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -918,8 +499,7 @@
 </template>
 
 <script>
-import { dateFmt } from "@/utils/utils.js";
-import { gensList } from "@/api/basic.js";
+// import FixedBtns from "@/components/fixedBtns";
 
 export default {
   components: {},
@@ -928,7 +508,7 @@ export default {
       activeTab: "firTab",
       tableData: {
         // 基本信息
-        oaa02: this.getCurrentTime(), //业务日期
+        oaa02: "", //业务日期
         oaa01: "", //申请单编号
         oaa03: "", //经办人
         oaa04: "", //申请人
@@ -953,70 +533,6 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
-      fixedData: {
-        // 申请人列表
-        applys: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        // 币种列表
-        cointypes: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        payTypes: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        applyTypes: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        // 表格部分
-        // 会计科目
-        options_01: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        //项目
-        options_02: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        //项目WBS
-        options_03: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        // 核算项一
-        options_04: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        // 核算项二
-        options_05: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-      },
       fileList: [
         {
           name: "food.jpeg",
@@ -1031,46 +547,8 @@ export default {
       ],
     };
   },
-  created() {
-    this.addRow1();
-    this.addRow2();
-    this.addRow3();
-    gensList().then((res) => {
-      console.log(res);
-    });
-  },
+  created() {},
   methods: {
-    // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
-    getCurrentTime() {
-      var date = new Date(); //当前时间
-      var month = this.zeroFill(date.getMonth() + 1); //月
-      var day = this.zeroFill(date.getDate()); //日
-      var hour = this.zeroFill(date.getHours()); //时
-      var minute = this.zeroFill(date.getMinutes()); //分
-      var second = this.zeroFill(date.getSeconds()); //秒
-      //当前时间
-      var curTime =
-        date.getFullYear() +
-        "-" +
-        month +
-        "-" +
-        day +
-        " " +
-        hour +
-        ":" +
-        minute +
-        ":" +
-        second;
-      return curTime;
-    },
-    // 补零
-    zeroFill(i) {
-      if (i >= 0 && i <= 9) {
-        return "0" + i;
-      } else {
-        return i;
-      }
-    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -1089,93 +567,6 @@ export default {
     },
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`);
-    },
-    // 保存
-    save() {
-      console.log(this.tableData);
-    },
-    // 表格部分
-    // 增加一行
-
-    // 差旅明细表格
-    addRow1() {
-      let data = {
-        oab01: "", //开始日期
-        oab02: "", //结束日期
-        oab03: "", //单据号
-        oab04: "", //出发地
-        oab05: "", //目的地
-        oab06: "", //车船费
-        oab07: "", //车补
-        oab08: "", //住宿费
-        oab09: "", //住补
-        oab10: "", //市内交通费
-        oab11: "", //市补
-        oab12: "", //会议费
-        oab13: "", //交际费
-        oab14: "", //其他
-        oab15: "", //伙食补助
-      };
-      this.tableData.oab.push(data);
-    },
-    // 删除当前行
-    deleteRow1(val) {
-      this.$confirm("确认删除本条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.tableData.oab.splice(val, 1);
-        if (this.tableData.oab.length == 0) {
-          this.addRow1();
-        }
-      });
-    },
-    // 费用明细行项目表格
-    addRow2() {
-      let data = {
-        oac01: "", //会计科目
-        oac04: "", //项目、
-        oac05: "", //项目wbs
-        oac06: "", //摘要
-        oac07: "", //金额不含税
-        oac11: "", //核算项1
-        oac12: "", //核算项2
-      };
-      this.tableData.oac.push(data);
-    },
-    // 删除当前行
-    deleteRow2(val) {
-      this.$confirm("确认删除本条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.tableData.oac.splice(val, 1);
-        if (this.tableData.oac.length == 0) {
-          this.addRow2();
-        }
-      });
-    },
-    // 冲销信息表格
-    addRow3() {
-      let data = {
-        oad02: "", //还款金额
-      };
-      this.tableData.oad.push(data);
-    },
-    // 删除当前行
-    deleteRow3(val) {
-      this.$confirm("确认删除本条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.tableData.oad.splice(val, 1);
-        if (this.tableData.oad.length == 0) {
-          this.addRow3();
-        }
-      });
     },
   },
 };

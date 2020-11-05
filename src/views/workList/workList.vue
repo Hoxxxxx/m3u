@@ -43,7 +43,15 @@ export default {
         },
         {
           name: "外地差旅报销单",
-          path: "/travelExpense",
+          path: "/travel",
+        },
+        {
+          name: "外地差旅报销单check",
+          path: "/travel/check",
+        },
+        {
+          name: "外地差旅报销单approval",
+          path: "/travel/approval",
         },
         {
           name: "出差借款申请",
