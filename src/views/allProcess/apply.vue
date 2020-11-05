@@ -166,7 +166,7 @@
         </el-input>
       </div>
       <div class="btns">
-        <el-button @click="$router.push('/newPro')">返回</el-button>
+        <el-button @click="$router.go(-1)">返回</el-button>
         <el-button type="primary">提交</el-button>
       </div>
     </el-card>

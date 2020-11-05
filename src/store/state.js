@@ -4,6 +4,8 @@ let companyInfo = sessionStorage.getItem('companyInfo') ? JSON.parse(sessionStor
 const state = {
   workInfo: workInfo,
   userInfo: userInfo,
-  companyInfo: companyInfo
+  companyInfo: companyInfo,
+
+  upload_url: 'http://test-erp.hualumedia.com/api/v2/files/upload'
 }
 export default state

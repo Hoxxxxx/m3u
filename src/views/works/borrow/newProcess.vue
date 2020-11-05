@@ -128,8 +128,10 @@
                 <div class="titlebox">交通工具</div>
                 <div class="infobox longbox">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa37">
-                    <el-radio :label="1">一般地区</el-radio>
-                    <el-radio :label="2">特殊地区</el-radio>
+                    <el-radio :label="1">飞机</el-radio>
+                    <el-radio :label="2">火车</el-radio>
+                    <el-radio :label="3">汽车</el-radio>
+                    <el-radio :label="4">其它</el-radio>
                   </el-radio-group>
                 </div>
               </div>
@@ -160,13 +162,14 @@
                   <el-select
                     v-model="tableData.oaa06"
                     class="select"
-                    placeholder="请选择申请人"
+                    placeholder="请选择币种"
+                    :loading="fixedData.selectLoading"
                   >
                     <el-option
-                      v-for="item in fixedData.genList"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="item in fixedData.azisList"
+                      :key="item.azi01"
+                      :label="item.azi02"
+                      :value="item.azi01"
                     >
                     </el-option>
                   </el-select>
@@ -220,13 +223,14 @@
                   <el-select
                     v-model="tableData.oaa12"
                     class="select"
-                    placeholder="请选择申请人"
+                    placeholder="请选择支付方式"
+                    :loading="fixedData.selectLoading"
                   >
                     <el-option
-                      v-for="item in fixedData.genList"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="item in fixedData.pmasList"
+                      :key="item.pma01"
+                      :label="item.pma02"
+                      :value="item.pma01"
                     >
                     </el-option>
                   </el-select>
@@ -310,8 +314,8 @@
                 <div class="titlebox">区分</div>
                 <div class="infobox middlebox last_row">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa27">
-                    <el-radio :label="1">会议费</el-radio>
-                    <el-radio :label="2">置装费</el-radio>
+                    <el-radio :label="1">交际费</el-radio>
+                    <el-radio :label="2">会议费</el-radio>
                   </el-radio-group>
                 </div>
               </div>
@@ -347,16 +351,15 @@
         <div class="title">附件内容</div>
         <el-upload
           class="upload_annex"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          :action="$store.state.upload_url"
+          :on-success="handleSuccess"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :before-remove="beforeRemove"
           multiple
-          :limit="3"
           :on-exceed="handleExceed"
           :file-list="fileList">
           <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
       </div>
     </el-card>
@@ -388,7 +391,7 @@
 
 <script>
 // api
-import { gensList,  } from "@/api/basic";
+import { gensList, azisList, pmasList,  } from "@/api/basic";
 
 export default {
   components: {},
@@ -402,9 +405,9 @@ export default {
         oaa03: '',
         oaa04: '',
         oaa05: '',
-        oaa06: '',
+        oaa06: 'RMB',
         oaa07: '',
-        oaa08: '',
+        oaa08: '1',
         oaa09: '',
         oaa10: '',
         oaa11: '',
@@ -426,42 +429,29 @@ export default {
         oaa35: '',
         oaa36: '',
         oaa38: '',
-        oaa39: '',
-        name: '张明',
-        company: ''
+        oaa39: ''
       },
       fixedData: {
         selectLoading: true,
         // 申请人列表
         genList: [],
         // 币种列表
-        cointypes: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        payTypes: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
+        azisList: [],
+        // 付款方式列表
+        pmasList: [],
       },
-      fileList: [
-        {
-          name: 'food.jpeg', 
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }, 
-        {
-          name: 'food2.jpeg', 
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }
-      ],
+      fileList: [],
+      addParams: {
+        from_data: {},
+        annexurlid: [],
+        tplid: 8936
+      },
     };
   },
   created() {
     this.getGens()
+    this.getAzis()
+    this.getPmas()
   },
   methods: {
     // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
@@ -490,10 +480,7 @@ export default {
     },
     // ***********获取下拉列表信息************
     getGens () {
-      const params = {
-        name: '技术部'
-      }
-      gensList(params)
+      gensList()
       .then( result => {
         if (result.status == 200) {
           this.fixedData.genList = result.data;
@@ -503,8 +490,44 @@ export default {
         }
       })
     },
+    getAzis () {
+      azisList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.azisList = result.data;
+          this.fixedData.selectLoading = false;
+        } else {
+          this.$message.error("获取币种列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPmas () {
+      pmasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pmasList = result.data;
+          this.fixedData.selectLoading = false;
+        } else {
+          this.$message.error("获取币种列表失败：" + result.error.message);
+        }
+      })
+    },
+    // *******************************************
+    // ***********附件上传************
+    // 上传成功
+    handleSuccess(response, file, fileList) {
+      this.addParams.annexurlid.push({
+        filename: response.data.filename,
+        fileaddr: response.data.path
+      })
+    },
+    // 移除上传项
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      this.addParams.annexurlid.forEach( (item, index) => {
+        if (item.filename == file.name) {
+          this.addParams.annexurlid.splice( index, 1 )
+        }
+      })
     },
     handlePreview(file) {
       console.log(file);
