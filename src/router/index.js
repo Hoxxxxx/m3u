@@ -12,7 +12,6 @@ const back = () => import('@/views/allProcess/back') // 退回
 const check = () => import('@/views/allProcess/check') // 退回
 
 // 申请单
-const travelExpense = () => import('@/views/works/travelExpense') // 外地差旅报销单
 Vue.use(VueRouter)
 
 const routes = [
@@ -77,12 +76,32 @@ const routes = [
     name: 'borrow',
     component: () => import('@/views/works/borrow/newProcess')
   },
+  {
+    path: '/borrow/check',
+    name: 'check',
+    component: () => import('@/views/works/borrow/check')
+  },
+  {
+    path: '/borrow/approval',
+    name: 'approval',
+    component: () => import('@/views/works/borrow/newApproval')
+  },
 
   // 外地差旅报销单
   {
     path: '/travelExpense',
     name: 'travelExpense',
-    component: travelExpense
+    component: () => import('@/views/works/travel/newProcess')
+  },
+  {
+    path: '/travel/check',
+    name: 'check',
+    component: () => import('@/views/works/travel/check')
+  },
+  {
+    path: '/borrow/approval',
+    name: 'approval',
+    component: () => import('@/views/works/travel/newApproval')
   },
 ]
 
