@@ -252,8 +252,11 @@
                   </el-table-column>
                 </el-table>
                 <div class="summry">
-                  <div class="summryTitle">费用合计</div>
                   <ul class="summryUl">
+                    <li class="summryLi">
+                      <div class="summryName">费用合计</div>
+                      <div class="summryCont">0</div>
+                    </li>
                     <li class="summryLi">
                       <div class="summryName">车船费合计</div>
                       <div class="summryCont">0</div>
@@ -577,15 +580,8 @@ export default {
 .summry {
   display: flex;
   flex-direction: row;
-  .summryTitle {
-    width: 100px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    color: #666;
-    border-right: 1px solid #cccccc;
-  }
   .summryUl {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -594,6 +590,7 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+      flex: 1 1 auto;
       border-right: 1px solid #cccccc;
       .summryName {
         width: 80px;
@@ -603,7 +600,7 @@ export default {
         border-right: 1px solid #cccccc;
       }
       .summryCont {
-        width: 80px;
+        flex: 1 1 auto;
         line-height: 40px;
         text-align: center;
       }
