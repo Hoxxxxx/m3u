@@ -99,7 +99,7 @@ const routes = [
     component: () => import('@/views/works/travel/check')
   },
   {
-    path: '/borrow/approval',
+    path: '/travel/approval',
     name: 'approval',
     component: () => import('@/views/works/travel/newApproval')
   },

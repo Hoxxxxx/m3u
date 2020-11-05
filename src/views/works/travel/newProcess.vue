@@ -44,10 +44,10 @@
                     placeholder="请选择申请人"
                   >
                     <el-option
-                      v-for="item in fixedData.applys"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="(item, index) in fixedData.applys"
+                      :key="index"
+                      :label="item.gen02"
+                      :value="item.gen01"
                     >
                     </el-option>
                   </el-select>
@@ -73,10 +73,10 @@
                     placeholder="请选择币种"
                   >
                     <el-option
-                      v-for="item in fixedData.cointypes"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="(item, index) in fixedData.cointypes"
+                      :key="index"
+                      :label="item.azi02"
+                      :value="item.azi01"
                     >
                     </el-option>
                   </el-select>
@@ -112,10 +112,10 @@
                     placeholder="请选择支付方式"
                   >
                     <el-option
-                      v-for="item in fixedData.payTypes"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="(item, index) in fixedData.payTypes"
+                      :key="index"
+                      :label="item.pma02"
+                      :value="item.pma01"
                     >
                     </el-option>
                   </el-select>
@@ -142,8 +142,8 @@
                     placeholder="请选择出差申请单"
                   >
                     <el-option
-                      v-for="item in fixedData.applyTypes"
-                      :key="item.value"
+                      v-for="(item, index) in fixedData.applyTypes"
+                      :key="index"
                       :label="item.label"
                       :value="item.value"
                     >
@@ -214,7 +214,7 @@
                   element-loading-text="数据正在加载中"
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
-                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
                 >
                   <el-table-column
                     prop="id"
@@ -305,8 +305,8 @@
                           placeholder="请选择出发地"
                         >
                           <el-option
-                            v-for="item in fixedData.options_01"
-                            :key="item.value"
+                            v-for="(item, index) in fixedData.options_06"
+                            :key="index"
                             :label="item.label"
                             :value="item.value"
                           >
@@ -328,8 +328,8 @@
                           placeholder="请选择目的地"
                         >
                           <el-option
-                            v-for="item in fixedData.options_01"
-                            :key="item.value"
+                            v-for="(item, index) in fixedData.options_07"
+                            :key="index"
                             :label="item.label"
                             :value="item.value"
                           >
@@ -490,8 +490,11 @@
                   </el-table-column>
                 </el-table>
                 <div class="summry">
-                  <div class="summryTitle">费用合计</div>
                   <ul class="summryUl">
+                    <li class="summryLi">
+                      <div class="summryName">费用合计</div>
+                      <div class="summryCont">0</div>
+                    </li>
                     <li class="summryLi">
                       <div class="summryName">车船费合计</div>
                       <div class="summryCont">0</div>
@@ -533,7 +536,7 @@
                   element-loading-text="数据正在加载中"
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
-                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
                 >
                   <el-table-column
                     prop="id"
@@ -573,10 +576,10 @@
                           placeholder="请选择会计科目"
                         >
                           <el-option
-                            v-for="item in fixedData.options_01"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
+                            v-for="(item, index) in fixedData.options_01"
+                            :key="index"
+                            :label="item.aag02"
+                            :value="item.aag01"
                           >
                           </el-option>
                         </el-select>
@@ -596,10 +599,10 @@
                           placeholder="请选择项目"
                         >
                           <el-option
-                            v-for="item in fixedData.options_02"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
+                            v-for="(item, index) in fixedData.options_02"
+                            :key="index"
+                            :label="item.pja02"
+                            :value="item.pja01"
                           >
                           </el-option>
                         </el-select>
@@ -619,10 +622,10 @@
                           placeholder="请选择项目WBS"
                         >
                           <el-option
-                            v-for="item in fixedData.options_03"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
+                            v-for="(item, index) in fixedData.options_03"
+                            :key="index"
+                            :label="item.pjb03"
+                            :value="item.pjb02"
                           >
                           </el-option>
                         </el-select>
@@ -687,8 +690,8 @@
                           placeholder="请选择核算项一"
                         >
                           <el-option
-                            v-for="item in fixedData.options_04"
-                            :key="item.value"
+                            v-for="(item, index) in fixedData.options_04"
+                            :key="index"
                             :label="item.label"
                             :value="item.value"
                           >
@@ -710,8 +713,8 @@
                           placeholder="请选择核算项二"
                         >
                           <el-option
-                            v-for="item in fixedData.options_05"
-                            :key="item.value"
+                            v-for="(item, index) in fixedData.options_05"
+                            :key="index.value"
                             :label="item.label"
                             :value="item.value"
                           >
@@ -732,7 +735,7 @@
                   element-loading-text="数据正在加载中"
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
-                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
                 >
                   <el-table-column
                     prop="id"
@@ -931,7 +934,14 @@
 
 <script>
 import { dateFmt } from "@/utils/utils.js";
-import { gensList } from "@/api/basic.js";
+import {
+  gensList,
+  azisList,
+  pmasList,
+  pjbsList,
+  aagsList,
+  pjasList,
+} from "@/api/basic.js";
 
 export default {
   components: {},
@@ -947,7 +957,7 @@ export default {
         oaa05: "", //联系电话
         //报销信息
         oaa06: "", //币种
-        oaa08: "", //汇率
+        oaa08: "1", //汇率
         oaa12: "", //支付方式
         oaa14: "", //发票张数
         oaa15: "", //出差申请单
@@ -967,65 +977,71 @@ export default {
       },
       fixedData: {
         // 申请人列表
-        applys: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
+        applys: [],
         // 币种列表
-        cointypes: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
-        payTypes: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
+        cointypes: [],
+        //支付方式
+        payTypes: [],
+        //出差申请单类型
         applyTypes: [
           {
-            value: "选项1",
-            label: "黄金糕",
+            value: "0",
+            label: "出差申请单1",
+          },
+          {
+            value: "1",
+            label: "出差申请单2",
           },
         ],
         // 表格部分
         // 会计科目
-        options_01: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
+        options_01: [],
         //项目
-        options_02: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
+        options_02: [],
         //项目WBS
-        options_03: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
+        options_03: [],
         // 核算项一
         options_04: [
           {
-            value: "选项1",
-            label: "黄金糕",
+            value: "0",
+            label: "核算项1",
+          },
+          {
+            value: "1",
+            label: "核算项2",
           },
         ],
         // 核算项二
         options_05: [
           {
-            value: "选项1",
-            label: "黄金糕",
+            value: "0",
+            label: "核算项1",
+          },
+          {
+            value: "1",
+            label: "核算项2",
+          },
+        ],
+        //出发地
+        options_06: [
+          {
+            value: "0",
+            label: "出发地1",
+          },
+          {
+            value: "1",
+            label: "出发地2",
+          },
+        ],
+        //目的地
+        options_07: [
+          {
+            value: "0",
+            label: "目的地1",
+          },
+          {
+            value: "1",
+            label: "目的地2",
           },
         ],
       },
@@ -1047,9 +1063,12 @@ export default {
     this.addRow1();
     this.addRow2();
     this.addRow3();
-    gensList().then((res) => {
-      console.log(res);
-    });
+    this.getGen(); //申请人列表
+    this.getAzi(); //币种列表
+    this.getPma(); //支付方式
+    this.getPjb(); //wbs
+    this.getAags(); //会计科目
+    this.getPjas(); //项目
   },
   methods: {
     // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
@@ -1104,11 +1123,15 @@ export default {
     },
     // 保存
     save() {
-      console.log(this.tableData);
+      let params = {
+        from_data: this.tableData,
+        annexurlid: [],
+        tplid: 8936,
+      }
+      console.log(params);
     },
     // 表格部分
     // 增加一行
-
     // 差旅明细表格
     addRow1() {
       let data = {
@@ -1189,6 +1212,67 @@ export default {
         }
       });
     },
+    // 获取基础数据
+    // 申请人列表
+    getGen() {
+      gensList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.applys = res.data;
+        } else {
+          this.$message.error(res.error);
+        }
+      });
+    },
+    // 币种列表
+    getAzi() {
+      azisList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.cointypes = res.data;
+        } else {
+          this.$message.error(res.error);
+        }
+      });
+    },
+    // 支付方式列表
+    getPma() {
+      pmasList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.payTypes = res.data;
+        } else {
+          this.$message.error(res.error);
+        }
+      });
+    },
+    // wbs列表
+    getPjb() {
+      pjbsList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.options_03 = res.data;
+        } else {
+          this.$message.error(res.error);
+        }
+      });
+    },
+    //会计科目
+    getAags() {
+      aagsList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.options_01 = res.data;
+        } else {
+          this.$message.error(res.error);
+        }
+      });
+    },
+    // 项目列表
+    getPjas() {
+      pjasList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.options_02 = res.data;
+        } else {
+          this.$message.error(res.error);
+        }
+      });
+    },
   },
 };
 </script>
@@ -1198,15 +1282,8 @@ export default {
 .summry {
   display: flex;
   flex-direction: row;
-  .summryTitle {
-    width: 100px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    color: #666;
-    border-right: 1px solid #cccccc;
-  }
   .summryUl {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1215,6 +1292,7 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+      flex: 1 1 auto;
       border-right: 1px solid #cccccc;
       .summryName {
         width: 80px;
@@ -1224,7 +1302,7 @@ export default {
         border-right: 1px solid #cccccc;
       }
       .summryCont {
-        width: 80px;
+        flex: 1 1 auto;
         line-height: 40px;
         text-align: center;
       }
