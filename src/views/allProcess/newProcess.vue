@@ -28,34 +28,69 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox">{{tableData.name}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
+                <!-- 长文本框示例 -->
+                <div class="form_line">
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox longbox">{{tableData.name}}</div>
+                </div>
+                <!-- 一排两个中号文本框示例 -->
+                <div class="form_line">
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox middlebox">{{tableData.name}}</div>
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox middlebox last_row">{{tableData.name}}</div>
+                </div>
+                <!-- 一排四个中号文本框示例 -->
+                <div class="form_line">
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox middlebox">{{tableData.name}}</div>
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox middlebox">{{tableData.name}}</div>
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox middlebox">{{tableData.name}}</div>
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox middlebox last_row">{{tableData.name}}</div>
+                </div>
+                <!-- 长文本框中含有checkbox/radio示例 -->
+                <div class="form_line">
+                  <div class="titlebox">申请人</div>
+                  <div class="infobox longbox">
+                    <el-radio-group class="radioGroup" v-model="radio">
+                      <el-radio :label="3">备选项</el-radio>
+                      <el-radio :label="6">备选项</el-radio>
+                      <el-radio :label="9">备选项</el-radio>
+                    </el-radio-group>
+                    {{tableData.name}}
+                  </div>
+                </div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox last_row">{{tableData.name}}</div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">申请人</div>
                 <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox">{{tableData.name}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox last_row" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
               </div>
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox">{{tableData.name}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox">{{tableData.name}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox last_row">{{tableData.name}}</div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox">{{tableData.name}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox">{{tableData.name}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox last_row" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
               </div>

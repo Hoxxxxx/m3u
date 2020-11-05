@@ -25,76 +25,119 @@
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
             </div>
             <div class="tableBox">
+              <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
-              <div class="form_line">
+              <div class="form_line  last_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.oaa03}}</div>
+                <div class="infobox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.oaa04}}</div>
+                <div class="infobox">{{tableData.oaa04}}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.oaa05}}</div>
+                <div class="infobox last_row">{{tableData.oaa05}}</div>
               </div>
-              <!-- 长文本框示例 -->
+              <!-- 出差信息 -->
+              <div class="title_line">出差信息</div>
               <div class="form_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox longbox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="titlebox">预计开始时间</div>
+                <div class="infobox middlebox">{{tableData.oaa31}}</div>
+                <div class="titlebox">预计结束时间</div>
+                <div class="infobox middlebox">{{tableData.oaa32}}</div>
+                <div class="titlebox">实际开始时间</div>
+                <div class="infobox middlebox">{{tableData.oaa33}}</div>
+                <div class="titlebox">实际结束时间</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa34}}</div>
               </div>
-              <!-- 一排两个中号文本框示例 -->
               <div class="form_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox middlebox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="titlebox">出差目的</div>
+                <div class="infobox longbox">{{tableData.oaa30}}</div>
               </div>
-              <!-- 一排四个中号文本框示例 -->
               <div class="form_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox middlebox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox middlebox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-              </div>
-              <!-- 长文本框中含有checkbox/radio示例 -->
-              <div class="form_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox longbox" :class="tableData.name == '' ? 'nulldata' : ''">
-                  <el-radio-group class="radioGroup" v-model="radio">
-                    <el-radio :label="3">备选项</el-radio>
-                    <el-radio :label="6">备选项</el-radio>
-                    <el-radio :label="9">备选项</el-radio>
+                <div class="titlebox">出差地点</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa35">
+                    <el-radio :label="1">一般地区</el-radio>
+                    <el-radio :label="2">特殊地区</el-radio>
                   </el-radio-group>
-                  {{tableData.name}}
+                  {{tableData.oaa36}}
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">交通工具</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa36">
+                    <el-radio :label="1">一般地区</el-radio>
+                    <el-radio :label="2">特殊地区</el-radio>
+                  </el-radio-group>
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">访问单位</div>
+                <div class="infobox longbox">{{tableData.oaa38}}</div>
+              </div>
+              <div class="form_line  last_line">
+                <div class="titlebox">是否需要借款</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa39">
+                    <el-radio :label="1">是</el-radio>
+                    <el-radio :label="2">否</el-radio>
+                  </el-radio-group>
+                </div>
+              </div>
+              <!-- 借款信息 -->
+              <div class="title_line">借款信息</div>
+              <div class="form_line">
+                <div class="titlebox">币种</div>
+                <div class="infobox">{{tableData.oaa06}}</div>
+                <div class="titlebox">借款金额</div>
+                <div class="infobox">{{tableData.oaa07}}</div>
+                <div class="titlebox">汇率</div>
+                <div class="infobox last_row">{{tableData.oaa08}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">收款人</div>
+                <div class="infobox">{{tableData.oaa09}}</div>
+                <div class="titlebox">账号</div>
+                <div class="infobox">{{tableData.oaa10}}</div>
+                <div class="titlebox">开户行</div>
+                <div class="infobox last_row">{{tableData.oaa11}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">支付方式</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa12">
+                    <el-radio :label="1">是</el-radio>
+                    <el-radio :label="2">否</el-radio>
+                  </el-radio-group>
                 </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
+                <div class="titlebox">借款事由</div>
+                <div class="infobox longbox">{{tableData.oaa13}}</div>
               </div>
-              <div class="title_line">基本信息</div>
+              <!-- 交际信息 -->
+              <div class="title_line">交际信息</div>
               <div class="form_line">
+                <div class="titlebox">支出项目</div>
+                <div class="infobox middlebox">{{tableData.oaa20}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">我方参加部门</div>
+                <div class="infobox middlebox">{{tableData.oaa22}}</div>
+                <div class="titlebox">对方参加部门</div>
+                <div class="infobox middlebox">{{tableData.oaa23}}</div>
+                <div class="titlebox">我方参加人员</div>
+                <div class="infobox middlebox">{{tableData.oaa24}}</div>
+                <div class="titlebox">对方参加人员</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa25}}</div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox" :class="tableData.name == '' ? 'nulldata' : ''">{{tableData.name}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox last_row" :class="tableData.company == '' ? 'nulldata' : ''">{{tableData.company}}</div>
+                <div class="titlebox">付款预算金额</div>
+                <div class="infobox middlebox">{{tableData.oaa26}}</div>
+                <div class="titlebox">区分</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa27}}</div>
               </div>
-              <div style="width:100%;height:505px;background:#EBF5FE"></div>
             </div>
           </div>
         </el-tab-pane>
