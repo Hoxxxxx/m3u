@@ -41,6 +41,10 @@ export default {
           name: "查看",
           path: "/check",
         },
+        {
+          name: "外地差旅报销单",
+          path: "/travelExpense",
+        },
       ]
     };
   },
