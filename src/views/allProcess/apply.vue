@@ -211,19 +211,21 @@ export default {
       },
       // 需上传的数据
       uploadData: {
+        workid:"",//
         workFlow:"",//下一步骤内容
         member: "", //下一步的审批人员
         content: "", //流程审批意见
-        sms_content:"您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员",//消息内容
+        sms_content:"",//消息内容
         sms_next: 1,//下一步办理人员
         sms_notice_user: 1,//当前步骤通知人员
-        sms_user: "",//发起人
-        sms_mana: "",//当前步骤办理人员
+        sms_user: 0,//发起人
+        sms_mana: 0,//当前步骤办理人员
         sms_box: 1,//内部短消息
-        sms_phone: "",//手机短信
-        sms_mail: "",//邮件
+        sms_phone: 0,//手机短信
+        sms_mail: 0,//邮件
         pertype:1,//审批类型，1：通过，2：拒绝，3：驳回
         next_userid:"",//下一步审批人id
+        next_flowid:"",//下一步流程id
       },
     };
   },
