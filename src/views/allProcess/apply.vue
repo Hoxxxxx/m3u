@@ -200,21 +200,6 @@ export default {
       oaa02: '', // 业务日期
       flowid: '', // 流水号
       flowname: '', // 流程名称
-      applyData: {
-        workid: '',
-        sms_next: '',
-        sms_notice_user: '',
-        sms_box: '',
-        sms_user: '',
-        sms_mana: '',
-        sms_phone: '',
-        sms_mail: '',
-        pertype: 1,
-        next_flowid: '',
-        next_userid: '',
-        sms_content: '您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员',
-        content: ''
-      },
       // 页面固定数据
       fixedData: {
         members: [],
