@@ -199,6 +199,10 @@ export default {
   data() {
     return {
       activeTab: "firTab",
+      oaa01: '', // 申请单编号
+      oaa02: '', // 业务日期
+      flowid: '', // 流水号
+      flowname: '', // 流程名称
       // 页面固定数据
       fixedData: {
         members: [],
