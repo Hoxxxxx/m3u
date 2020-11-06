@@ -174,7 +174,9 @@ export default {
       ],
     };
   },
-  created() {},
+  created() {
+    
+  },
   methods: {
     handleClick() {
       // console.log(this.activeTab);

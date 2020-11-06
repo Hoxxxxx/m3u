@@ -13,8 +13,8 @@
           </div>
           <div class="title">固定资产付款</div>
           <div class="workName">
-            <div>编号:2020110213463</div>
-            <div>流程名称：固定资产付款(No:20201102134630)张康成</div>
+            <span class="code">业务日期：{{oaa02}}</span>
+            <span class="name">申请单编号：{{oaa01}}</span>
           </div>
           <!-- 步骤 -->
           <div class="processBox">
@@ -196,6 +196,25 @@ export default {
   data() {
     return {
       activeTab: "firTab",
+      oaa01: '', // 申请单编号
+      oaa02: '', // 业务日期
+      flowid: '', // 流水号
+      flowname: '', // 流程名称
+      applyData: {
+        workid: '',
+        sms_next: '',
+        sms_notice_user: '',
+        sms_box: '',
+        sms_user: '',
+        sms_mana: '',
+        sms_phone: '',
+        sms_mail: '',
+        pertype: 1,
+        next_flowid: '',
+        next_userid: '',
+        sms_content: '您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员',
+        content: ''
+      },
       // 页面固定数据
       fixedData: {
         members: [],
@@ -228,6 +247,18 @@ export default {
     this.getworkflows()
   },
   methods: {
+    // ***********获取下拉列表信息************
+    getUsers () {
+      usersList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.users = result.data
+        } else {
+          this.$message.error("获取用户列表失败：" + result.error.message);
+        }
+      })
+    },
+    // *******************************************
     handleClick() {},
     // 常用语选择
     handleCommand(command) {
