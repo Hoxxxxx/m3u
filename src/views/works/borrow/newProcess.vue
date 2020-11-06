@@ -5,7 +5,7 @@
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <el-button type="primary" @click="$router.push('/')">回到首页</el-button>
         <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
-        <el-button type="primary" class="next" @click="$router.push('/apply')">下一步</el-button>
+        <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -399,10 +399,10 @@ export default {
   data() {
     return {
       activeTab: "firTab",
-      radio: 3,
+      workid: '',
       tableData: {
         oaa01: '',
-        oaa02: this.getCurrentTime(),
+        oaa02: '',
         oaa03: '',
         oaa04: '',
         oaa05: '',
@@ -445,7 +445,7 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8936
+        tplid: 8941
       },
     };
   },
@@ -455,27 +455,6 @@ export default {
     this.getPmas()
   },
   methods: {
-    // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
-    getCurrentTime() {
-      var date = new Date();//当前时间
-      var month = this.zeroFill(date.getMonth() + 1);//月
-      var day = this.zeroFill(date.getDate());//日
-      var hour = this.zeroFill(date.getHours());//时
-      var minute = this.zeroFill(date.getMinutes());//分
-      var second = this.zeroFill(date.getSeconds());//秒
-      //当前时间
-      var curTime = date.getFullYear() + "-" + month + "-" + day
-              + " " + hour + ":" + minute + ":" + second;
-      return curTime;
-    },
-    // 补零
-    zeroFill(i) {
-      if (i >= 0 && i <= 9) {
-        return "0" + i;
-      } else {
-        return i;
-      }
-    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -546,9 +525,33 @@ export default {
       this.addParams.from_data = this.tableData
       addFlow(this.addParams)
       .then( result => {
-        console.log(result)
+        this.workid = result.data.workid
+        this.tableData.oaa01 = result.data.oaa01
+        this.tableData.oaa02 = result.data.oaa02
       })
     },
+    // 下一步
+    nextStep() {
+      this.addParams.from_data = this.tableData
+      addFlow(this.addParams)
+      .then( result => {
+        this.workid = result.data.workid
+        this.tableData.oaa01 = result.data.oaa01
+        this.tableData.oaa02 = result.data.oaa02
+      })
+      .then(() => {
+        this.$router.push(
+          {
+            path:'/apply',
+            query: {
+              workid: this.workid,
+              oaa01: this.tableData.oaa01,
+              oaa02: this.tableData.oaa02
+            }
+          }
+        )
+      });
+    }
 
   },
 };

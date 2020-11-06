@@ -46,8 +46,8 @@
                     <el-option
                       v-for="(item,index) in fixedData.workFlows"
                       :key="index"
-                      :label="item.title"
-                      :value="item.id"
+                      :label="item.flowname"
+                      :value="item.fid"
                     >
                     </el-option>
                   </el-select>
@@ -195,6 +195,9 @@ export default {
   components: {},
   data() {
     return {
+      workid: '',
+      oaa01: '',
+      oaa02: '',
       activeTab: "firTab",
       oaa01: '', // 申请单编号
       oaa02: '', // 业务日期
@@ -228,6 +231,9 @@ export default {
     };
   },
   created() {
+    this.workid =  this.$route.query.workid
+    this.oaa01 =  this.$route.query.oaa01
+    this.oaa02 =  this.$route.query.oaa02
     this.getUsers()
     this.getworkflows()
   },
@@ -264,9 +270,12 @@ export default {
       })
     },
     getworkflows(){
-      workflowsList().then(res=>{
+      const params = {
+        workid: this.workid
+      }
+      workflowsList(params).then(res=>{
         if(res.status == 200){
-          this.fixedData.workFlows = res.data
+          this.fixedData.workFlows = res.data.workclass_personnel.next_perid
         }else{
           this.$message.error(res.error);
         }
