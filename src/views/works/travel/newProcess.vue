@@ -891,19 +891,15 @@
         <div class="title">附件内容</div>
         <el-upload
           class="upload_annex"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          :action="$store.state.upload_url"
+          :on-success="handleSuccess"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :before-remove="beforeRemove"
           multiple
-          :limit="3"
           :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
+          :file-list="fileList">
           <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">
-            只能上传jpg/png文件，且不超过500kb
-          </div>
         </el-upload>
       </div>
     </el-card>
@@ -1045,18 +1041,12 @@ export default {
           },
         ],
       },
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-      ],
+      fileList: [],
+      addParams: {
+        from_data: {},
+        annexurlid: [],
+        tplid: 8936
+      },
     };
   },
   created() {
@@ -1105,31 +1095,42 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
+    // ****************附件上传*****************
+    // 上传成功
+    handleSuccess(response, file, fileList) {
+      this.addParams.annexurlid.push({
+        filename: response.data.filename,
+        fileaddr: response.data.path
+      })
+    },
+    // 移除上传项
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      this.addParams.annexurlid.forEach( (item, index) => {
+        if (item.filename == file.name) {
+          this.addParams.annexurlid.splice( index, 1 )
+        }
+      })
     },
     handlePreview(file) {
       console.log(file);
     },
     handleExceed(files, fileList) {
-      this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
-          files.length + fileList.length
-        } 个文件`
-      );
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
     },
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`);
+      return this.$confirm(`确定移除 ${ file.name }？`);
     },
-    // 保存
-    save() {
-      let params = {
-        from_data: this.tableData,
-        annexurlid: [],
-        tplid: 8936,
-      }
-      console.log(params);
+    // *******************************************
+    // ****************其他操作*******************
+    // 新增表单
+    addNewFlow() {
+      this.addParams.from_data = this.tableData
+      addFlow(this.addParams)
+      .then( result => {
+        console.log(result)
+      })
     },
+    // *******************************************
     // 表格部分
     // 增加一行
     // 差旅明细表格

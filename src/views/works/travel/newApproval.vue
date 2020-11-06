@@ -448,11 +448,11 @@
         <div class="title">附件内容</div>
         <!-- 已有文件部分 -->
         <div class="saveList">
-          <div class="saveItem" v-for="(item, index) in fileList" :key="index">
+          <div class="saveItem" v-for="(item,index) in fileList" :key="index">
             <i class="el-icon-document" style="margin-right: 7px"></i>
-            <span>{{ item.name }}</span>
+            <span>{{item.name}}</span>
             <div class="btnBox">
-              <el-button type="text">预览</el-button>
+              <!-- <el-button type="text">预览</el-button> -->
               <el-button type="text">下载</el-button>
             </div>
           </div>
@@ -460,19 +460,15 @@
         <!-- 上传部分 -->
         <el-upload
           class="upload_annex"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          :action="$store.state.upload_url"
+          :on-success="handleSuccess"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :before-remove="beforeRemove"
           multiple
-          :limit="3"
           :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
+          :file-list="fileList">
           <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">
-            只能上传jpg/png文件，且不超过500kb
-          </div>
         </el-upload>
       </div>
     </el-card>
@@ -536,18 +532,12 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-      ],
+      fileList: [],
+      addParams: {
+        from_data: {},
+        annexurlid: [],
+        tplid: 8936
+      },
     };
   },
   created() {},
@@ -555,22 +545,61 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    // ***************附件上传******************
+    // 上传成功
+    handleSuccess(response, file, fileList) {
+      this.addParams.annexurlid.push({
+        filename: response.data.filename,
+        fileaddr: response.data.path
+      })
     },
+    // 移除上传项
+    handleRemove(file, fileList) {
+      this.addParams.annexurlid.forEach( (item, index) => {
+        if (item.filename == file.name) {
+          this.addParams.annexurlid.splice( index, 1 )
+        }
+      })
+    },
+    // 点击上传项回调
     handlePreview(file) {
       console.log(file);
     },
+    // 超出上传限制回调
     handleExceed(files, fileList) {
-      this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
-          files.length + fileList.length
-        } 个文件`
-      );
+      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
     },
+    // 移除前回调
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`);
+      return this.$confirm(`确定移除 ${ file.name }？`);
     },
+    // 下载文件流
+    async download(viewId, viewName) {
+      const { data: res } = await this.axios({
+          method: 'get',
+          url: `files/download/27`,
+          responseType: "blob",
+      })
+      let fileName = '测试pdf1.pdf';
+      let fileType = {
+        docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        pdf:'application/pdf',
+      }
+      let type=fileName.split('.')[1];//获取文件后缀名
+      let blob = new Blob([res],{
+        type:fileType.type
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    },
+    // ******************************************
   },
 };
 </script>

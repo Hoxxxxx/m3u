@@ -95,7 +95,7 @@
             <i class="el-icon-document" style="margin-right: 7px"></i>
             <span>{{item.name}}</span>
             <div class="btnBox">
-              <el-button type="text">预览</el-button>
+              <!-- <el-button type="text">预览</el-button> -->
               <el-button type="text">下载</el-button>
             </div>
           </div>
