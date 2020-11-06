@@ -4,7 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <el-button type="primary" @click="$router.push('/')">回到首页</el-button>
-        <el-button type="primary" class="save">保存</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
         <el-button type="primary" class="next" @click="$router.push('/apply')">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
@@ -392,6 +392,7 @@
 <script>
 // api
 import { gensList, azisList, pmasList,  } from "@/api/basic";
+import { addFlow,  } from "@/api/process_new";
 
 export default {
   components: {},
@@ -513,7 +514,7 @@ export default {
       })
     },
     // *******************************************
-    // ***********附件上传************
+    // ****************附件上传*****************
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
@@ -537,7 +538,17 @@ export default {
     },
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${ file.name }？`);
-    }
+    },
+    // *******************************************
+    // ****************其他操作*******************
+    addNewFlow() {
+      this.addParams.from_data = this.tableData
+      addFlow(this.addParams)
+      .then( result => {
+        console.log(result)
+      })
+    },
+
   },
 };
 </script>

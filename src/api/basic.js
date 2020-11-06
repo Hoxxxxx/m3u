@@ -125,3 +125,12 @@ export const pjbsList = (params) => {
     params
   })
 }
+
+// 获取用户列表
+export const usersList = (params) => {
+  return request.get('oa/users',
+  {},
+  {
+    params
+  })
+}

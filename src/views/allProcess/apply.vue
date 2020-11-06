@@ -13,8 +13,8 @@
           </div>
           <div class="title">固定资产付款</div>
           <div class="workName">
-            <div>编号:2020110213463</div>
-            <div>流程名称：固定资产付款(No:20201102134630)张康成</div>
+            <span class="code">业务日期：{{oaa02}}</span>
+            <span class="name">申请单编号：{{oaa01}}</span>
           </div>
           <!-- 步骤 -->
           <div class="processBox">
@@ -43,37 +43,19 @@
                 <img src="../../assets/img/person.png" />
                 <span>主办人员：</span>
                 <div class="mainSelect">
-                  <!-- <el-select
-                    v-model="uploadData.member"
+                  <el-select
+                    v-model="applyData.next_userid"
                     class="memeberSelect"
                     placeholder="请选择"
                   >
                     <el-option
-                      v-for="item in fixedData.members"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="(item, index) in fixedData.users"
+                      :key="index"
+                      :label="item.name"
+                      :value="item.id"
                     >
                     </el-option>
-                  </el-select> -->
-                  <el-dropdown
-                    class="memberSelect"
-                    trigger="click"
-                    @command="memberSelect"
-                  >
-                    <div class="el-dropdown-link">
-                      <span>{{ fixedData.memberMsg }}</span
-                      ><img src="../../assets/img/more.png" class="moreImg" />
-                    </div>
-                    <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item
-                        v-for="(item, index) in fixedData.members"
-                        :key="index"
-                        :command="item"
-                        >{{ item.label }}</el-dropdown-item
-                      >
-                    </el-dropdown-menu>
-                  </el-dropdown>
+                  </el-select>
                 </div>
               </div>
             </div>
@@ -101,7 +83,7 @@
                 type="textarea"
                 :autosize="{ minRows: 2, maxRows: 4 }"
                 placeholder="请输入流程审批意见"
-                v-model="uploadData.note"
+                v-model="applyData.content"
               >
               </el-input>
             </div>
@@ -114,28 +96,36 @@
         <div class="opinionName">提醒相关人员</div>
         <div class="checks">
           <el-checkbox
-            v-model="uploadData.checked1"
+            v-model="applyData.sms_user"
             class="check"
-            label="备选项1"
+            label="发起人"
             border
+            :true-label="1"
+            :false-label="0"
           ></el-checkbox>
           <el-checkbox
-            v-model="uploadData.checked2"
+            v-model="applyData.sms_mana"
             class="check"
-            label="备选项1"
+            label="当前步骤办理人员"
             border
+            :true-label="1"
+            :false-label="0"
           ></el-checkbox>
           <el-checkbox
-            v-model="uploadData.checked3"
+            v-model="applyData.sms_next"
             class="check"
-            label="备选项1"
+            label="下一步办理人员"
             border
+            :true-label="1"
+            :false-label="0"
           ></el-checkbox>
           <el-checkbox
-            v-model="uploadData.checked4"
+            v-model="applyData.sms_notice_user"
             class="check"
-            label="备选项1"
+            label="当前步骤通知人员"
             border
+            :true-label="1"
+            :false-label="0"
           ></el-checkbox>
         </div>
       </div>
@@ -147,12 +137,16 @@
             class="check"
             label="站内信"
             border
+            :true-label="1"
+            :false-label="0"
           ></el-checkbox>
           <el-checkbox
             v-model="uploadData.checked6"
             class="check"
             label="短信息"
             border
+            :true-label="1"
+            :false-label="0"
           ></el-checkbox>
         </div>
       </div>
@@ -161,7 +155,7 @@
         <el-input
           type="textarea"
           :autosize="{ minRows: 1, maxRows: 4 }"
-          v-model="uploadData.msgNote"
+          v-model="applyData.sms_content"
         >
         </el-input>
       </div>
@@ -174,42 +168,67 @@
 </template>
 
 <script>
+// api
+import { usersList,  } from "@/api/basic";
+
 export default {
   components: {},
   data() {
     return {
       activeTab: "firTab",
+      oaa01: '', // 申请单编号
+      oaa02: '', // 业务日期
+      flowid: '', // 流水号
+      flowname: '', // 流程名称
+      applyData: {
+        workid: '',
+        sms_next: '',
+        sms_notice_user: '',
+        sms_box: '',
+        sms_user: '',
+        sms_mana: '',
+        sms_phone: '',
+        sms_mail: '',
+        pertype: 1,
+        next_flowid: '',
+        next_userid: '',
+        sms_content: '您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员',
+        content: ''
+      },
       // 页面固定数据
       fixedData: {
-        members: [
-          {
-            value: "选项1",
-            label: "黄金糕",
-          },
-        ],
+        users: [],
         memberMsg: "请选择主办人员",
         msgs: [
-          { label: "第一个常用语", value: 0 },
-          { label: "第二个常用语", value: 0 },
-          { label: "第三个常用语", value: 0 },
+          { label: "同意", value: 0 },
+          { label: "拒绝", value: 0 },
         ],
       },
       // 需上传的数据
       uploadData: {
         member: "", //下一步的审批人员
         note: "", //流程审批意见
-        msgNote:"您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员",//消息内容
-        checked1: "",
-        checked2: "",
-        checked3: "",
-        checked4: "",
         checked5: "",
         checked6: "",
       },
     };
   },
-  created() {},
+  created() {
+    this.getUsers()
+  },
   methods: {
+    // ***********获取下拉列表信息************
+    getUsers () {
+      usersList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.users = result.data
+        } else {
+          this.$message.error("获取用户列表失败：" + result.error.message);
+        }
+      })
+    },
+    // *******************************************
     handleClick() {},
     // 主办人员选择
     memberSelect(command) {
@@ -217,8 +236,7 @@ export default {
     },
     // 常用语选择
     handleCommand(command) {
-      console.log(command);
-      this.uploadData.note = command.label;
+      this.applyData.content = command.label;
     },
   },
 };
@@ -232,6 +250,11 @@ export default {
     color: #333;
     font-weight: bold;
     text-align: center;
+  }
+  .mainSelect {
+    .el-input .el-input__inner {
+      padding-left: 15px;
+    }
   }
 }
 </style>
