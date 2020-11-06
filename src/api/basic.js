@@ -137,7 +137,7 @@ export const usersList = (params) => {
 
 // 流程详情
 export const workflowsList = (params) => {
-  return request.get(`oa/workflows`,
+  return request.get(`oa/workflows/${params.workid}`,
   {},
   {
     params

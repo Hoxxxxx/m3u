@@ -234,7 +234,7 @@ export default {
       radio: 3,
       tableData: {
         oaa01: '',
-        oaa02: this.getCurrentTime(),
+        oaa02: '',
         oaa03: '',
         oaa04: '',
         oaa05: '',
@@ -287,27 +287,6 @@ export default {
     this.getPmas()
   },
   methods: {
-    // 获取当前时间 格式:yyyy-MM-dd HH:MM:SS
-    getCurrentTime() {
-      var date = new Date();//当前时间
-      var month = this.zeroFill(date.getMonth() + 1);//月
-      var day = this.zeroFill(date.getDate());//日
-      var hour = this.zeroFill(date.getHours());//时
-      var minute = this.zeroFill(date.getMinutes());//分
-      var second = this.zeroFill(date.getSeconds());//秒
-      //当前时间
-      var curTime = date.getFullYear() + "-" + month + "-" + day
-              + " " + hour + ":" + minute + ":" + second;
-      return curTime;
-    },
-    // 补零
-    zeroFill(i) {
-      if (i >= 0 && i <= 9) {
-        return "0" + i;
-      } else {
-        return i;
-      }
-    },
     handleClick() {
       // console.log(this.activeTab);
     },
