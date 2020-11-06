@@ -125,3 +125,21 @@ export const pjbsList = (params) => {
     params
   })
 }
+
+// 主办人员列表
+export const usersList = (params) => {
+  return request.get('oa/users',
+  {},
+  {
+    params
+  })
+}
+
+// 流程详情
+export const workflowsList = (params) => {
+  return request.get(`oa/workflows`,
+  {},
+  {
+    params
+  })
+}
