@@ -155,6 +155,7 @@
           display: flex;
           color: #666666;
           font-size: 12px;
+
           .titlebox {
             width: 133px;
             min-height: 40px;
@@ -168,6 +169,7 @@
             flex-shrink: 0;
             flex-grow: 0;
           }
+
           .infobox {
             width: 282px;
             padding: 10px 20px;
@@ -181,16 +183,20 @@
             .el-date-editor.el-input {
               width: 100%;
             }
+
             /deep/ .el-input__inner {
               border: none !important;
             }
           }
+
           .middlebox {
             flex: 1 1 auto;
           }
+
           .longbox {
             border-right: none;
             flex: 1 1 auto;
+
             .radioGroup {
               padding-right: 20px;
               margin-right: 20px;
@@ -198,20 +204,27 @@
               flex-grow: 0;
             }
           }
+
           .selectbox {
             padding-top: 0;
             padding-bottom: 0;
+
+            
           }
+
           .databox {
             padding: 0;
           }
+
           .nulldata {
             background: #FCFDFF;
           }
+
           .last_row {
             border: none;
           }
         }
+
         .last_line {
           border: none;
         }
@@ -244,6 +257,26 @@
 
   .editNot {
     cursor: not-allowed;
+  }
+
+  .selectBorder{
+    border-radius: 4px;
+    border: 1px solid #DCDFE6;
+    box-sizing: border-box;
+  }
+
+  .selector {
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: url("../img/search.png") 95% center no-repeat;
+    background-size: 18px;
+    background-color: #fff;
   }
 
 

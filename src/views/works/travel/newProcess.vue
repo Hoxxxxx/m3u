@@ -35,20 +35,8 @@
                   {{ tableData.oaa03 }}
                 </div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">
-                  <el-select
-                    v-model="tableData.oaa04"
-                    class="select"
-                    placeholder="请选择申请人"
-                  >
-                    <el-option
-                      v-for="(item, index) in fixedData.applys"
-                      :key="index"
-                      :label="item.gen02"
-                      :value="item.gen01"
-                    >
-                    </el-option>
-                  </el-select>
+                <div class="infobox selectbox" >
+                  <div class="selector" @click="selectDialog('SQR')">{{tableData.oaa04}}</div>
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox">
@@ -569,7 +557,7 @@
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-select
+                        <!-- <el-select
                           v-model="scope.row.oac01"
                           placeholder="请选择会计科目"
                         >
@@ -580,7 +568,8 @@
                             :value="item.aag01"
                           >
                           </el-option>
-                        </el-select>
+                        </el-select> -->
+                        <div class="selector selectBorder" @click="selectDialog('KJKM',scope.$index)">{{scope.row.oac01}}</div>
                       </div>
                     </template>
                   </el-table-column>
@@ -592,7 +581,7 @@
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-select
+                        <!-- <el-select
                           v-model="scope.row.oac04"
                           placeholder="请选择项目"
                         >
@@ -603,7 +592,8 @@
                             :value="item.pja01"
                           >
                           </el-option>
-                        </el-select>
+                        </el-select> -->
+                        <div class="selector selectBorder" @click="selectDialog('XM',scope.$index)">{{scope.row.oac04}}</div>
                       </div>
                     </template>
                   </el-table-column>
@@ -615,7 +605,7 @@
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-select
+                        <!-- <el-select
                           v-model="scope.row.oac05"
                           placeholder="请选择项目WBS"
                         >
@@ -626,7 +616,8 @@
                             :value="item.pjb02"
                           >
                           </el-option>
-                        </el-select>
+                        </el-select> -->
+                        <div class="selector selectBorder" @click="selectDialog('WBS',scope.$index)">{{scope.row.oac05}}</div>
                       </div>
                     </template>
                   </el-table-column>
@@ -817,7 +808,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.apb28"
+                          v-model="scope.row.apb35"
                           placeholder="请输入借款总金额"
                         ></el-input>
                       </div>
@@ -832,7 +823,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.apb28"
+                          v-model="scope.row.oad02"
                           placeholder="请输入还款金额"
                         ></el-input>
                       </div>
@@ -847,7 +838,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.apb28"
+                          v-model="scope.row.apb25"
                           placeholder="请输入凭证号"
                         ></el-input>
                       </div>
@@ -896,7 +887,8 @@
           :before-remove="beforeRemove"
           multiple
           :on-exceed="handleExceed"
-          :file-list="fileList">
+          :file-list="fileList"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
       </div>
@@ -923,11 +915,28 @@
         </el-timeline>
       </div>
     </el-card>
+    <!-- 数据选择弹出框 -->
+    <SelectData
+      :isLoading="dataSelect.selectLoading"
+      :dialogTitle.sync="dataSelect.dialogTitle"
+      :dialogVisible.sync="dataSelect.dialogVisible"
+      :headList.sync="dataSelect.headList"
+      :bodyData.sync="dataSelect.bodyData"
+      :choosedData="dataSelect.choosedData"
+      :editType.sync="dataSelect.editType"
+      :searchApi="dataSelect.searchApi"
+      :filter="dataSelect.filter"
+      :keyMsg="dataSelect.keyMsg"
+      @selectSure="selectSure"
+      @selectCancel="selectCancel"
+    ></SelectData>
   </div>
 </template>
 
 <script>
+import SelectData from "@/components/selectData";
 import { dateFmt } from "@/utils/utils.js";
+import { addFlow } from "@/api/process_new";
 import {
   gensList,
   azisList,
@@ -938,7 +947,7 @@ import {
 } from "@/api/basic.js";
 
 export default {
-  components: {},
+  components: {SelectData},
   data() {
     return {
       activeTab: "firTab",
@@ -971,8 +980,6 @@ export default {
         oad: [], // 冲销信息
       },
       fixedData: {
-        // 申请人列表
-        applys: [],
         // 币种列表
         cointypes: [],
         //支付方式
@@ -1044,7 +1051,54 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8936
+        tplid: 8943,
+      },
+
+      rowIndex:"",//当前点击的行数
+      //数据选择弹出框
+      dataSelect: {
+        editType:"entry",
+        selectLoading:false,
+        cur_input: "", // 当前点击的输入框
+        dialogTitle: "数据选择", //当前弹框的title
+        dialogVisible: false, //控制显示隐藏弹框
+        headList: [], //表头
+        bodyData: [], //表格数据
+        choosedData: [], //选中的数据
+        searchApi: "", //搜索框的接口地址
+        filter: [], //筛选条件
+        keyMsg: [], //需要显示在顶部的数据
+      },
+      // 弹出框表头数据
+      tableHead: {
+        // 申请人
+        head_SQR: [
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+        ],
+        head_KJKM: [
+          { name: "aag01", title: "科目编号" },
+          { name: "aag02", title: "科目名称" },
+          { name: "aag03", title: "科目性质" },
+          { name: "aag04", title: "资产损益别" },
+          { name: "aag07", title: "统制明细别" },
+          { name: "aag13", title: "额外名称" },
+          { name: "aag24", title: "科目层级" },
+        ],
+        head_XM: [
+          { name: "pja01", title: "项目编号" },
+          { name: "pja02", title: "项目名称" },
+          { name: "pja08", title: "项目负责人" },
+          { name: "pja09", title: "负责部门" },
+          { name: "pja13", title: "项目预计总额" },
+        ],
+        head_WBS: [
+          { name: "pjb02", title: "WBS编号" },
+          { name: "pjb03", title: "WBS名称" },
+          { name: "pjb01", title: "项目编号" },
+          { name: "pja02", title: "项目名称" },
+        ],
       },
     };
   },
@@ -1052,12 +1106,8 @@ export default {
     this.addRow1();
     this.addRow2();
     this.addRow3();
-    this.getGen(); //申请人列表
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
-    this.getPjb(); //wbs
-    this.getAags(); //会计科目
-    this.getPjas(); //项目
   },
   methods: {
     handleClick() {
@@ -1068,25 +1118,29 @@ export default {
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
         filename: response.data.filename,
-        fileaddr: response.data.path
-      })
+        fileaddr: response.data.path,
+      });
     },
     // 移除上传项
     handleRemove(file, fileList) {
-      this.addParams.annexurlid.forEach( (item, index) => {
+      this.addParams.annexurlid.forEach((item, index) => {
         if (item.filename == file.name) {
-          this.addParams.annexurlid.splice( index, 1 )
+          this.addParams.annexurlid.splice(index, 1);
         }
-      })
+      });
     },
     handlePreview(file) {
       console.log(file);
     },
     handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
+      );
     },
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
     // *******************************************
     // ****************其他操作*******************
@@ -1205,17 +1259,7 @@ export default {
         }
       });
     },
-    // 获取基础数据
-    // 申请人列表
-    getGen() {
-      gensList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.applys = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
+    // 获取基础数据*******
     // 币种列表
     getAzi() {
       azisList().then((res) => {
@@ -1236,35 +1280,79 @@ export default {
         }
       });
     },
-    // wbs列表
-    getPjb() {
-      pjbsList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.options_03 = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
+    // ******************
+    // 数据选择
+    selectDialog(type,rowIndex) {
+      this.rowIndex = rowIndex;
+      this.dataSelect.dialogVisible = true;
+      this.dataSelect.cur_input = type;
+      this.dataSelect.choosedData = [];
+      switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchApi = "meta/gens";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
+        case "KJKM":
+          let filter_KJKM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_KJKM;
+          this.dataSelect.searchApi = "meta/aags";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_KJKM;
+          this.dataSelect.dialogTitle = "会计科目";
+          break;
+        case "XM":
+          let filter_XM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_XM;
+          this.dataSelect.searchApi = "meta/pjas";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_XM;
+          this.dataSelect.dialogTitle = "项目";
+          break;
+        case "WBS":
+          let filter_WBS = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_WBS;
+          this.dataSelect.searchApi = "meta/pjbs";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_WBS;
+          this.dataSelect.dialogTitle = "WBS列表";
+          break;
+        default:
+          return;
+          break;
+      }
     },
-    //会计科目
-    getAags() {
-      aagsList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.options_01 = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
+    selectCancel(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = val;
+      this.dataSelect.choosedData = val;
     },
-    // 项目列表
-    getPjas() {
-      pjasList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.options_02 = res.data;
-        } else {
-          this.$message.error(res.error);
+    selectSure(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = [];
+      this.dataSelect.choosedData = val;
+      if (val.length > 0) {
+        switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.tableData.oaa04 = val[0].gen01;
+            break;
+          case "KJKM":
+            this.tableData.oac[this.rowIndex].oac01 = val[0].aag01
+            break;
+          case "XM":
+            this.tableData.oac[this.rowIndex].oac04 = val[0].pja01
+            break;
+          case "WBS":
+            this.tableData.oac[this.rowIndex].oac05 = val[0].pjb02
+            break;
+          default:
+            return;
+            break;
         }
-      });
+      }
     },
   },
 };
