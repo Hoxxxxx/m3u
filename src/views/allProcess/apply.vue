@@ -278,6 +278,7 @@ export default {
       .then(res=>{
         if(res.status == 200){
           this.fixedData.workFlows = res.data.workclass_personnel.next_perid
+          this.workname = res.data.workclass_info.title
           this.uploadData.sms_content = `您有新的流程需要办理，流水号：${res.data.workclass_info.number}，流程名称：${res.data.workclass_info.title}`
         }else{
           this.$message.error('获取流程信息失败：', res.error.message);
