@@ -359,8 +359,8 @@ export default {
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
           case "SQR":
-            this.uploadData.next_userid = val[0].gen01;
-            this.showData.oaa04_show = val[0].gen02;
+            this.uploadData.next_userid = val[0].id;
+            this.showData.oaa04_show = val[0].name;
             break;
           default:
             return;
