@@ -290,17 +290,23 @@ export default {
       this.uploadData.content = command.label;
     },
     submit(){
-      console.log(this.uploadData)
-      transact(this.uploadData).then(res=>{
-        if(res.status == 200){
-          this.$message({
-            message: '提交成功！',
-            type: 'success'
-          })
-        }else{
-          this.$message.error('出错了！');
-        }
-      })
+      // console.log(this.uploadData)
+      if (this.uploadData.next_flowid == '') {
+        this.$message.warning('请选择下一步骤' );
+      } else if (this.uploadData.next_userid == '') {
+        this.$message.warning('请选择主办人员' );
+      } else {
+        transact(this.uploadData).then(res=>{
+          if(res.status == 200){
+            this.$message({
+              message: '提交成功！',
+              type: 'success'
+            })
+          }else{
+            this.$message.error('提交失败：' + res.error.message);
+          }
+        })
+      }
     },
     // 获取基础数据
     getUsers(){
@@ -308,7 +314,7 @@ export default {
         if(res.status == 200){
           this.fixedData.members = res.data
         }else{
-          this.$message.error("获取用户列表失败：" + result.error.message);
+          this.$message.error("获取用户列表失败：" + res.error.message);
         }
       })
     },
@@ -323,7 +329,7 @@ export default {
           this.workname = res.data.workclass_info.title
           this.uploadData.sms_content = `您有新的流程需要办理，流水号：${res.data.workclass_info.number}，流程名称：${res.data.workclass_info.title}`
         }else{
-          this.$message.error('获取流程信息失败：', res.error.message);
+          this.$message.error('获取流程信息失败：' + res.error.message);
         }
       })
     },

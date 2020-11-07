@@ -3,7 +3,7 @@
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
-        <el-button type="primary" @click="$router.push('/')">回到首页</el-button>
+        <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
         <!-- <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button> -->
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
         <!-- <el-button class="normal">挂起</el-button> -->
@@ -282,7 +282,7 @@ export default {
   components: {},
   data() {
     return {
-      workid: 3874,
+      workid: '',
       workname: '出差借款申请',
       activeTab: "firTab",
       tableData: {
@@ -336,6 +336,7 @@ export default {
     };
   },
   created() {
+    this.workid = this.$route.query.workid
     this.getworkflows()
   },
   methods: {

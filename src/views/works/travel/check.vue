@@ -3,9 +3,7 @@
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
-        <el-button type="primary" @click="$router.push('/')"
-          >回到首页</el-button
-        >
+        <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -509,7 +507,7 @@ import { workflowsList, } from "@/api/process_new.js"
 export default {
   data() {
     return {
-      workid: '3893',
+      workid: '',
       workname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
@@ -548,6 +546,7 @@ export default {
     };
   },
   created() {
+    this.workid = this.$route.query.workid
     this.getworkflows()
   },
   methods: {

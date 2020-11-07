@@ -3,9 +3,7 @@
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
-        <el-button type="primary" @click="$router.push('/')"
-          >回到首页</el-button
-        >
+        <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
         <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
         <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
       </div>
@@ -1093,6 +1091,7 @@ export default {
     };
   },
   created() {
+    // this.addParams.tplid = this.$route.query.tplid
     this.addRow1();
     this.addRow2();
     this.addRow3();
