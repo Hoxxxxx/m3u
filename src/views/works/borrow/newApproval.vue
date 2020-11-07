@@ -4,7 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <el-button type="primary" @click="$router.push('/')">回到首页</el-button>
-        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
+        <!-- <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button> -->
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
         <!-- <el-button class="normal">挂起</el-button> -->
         <!-- <el-button class="normal">增加会签人</el-button> -->
@@ -223,12 +223,12 @@
         <div class="title">附件内容</div>
         <!-- 已有文件部分 -->
         <div class="saveList">
-          <div class="saveItem" v-for="(item,index) in fileList" :key="index">
+          <div class="saveItem" v-for="(item,index) in fileList_user" :key="index">
             <i class="el-icon-document" style="margin-right: 7px"></i>
             <span>{{item.name}}</span>
             <div class="btnBox">
               <!-- <el-button type="text">预览</el-button> -->
-              <el-button type="text">下载</el-button>
+              <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
             </div>
           </div>
         </div>
@@ -326,6 +326,7 @@ export default {
         // 付款方式列表
         pmasList: [],
       },
+      fileList_user: [],
       fileList: [],
       addParams: {
         from_data: {},
@@ -349,6 +350,15 @@ export default {
       workflowsList(params).then(res=>{
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
+          if (res.data.file !== null) {
+            res.data.file.forEach( item => {
+              this.fileList_user.push({
+                id: item.id,
+                name: item.filename,
+                url: item.fileaddr
+              })
+            })
+          }
         }else{
           this.$message.error('获取流程信息失败：', res.error.message);
         }
@@ -384,13 +394,13 @@ export default {
       return this.$confirm(`确定移除 ${ file.name }？`);
     },
     // 下载文件流
-    async download(viewId, viewName) {
+    async download(id, filename) {
       const { data: res } = await this.axios({
           method: 'get',
-          url: `files/download/27`,
+          url: `files/download/${id}`,
           responseType: "blob",
       })
-      let fileName = '测试pdf1.pdf';
+      let fileName = filename;
       let fileType = {
         docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         pdf:'application/pdf',

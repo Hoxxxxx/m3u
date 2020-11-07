@@ -134,6 +134,18 @@
                     min-width="160px"
                     align="center"
                   >
+                  <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.oab01"
+                          style="width: 100%"
+                          disabled
+                          type="date"
+                          placeholder="开始日期"
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab02"
@@ -141,6 +153,18 @@
                     min-width="160px"
                     align="center"
                   >
+                  <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.oab02"
+                          style="width: 100%"
+                          disabled
+                          type="date"
+                          placeholder="结束日期"
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab03"
@@ -366,6 +390,18 @@
                     min-width="130px"
                     align="center"
                   >
+                  <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.borrowDate"
+                          style="width: 100%"
+                          disabled
+                          type="date"
+                          placeholder="选择借款日期"
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="apb28"
@@ -431,12 +467,12 @@
         <div class="title">附件内容</div>
         <!-- 已有文件部分 -->
         <div class="saveList">
-          <div class="saveItem" v-for="(item, index) in fileList" :key="index">
+          <div class="saveItem" v-for="(item, index) in fileList_user" :key="index">
             <i class="el-icon-document" style="margin-right: 7px"></i>
             <span>{{ item.name }}</span>
             <div class="btnBox">
               <!-- <el-button type="text">预览</el-button> -->
-              <el-button type="text">下载</el-button>
+              <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
             </div>
           </div>
         </div>
@@ -468,12 +504,13 @@
 </template>
 
 <script>
-// import FixedBtns from "@/components/fixedBtns";
+import { workflowsList, } from "@/api/process_new.js"
 
 export default {
-  components: {},
   data() {
     return {
+      workid: '3877',
+      workname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
         // 基本信息
@@ -502,41 +539,101 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-      ],
+      fileList_user: [],
+      addParams: {
+        from_data: {},
+        annexurlid: [],
+        tplid: 8936
+      },
     };
   },
-  created() {},
+  created() {
+    this.getworkflows()
+  },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    // ***********获取流程信息************
+    getworkflows(){
+      const params = {
+        workid: this.workid
+      }
+      workflowsList(params).then(res=>{
+        if(res.status == 200){
+          this.tableData = res.data.workclass_info.from_data
+          if (res.data.file !== null) {
+            res.data.file.forEach( item => {
+              this.fileList_user.push({
+                id: item.id,
+                name: item.filename,
+                url: item.fileaddr
+              })
+            })
+          }
+        }else{
+          this.$message.error('获取流程信息失败：', res.error.message);
+        }
+      })
     },
+    // *******************************************
+    // ***************附件上传******************
+    // 上传成功
+    handleSuccess(response, file, fileList) {
+      this.addParams.annexurlid.push({
+        filename: response.data.filename,
+        fileaddr: response.data.path
+      })
+    },
+    // 移除上传项
+    handleRemove(file, fileList) {
+      this.addParams.annexurlid.forEach( (item, index) => {
+        if (item.filename == file.name) {
+          this.addParams.annexurlid.splice( index, 1 )
+        }
+      })
+    },
+    // 点击上传项回调
     handlePreview(file) {
       console.log(file);
     },
+    // 超出上传限制回调
     handleExceed(files, fileList) {
-      this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
-          files.length + fileList.length
-        } 个文件`
-      );
+      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
     },
+    // 移除前回调
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`);
+      return this.$confirm(`确定移除 ${ file.name }？`);
     },
+    // 下载文件流
+    async download(viewId, viewName) {
+      const { data: res } = await this.axios({
+          method: 'get',
+          url: `files/download/27`,
+          responseType: "blob",
+      })
+      let fileName = '测试pdf1.pdf';
+      let fileType = {
+        docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        pdf:'application/pdf',
+      }
+      let type=fileName.split('.')[1];//获取文件后缀名
+      let blob = new Blob([res],{
+        type:fileType.type
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    },
+    // ******************************************
+
+
   },
 };
 </script>

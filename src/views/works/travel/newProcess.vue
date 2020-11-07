@@ -1130,9 +1130,14 @@ export default {
       this.addParams.from_data = this.tableData
       addFlow(this.addParams)
       .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
+        if (result.status == 200) {
+          this.workid = result.data.workid
+          this.tableData.oaa01 = result.data.oaa01
+          this.tableData.oaa02 = result.data.oaa02
+          this.$message.success("保存成功！");
+        } else {
+          this.$message.error("保存失败：" + result.error.message);
+        }
       })
     },
     // 下一步
@@ -1140,9 +1145,14 @@ export default {
       this.addParams.from_data = this.tableData
       addFlow(this.addParams)
       .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
+        if (result.status == 200) {
+          this.workid = result.data.workid
+          this.tableData.oaa01 = result.data.oaa01
+          this.tableData.oaa02 = result.data.oaa02
+          // this.$message.success("保存成功！");
+        } else {
+          this.$message.error("保存失败：" + result.error.message);
+        }
       })
       .then(() => {
         this.$router.push(
