@@ -36,7 +36,7 @@
                 </div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox" >
-                  <div class="selector" @click="selectDialog('SQR')">{{tableData.oaa04}}</div>
+                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox">
@@ -939,12 +939,15 @@ export default {
       activeTab: "firTab",
       workid: '',
       workName:"外地差旅报销单（华录新媒）",//流程名
+      showData:{
+        oaa04_show: "", //申请人
+      },
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
         oaa01: "", //申请单编号
         oaa03: "", //经办人
-        oaa04: "", //申请人
+        oaa04: "", //申请人id
         oaa05: "", //联系电话
         //报销信息
         oaa06: "", //币种
@@ -1337,6 +1340,7 @@ export default {
         switch (this.dataSelect.cur_input) {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
+            this.showData.oaa04_show = val[0].gen02;
             break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01

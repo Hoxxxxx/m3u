@@ -530,7 +530,7 @@ export default {
   components: {},
   data() {
     return {
-      workid: '3893',
+      workid: '3907',
       workname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
