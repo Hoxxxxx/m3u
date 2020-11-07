@@ -37,7 +37,7 @@
                 <div class="titlebox">经办人</div>
                 <div class="infobox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">{{tableData.oaa04}}</div>
+                <div class="infobox selectbox">{{tableData.oaa04_show}}</div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox last_row">{{tableData.oaa05}}</div>
               </div>
@@ -131,7 +131,7 @@
               <div class="title_line">借款信息</div>
               <div class="form_line">
                 <div class="titlebox">币种</div>
-                <div class="infobox selectbox">{{tableData.oaa06}}</div>
+                <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
                 <div class="titlebox">借款金额</div>
                 <div class="infobox">{{tableData.oaa07}}</div>
                 <div class="titlebox">汇率</div>
@@ -147,7 +147,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">支付方式</div>
-                <div class="infobox longbox  selectbox">{{tableData.oaa12}}</div>
+                <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">借款事由</div>

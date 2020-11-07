@@ -32,20 +32,7 @@
                 <div class="infobox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
-                  <el-select
-                    v-model="tableData.oaa04"
-                    class="select"
-                    placeholder="请选择申请人"
-                    :loading="fixedData.selectLoading"
-                  >
-                    <el-option
-                      v-for="item in fixedData.genList"
-                      :key="item.gen01"
-                      :label="item.gen02"
-                      :value="item.gen01"
-                    >
-                    </el-option>
-                  </el-select>
+                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox last_row">
@@ -367,22 +354,41 @@
       </div>
     </el-card>
 
+    <!-- 数据选择弹出框 -->
+    <SelectData
+      :isLoading="dataSelect.selectLoading"
+      :dialogTitle.sync="dataSelect.dialogTitle"
+      :dialogVisible.sync="dataSelect.dialogVisible"
+      :headList.sync="dataSelect.headList"
+      :bodyData.sync="dataSelect.bodyData"
+      :choosedData="dataSelect.choosedData"
+      :editType.sync="dataSelect.editType"
+      :searchApi="dataSelect.searchApi"
+      :filter="dataSelect.filter"
+      :keyMsg="dataSelect.keyMsg"
+      @selectSure="selectSure"
+      @selectCancel="selectCancel"
+    ></SelectData>
   </div>
 </template>
 
 <script>
+import SelectData from "@/components/selectData";
 // api
 import { gensList, azisList, pmasList,  } from "@/api/basic";
 import { addFlow,  } from "@/api/process_new";
 
 export default {
-  components: {},
+  components: {SelectData},
   data() {
     return {
       workname: '出差借款申请',
       activeTab: "firTab",
       workid: '',
       workName:"出差借款申请",//流程名
+      showData:{
+        oaa04_show: "", //申请人
+      },
       tableData: {
         oaa01: '',
         oaa02: '',
@@ -429,6 +435,29 @@ export default {
         from_data: {},
         annexurlid: [],
         tplid: 8941
+      },
+      //数据选择弹出框
+      dataSelect: {
+        editType:"entry",
+        selectLoading:false,
+        cur_input: "", // 当前点击的输入框
+        dialogTitle: "数据选择", //当前弹框的title
+        dialogVisible: false, //控制显示隐藏弹框
+        headList: [], //表头
+        bodyData: [], //表格数据
+        choosedData: [], //选中的数据
+        searchApi: "", //搜索框的接口地址
+        filter: [], //筛选条件
+        keyMsg: [], //需要显示在顶部的数据
+      },
+      // 弹出框表头数据
+      tableHead: {
+        // 申请人
+        head_SQR: [
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+        ]
       },
     };
   },
@@ -549,7 +578,47 @@ export default {
       });
     },
     // ******************************************
-
+    // 数据选择
+    selectDialog(type,rowIndex) {
+      this.rowIndex = rowIndex;
+      this.dataSelect.dialogVisible = true;
+      this.dataSelect.cur_input = type;
+      this.dataSelect.choosedData = [];
+      switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchApi = "meta/gens";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
+        default:
+          return;
+          break;
+      }
+    },
+    selectCancel(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = val;
+      this.dataSelect.choosedData = val;
+    },
+    selectSure(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = [];
+      this.dataSelect.choosedData = val;
+      if (val.length > 0) {
+        switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.tableData.oaa04 = val[0].gen01;
+            this.showData.oaa04_show = val[0].gen02;
+            break;
+          default:
+            return;
+            break;
+        }
+      }
+    },
   },
 };
 </script>
