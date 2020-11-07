@@ -62,6 +62,7 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
+                    disabled
                   >
                   </el-date-picker>
                 </div>
@@ -72,6 +73,7 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
+                    disabled
                   >
                   </el-date-picker>
                 </div>
@@ -82,6 +84,7 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
+                    disabled
                   >
                   </el-date-picker>
                 </div>
@@ -162,6 +165,7 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
+                    disabled
                   >
                   </el-date-picker>
                 </div>

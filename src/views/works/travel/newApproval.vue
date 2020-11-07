@@ -145,6 +145,7 @@
                         <el-date-picker
                           v-model="scope.row.oab01"
                           style="width: 100%"
+                          disabled
                           type="date"
                           placeholder="开始日期"
                         >
@@ -163,6 +164,7 @@
                         <el-date-picker
                           v-model="scope.row.oab02"
                           style="width: 100%"
+                          disabled
                           type="date"
                           placeholder="结束日期"
                         >
@@ -399,6 +401,7 @@
                         <el-date-picker
                           v-model="scope.row.borrowDate"
                           style="width: 100%"
+                          disabled
                           type="date"
                           placeholder="选择借款日期"
                         >
