@@ -42,7 +42,7 @@
                 <span>下一步骤：</span>
                 <div class="mainSelect">
                   <el-select
-                    v-model="uploadData.workFlow"
+                    v-model="uploadData.next_flowid"
                     class="memeberSelect"
                     placeholder="请选择下一步骤"
                   >
@@ -61,7 +61,7 @@
                 <span>主办人员：</span>
                 <div class="mainSelect">
                   <el-select
-                    v-model="uploadData.member"
+                    v-model="uploadData.next_userid"
                     class="memeberSelect"
                     placeholder="请选择"
                   >
@@ -170,6 +170,7 @@
 
 <script>
 import {usersList,workflowsList} from "@/api/basic.js"
+import {transact} from "@/api/process_new.js"
 export default {
   components: {},
   data() {
@@ -191,8 +192,6 @@ export default {
       },
       // 需上传的数据
       uploadData: {
-        workFlow:"",//下一步骤内容
-        member: "", //下一步的审批人员
         content: "", //流程审批意见
         sms_content:"您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员",//消息内容
         return_user: 1,
@@ -201,6 +200,7 @@ export default {
         sms_mail: "",//邮件
         pertype:3,//审批类型，1：通过，2：拒绝，3：驳回
         next_userid:"",//下一步审批人id
+        next_flowid:"",//下一步流程id
       },
     };
   },
@@ -217,6 +217,9 @@ export default {
     },
     submit(){
       console.log(this.uploadData)
+      transact(this.uploadData).then(res=>{
+        console.log(res)
+      })
     },
     // 获取基础数据
     getUsers(){
@@ -225,6 +228,7 @@ export default {
         if(res.status == 200){
           this.fixedData.members = res.data
         }else{
+          this.$message.error("获取用户列表失败：" + result.error.message);
         }
       })
     },

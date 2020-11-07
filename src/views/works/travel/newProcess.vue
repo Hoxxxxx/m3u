@@ -6,7 +6,7 @@
         <el-button type="primary" @click="$router.push('/')"
           >回到首页</el-button
         >
-        <el-button type="primary" class="save" @click="save">保存</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow">保存</el-button>
         <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
@@ -21,7 +21,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">外地差旅报销单（华录新媒）</div>
+            <div class="title">{{workName}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -849,27 +849,6 @@
             </div>
           </div>
         </el-tab-pane>
-
-        <el-tab-pane label="流程进度" name="secTab">
-          <!-- tab标签 -->
-          <div slot="label" class="potBox">
-            <span
-              class="pot"
-              :class="activeTab == 'secTab' ? 'potActive' : ''"
-            ></span>
-            <span> 流程进度</span>
-          </div>
-          <!-- 内容 -->
-          <div class="tabContent">
-            <div class="title">固定资产付款</div>
-            <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name"
-                >流程名称：固定资产付款(No:20201102134630)张康成</span
-              >
-            </div>
-          </div>
-        </el-tab-pane>
       </el-tabs>
     </el-card>
 
@@ -952,6 +931,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: '',
+      workName:"外地差旅报销单（华录新媒）",//流程名
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
@@ -1168,6 +1148,7 @@ export default {
           {
             path:'/apply',
             query: {
+              workName:this.workName,
               workid: this.workid,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02

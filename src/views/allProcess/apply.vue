@@ -11,7 +11,7 @@
             ></span>
             <span>签批</span>
           </div>
-          <div class="title">固定资产付款</div>
+          <div class="title">{{workName}}</div>
           <div class="workName">
             <span class="code">业务日期：{{oaa02}}</span>
             <span class="name">申请单编号：{{oaa01}}</span>
@@ -39,7 +39,7 @@
                 <span>下一步骤：</span>
                 <div class="mainSelect">
                   <el-select
-                    v-model="uploadData.workFlow"
+                    v-model="uploadData.next_flowid"
                     class="memeberSelect"
                     placeholder="请选择下一步骤"
                   >
@@ -58,7 +58,7 @@
                 <span>主办人员：</span>
                 <div class="mainSelect">
                   <el-select
-                    v-model="uploadData.member"
+                    v-model="uploadData.next_userid"
                     class="memeberSelect"
                     placeholder="请选择主办人员"
                   >
@@ -191,11 +191,12 @@
 
 <script>
 import {usersList,workflowsList} from "@/api/basic.js"
+import {transact} from "@/api/process_new.js"
 export default {
   components: {},
   data() {
     return {
-      workid: '',
+      workName:"",//
       oaa01: '',
       oaa02: '',
       activeTab: "firTab",
@@ -215,8 +216,6 @@ export default {
       // 需上传的数据
       uploadData: {
         workid:"",//
-        workFlow:"",//下一步骤内容
-        member: "", //下一步的审批人员
         content: "", //流程审批意见
         sms_content:"",//消息内容
         sms_next: 1,//下一步办理人员
@@ -233,25 +232,14 @@ export default {
     };
   },
   created() {
-    this.workid =  this.$route.query.workid
+    this.workName = this.$route.query.workName
+    this.uploadData.workid =  this.$route.query.workid
     this.oaa01 =  this.$route.query.oaa01
     this.oaa02 =  this.$route.query.oaa02
     this.getUsers()
     this.getworkflows()
   },
   methods: {
-    // ***********获取下拉列表信息************
-    getUsers () {
-      usersList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.users = result.data
-        } else {
-          this.$message.error("获取用户列表失败：" + result.error.message);
-        }
-      })
-    },
-    // *******************************************
     handleClick() {},
     // 常用语选择
     handleCommand(command) {
@@ -260,6 +248,16 @@ export default {
     },
     submit(){
       console.log(this.uploadData)
+      transact(this.uploadData).then(res=>{
+        if(res.status == 200){
+          this.$message({
+            message: '提交成功！',
+            type: 'success'
+          })
+        }else{
+          this.$message.error('出错了！');
+        }
+      })
     },
     // 获取基础数据
     getUsers(){
@@ -267,13 +265,13 @@ export default {
         if(res.status == 200){
           this.fixedData.members = res.data
         }else{
-          this.$message.error(res.error);
+          this.$message.error("获取用户列表失败：" + result.error.message);
         }
       })
     },
     getworkflows(){
       const params = {
-        workid: this.workid
+        workid: this.uploadData.workid
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){

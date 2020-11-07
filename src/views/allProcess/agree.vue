@@ -40,7 +40,7 @@
                 <span>下一步骤：</span>
                 <div class="mainSelect">
                   <el-select
-                    v-model="uploadData.workFlow"
+                    v-model="uploadData.next_flowid"
                     class="memeberSelect"
                     placeholder="请选择下一步骤"
                   >
@@ -59,7 +59,7 @@
                 <span>主办人员：</span>
                 <div class="mainSelect">
                   <el-select
-                    v-model="uploadData.member"
+                    v-model="uploadData.next_userid"
                     class="memeberSelect"
                     placeholder="请选择"
                   >
@@ -192,6 +192,7 @@
 
 <script>
 import {usersList,workflowsList} from "@/api/basic.js"
+import {transact} from "@/api/process_new.js"
 export default {
   components: {},
   data() {
@@ -213,8 +214,6 @@ export default {
       },
       // 需上传的数据
       uploadData: {
-        workFlow:"",//下一步骤内容
-        member: "", //下一步的审批人员
         content: "", //流程审批意见
         sms_content: "", //消息内容
         sms_next: 1, //下一步办理人员
@@ -226,6 +225,7 @@ export default {
         sms_mail: "", //邮件
         pertype: 1, //审批类型，1：通过，2：拒绝，3：驳回
         next_userid:"",//下一步审批人id
+        next_flowid:"",//下一步流程id
       },
     };
   },
@@ -242,6 +242,9 @@ export default {
     },
     submit() {
       console.log(this.uploadData);
+      transact(this.uploadData).then(res=>{
+        console.log(res)
+      })
     },
     // 获取基础数据
     getUsers(){
@@ -250,6 +253,7 @@ export default {
         if(res.status == 200){
           this.fixedData.members = res.data
         }else{
+          this.$message.error("获取用户列表失败：" + result.error.message);
         }
       })
     },

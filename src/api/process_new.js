@@ -6,3 +6,10 @@ export const addFlow = (params) => {
       params
   )
 }
+
+// 流程审批
+export const transact = (params) => {
+  return request.post('oa/workflows/transact',
+      params
+  )
+}
