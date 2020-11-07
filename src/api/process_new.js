@@ -7,6 +7,12 @@ export const addFlow = (params) => {
   )
 }
 
+// 流程审批
+export const transact = (params) => {
+  return request.post('oa/workflows/transact',
+      params
+  )
+}
 // 流程详情
 export const workflowsList = (params) => {
   return request.get(`oa/workflows/${params.workid}`,
