@@ -14,10 +14,10 @@
             ></span>
             <span>签批</span>
           </div>
-          <div class="title">固定资产付款</div>
+          <div class="title">{{flowname}}</div>
           <div class="workName">
-            <div>编号:2020110213463</div>
-            <div>流程名称：固定资产付款(No:20201102134630)张康成</div>
+            <div>业务日期：{{oaa02}}</div>
+            <div>申请单编号：{{oaa01}}</div>
           </div>
           <!-- 步骤 -->
           <div class="processBox">
@@ -49,8 +49,8 @@
                     <el-option
                       v-for="(item,index) in fixedData.workFlows"
                       :key="index"
-                      :label="item.title"
-                      :value="item.id"
+                      :label="item.flowname"
+                      :value="item.fid"
                     >
                     </el-option>
                   </el-select>
@@ -193,17 +193,18 @@
 </template>
 
 <script>
-import {usersList,workflowsList} from "@/api/basic.js"
-import {transact} from "@/api/process_new.js"
+import { usersList,  } from "@/api/basic.js"
+import { workflowsList,transact } from "@/api/process_new.js"
+
 export default {
   components: {},
   data() {
     return {
+      workid: '',
+      flowname: '',
+      oaa01: '',
+      oaa02: '',
       activeTab: "firTab",
-      oaa01: '', // 申请单编号
-      oaa02: '', // 业务日期
-      flowid: '', // 流水号
-      flowname: '', // 流程名称
       // 页面固定数据
       fixedData: {
         members: [],
@@ -231,14 +232,21 @@ export default {
     };
   },
   created() {
+    this.initData()
     this.getUsers()
     this.getworkflows()
   },
   methods: {
+    // 初始化数据
+    initData() {
+      this.workid =  this.$route.query.workid
+      this.flowname = this.$route.query.flowname
+      this.oaa01 =  this.$route.query.oaa01
+      this.oaa02 =  this.$route.query.oaa02
+    },
     handleClick() {},
     // 常用语选择
     handleCommand(command) {
-      console.log(command);
       this.uploadData.content = command.label
     },
     submit(){
@@ -249,7 +257,6 @@ export default {
     },
     // 获取基础数据
     getUsers(){
-      console.log(123)
       usersList().then(res=>{
         if(res.status == 200){
           this.fixedData.members = res.data
@@ -259,11 +266,15 @@ export default {
       })
     },
     getworkflows(){
-      workflowsList().then(res=>{
+      const params = {
+        workid: this.workid
+      }
+      workflowsList(params).then(res=>{
         if(res.status == 200){
-          this.fixedData.workFlows = res.data
+          this.fixedData.workFlows = res.data.workclass_personnel.next_perid
+          this.uploadData.sms_content = `您有新的流程需要办理，流水号：${res.data.workclass_info.number}，流程名称：${res.data.workclass_info.title}`
         }else{
-          this.$message.error(res.error);
+          this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
     },

@@ -3,26 +3,15 @@
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
-        <el-button type="primary" @click="$router.push('/')"
-          >回到首页</el-button
-        >
-        <el-button type="primary" class="save">保存</el-button>
-        <el-button class="normal" style="margin-left: 50px">委托</el-button>
-        <el-button class="normal">挂起</el-button>
-        <el-button class="normal">增加会签人</el-button>
-        <el-button class="normal" style="margin-right: 70px">抛转</el-button>
-        <el-button type="primary" class="agree" @click="$router.push('/agree')"
-          >同意</el-button
-        >
-        <el-button
-          type="primary"
-          class="reject"
-          @click="$router.push('/reject')"
-          >拒绝</el-button
-        >
-        <el-button type="primary" class="back" @click="$router.push('/back')"
-          >退回</el-button
-        >
+        <el-button type="primary" @click="$router.push('/')">回到首页</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
+        <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
+        <!-- <el-button class="normal">挂起</el-button> -->
+        <!-- <el-button class="normal">增加会签人</el-button> -->
+        <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
+        <el-button type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
+        <el-button type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
+        <el-button type="primary" class="back" @click="nextStep('/back')">退回</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -151,6 +140,17 @@
                     min-width="160px"
                     align="center"
                   >
+                  <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.oab01"
+                          style="width: 100%"
+                          type="date"
+                          placeholder="开始日期"
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab02"
@@ -158,6 +158,17 @@
                     min-width="160px"
                     align="center"
                   >
+                  <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.oab02"
+                          style="width: 100%"
+                          type="date"
+                          placeholder="结束日期"
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab03"
@@ -383,6 +394,17 @@
                     min-width="130px"
                     align="center"
                   >
+                  <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.borrowDate"
+                          style="width: 100%"
+                          type="date"
+                          placeholder="选择借款日期"
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="apb28"
@@ -498,12 +520,15 @@
 </template>
 
 <script>
-// import FixedBtns from "@/components/fixedBtns";
+import { workflowsList, } from "@/api/process_new.js"
+import { addFlow,  } from "@/api/process_new";
 
 export default {
   components: {},
   data() {
     return {
+      workid: '3877',
+      flowname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
         // 基本信息
@@ -540,11 +565,27 @@ export default {
       },
     };
   },
-  created() {},
+  created() {
+    this.getworkflows()
+  },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
     },
+    // ***********获取流程信息************
+    getworkflows(){
+      const params = {
+        workid: this.workid
+      }
+      workflowsList(params).then(res=>{
+        if(res.status == 200){
+          this.tableData = res.data.workclass_info.from_data
+        }else{
+          this.$message.error('获取流程信息失败：', res.error.message);
+        }
+      })
+    },
+    // *******************************************
     // ***************附件上传******************
     // 上传成功
     handleSuccess(response, file, fileList) {
@@ -600,6 +641,32 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
+    // ****************其他操作*******************
+    // 新增表单
+    addNewFlow() {
+      this.addParams.from_data = this.tableData
+      addFlow(this.addParams)
+      .then( result => {
+        this.workid = result.data.workid
+        this.tableData.oaa01 = result.data.oaa01
+        this.tableData.oaa02 = result.data.oaa02
+      })
+    },
+    // 下一步
+    nextStep(url) {
+      this.$router.push({
+        path: url,
+        query: {
+          workid: this.workid,
+          flowname: this.flowname,
+          oaa01: this.tableData.oaa01,
+          oaa02: this.tableData.oaa02
+        }
+      })
+    },
+    // *******************************************
+
+
   },
 };
 </script>

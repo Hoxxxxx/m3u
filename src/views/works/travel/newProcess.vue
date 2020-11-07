@@ -6,7 +6,7 @@
         <el-button type="primary" @click="$router.push('/')"
           >回到首页</el-button
         >
-        <el-button type="primary" class="save" @click="addNewFlow">保存</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
         <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
@@ -21,7 +21,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workName}}</div>
+            <div class="title">{{flowname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -929,6 +929,7 @@ export default {
   components: {SelectData},
   data() {
     return {
+      flowname: '外地差旅报销单',
       activeTab: "firTab",
       workid: '',
       workName:"外地差旅报销单（华录新媒）",//流程名
@@ -1150,6 +1151,7 @@ export default {
             query: {
               workName:this.workName,
               workid: this.workid,
+              flowname: this.flowname,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02
             }
