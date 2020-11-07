@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">出差借款申请</div>
+            <div class="title">{{flowname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -398,6 +398,7 @@ export default {
   components: {},
   data() {
     return {
+      flowname: '出差借款申请',
       activeTab: "firTab",
       workid: '',
       tableData: {
@@ -545,13 +546,15 @@ export default {
             path:'/apply',
             query: {
               workid: this.workid,
+              flowname: this.flowname,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02
             }
           }
         )
       });
-    }
+    },
+    // ******************************************
 
   },
 };

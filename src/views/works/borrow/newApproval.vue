@@ -4,8 +4,14 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <el-button type="primary" @click="$router.push('/')">回到首页</el-button>
-        <el-button type="primary" class="save">保存</el-button>
-        <el-button type="primary" class="next" @click="$router.push('/apply')">下一步</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
+        <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
+        <!-- <el-button class="normal">挂起</el-button> -->
+        <!-- <el-button class="normal">增加会签人</el-button> -->
+        <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
+        <el-button type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
+        <el-button type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
+        <el-button type="primary" class="back" @click="nextStep('/back')">退回</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -39,13 +45,46 @@
               <div class="title_line">出差信息</div>
               <div class="form_line">
                 <div class="titlebox">预计开始时间</div>
-                <div class="infobox middlebox databox">{{tableData.oaa31}}</div>
+                <div class="infobox middlebox databox">
+                  <el-date-picker
+                    v-model="tableData.oaa31"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                    disabled
+                  >
+                  </el-date-picker>
+                </div>
                 <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox databox">{{tableData.oaa32}}</div>
+                <div class="infobox middlebox databox">
+                  <el-date-picker
+                    v-model="tableData.oaa32"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
                 <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox databox">{{tableData.oaa33}}</div>
+                <div class="infobox middlebox databox">
+                  <el-date-picker
+                    v-model="tableData.oaa33"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
                 <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox databox last_row">{{tableData.oaa34}}</div>
+                <div class="infobox middlebox databox last_row">
+                  <el-date-picker
+                    v-model="tableData.oaa34"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">出差目的</div>
@@ -117,7 +156,15 @@
                 <div class="titlebox">支出项目</div>
                 <div class="infobox middlebox">{{tableData.oaa20}}</div>
                 <div class="titlebox">实施时间</div>
-                <div class="infobox middlebox databox last_row">{{tableData.oaa21}}</div>
+                <div class="infobox middlebox databox last_row">
+                  <el-date-picker
+                    v-model="tableData.oaa21"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">我方参加部门</div>
@@ -224,14 +271,16 @@
 
 <script>
 // api
-import { gensList, azisList, pmasList,  } from "@/api/basic";
+import { workflowsList, } from "@/api/process_new.js"
+import { addFlow,  } from "@/api/process_new";
 
 export default {
   components: {},
   data() {
     return {
+      workid: 3874,
+      flowname: '出差借款申请',
       activeTab: "firTab",
-      radio: 3,
       tableData: {
         oaa01: '',
         oaa02: '',
@@ -282,45 +331,22 @@ export default {
     };
   },
   created() {
-    this.getGens()
-    this.getAzis()
-    this.getPmas()
+    this.getworkflows()
   },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
     },
-    // ***********获取下拉列表信息************
-    getGens () {
-      gensList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.genList = result.data;
-          this.fixedData.selectLoading = false;
-        } else {
-          this.$message.error("获取员工列表失败：" + result.error.message);
-        }
-      })
-    },
-    getAzis () {
-      azisList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.azisList = result.data;
-          this.fixedData.selectLoading = false;
-        } else {
-          this.$message.error("获取币种列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPmas () {
-      pmasList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pmasList = result.data;
-          this.fixedData.selectLoading = false;
-        } else {
-          this.$message.error("获取币种列表失败：" + result.error.message);
+    // ***********获取流程信息************
+    getworkflows(){
+      const params = {
+        workid: this.workid
+      }
+      workflowsList(params).then(res=>{
+        if(res.status == 200){
+          this.tableData = res.data.workclass_info.from_data
+        }else{
+          this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
     },
@@ -380,6 +406,32 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
+    // ****************其他操作*******************
+    // 新增表单
+    addNewFlow() {
+      this.addParams.from_data = this.tableData
+      addFlow(this.addParams)
+      .then( result => {
+        this.workid = result.data.workid
+        this.tableData.oaa01 = result.data.oaa01
+        this.tableData.oaa02 = result.data.oaa02
+      })
+    },
+    // 下一步
+    nextStep(url) {
+      this.$router.push({
+        path: url,
+        query: {
+          workid: this.workid,
+          flowname: this.flowname,
+          oaa01: this.tableData.oaa01,
+          oaa02: this.tableData.oaa02
+        }
+      })
+    },
+    // ******************************************
+
+
   },
 };
 </script>

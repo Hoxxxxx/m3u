@@ -11,7 +11,7 @@
             ></span>
             <span>签批</span>
           </div>
-          <div class="title">固定资产付款</div>
+          <div class="title">{{flowname}}</div>
           <div class="workName">
             <span class="code">业务日期：{{oaa02}}</span>
             <span class="name">申请单编号：{{oaa01}}</span>
@@ -190,19 +190,18 @@
 </template>
 
 <script>
-import {usersList,workflowsList} from "@/api/basic.js"
+import { usersList,  } from "@/api/basic.js"
+import { workflowsList, } from "@/api/process_new.js"
+
 export default {
   components: {},
   data() {
     return {
       workid: '',
+      flowname: '',
       oaa01: '',
       oaa02: '',
       activeTab: "firTab",
-      oaa01: '', // 申请单编号
-      oaa02: '', // 业务日期
-      flowid: '', // 流水号
-      flowname: '', // 流程名称
       // 页面固定数据
       fixedData: {
         members: [],
@@ -217,7 +216,7 @@ export default {
         workFlow:"",//下一步骤内容
         member: "", //下一步的审批人员
         content: "", //流程审批意见
-        sms_content:"您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员",//消息内容
+        sms_content: "",//消息内容
         sms_next: 1,//下一步办理人员
         sms_notice_user: 1,//当前步骤通知人员
         sms_user: "",//发起人
@@ -231,15 +230,20 @@ export default {
     };
   },
   created() {
-    this.workid =  this.$route.query.workid
-    this.oaa01 =  this.$route.query.oaa01
-    this.oaa02 =  this.$route.query.oaa02
+    this.initData()
     this.getUsers()
     this.getworkflows()
   },
   methods: {
+    // 初始化数据
+    initData() {
+      this.workid =  this.$route.query.workid
+      this.flowname = this.$route.query.flowname
+      this.oaa01 =  this.$route.query.oaa01
+      this.oaa02 =  this.$route.query.oaa02
+    },
     // ***********获取下拉列表信息************
-    getUsers () {
+    getUsers() {
       usersList()
       .then( result => {
         if (result.status == 200) {
@@ -253,7 +257,6 @@ export default {
     handleClick() {},
     // 常用语选择
     handleCommand(command) {
-      console.log(command);
       this.uploadData.content = command.label;
     },
     submit(){
@@ -273,11 +276,13 @@ export default {
       const params = {
         workid: this.workid
       }
-      workflowsList(params).then(res=>{
+      workflowsList(params)
+      .then(res=>{
         if(res.status == 200){
           this.fixedData.workFlows = res.data.workclass_personnel.next_perid
+          this.uploadData.sms_content = `您有新的流程需要办理，流水号：${res.data.workclass_info.number}，流程名称：${res.data.workclass_info.title}`
         }else{
-          this.$message.error(res.error);
+          this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
     },
