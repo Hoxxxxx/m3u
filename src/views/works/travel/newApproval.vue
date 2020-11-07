@@ -25,7 +25,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">外地差旅报销单（华录新媒）</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -584,6 +584,7 @@ export default {
       workflowsList(params).then(res=>{
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
+          this.workname = res.data.workclass_info.title
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({
