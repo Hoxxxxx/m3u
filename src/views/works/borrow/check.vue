@@ -262,7 +262,7 @@ export default {
   components: {},
   data() {
     return {
-      workid: 3874,
+      workid: '',
       workname: '出差借款申请',
       activeTab: "firTab",
       tableData: {
@@ -315,6 +315,7 @@ export default {
     };
   },
   created() {
+    this.workid = this.$route.query.workid
     this.getworkflows()
   },
   methods: {

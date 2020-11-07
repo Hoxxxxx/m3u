@@ -433,6 +433,7 @@ export default {
     };
   },
   created() {
+    // this.addParams.tplid = this.$route.query.tplid
     this.getGens()
     this.getAzis()
     this.getPmas()

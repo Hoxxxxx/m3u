@@ -530,7 +530,7 @@ export default {
   components: {},
   data() {
     return {
-      workid: '3893',
+      workid: '',
       workname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
@@ -570,6 +570,7 @@ export default {
     };
   },
   created() {
+    this.workid = this.$route.query.workid
     this.getworkflows()
   },
   methods: {

@@ -29,18 +29,18 @@ export default {
   data() {
     return {
       workList: [
-        {
-          name: "新建流程",
-          path: "/newPro",
-        },
-        {
-          name: "审批流程",
-          path: "/approvalPro",
-        },
-        {
-          name: "查看",
-          path: "/check",
-        },
+        // {
+        //   name: "新建流程",
+        //   path: "/newPro",
+        // },
+        // {
+        //   name: "审批流程",
+        //   path: "/approvalPro",
+        // },
+        // {
+        //   name: "查看",
+        //   path: "/check",
+        // },
         {
           name: "外地差旅报销单——申请",
           path: "/travel",

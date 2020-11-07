@@ -509,7 +509,7 @@ import { workflowsList, } from "@/api/process_new.js"
 export default {
   data() {
     return {
-      workid: '3877',
+      workid: '',
       workname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
@@ -548,6 +548,7 @@ export default {
     };
   },
   created() {
+    this.workid = this.$route.query.workid
     this.getworkflows()
   },
   methods: {
