@@ -241,16 +241,15 @@ export default {
       tableHead: {
         // 申请人
         head_SQR: [
-          { name: "gen01", title: "员工编号" },
-          { name: "gen02", title: "员工名称" },
-          { name: "gen03", title: "所属部门编号" },
+          { name: "id", title: "员工编号" },
+          { name: "name", title: "员工名称" },
         ]
       },
     };
   },
   created() {
     this.initData()
-    this.getUsers()
+    // this.getUsers()
     this.getworkflows()
   },
   methods: {
@@ -312,7 +311,7 @@ export default {
         case "SQR":
           let filter_SQR = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_SQR;
-          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.searchApi = "oa/users";
           this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
