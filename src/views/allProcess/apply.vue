@@ -57,7 +57,7 @@
                 <img src="../../assets/img/person.png" />
                 <span>主办人员：</span>
                 <div class="mainSelect">
-                  <el-select
+                  <!-- <el-select
                     v-model="uploadData.next_userid"
                     class="memeberSelect"
                     placeholder="请选择主办人员"
@@ -68,8 +68,9 @@
                       :label="item.name"
                       :value="item.id"
                     >
-                    </el-option>
-                  </el-select>
+                    </el-option> -->
+                  <!-- </el-select> -->
+                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
                 </div>
               </div>
             </div>
@@ -186,15 +187,31 @@
         <el-button type="primary" @click="submit()">提交</el-button>
       </div>
     </el-card>
+    <!-- 数据选择弹出框 -->
+    <SelectData
+      :isLoading="dataSelect.selectLoading"
+      :dialogTitle.sync="dataSelect.dialogTitle"
+      :dialogVisible.sync="dataSelect.dialogVisible"
+      :headList.sync="dataSelect.headList"
+      :bodyData.sync="dataSelect.bodyData"
+      :choosedData="dataSelect.choosedData"
+      :editType.sync="dataSelect.editType"
+      :searchApi="dataSelect.searchApi"
+      :filter="dataSelect.filter"
+      :keyMsg="dataSelect.keyMsg"
+      @selectSure="selectSure"
+      @selectCancel="selectCancel"
+    ></SelectData>
   </div>
 </template>
 
 <script>
+import SelectData from "@/components/selectData";
 import { usersList,  } from "@/api/basic.js"
 import { workflowsList,transact } from "@/api/process_new.js"
 
 export default {
-  components: {},
+  components: {SelectData},
   data() {
     return {
       workname: '',
@@ -209,6 +226,9 @@ export default {
           { label: "同意", value: 0 },
           { label: "拒绝", value: 1 },
         ],
+      },
+      showData:{
+        oaa04_show: "", //申请人
       },
       // 需上传的数据
       uploadData: {
@@ -226,11 +246,33 @@ export default {
         next_userid:"",//下一步审批人id
         next_flowid:"",//下一步流程id
       },
+      //数据选择弹出框
+      dataSelect: {
+        editType:"entry",
+        selectLoading:false,
+        cur_input: "", // 当前点击的输入框
+        dialogTitle: "数据选择", //当前弹框的title
+        dialogVisible: false, //控制显示隐藏弹框
+        headList: [], //表头
+        bodyData: [], //表格数据
+        choosedData: [], //选中的数据
+        searchApi: "", //搜索框的接口地址
+        filter: [], //筛选条件
+        keyMsg: [], //需要显示在顶部的数据
+      },
+      // 弹出框表头数据
+      tableHead: {
+        // 申请人
+        head_SQR: [
+          { name: "id", title: "员工编号" },
+          { name: "name", title: "员工名称" },
+        ]
+      },
     };
   },
   created() {
     this.initData()
-    this.getUsers()
+    // this.getUsers()
     this.getworkflows()
   },
   methods: {
@@ -291,6 +333,48 @@ export default {
         }
       })
     },
+
+    // 数据选择
+    selectDialog(type,rowIndex) {
+      this.rowIndex = rowIndex;
+      this.dataSelect.dialogVisible = true;
+      this.dataSelect.cur_input = type;
+      this.dataSelect.choosedData = [];
+      switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchApi = "oa/users";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
+        default:
+          return;
+          break;
+      }
+    },
+    selectCancel(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = val;
+      this.dataSelect.choosedData = val;
+    },
+    selectSure(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = [];
+      this.dataSelect.choosedData = val;
+      if (val.length > 0) {
+        switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.uploadData.next_userid = val[0].gen01
+            this.showData.oaa04_show = val[0].gen02;
+            break;
+          default:
+            return;
+            break;
+        }
+      }
+    },
   },
 };
 </script>
@@ -305,8 +389,19 @@ export default {
     text-align: center;
   }
   .mainSelect {
+    .selector{
+      background-color: #f5f5f5;
+      width: 228px;
+      height: 26px;
+      line-height: 28px;
+      border-radius: 4px;
+      padding: 0 15px;
+      font-size: 16px;
+      color: #333333;
+    }
     .el-input {
       font-size: 16px;
+      
       .el-input__inner {
         padding-left: 15px;
         &::-webkit-input-placeholder {
