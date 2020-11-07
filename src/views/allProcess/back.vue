@@ -226,7 +226,14 @@ export default {
     submit(){
       console.log(this.uploadData)
       transact(this.uploadData).then(res=>{
-        console.log(res)
+        if(res.status == 200){
+          this.$message({
+            message: '提交成功！',
+            type: 'success'
+          })
+        }else{
+          this.$message.error('出错了！');
+        }
       })
     },
     // 获取基础数据
