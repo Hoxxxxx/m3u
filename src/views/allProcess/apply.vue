@@ -237,7 +237,7 @@ export default {
   methods: {
     // 初始化数据
     initData() {
-      this.workid =  this.$route.query.workid
+      this.uploadData.workid =  this.$route.query.workid
       this.flowname = this.$route.query.flowname
       this.oaa01 =  this.$route.query.oaa01
       this.oaa02 =  this.$route.query.oaa02
