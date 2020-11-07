@@ -198,7 +198,6 @@ export default {
   components: {},
   data() {
     return {
-      workid: '',
       workname: '',
       oaa01: '',
       oaa02: '',
@@ -215,6 +214,7 @@ export default {
       },
       // 需上传的数据
       uploadData: {
+        workid: '',
         content: "", //流程审批意见
         sms_content: "", //消息内容
         sms_next: 1, //下一步办理人员
@@ -238,7 +238,7 @@ export default {
   methods: {
     // 初始化数据
     initData() {
-      this.workid =  this.$route.query.workid
+      this.uploadData.workid =  this.$route.query.workid
       this.workname = this.$route.query.workname
       this.oaa01 =  this.$route.query.oaa01
       this.oaa02 =  this.$route.query.oaa02
@@ -266,7 +266,7 @@ export default {
     },
     getworkflows(){
       const params = {
-        workid: this.workid
+        workid: this.uploadData.workid
       }
       workflowsList(params)
       .then(res=>{

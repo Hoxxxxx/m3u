@@ -176,7 +176,6 @@ export default {
   components: {},
   data() {
     return {
-      workid: '',
       workname: '',
       oaa01: '',
       oaa02: '',
@@ -193,6 +192,7 @@ export default {
       },
       // 需上传的数据
       uploadData: {
+        workid: '',
         content: "", //流程审批意见
         sms_content:"您有新的流程需要办理，流水号：20201102133656，流程名称：借款申请2222(No:20201102133656)分公司(2)系统管理员",//消息内容
         return_user: 1,
@@ -213,7 +213,7 @@ export default {
   methods: {
     // 初始化数据
     initData() {
-      this.workid =  this.$route.query.workid
+      this.uploadData.workid =  this.$route.query.workid
       this.workname = this.$route.query.workname
       this.oaa01 =  this.$route.query.oaa01
       this.oaa02 =  this.$route.query.oaa02
@@ -241,7 +241,7 @@ export default {
     },
     getworkflows(){
       const params = {
-        workid: this.workid
+        workid: this.uploadData.workid
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
