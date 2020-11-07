@@ -3,9 +3,7 @@
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
-        <el-button type="primary" @click="$router.push('/')"
-          >回到首页</el-button
-        >
+        <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
