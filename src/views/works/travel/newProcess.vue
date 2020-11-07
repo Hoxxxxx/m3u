@@ -752,7 +752,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="apb02"
+                    prop=""
                     label="待抵单号"
                     min-width="150px"
                     align="center"
@@ -762,15 +762,17 @@
                         <el-input
                           v-model="scope.row.apb02"
                           placeholder="请输入待抵单号"
+                          disabled
                         ></el-input>
                       </div>
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="apb09"
+                    prop=""
                     label="借款日期"
                     min-width="130px"
                     align="center"
+                    
                   >
                     <template slot-scope="scope">
                       <div>
@@ -778,6 +780,7 @@
                           v-model="scope.row.borrowDate"
                           style="width: 100%"
                           type="date"
+                          disabled
                           placeholder="选择借款日期"
                         >
                         </el-date-picker>
@@ -785,7 +788,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="apb28"
+                    prop=""
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -795,12 +798,13 @@
                         <el-input
                           v-model="scope.row.apb28"
                           placeholder="请输入借款人"
+                          disabled
                         ></el-input>
                       </div>
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="apb35"
+                    prop=""
                     label="借款总金额"
                     min-width="130px"
                     align="center"
@@ -810,6 +814,7 @@
                         <el-input
                           v-model="scope.row.apb35"
                           placeholder="请输入借款总金额"
+                          disabled
                         ></el-input>
                       </div>
                     </template>
@@ -830,7 +835,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="apb25"
+                    prop=""
                     label="凭证号"
                     min-width="150px"
                     align="center"
@@ -840,6 +845,7 @@
                         <el-input
                           v-model="scope.row.apb25"
                           placeholder="请输入凭证号"
+                          disabled
                         ></el-input>
                       </div>
                     </template>

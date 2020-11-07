@@ -40,7 +40,7 @@
                 </div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
-                  {{ tableData.oaa04 }}
+                  {{ tableData.oaa04_show }}
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox">
@@ -53,7 +53,7 @@
               <div class="form_line">
                 <div class="titlebox">币种</div>
                 <div class="infobox selectbox">
-                  {{ tableData.oaa06 }}
+                  {{ tableData.oaa06_show }}
                 </div>
                 <div class="titlebox">汇率</div>
                 <div class="infobox">
@@ -76,7 +76,7 @@
                 </div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox">
-                  {{ tableData.oaa12 }}
+                  {{ tableData.oaa12_show }}
                 </div>
               </div>
               <!-- 3 -->
@@ -321,14 +321,14 @@
                   >
                   </el-table-column>
                   <el-table-column
-                    prop="oac04"
+                    prop="oac04_show"
                     label="项目"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
-                    prop="oac05"
+                    prop="oac05_show"
                     label="项目WBS"
                     min-width="150px"
                     align="center"
@@ -530,7 +530,7 @@ export default {
   components: {},
   data() {
     return {
-      workid: '3877',
+      workid: '3893',
       workname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
