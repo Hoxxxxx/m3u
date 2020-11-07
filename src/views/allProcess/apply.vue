@@ -11,7 +11,7 @@
             ></span>
             <span>签批</span>
           </div>
-          <div class="title">{{flowname}}</div>
+          <div class="title">{{workname}}</div>
           <div class="workName">
             <span class="code">业务日期：{{oaa02}}</span>
             <span class="name">申请单编号：{{oaa01}}</span>
@@ -198,7 +198,7 @@ export default {
   data() {
     return {
       workid: '',
-      flowname: '',
+      workname: '',
       oaa01: '',
       oaa02: '',
       activeTab: "firTab",
@@ -240,7 +240,7 @@ export default {
     // 初始化数据
     initData() {
       this.workid =  this.$route.query.workid
-      this.flowname = this.$route.query.flowname
+      this.workname = this.$route.query.workname
       this.oaa01 =  this.$route.query.oaa01
       this.oaa02 =  this.$route.query.oaa02
     },

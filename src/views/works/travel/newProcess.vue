@@ -21,7 +21,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{flowname}}</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -950,7 +950,7 @@ export default {
   components: {SelectData},
   data() {
     return {
-      flowname: '外地差旅报销单',
+      workname: '外地差旅报销单',
       activeTab: "firTab",
       workid: '',
       tableData: {
@@ -1170,7 +1170,7 @@ export default {
             path:'/apply',
             query: {
               workid: this.workid,
-              flowname: this.flowname,
+              workname: this.workname,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02
             }

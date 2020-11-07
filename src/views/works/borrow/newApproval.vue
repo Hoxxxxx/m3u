@@ -279,7 +279,7 @@ export default {
   data() {
     return {
       workid: 3874,
-      flowname: '出差借款申请',
+      workname: '出差借款申请',
       activeTab: "firTab",
       tableData: {
         oaa01: '',
@@ -423,7 +423,7 @@ export default {
         path: url,
         query: {
           workid: this.workid,
-          flowname: this.flowname,
+          workname: this.workname,
           oaa01: this.tableData.oaa01,
           oaa02: this.tableData.oaa02
         }

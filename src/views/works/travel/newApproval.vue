@@ -528,7 +528,7 @@ export default {
   data() {
     return {
       workid: '3877',
-      flowname: '外地差旅报销单',
+      workname: '外地差旅报销单',
       activeTab: "firTab",
       tableData: {
         // 基本信息
@@ -658,7 +658,7 @@ export default {
         path: url,
         query: {
           workid: this.workid,
-          flowname: this.flowname,
+          workname: this.workname,
           oaa01: this.tableData.oaa01,
           oaa02: this.tableData.oaa02
         }
