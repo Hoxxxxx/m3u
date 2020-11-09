@@ -209,7 +209,7 @@
                 </div>
                 <div class="form_line">
                   <div class="titlebox">支付方式</div>
-                  <div class="infobox longbox selectbox" style="background: #F5F7FA;">
+                  <div class="infobox longbox selectbox disabledbox">
                     <el-select
                       v-model="tableData.oaa12"
                       class="select"
@@ -229,9 +229,9 @@
                 </div>
                 <div class="form_line">
                   <div class="titlebox">折合汇率金额</div>
-                  <div class="infobox middlebox">{{exchange}}</div>
+                  <div class="infobox middlebox disabledbox">{{exchange}}</div>
                   <div class="titlebox">折合汇率金额大写</div>
-                  <div class="infobox middlebox last_row">{{exchange_Cap}}</div>
+                  <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
                 </div>
                 <div class="form_line last_line">
                   <div class="titlebox">借款事由</div>
