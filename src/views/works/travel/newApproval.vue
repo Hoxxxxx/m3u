@@ -473,7 +473,7 @@
         <div class="saveList">
           <div class="saveItem" v-for="(item,index) in fileList_user" :key="index">
             <i class="el-icon-document" style="margin-right: 7px"></i>
-            <span>{{item.name}}</span>
+            <a style="cursor: pointer;" @click="download(item.id, item.name)"><span>{{item.name}}</span></a>
             <div class="btnBox">
               <!-- <el-button type="text">预览</el-button> -->
               <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
