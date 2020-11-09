@@ -76,6 +76,7 @@
 
 <script>
 import request from "@/utils/request";
+import axios from "axios"
 export default {
   props: {
     // 加载效果
@@ -114,6 +115,11 @@ export default {
     searchApi: {
       type: String,
       default: "",
+    },
+    // 搜索类型
+    searchType: {
+      type: String,
+      default: "single",
     },
     // 筛选条件
     filter: {
@@ -205,18 +211,32 @@ export default {
     // 单选的搜索功能
     search_single() {
       console.log(this.filter_key);
-      let params = this.filter_key
-      request.get(this.searchApi,{},{params}).then(res=>{
-        if(res.status == 200){
-          this.tableData = res.data
-        }
-      });
+      let params = this.filter_key;
+      if (this.searchType == "mixed") {
+        let workParams = {}
+        Object.keys(this.filter_key).forEach((key) => {
+          workParams["filter[" + key + "]"] = this.filter_key[key];
+        });
+        request.get(this.searchApi,{},{params:workParams})
+          .then((res) => {
+            if (res.status == 200) {
+              this.tableData = res.data;
+            }
+          });
+      } else {
+        request.get(this.searchApi,{},{params})
+          .then((res) => {
+            if (res.status == 200) {
+              this.tableData = res.data;
+            }
+          });
+      }
     },
     // 清空时重新搜索所有值
-    search_all(){
-      request.get(this.searchApi,{},{}).then(res=>{
-        if(res.status == 200){
-          this.tableData = res.data
+    search_all() {
+      request.get(this.searchApi, {}, {}).then((res) => {
+        if (res.status == 200) {
+          this.tableData = res.data;
         }
       });
     },
@@ -242,8 +262,8 @@ export default {
   margin-bottom: 30px;
   color: #000;
 }
-.filter{
-  border-bottom: 1px solid #EBEEF5;
+.filter {
+  border-bottom: 1px solid #ebeef5;
 }
 .filter {
   width: 100%;

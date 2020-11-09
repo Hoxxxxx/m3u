@@ -4,8 +4,12 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
-        <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow()"
+          >保存</el-button
+        >
+        <el-button type="primary" class="next" @click="nextStep()"
+          >下一步</el-button
+        >
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -19,7 +23,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{ workname }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -33,8 +37,10 @@
                   {{ tableData.oaa03 }}
                 </div>
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox" >
-                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('SQR')">
+                    {{ showData.oaa04_show }}
+                  </div>
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox">
@@ -75,14 +81,14 @@
                 </div>
                 <div class="titlebox">支付金额</div>
                 <div class="infobox last_row editNot">
-                  {{ tableData.payMoney }}
+                  {{ payMoney }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">报销金额</div>
                 <div class="infobox editNot">
-                  {{ tableData.expenseMoney }}
+                  {{ expenseMoney }}
                 </div>
                 <div class="titlebox">报销金额大写</div>
                 <div class="infobox editNot">
@@ -120,19 +126,9 @@
               <div class="form_line">
                 <div class="titlebox">出差申请单</div>
                 <div class="infobox longbox selectbox">
-                  <el-select
-                    v-model="tableData.oaa15"
-                    class="select"
-                    placeholder="请选择出差申请单"
-                  >
-                    <el-option
-                      v-for="(item, index) in fixedData.applyTypes"
-                      :key="index"
-                      :label="item.label"
-                      :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
+                  <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('CCSQD')">
+                    {{ showData.oaa15_show }}
+                  </div>
                 </div>
               </div>
               <!-- 5 -->
@@ -279,46 +275,30 @@
                   <el-table-column
                     prop="oab04"
                     label="出发地"
-                    min-width="130px"
+                    min-width="150px"
                     align="center"
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-select
+                        <el-input
                           v-model="scope.row.oab04"
-                          placeholder="请选择出发地"
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_06"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
+                          placeholder="出发地"
+                        ></el-input>
                       </div>
                     </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab05"
                     label="目的地"
-                    min-width="130px"
+                    min-width="150px"
                     align="center"
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-select
+                        <el-input
                           v-model="scope.row.oab05"
-                          placeholder="请选择目的地"
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_07"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
+                          placeholder="目的地"
+                        ></el-input>
                       </div>
                     </template>
                   </el-table-column>
@@ -477,35 +457,35 @@
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName">费用合计</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ totalCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">车船费合计</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ carCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">住宿费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ accomCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">室内交通费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ tansportCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">会议费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ conferCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">交际费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ commuCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">其他</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ others }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">补助合计</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont">{{ subside }}</div>
                     </li>
                   </ul>
                 </div>
@@ -555,19 +535,12 @@
                   >
                     <template slot-scope="scope">
                       <div>
-                        <!-- <el-select
-                          v-model="scope.row.oac01"
-                          placeholder="请选择会计科目"
+                        <div
+                          class="selector selectBorder"
+                          @click="selectDialog('KJKM', scope.$index)"
                         >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_01"
-                            :key="index"
-                            :label="item.aag02"
-                            :value="item.aag01"
-                          >
-                          </el-option>
-                        </el-select> -->
-                        <div class="selector selectBorder" @click="selectDialog('KJKM',scope.$index)">{{scope.row.oac01}}</div>
+                          {{ scope.row.oac01 }}
+                        </div>
                       </div>
                     </template>
                   </el-table-column>
@@ -579,19 +552,12 @@
                   >
                     <template slot-scope="scope">
                       <div>
-                        <!-- <el-select
-                          v-model="scope.row.oac04"
-                          placeholder="请选择项目"
+                        <div
+                          class="selector selectBorder"
+                          @click="selectDialog('XM', scope.$index)"
                         >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_02"
-                            :key="index"
-                            :label="item.pja02"
-                            :value="item.pja01"
-                          >
-                          </el-option>
-                        </el-select> -->
-                        <div class="selector selectBorder" @click="selectDialog('XM',scope.$index)">{{scope.row.oac04}}</div>
+                          {{ scope.row.oac04 }}
+                        </div>
                       </div>
                     </template>
                   </el-table-column>
@@ -603,19 +569,12 @@
                   >
                     <template slot-scope="scope">
                       <div>
-                        <!-- <el-select
-                          v-model="scope.row.oac05"
-                          placeholder="请选择项目WBS"
+                        <div
+                          class="selector selectBorder"
+                          @click="selectDialog('WBS', scope.$index)"
                         >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_03"
-                            :key="index"
-                            :label="item.pjb03"
-                            :value="item.pjb02"
-                          >
-                          </el-option>
-                        </el-select> -->
-                        <div class="selector selectBorder" @click="selectDialog('WBS',scope.$index)">{{scope.row.oac05}}</div>
+                          {{ scope.row.oac05 }}
+                        </div>
                       </div>
                     </template>
                   </el-table-column>
@@ -770,7 +729,6 @@
                     label="借款日期"
                     min-width="130px"
                     align="center"
-                    
                   >
                     <template slot-scope="scope">
                       <div>
@@ -908,6 +866,7 @@
       :choosedData="dataSelect.choosedData"
       :editType.sync="dataSelect.editType"
       :searchApi="dataSelect.searchApi"
+      :searchType="dataSelect.searchType"
       :filter="dataSelect.filter"
       :keyMsg="dataSelect.keyMsg"
       @selectSure="selectSure"
@@ -918,8 +877,8 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt } from "@/utils/utils.js";
-import { addFlow } from "@/api/process_new";
+import { dateFmt,number_chinese } from "@/utils/utils.js";
+import { addFlow,workflows } from "@/api/process_new";
 import {
   gensList,
   azisList,
@@ -930,15 +889,16 @@ import {
 } from "@/api/basic.js";
 
 export default {
-  components: {SelectData},
+  components: { SelectData },
   data() {
     return {
-      workname: '外地差旅报销单',
+      workname: "外地差旅报销单",
       activeTab: "firTab",
-      workid: '',
-      workName:"外地差旅报销单（华录新媒）",//流程名
-      showData:{
+      workid: "",
+      workName: "外地差旅报销单（华录新媒）", //流程名
+      showData: {
         oaa04_show: "", //申请人
+        oaa15_show:"",//出差申请单
       },
       tableData: {
         // 基本信息
@@ -948,9 +908,9 @@ export default {
         oaa04: "", //申请人id
         oaa05: "", //联系电话
         //报销信息
-        oaa06: "", //币种
+        oaa06: "RMB", //币种
         oaa08: "1", //汇率
-        oaa12: "", //支付方式
+        oaa12: "TT", //支付方式
         oaa14: "", //发票张数
         oaa15: "", //出差申请单
         oaa16: "", //说明
@@ -972,17 +932,6 @@ export default {
         cointypes: [],
         //支付方式
         payTypes: [],
-        //出差申请单类型
-        applyTypes: [
-          {
-            value: "0",
-            label: "出差申请单1",
-          },
-          {
-            value: "1",
-            label: "出差申请单2",
-          },
-        ],
         // 表格部分
         // 会计科目
         options_01: [],
@@ -1012,28 +961,6 @@ export default {
             label: "核算项2",
           },
         ],
-        //出发地
-        options_06: [
-          {
-            value: "0",
-            label: "出发地1",
-          },
-          {
-            value: "1",
-            label: "出发地2",
-          },
-        ],
-        //目的地
-        options_07: [
-          {
-            value: "0",
-            label: "目的地1",
-          },
-          {
-            value: "1",
-            label: "目的地2",
-          },
-        ],
       },
       fileList: [],
       addParams: {
@@ -1042,11 +969,11 @@ export default {
         tplid: 8943,
       },
 
-      rowIndex:"",//当前点击的行数
+      rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
-        editType:"entry",
-        selectLoading:false,
+        editType: "entry",
+        selectLoading: false,
         cur_input: "", // 当前点击的输入框
         dialogTitle: "数据选择", //当前弹框的title
         dialogVisible: false, //控制显示隐藏弹框
@@ -1054,6 +981,7 @@ export default {
         bodyData: [], //表格数据
         choosedData: [], //选中的数据
         searchApi: "", //搜索框的接口地址
+        searchType:"",//搜索类型
         filter: [], //筛选条件
         keyMsg: [], //需要显示在顶部的数据
       },
@@ -1087,8 +1015,91 @@ export default {
           { name: "pjb01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
         ],
+        head_CCSQD:[
+          { name: "id", title: "id" },
+          { name: "title", title: "流程名称" },
+        ]
       },
     };
+  },
+  computed: {
+    totalCost() {
+      let sum = this.carCost +
+        this.accomCost +
+        this.tansportCost +
+        this.conferCost +
+        this.commuCost +
+        this.others
+      return sum;
+    },
+    // 车船费
+    carCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab06);
+      }, 0);
+    },
+    //住宿费
+    accomCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab08);
+      }, 0);
+    },
+    // 室内交通费
+    tansportCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab10);
+      }, 0);
+    },
+    // 会议费
+    conferCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab12);
+      }, 0);
+    },
+    //交际费
+    commuCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab13);
+      }, 0);
+    },
+    // 其他
+    others() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab14);
+      }, 0);
+    },
+    // 补助合计
+    subside() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return (
+          prev +
+          (Number(cur.oab07) +
+            Number(cur.oab09) +
+            Number(cur.oab11) +
+            Number(cur.oab15))
+        );
+      }, 0);
+    },
+    // 报销金额（不含税）
+    expenseMoney(){
+      let sum =  this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac07);
+      }, 0);
+      this.tableData.expenseMoney = sum
+      this.tableData.expenseMoneyF = number_chinese(sum)
+      return sum
+    },
+    // 支付金额
+    payMoney(){
+      // 还款金额总和
+      let sum = this.tableData.oad.reduce((prev, cur) => {
+        return prev + Number(cur.oad02);
+      }, 0);
+      // 支付金额
+      let res = this.expenseMoney - sum
+      this.tableData.payMoney = res
+      return res
+    }
   },
   created() {
     // this.addParams.tplid = this.$route.query.tplid
@@ -1135,47 +1146,44 @@ export default {
     // ****************其他操作*******************
     // 新增表单
     addNewFlow() {
-      this.addParams.from_data = this.tableData
-      addFlow(this.addParams)
-      .then( result => {
+      this.addParams.from_data = this.tableData;
+      addFlow(this.addParams).then((result) => {
         if (result.status == 200) {
-          this.workid = result.data.workid
-          this.tableData.oaa01 = result.data.oaa01
-          this.tableData.oaa02 = result.data.oaa02
+          this.workid = result.data.workid;
+          this.tableData.oaa01 = result.data.oaa01;
+          this.tableData.oaa02 = result.data.oaa02;
           this.$message.success("保存成功！");
         } else {
           this.$message.error("保存失败：" + result.error.message);
         }
-      })
+      });
     },
     // 下一步
     nextStep() {
-      this.addParams.from_data = this.tableData
+      this.addParams.from_data = this.tableData;
       addFlow(this.addParams)
-      .then( result => {
-        if (result.status == 200) {
-          this.workid = result.data.workid
-          this.tableData.oaa01 = result.data.oaa01
-          this.tableData.oaa02 = result.data.oaa02
-          // this.$message.success("保存成功！");
-        } else {
-          this.$message.error("保存失败：" + result.error.message);
-        }
-      })
-      .then(() => {
-        this.$router.push(
-          {
-            path:'/apply',
+        .then((result) => {
+          if (result.status == 200) {
+            this.workid = result.data.workid;
+            this.tableData.oaa01 = result.data.oaa01;
+            this.tableData.oaa02 = result.data.oaa02;
+            // this.$message.success("保存成功！");
+          } else {
+            this.$message.error("保存失败：" + result.error.message);
+          }
+        })
+        .then(() => {
+          this.$router.push({
+            path: "/apply",
             query: {
-              workName:this.workName,
+              workName: this.workName,
               workid: this.workid,
               workname: this.workname,
               oaa01: this.tableData.oaa01,
-              oaa02: this.tableData.oaa02
-            }
-          }
-        )
-      });
+              oaa02: this.tableData.oaa02,
+            },
+          });
+        });
     },
     // *******************************************
     // 表格部分
@@ -1283,7 +1291,7 @@ export default {
     },
     // ******************
     // 数据选择
-    selectDialog(type,rowIndex) {
+    selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
       this.dataSelect.dialogVisible = true;
       this.dataSelect.cur_input = type;
@@ -1321,6 +1329,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
           break;
+        case "CCSQD":
+          let filter_CCSQD = [{ label: "", model_key_search: "title" }];
+          this.dataSelect.filter = filter_CCSQD;
+          this.dataSelect.searchType = "mixed"
+          this.dataSelect.searchApi = "oa/workflows";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_CCSQD;
+          this.dataSelect.dialogTitle = "出差申请单列表";
+          break;
         default:
           return;
           break;
@@ -1342,13 +1359,17 @@ export default {
             this.showData.oaa04_show = val[0].gen02;
             break;
           case "KJKM":
-            this.tableData.oac[this.rowIndex].oac01 = val[0].aag01
+            this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
             break;
           case "XM":
-            this.tableData.oac[this.rowIndex].oac04 = val[0].pja01
+            this.tableData.oac[this.rowIndex].oac04 = val[0].pja01;
             break;
           case "WBS":
-            this.tableData.oac[this.rowIndex].oac05 = val[0].pjb02
+            this.tableData.oac[this.rowIndex].oac05 = val[0].pjb02;
+            break;
+          case "CCSQD":
+            this.tableData.oaa15 = val[0].id;
+            this.showData.oaa15_show = val[0].title;
             break;
           default:
             return;

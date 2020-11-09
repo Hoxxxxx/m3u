@@ -454,12 +454,10 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">固定资产付款</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name"
-                >流程名称：固定资产付款(No:20201102134630)张康成</span
-              >
+              <span class="code">业务日期：{{ tableData.oaa02 }}</span>
+              <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
             </div>
           </div>
         </el-tab-pane>
@@ -502,18 +500,11 @@
       <div class="tabContent">
         <div class="title">流程办理进度</div>
         <el-timeline class="timeline">
-          <el-timeline-item timestamp="2018/4/12" placement="top">
+          <el-timeline-item v-for="(item,index) in perflow" :key="index"  :timestamp="item.date" placement="top">
             <el-card>
-              <p class="step">第一步：申请人提交申请</p>
-              <p class="result">通过</p>
-              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2018/4/3" placement="top">
-            <el-card>
-              <p class="step">第二步：部门主管审批 (主办：部门主管)</p>
-              <p class="result handling">流程办理中</p>
-              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
+              <p class="step">{{item.title}}</p>
+              <p class="result">{{item.content}}</p>
+              <p class="admin">{{item.name}}</p>
             </el-card>
           </el-timeline-item>
         </el-timeline>
@@ -560,6 +551,7 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
+      perflow:[],//流程进度
       fileList_user: [],
       fileList: [],
       addParams: {
@@ -570,7 +562,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = '3929'
     this.getworkflows()
   },
   methods: {
@@ -586,6 +578,7 @@ export default {
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
+          this.perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({
