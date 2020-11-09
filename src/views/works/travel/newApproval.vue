@@ -590,7 +590,7 @@ export default {
             })
           }
         }else{
-          this.$message.error('获取流程信息失败：', res.error.message);
+          this.$message.error('获取流程信息失败：' + res.error.message);
         }
       })
     },
@@ -630,6 +630,9 @@ export default {
           url: `files/download/27`,
           responseType: "blob",
       })
+      if (res.status !== 200) {
+        this.$message.error('下载文件失败：' + res.error.message);
+      }
       let fileName = '测试pdf1.pdf';
       let fileType = {
         docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
