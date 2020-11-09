@@ -123,7 +123,7 @@ export default {
     },
     searchParams: {
       type: Object,
-      default: {},
+      
     },
     // 筛选条件
     filter: {
@@ -232,7 +232,8 @@ export default {
           }
         });
       } else {
-        let params = { ...this.searchParams, ...this.filter_key };
+        let temp = this.searchParams ? this.searchParams : {}
+        let params = { ...temp, ...this.filter_key };
         request.get(this.searchApi, {}, { params }).then((res) => {
           if (res.status == 200 || res.code == 0) {
             this.tableData = res.data;
