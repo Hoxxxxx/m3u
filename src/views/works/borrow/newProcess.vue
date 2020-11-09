@@ -145,6 +145,42 @@
               <div v-if="tableData.oaa39 == 1">
                 <div class="title_line">借款信息</div>
                 <div class="form_line">
+                  <div class="titlebox">项目</div>
+                  <div class="infobox middlebox selectbox">
+                    <el-select
+                      v-model="tableData.oaa14"
+                      class="select"
+                      placeholder="请选择项目"
+                      :loading="fixedData.selectLoading"
+                    >
+                      <el-option
+                        v-for="item in fixedData.pjasList"
+                        :key="item.pja01"
+                        :label="item.pja02"
+                        :value="item.pja01"
+                      >
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div class="titlebox">项目WBS</div>
+                  <div class="infobox middlebox selectbox last_row">
+                    <el-select
+                      v-model="tableData.oaa15"
+                      class="select"
+                      placeholder="请选择项目WBS"
+                      :loading="fixedData.selectLoading"
+                    >
+                      <el-option
+                        v-for="item in fixedData.pjbsList"
+                        :key="item.pjb01"
+                        :label="item.pjb02"
+                        :value="item.pjb01"
+                      >
+                      </el-option>
+                    </el-select>
+                  </div>
+                </div>
+                <div class="form_line">
                   <div class="titlebox">币种</div>
                   <div class="infobox selectbox">
                     <el-select
@@ -386,7 +422,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { gensList, azisList, pmasList,  } from "@/api/basic";
+import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
 import { addFlow,  } from "@/api/process_new";
 
 export default {
@@ -414,6 +450,8 @@ export default {
         oaa11: '',
         oaa12: 'TT',
         oaa13: '',
+        oaa14: '',
+        oaa15: '',
         oaa20: '',
         oaa21: '',
         oaa22: '',
@@ -445,6 +483,10 @@ export default {
         azisList: [],
         // 付款方式列表
         pmasList: [],
+        // 项目列表
+        pjasList: [],
+        // WBS列表
+        pjbsList: [],
       },
       fileList: [],
       addParams: {
@@ -482,6 +524,8 @@ export default {
     this.getGens()
     this.getAzis()
     this.getPmas()
+    this.getPjas()
+    this.getPjbs()
   },
   methods: {
     handleClick() {
@@ -517,7 +561,29 @@ export default {
           this.fixedData.pmasList = result.data;
           this.fixedData.selectLoading = false;
         } else {
-          this.$message.error("获取币种列表失败：" + result.error.message);
+          this.$message.error("获取付款方式列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPjas () {
+      pjasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pjasList = result.data;
+          this.fixedData.selectLoading = false;
+        } else {
+          this.$message.error("获取项目列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPjbs () {
+      pjbsList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pjbsList = result.data;
+          this.fixedData.selectLoading = false;
+        } else {
+          this.$message.error("获取WBS列表失败：" + result.error.message);
         }
       })
     },
