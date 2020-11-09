@@ -76,7 +76,7 @@
 
 <script>
 import request from "@/utils/request";
-import axios from "axios"
+import axios from "axios";
 export default {
   props: {
     // 加载效果
@@ -120,6 +120,10 @@ export default {
     searchType: {
       type: String,
       default: "single",
+    },
+    searchParams: {
+      type: Object,
+      default: {},
     },
     // 筛选条件
     filter: {
@@ -171,12 +175,17 @@ export default {
     },
     filter: {
       handler(newval, oldval) {
-        let res = {};
-        newval.forEach((ele) => {
-          let temp = ele.model_key_search;
-          res[temp] = "";
-        });
-        this.filter_key = res;
+        // 通过过滤条件数组的length判断是否需要通过点击才执行数据获取
+        if (newval.length == 0) {
+          this.search_single();
+        } else {
+          let res = {};
+          newval.forEach((ele) => {
+            let temp = ele.model_key_search;
+            res[temp] = "";
+          });
+          this.filter_key = res;
+        }
       },
     },
     keyMsg: {
@@ -213,23 +222,22 @@ export default {
       console.log(this.filter_key);
       let params = this.filter_key;
       if (this.searchType == "mixed") {
-        let workParams = {}
+        let workParams = {};
         Object.keys(this.filter_key).forEach((key) => {
           workParams["filter[" + key + "]"] = this.filter_key[key];
         });
-        request.get(this.searchApi,{},{params:workParams})
-          .then((res) => {
-            if (res.status == 200) {
-              this.tableData = res.data;
-            }
-          });
+        request.get(this.searchApi, {}, { params: workParams }).then((res) => {
+          if (res.status == 200) {
+            this.tableData = res.data;
+          }
+        });
       } else {
-        request.get(this.searchApi,{},{params})
-          .then((res) => {
-            if (res.status == 200) {
-              this.tableData = res.data;
-            }
-          });
+        let params = { ...this.searchParams, ...this.filter_key };
+        request.get(this.searchApi, {}, { params }).then((res) => {
+          if (res.status == 200 || res.code == 0) {
+            this.tableData = res.data;
+          }
+        });
       }
     },
     // 清空时重新搜索所有值

@@ -33,7 +33,7 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox">
+                <div class="infobox editNot">
                   {{ tableData.oaa03 }}
                 </div>
                 <div class="titlebox">申请人</div>
@@ -672,7 +672,10 @@
                 </el-table>
               </div>
               <!-- 冲销信息 -->
-              <div class="title_line">冲销信息</div>
+              <div class="title_line">
+                <el-button type="primary" size="small" style="position:absolute;left:0;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
+                冲销信息
+              </div>
               <div>
                 <el-table
                   :data="tableData.oad"
@@ -683,8 +686,8 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <el-table-column
-                    prop="id"
+                  <!-- <el-table-column
+                    prop=""
                     label="增 / 删"
                     fixed="left"
                     width="100px"
@@ -707,9 +710,9 @@
                         </div>
                       </div>
                     </template>
-                  </el-table-column>
+                  </el-table-column> -->
                   <el-table-column
-                    prop=""
+                    prop="id"
                     label="待抵单号"
                     min-width="150px"
                     align="center"
@@ -717,7 +720,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.apb02"
+                          v-model="scope.row.id"
                           placeholder="请输入待抵单号"
                           disabled
                         ></el-input>
@@ -725,7 +728,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop=""
+                    prop="date"
                     label="借款日期"
                     min-width="130px"
                     align="center"
@@ -733,7 +736,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-date-picker
-                          v-model="scope.row.borrowDate"
+                          v-model="scope.row.date"
                           style="width: 100%"
                           type="date"
                           disabled
@@ -744,7 +747,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop=""
+                    prop="rname"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -752,7 +755,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.apb28"
+                          v-model="scope.row.rname"
                           placeholder="请输入借款人"
                           disabled
                         ></el-input>
@@ -760,7 +763,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop=""
+                    prop="original_amount"
                     label="借款总金额"
                     min-width="130px"
                     align="center"
@@ -768,7 +771,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.apb35"
+                          v-model="scope.row.original_amount"
                           placeholder="请输入借款总金额"
                           disabled
                         ></el-input>
@@ -791,7 +794,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop=""
+                    prop="voucher_code"
                     label="凭证号"
                     min-width="150px"
                     align="center"
@@ -799,7 +802,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.apb25"
+                          v-model="scope.row.voucher_code"
                           placeholder="请输入凭证号"
                           disabled
                         ></el-input>
@@ -867,6 +870,7 @@
       :editType.sync="dataSelect.editType"
       :searchApi="dataSelect.searchApi"
       :searchType="dataSelect.searchType"
+      :searchParams="dataSelect.searchParams"
       :filter="dataSelect.filter"
       :keyMsg="dataSelect.keyMsg"
       @selectSure="selectSure"
@@ -878,7 +882,7 @@
 <script>
 import SelectData from "@/components/selectData";
 import { dateFmt,number_chinese } from "@/utils/utils.js";
-import { addFlow,workflows } from "@/api/process_new";
+import { addFlow,workflows,openitems } from "@/api/process_new";
 import {
   gensList,
   azisList,
@@ -981,6 +985,7 @@ export default {
         bodyData: [], //表格数据
         choosedData: [], //选中的数据
         searchApi: "", //搜索框的接口地址
+        searchParams:{},//搜索接口自带参数
         searchType:"",//搜索类型
         filter: [], //筛选条件
         keyMsg: [], //需要显示在顶部的数据
@@ -1018,6 +1023,14 @@ export default {
         head_CCSQD:[
           { name: "id", title: "id" },
           { name: "title", title: "流程名称" },
+        ],
+        head_WQX:[
+          { name: "id", title: "待抵账款编号" },
+          { name: "original_amount", title: "本币未冲金额" },
+          { name: "date", title: "日期" },
+          { name: "rid", title: "供应商编号/借款人编号" },
+          { name: "rname", title: "供应商名称/借款人名称" },
+          { name: "voucher_code", title: "凭证编号" },
         ]
       },
     };
@@ -1300,6 +1313,8 @@ export default {
         case "SQR":
           let filter_SQR = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/gens";
           this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_SQR;
@@ -1308,6 +1323,8 @@ export default {
         case "KJKM":
           let filter_KJKM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_KJKM;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/aags";
           this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_KJKM;
@@ -1316,6 +1333,8 @@ export default {
         case "XM":
           let filter_XM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_XM;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjas";
           this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_XM;
@@ -1324,6 +1343,8 @@ export default {
         case "WBS":
           let filter_WBS = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_WBS;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjbs";
           this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_WBS;
@@ -1333,10 +1354,26 @@ export default {
           let filter_CCSQD = [{ label: "", model_key_search: "title" }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "oa/workflows";
           this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_CCSQD;
           this.dataSelect.dialogTitle = "出差申请单列表";
+          break;
+        case "WQX":
+          // let filter_WQX = [{ label: "", model_key_search: "type" }];
+          let params = {
+            type:1,
+            number:this.tableData.oaa04
+          }
+          this.dataSelect.editType = "search"
+          this.dataSelect.searchParams = params
+          this.dataSelect.filter = [];
+          this.dataSelect.searchType = "single"
+          this.dataSelect.searchApi = "oa/openitems";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_WQX;
+          this.dataSelect.dialogTitle = "未清项列表";
           break;
         default:
           return;
@@ -1371,6 +1408,9 @@ export default {
             this.tableData.oaa15 = val[0].id;
             this.showData.oaa15_show = val[0].title;
             break;
+          case "WQX":
+            this.tableData.oad = val
+            break;
           default:
             return;
             break;
@@ -1403,10 +1443,12 @@ export default {
         height: 40px;
         line-height: 40px;
         text-align: center;
+        box-sizing: border-box;
         border-right: 1px solid #cccccc;
       }
       .summryCont {
-        flex: 1 1 auto;
+        width: 74px;
+        // flex: 1 1 auto;
         line-height: 40px;
         text-align: center;
       }

@@ -147,7 +147,7 @@
                 <div class="form_line">
                   <div class="titlebox">项目</div>
                   <div class="infobox middlebox selectbox">
-                    <el-select
+                    <!-- <el-select
                       v-model="tableData.oaa14"
                       class="select"
                       placeholder="请选择项目"
@@ -160,11 +160,14 @@
                         :value="item.pja01"
                       >
                       </el-option>
-                    </el-select>
+                    </el-select> -->
+                    <div class="selector" @click="selectDialog('XM')">
+                    {{ showData.oaa14_show }}
+                  </div>
                   </div>
                   <div class="titlebox">项目WBS</div>
                   <div class="infobox middlebox selectbox last_row">
-                    <el-select
+                    <!-- <el-select
                       v-model="tableData.oaa15"
                       class="select"
                       placeholder="请选择项目WBS"
@@ -177,7 +180,10 @@
                         :value="item.pjb01"
                       >
                       </el-option>
-                    </el-select>
+                    </el-select> -->
+                    <div class="selector" @click="selectDialog('WBS')">
+                    {{ showData.oaa15_show }}
+                  </div>
                   </div>
                 </div>
                 <div class="form_line">
@@ -470,6 +476,10 @@ export default {
         oaa38: '',
         oaa39: ''
       },
+      showData: {
+        oaa14_show: "", //项目
+        oaa15_show:"",//项目WBS
+      },
       // 汇率数据
       exchange: '', //折合汇率
       exchange_Cap: '', //折合汇率大写
@@ -511,11 +521,19 @@ export default {
       // 弹出框表头数据
       tableHead: {
         // 申请人
-        head_SQR: [
-          { name: "gen01", title: "员工编号" },
-          { name: "gen02", title: "员工名称" },
-          { name: "gen03", title: "所属部门编号" },
-        ]
+        head_XM: [
+          { name: "pja01", title: "项目编号" },
+          { name: "pja02", title: "项目名称" },
+          { name: "pja08", title: "项目负责人" },
+          { name: "pja09", title: "负责部门" },
+          { name: "pja13", title: "项目预计总额" },
+        ],
+        head_WBS: [
+          { name: "pjb02", title: "WBS编号" },
+          { name: "pjb03", title: "WBS名称" },
+          { name: "pjb01", title: "项目编号" },
+          { name: "pja02", title: "项目名称" },
+        ],
       },
     };
   },
@@ -726,13 +744,21 @@ export default {
       this.dataSelect.cur_input = type;
       this.dataSelect.choosedData = [];
       switch (type) {
-        case "SQR":
-          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_SQR;
-          this.dataSelect.searchApi = "meta/gens";
+        case "XM":
+          let filter_XM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_XM;
+          this.dataSelect.searchApi = "meta/pjas";
           this.selectLoading = false;
-          this.dataSelect.headList = this.tableHead.head_SQR;
-          this.dataSelect.dialogTitle = "员工列表";
+          this.dataSelect.headList = this.tableHead.head_XM;
+          this.dataSelect.dialogTitle = "项目";
+          break;
+        case "WBS":
+          let filter_WBS = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_WBS;
+          this.dataSelect.searchApi = "meta/pjbs";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_WBS;
+          this.dataSelect.dialogTitle = "WBS列表";
           break;
         default:
           return;
@@ -750,9 +776,13 @@ export default {
       this.dataSelect.choosedData = val;
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
-          case "SQR":
-            this.tableData.oaa04 = val[0].gen01;
-            this.showData.oaa04_show = val[0].gen02;
+          case "XM":
+            this.tableData.oaa14 = val[0].pja01;
+            this.showData.oaa14_show = val[0].pja02;
+            break;
+          case "WBS":
+            this.tableData.oaa15 = val[0].pjb02;
+            this.showData.oaa15_show = val[0].pjb03;
             break;
           default:
             return;
