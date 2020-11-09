@@ -206,10 +206,10 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">固定资产付款</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name">流程名称：固定资产付款(No:20201102134630)张康成</span>
+              <span class="code">业务日期：{{tableData.oaa02}}</span>
+              <span class="name">申请单编号：{{tableData.oaa01}}</span>
             </div>
           </div>
         </el-tab-pane>
@@ -252,18 +252,23 @@
       <div class="tabContent">
         <div class="title">流程办理进度</div>
           <el-timeline class="timeline">
-            <el-timeline-item timestamp="2018/4/12" placement="top">
+            <el-timeline-item 
+              v-for="(item, index) in workclass_perflow"
+              :key="index"
+              :timestamp="item.date" 
+              placement="top">
               <el-card>
-                <p class="step">第一步：申请人提交申请</p>
-                <p class="result">通过</p>
-                <p class="admin">分公司(2)系统管理员	2020-11-02 13:37:42</p>
-              </el-card>
-            </el-timeline-item>
-            <el-timeline-item timestamp="2018/4/3" placement="top">
-              <el-card>
-                <p class="step">第二步：部门主管审批 (主办：部门主管)</p>
-                <p class="result handling">流程办理中</p>
-                <p class="admin">分公司(2)系统管理员	2020-11-02 13:37:42</p>
+                <p class="step">第{{index+1}}步：{{item.title}}</p>
+                <p class="result">
+                  <template>
+                    <p v-if="item.pertype == '99'">通过</p>
+                    <p v-if="item.pertype == '0'" class="handling">审批中</p>
+                    <p v-if="item.pertype == '2'">拒绝</p>
+                    <p v-if="item.pertype == '3'">退回</p>
+                    <p v-if="item.pertype == '5'">审批结束</p>
+                  </template>
+                </p>
+                <p class="admin">{{item.name}}  {{item.date}}</p>
               </el-card>
             </el-timeline-item>
           </el-timeline>
@@ -333,10 +338,13 @@ export default {
         annexurlid: [],
         tplid: 8936
       },
+      // 当前流程列表
+      workclass_perflow: [],
     };
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 3926
     this.getworkflows()
   },
   methods: {
@@ -352,6 +360,7 @@ export default {
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
+          this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({

@@ -142,95 +142,106 @@
                 </div>
               </div>
               <!-- 借款信息 -->
-              <div class="title_line">借款信息</div>
-              <div class="form_line">
-                <div class="titlebox">币种</div>
-                <div class="infobox selectbox">
-                  <el-select
-                    v-model="tableData.oaa06"
-                    class="select"
-                    placeholder="请选择币种"
-                    :loading="fixedData.selectLoading"
-                  >
-                    <el-option
-                      v-for="item in fixedData.azisList"
-                      :key="item.azi01"
-                      :label="item.azi02"
-                      :value="item.azi01"
+              <div v-if="tableData.oaa39 == 1">
+                <div class="title_line">借款信息</div>
+                <div class="form_line">
+                  <div class="titlebox">币种</div>
+                  <div class="infobox selectbox">
+                    <el-select
+                      v-model="tableData.oaa06"
+                      class="select"
+                      placeholder="请选择币种"
+                      :loading="fixedData.selectLoading"
                     >
-                    </el-option>
-                  </el-select>
+                      <el-option
+                        v-for="item in fixedData.azisList"
+                        :key="item.azi01"
+                        :label="item.azi02"
+                        :value="item.azi01"
+                      >
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div class="titlebox">借款金额</div>
+                  <div class="infobox">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa07"
+                      placeholder="请输入借款金额"
+                      @input="getExchangeRate()"
+                    />
+                  </div>
+                  <div class="titlebox">汇率</div>
+                  <div class="infobox last_row">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa08"
+                      placeholder="请输入汇率"
+                      @input="getExchangeRate()"
+                    />
+                  </div>
                 </div>
-                <div class="titlebox">借款金额</div>
-                <div class="infobox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa07"
-                    placeholder="请输入访问单位"
-                  />
+                <div class="form_line">
+                  <div class="titlebox">收款人</div>
+                  <div class="infobox">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa09"
+                      placeholder="请输入收款人"
+                    />
+                  </div>
+                  <div class="titlebox">账号</div>
+                  <div class="infobox">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa10"
+                      placeholder="请输入账号"
+                    />
+                  </div>
+                  <div class="titlebox">开户行</div>
+                  <div class="infobox last_row">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa11"
+                      placeholder="请输入开户行"
+                    />
+                  </div>
                 </div>
-                <div class="titlebox">汇率</div>
-                <div class="infobox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa08"
-                    placeholder="请输入访问单位"
-                  />
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">收款人</div>
-                <div class="infobox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa09"
-                    placeholder="请输入访问单位"
-                  />
-                </div>
-                <div class="titlebox">账号</div>
-                <div class="infobox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa10"
-                    placeholder="请输入访问单位"
-                  />
-                </div>
-                <div class="titlebox">开户行</div>
-                <div class="infobox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa11"
-                    placeholder="请输入访问单位"
-                  />
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">支付方式</div>
-                <div class="infobox longbox  selectbox">
-                  <el-select
-                    v-model="tableData.oaa12"
-                    class="select"
-                    placeholder="请选择支付方式"
-                    :loading="fixedData.selectLoading"
-                  >
-                    <el-option
-                      v-for="item in fixedData.pmasList"
-                      :key="item.pma01"
-                      :label="item.pma02"
-                      :value="item.pma01"
+                <div class="form_line">
+                  <div class="titlebox">支付方式</div>
+                  <div class="infobox longbox selectbox" style="background: #F5F7FA;">
+                    <el-select
+                      v-model="tableData.oaa12"
+                      class="select"
+                      placeholder="请选择支付方式"
+                      :loading="fixedData.selectLoading"
+                      disabled
                     >
-                    </el-option>
-                  </el-select>
+                      <el-option
+                        v-for="item in fixedData.pmasList"
+                        :key="item.pma01"
+                        :label="item.pma02"
+                        :value="item.pma01"
+                      >
+                      </el-option>
+                    </el-select>
+                  </div>
                 </div>
-              </div>
-              <div class="form_line last_line">
-                <div class="titlebox">借款事由</div>
-                <div class="infobox longbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa13"
-                    placeholder="请输入访问单位"
-                  />
+                <div class="form_line">
+                  <div class="titlebox">折合汇率金额</div>
+                  <div class="infobox middlebox">{{exchange}}</div>
+                  <div class="titlebox">折合汇率金额大写</div>
+                  <div class="infobox middlebox last_row">{{exchange_Cap}}</div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">借款事由</div>
+                  <div class="infobox longbox">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa13"
+                      placeholder="请输入借款事由"
+                    />
+                  </div>
                 </div>
               </div>
               <!-- 交际信息 -->
@@ -241,7 +252,7 @@
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa20"
-                    placeholder="请输入访问单位"
+                    placeholder="请输入支出项目"
                   />
                 </div>
                 <div class="titlebox">实施时间</div>
@@ -261,15 +272,15 @@
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa22"
-                    placeholder="请输入访问单位"
+                    placeholder="请输入我方参加部门"
                   />
                 </div>
-                <div class="titlebox">对方参加部门</div>
+                <div class="titlebox">对方单位</div>
                 <div class="infobox middlebox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa23"
-                    placeholder="请输入访问单位"
+                    placeholder="请输入对方单位"
                   />
                 </div>
                 <div class="titlebox">我方参加人员</div>
@@ -277,7 +288,7 @@
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa24"
-                    placeholder="请输入访问单位"
+                    placeholder="请输入我方参加人员"
                   />
                 </div>
                 <div class="titlebox">对方参加人员</div>
@@ -285,7 +296,7 @@
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa25"
-                    placeholder="请输入访问单位"
+                    placeholder="请输入对方参加人员"
                   />
                 </div>
               </div>
@@ -295,7 +306,7 @@
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa26"
-                    placeholder="请输入访问单位"
+                    placeholder="请输入付款预算金额"
                   />
                 </div>
                 <div class="titlebox">区分</div>
@@ -401,7 +412,7 @@ export default {
         oaa09: '',
         oaa10: '',
         oaa11: '',
-        oaa12: '',
+        oaa12: 'TT',
         oaa13: '',
         oaa20: '',
         oaa21: '',
@@ -421,6 +432,11 @@ export default {
         oaa38: '',
         oaa39: ''
       },
+      // 汇率数据
+      exchange: '', //折合汇率
+      exchange_Cap: '', //折合汇率大写
+      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
+      // 表单数据
       fixedData: {
         selectLoading: true,
         // 申请人列表
@@ -533,6 +549,63 @@ export default {
     },
     // *******************************************
     // ****************其他操作*******************
+    // 计算折合汇率
+    getExchangeRate() {
+      this.exchange = Number(this.tableData.oaa07) * Number(this.tableData.oaa08)
+      this.exchange = this.exchange.toFixed(2)
+      this.NumberToChinese(this.exchange)
+    },
+    //阿拉伯数字转换函数
+    toDx(n) {
+      switch (n) {
+          case "0":
+              return "零";
+          case "1":
+              return "壹";
+          case "2":
+              return "贰";
+          case "3":
+              return "叁";
+          case "4":
+              return "肆";
+          case "5":
+              return "伍";
+          case "6":
+              return "陆";
+          case "7":
+              return "柒";
+          case "8":
+              return "捌";
+          case "9":
+              return "玖";
+      }
+    },
+    // 转大写
+    NumberToChinese(m){
+      m *= 100;
+      m += "";
+      var length = m.length;
+
+      var result = "";
+      for (var i = 0; i < length; i++) {
+          if (i == 2) {
+              result = "元" + result;
+          } else if (i == 6) {
+              result = "万" + result;
+          }
+          if (m.charAt(length - i - 1) == 0) {
+              if (i != 0 && i != 1) {
+                  if (result.charAt(0) != '零' && result.charAt(0) != '元' && result.charAt(0) != '万') {
+                      result = "零" + result;
+                  }
+              }
+              continue;
+          }
+          result = this.toDx(m.charAt(length - i - 1)) + this.unit[this.unit.length - i - 1] + result;
+      }
+      result += result.charAt(result.length - 1) == '元' ? "整" : "";
+      this.exchange_Cap = result;
+    },
     // 新增表单
     addNewFlow() {
       this.addParams.from_data = this.tableData
