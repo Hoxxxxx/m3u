@@ -104,6 +104,7 @@
                     <el-radio :label="1">一般地区</el-radio>
                     <el-radio :label="2">特殊地区</el-radio>
                   </el-radio-group>
+                  <div class="columLine"></div>
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa36"
@@ -796,4 +797,15 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
+.infobox{
+  position: relative;
+  .columLine{
+    position: absolute;
+    height: 40px;
+    width: 1px;
+    left: 230px;
+    background: #CCCCCC;
+  }
+}
+
 </style>

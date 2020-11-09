@@ -457,35 +457,35 @@
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName">费用合计</div>
-                      <div class="summryCont">{{ totalCost }}</div>
+                      <div class="summryCont editNot">{{ totalCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">车船费合计</div>
-                      <div class="summryCont">{{ carCost }}</div>
+                      <div class="summryCont editNot">{{ carCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">住宿费</div>
-                      <div class="summryCont">{{ accomCost }}</div>
+                      <div class="summryCont editNot">{{ accomCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">室内交通费</div>
-                      <div class="summryCont">{{ tansportCost }}</div>
+                      <div class="summryCont editNot">{{ tansportCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">会议费</div>
-                      <div class="summryCont">{{ conferCost }}</div>
+                      <div class="summryCont editNot">{{ conferCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">交际费</div>
-                      <div class="summryCont">{{ commuCost }}</div>
+                      <div class="summryCont editNot">{{ commuCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">其他</div>
-                      <div class="summryCont">{{ others }}</div>
+                      <div class="summryCont editNot">{{ others }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">补助合计</div>
-                      <div class="summryCont">{{ subside }}</div>
+                      <div class="summryCont editNot">{{ subside }}</div>
                     </li>
                   </ul>
                 </div>
@@ -1028,8 +1028,8 @@ export default {
           { name: "id", title: "待抵账款编号" },
           { name: "original_amount", title: "本币未冲金额" },
           { name: "date", title: "日期" },
-          { name: "rid", title: "供应商编号/借款人编号" },
-          { name: "rname", title: "供应商名称/借款人名称" },
+          { name: "rid", title: "借款人编号" },
+          { name: "rname", title: "借款人名称" },
           { name: "voucher_code", title: "凭证编号" },
         ]
       },
@@ -1118,7 +1118,6 @@ export default {
     this.addParams.tplid = this.$route.query.tplid
     this.addRow1();
     this.addRow2();
-    this.addRow3();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
   },
@@ -1442,6 +1441,7 @@ export default {
       flex: 1 1 auto;
       border-right: 1px solid #cccccc;
       .summryName {
+        background: #FCFDFF;
         width: 80px;
         height: 40px;
         line-height: 40px;
@@ -1450,13 +1450,16 @@ export default {
         border-right: 1px solid #cccccc;
       }
       .summryCont {
-        width: 74px;
+        width: 73px;
         // flex: 1 1 auto;
         line-height: 40px;
         text-align: center;
       }
       &:last-child {
         border-right: none;
+        .summryCont{
+          flex: 1 1 auto;
+        }
       }
     }
   }
