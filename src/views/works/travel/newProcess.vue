@@ -1115,7 +1115,7 @@ export default {
     }
   },
   created() {
-    // this.addParams.tplid = this.$route.query.tplid
+    this.addParams.tplid = this.$route.query.tplid
     this.addRow1();
     this.addRow2();
     this.addRow3();
