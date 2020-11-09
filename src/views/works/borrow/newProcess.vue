@@ -435,7 +435,7 @@ export default {
       // 汇率数据
       exchange: '', //折合汇率
       exchange_Cap: '', //折合汇率大写
-      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
+      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       // 表单数据
       fixedData: {
         selectLoading: true,
@@ -589,9 +589,11 @@ export default {
       var result = "";
       for (var i = 0; i < length; i++) {
           if (i == 2) {
-              result = "元" + result;
+            result = "元" + result;
           } else if (i == 6) {
-              result = "万" + result;
+            result = "万" + result;
+          } else if (i == 10) {
+            result = "亿" + result;
           }
           if (m.charAt(length - i - 1) == 0) {
               if (i != 0 && i != 1) {
