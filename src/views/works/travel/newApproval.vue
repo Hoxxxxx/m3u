@@ -562,7 +562,8 @@ export default {
     };
   },
   created() {
-    this.workid = '3929'
+    // this.workid = '3927'
+    this.workid = this.$route.query.workid
     this.getworkflows()
   },
   methods: {
