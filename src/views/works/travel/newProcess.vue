@@ -1408,8 +1408,8 @@ export default {
             this.showData.oaa15_show = val[0].title;
             break;
           case "WQX":
-            val.forEach(item=>{
-              item.oad02 = ''
+            val.forEach(item =>{
+              this.$set(item,'oad02','')
             })
             this.tableData.oad = val
             break;
