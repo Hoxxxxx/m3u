@@ -128,30 +128,38 @@
                 </div>
               </div>
               <!-- 借款信息 -->
-              <div class="title_line">借款信息</div>
-              <div class="form_line">
-                <div class="titlebox">币种</div>
-                <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
-                <div class="titlebox">借款金额</div>
-                <div class="infobox">{{tableData.oaa07}}</div>
-                <div class="titlebox">汇率</div>
-                <div class="infobox last_row">{{tableData.oaa08}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">收款人</div>
-                <div class="infobox">{{tableData.oaa09}}</div>
-                <div class="titlebox">账号</div>
-                <div class="infobox">{{tableData.oaa10}}</div>
-                <div class="titlebox">开户行</div>
-                <div class="infobox last_row">{{tableData.oaa11}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">支付方式</div>
-                <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
-              </div>
-              <div class="form_line last_line">
-                <div class="titlebox">借款事由</div>
-                <div class="infobox longbox">{{tableData.oaa13}}</div>
+              <div v-if="tableData.oaa39 == 1">
+                <div class="title_line">借款信息</div>
+                <div class="form_line">
+                  <div class="titlebox">项目</div>
+                  <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
+                  <div class="titlebox">项目WBS</div>
+                  <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">币种</div>
+                  <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
+                  <div class="titlebox">借款金额</div>
+                  <div class="infobox">{{tableData.oaa07}}</div>
+                  <div class="titlebox">汇率</div>
+                  <div class="infobox last_row">{{tableData.oaa08}}</div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">收款人</div>
+                  <div class="infobox">{{tableData.oaa09}}</div>
+                  <div class="titlebox">账号</div>
+                  <div class="infobox">{{tableData.oaa10}}</div>
+                  <div class="titlebox">开户行</div>
+                  <div class="infobox last_row">{{tableData.oaa11}}</div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">支付方式</div>
+                  <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">借款事由</div>
+                  <div class="infobox longbox">{{tableData.oaa13}}</div>
+                </div>
               </div>
               <!-- 交际信息 -->
               <div class="title_line">交际信息</div>
@@ -304,6 +312,8 @@ export default {
         oaa11: '',
         oaa12: '',
         oaa13: '',
+        oaa14: '',
+        oaa15: '',
         oaa20: '',
         oaa21: '',
         oaa22: '',

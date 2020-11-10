@@ -499,17 +499,31 @@
     <el-card class="secContentCard" v-if="activeTab == 'secTab'">
       <div class="tabContent">
         <div class="title">流程办理进度</div>
-        <el-timeline class="timeline">
-          <el-timeline-item v-for="(item,index) in perflow" :key="index"  :timestamp="item.date" placement="top">
-            <el-card>
-              <p class="step">{{item.title}}</p>
-              <p class="result">{{item.content}}</p>
-              <p class="admin">{{item.name}}</p>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
+          <el-timeline class="timeline">
+            <el-timeline-item 
+              v-for="(item, index) in workclass_perflow"
+              :key="index"
+              :timestamp="item.date" 
+              placement="top">
+              <el-card>
+                <p class="step">第{{index+1}}步：{{item.title}}</p>
+                <p class="result">
+                  <template>
+                    <p v-if="item.pertype == '99'">通过</p>
+                    <p v-if="item.pertype == '0'" class="handling">审批中</p>
+                    <p v-if="item.pertype == '2'">拒绝</p>
+                    <p v-if="item.pertype == '3'">退回</p>
+                    <p v-if="item.pertype == '5'">审批结束</p>
+                  </template>
+                </p>
+                <p class="admin">{{item.name}}  {{item.date}}</p>
+              </el-card>
+            </el-timeline-item>
+          </el-timeline>
       </div>
     </el-card>
+
+
   </div>
 </template>
 
@@ -551,7 +565,7 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
-      perflow:[],//流程进度
+      workclass_perflow:[],//流程进度
       fileList_user: [],
       fileList: [],
       addParams: {
@@ -579,7 +593,7 @@ export default {
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
-          this.perflow = res.data.workclass_perflow
+          this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({

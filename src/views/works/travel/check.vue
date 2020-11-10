@@ -17,7 +17,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">外地差旅报销单（华录新媒）</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -446,12 +446,10 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">固定资产付款</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name"
-                >流程名称：固定资产付款(No:20201102134630)张康成</span
-              >
+              <span class="code">业务日期：{{ tableData.oaa02 }}</span>
+              <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
             </div>
           </div>
         </el-tab-pane>
@@ -467,7 +465,7 @@
         <div class="saveList">
           <div class="saveItem" v-for="(item, index) in fileList_user" :key="index">
             <i class="el-icon-document" style="margin-right: 7px"></i>
-            <span>{{ item.name }}</span>
+            <a style="cursor: pointer;" @click="download(item.id, item.name)"><span>{{item.name}}</span></a>
             <div class="btnBox">
               <!-- <el-button type="text">预览</el-button> -->
               <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
@@ -480,24 +478,31 @@
     <el-card class="secContentCard" v-if="activeTab == 'secTab'">
       <div class="tabContent">
         <div class="title">流程办理进度</div>
-        <el-timeline class="timeline">
-          <el-timeline-item timestamp="2018/4/12" placement="top">
-            <el-card>
-              <p class="step">第一步：申请人提交申请</p>
-              <p class="result">通过</p>
-              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2018/4/3" placement="top">
-            <el-card>
-              <p class="step">第二步：部门主管审批 (主办：部门主管)</p>
-              <p class="result handling">流程办理中</p>
-              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
+          <el-timeline class="timeline">
+            <el-timeline-item 
+              v-for="(item, index) in workclass_perflow"
+              :key="index"
+              :timestamp="item.date" 
+              placement="top">
+              <el-card>
+                <p class="step">第{{index+1}}步：{{item.title}}</p>
+                <p class="result">
+                  <template>
+                    <p v-if="item.pertype == '99'">通过</p>
+                    <p v-if="item.pertype == '0'" class="handling">审批中</p>
+                    <p v-if="item.pertype == '2'">拒绝</p>
+                    <p v-if="item.pertype == '3'">退回</p>
+                    <p v-if="item.pertype == '5'">审批结束</p>
+                  </template>
+                </p>
+                <p class="admin">{{item.name}}  {{item.date}}</p>
+              </el-card>
+            </el-timeline-item>
+          </el-timeline>
       </div>
     </el-card>
+
+    
   </div>
 </template>
 
@@ -537,6 +542,7 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
+      workclass_perflow:[],//流程进度
       fileList_user: [],
       addParams: {
         from_data: {},
@@ -561,6 +567,8 @@ export default {
       workflowsList(params).then(res=>{
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
+          this.workname = res.data.workclass_info.title
+          this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({

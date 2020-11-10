@@ -148,43 +148,15 @@
                 <div class="form_line">
                   <div class="titlebox">项目</div>
                   <div class="infobox middlebox selectbox">
-                    <!-- <el-select
-                      v-model="tableData.oaa14"
-                      class="select"
-                      placeholder="请选择项目"
-                      :loading="fixedData.selectLoading"
-                    >
-                      <el-option
-                        v-for="item in fixedData.pjasList"
-                        :key="item.pja01"
-                        :label="item.pja02"
-                        :value="item.pja01"
-                      >
-                      </el-option>
-                    </el-select> -->
                     <div class="selector" @click="selectDialog('XM')">
                     {{ showData.oaa14_show }}
-                  </div>
+                    </div>
                   </div>
                   <div class="titlebox">项目WBS</div>
                   <div class="infobox middlebox selectbox last_row">
-                    <!-- <el-select
-                      v-model="tableData.oaa15"
-                      class="select"
-                      placeholder="请选择项目WBS"
-                      :loading="fixedData.selectLoading"
-                    >
-                      <el-option
-                        v-for="item in fixedData.pjbsList"
-                        :key="item.pjb01"
-                        :label="item.pjb02"
-                        :value="item.pjb01"
-                      >
-                      </el-option>
-                    </el-select> -->
                     <div class="selector" @click="selectDialog('WBS')">
                     {{ showData.oaa15_show }}
-                  </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form_line">

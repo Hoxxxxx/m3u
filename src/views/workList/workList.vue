@@ -43,27 +43,27 @@ export default {
         },
         {
           name: "出差借款申请——申请",
-          path: "/borrow",
+          path: "/borrowTra",
         },
         {
           name: "出差借款申请——审核",
-          path: "/borrow/approval",
+          path: "/borrowTra/approval",
         },
         {
           name: "出差借款申请——查看",
-          path: "/borrow/check",
+          path: "/borrowTra/check",
         },
         {
           name: "借款申请——申请",
-          path: "/borrowMoney",
+          path: "/borrow",
         },
         {
           name: "借款申请——审核",
-          path: "/borrowMoney/approval",
+          path: "/borrow/approval",
         },
         {
           name: "借款申请——查看",
-          path: "/borrowMoney/check",
+          path: "/borrow/check",
         },
         {
           name: "其他费用报销——申请",

@@ -72,19 +72,19 @@ const routes = [
   },
   // 借款申请
   {
-    path: '/borrow',
-    name: 'borrow',
-    component: () => import('@/views/works/borrow/newProcess')
+    path: '/borrowTra',
+    name: 'borrowTra',
+    component: () => import('@/views/works/borrowTra/newProcess')
   },
   {
-    path: '/borrow/check',
+    path: '/borrowTra/check',
     name: 'check',
-    component: () => import('@/views/works/borrow/check')
+    component: () => import('@/views/works/borrowTra/check')
   },
   {
-    path: '/borrow/approval',
+    path: '/borrowTra/approval',
     name: 'approval',
-    component: () => import('@/views/works/borrow/newApproval')
+    component: () => import('@/views/works/borrowTra/newApproval')
   },
 
   // 外地差旅报销单
@@ -123,19 +123,19 @@ const routes = [
 
   // 借款申请
   {
-    path: '/borrowMoney',
-    name: 'borrowMoney',
-    component: () => import('@/views/works/borrowMoney/newProcess')
+    path: '/borrow',
+    name: 'borrow',
+    component: () => import('@/views/works/borrow/newProcess')
   },
   {
-    path: '/borrowMoney/check',
+    path: '/borrow/check',
     name: 'check',
-    component: () => import('@/views/works/borrowMoney/check')
+    component: () => import('@/views/works/borrow/check')
   },
   {
-    path: '/borrowMoney/approval',
+    path: '/borrow/approval',
     name: 'approval',
-    component: () => import('@/views/works/borrowMoney/newApproval')
+    component: () => import('@/views/works/borrow/newApproval')
   },
 ]
 
