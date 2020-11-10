@@ -303,10 +303,13 @@
           :on-success="handleSuccess"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
+          :before-upload="beforeAvatarUpload"
           :before-remove="beforeRemove"
           multiple
           :on-exceed="handleExceed"
-          :file-list="fileList">
+          :file-list="fileList"
+          accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.png,.jpg,.jpeg,.zip,.rar"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
       </div>
@@ -423,6 +426,33 @@ export default {
     },
     // *******************************************
     // ***************附件上传******************
+    // 限制格式
+    beforeAvatarUpload(file) {
+      const isDoc = file.type === "application/msword";
+      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+      const isXls = file.type === "application/vnd.ms-excel";
+      const isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      const isPPT = file.type === "application/vnd.ms-powerpoint";
+      const isPPTX = file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+      const isPDF = file.type === "application/pdf";
+      const isTXT = file.type === "text/plain";
+      const isPNG = file.type === "image/png";
+      const isJPG = file.type === "image/jpeg";
+      const isJPEG = file.type === "image/jpeg";
+      const isZIP = file.type === "application/zip";
+      const isRAR = file.type === "application/x-rar";
+      const isNull = file.type === '';
+      const isLt200M = file.size / 1024 / 1024 < 200;
+
+      if (!isDoc && !isDocx && !isXls && !isXlsx && !isPPT && !isPPTX && !isPDF && !isTXT && !isPNG && !isJPG && !isJPEG && !isZIP && !isRAR ) {
+        this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
+        return false;
+      }
+      if (!isLt20M) {
+        this.$message.warning("上传文件大小不能超过 200MB!");
+        return false;
+      }
+    },
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
