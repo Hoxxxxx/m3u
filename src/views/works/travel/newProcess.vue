@@ -1152,7 +1152,7 @@ export default {
         this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
         return false;
       }
-      if (!isLt20M) {
+      if (!isLt200M) {
         this.$message.warning("上传文件大小不能超过 200MB!");
         return false;
       }

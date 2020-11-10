@@ -47,7 +47,7 @@
                 <div class="titlebox">员工编号</div>
                 <div class="infobox middlebox">{{showData.oaa04_gen01}}</div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox middlebox">{{showData.oaa04_gen03}}</div>
+                <div class="infobox middlebox">{{showData.oaa04_gen04}}</div>
               </div>
               <!-- 借款信息 -->
               <div class="title_line">借款信息</div>
@@ -273,7 +273,7 @@ export default {
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
-        oaa04_gen03: "", //部门编号
+        oaa04_gen04: "", //部门编号
         oaa14_show: "", //项目
         oaa15_show: "", //项目WBS
         oaa17_show: "", // 出差单
@@ -433,7 +433,7 @@ export default {
         this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
         return false;
       }
-      if (!isLt20M) {
+      if (!isLt200M) {
         this.$message.warning("上传文件大小不能超过 200MB!");
         return false;
       }
@@ -631,7 +631,7 @@ export default {
             this.tableData.oaa04 = val[0].gen01;
             this.showData.oaa04_show = val[0].gen02;
             this.showData.oaa04_gen01 = val[0].gen01;
-            this.showData.oaa04_gen03 = val[0].gen03;
+            this.showData.oaa04_gen04 = val[0].gen04;
             break;
           case "XM":
             this.tableData.oaa14 = val[0].pja01;
