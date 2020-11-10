@@ -25,7 +25,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{workName}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -214,7 +214,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{workName}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -296,7 +296,7 @@ export default {
   data() {
     return {
       workid: '',
-      workname: '出差借款申请',
+      workName: '出差借款申请',
       activeTab: "firTab",
       tableData: {
         oaa01: '',
@@ -369,7 +369,7 @@ export default {
       workflowsList(params).then(res=>{
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
-          this.workname = res.data.workclass_info.title
+          this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
@@ -472,7 +472,7 @@ export default {
         path: url,
         query: {
           workid: this.workid,
-          workname: this.workname,
+          workName: this.workName,
           oaa01: this.tableData.oaa01,
           oaa02: this.tableData.oaa02
         }
