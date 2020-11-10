@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{workName}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -27,15 +27,11 @@
             <div class="tableBox">
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
-              <div class="form_line  last_line">
+              <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox">{{tableData.oaa03}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
-                </div>
+                <div class="infobox middlebox">{{tableData.oaa03}}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox last_row">
+                <div class="infobox middlebox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
@@ -43,220 +39,129 @@
                   />
                 </div>
               </div>
-              <!-- 出差信息 -->
-              <div class="title_line">出差信息</div>
               <div class="form_line">
-                <div class="titlebox">预计开始时间</div>
-                <div class="infobox middlebox databox">
-                  <el-date-picker
-                    v-model="tableData.oaa31"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                  >
-                  </el-date-picker>
+                <div class="titlebox">申请人</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
                 </div>
-                <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox databox">
-                  <el-date-picker
-                    v-model="tableData.oaa32"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox databox">
-                  <el-date-picker
-                    v-model="tableData.oaa33"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox databox last_row">
-                  <el-date-picker
-                    v-model="tableData.oaa34"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                  >
-                  </el-date-picker>
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">出差目的</div>
-                <div class="infobox longbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa30"
-                    placeholder="请输入出差目的"
-                  />
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">出差地点</div>
-                <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa35">
-                    <el-radio :label="1">一般地区</el-radio>
-                    <el-radio :label="2">特殊地区</el-radio>
-                  </el-radio-group>
-                  <div class="columLine"></div>
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa36"
-                    placeholder="请输入出差地点"
-                  />
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">交通工具</div>
-                <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa37">
-                    <el-radio :label="1">飞机</el-radio>
-                    <el-radio :label="2">火车</el-radio>
-                    <el-radio :label="3">汽车</el-radio>
-                    <el-radio :label="4">其它</el-radio>
-                  </el-radio-group>
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">访问单位</div>
-                <div class="infobox longbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa38"
-                    placeholder="请输入访问单位"
-                  />
-                </div>
-              </div>
-              <div class="form_line  last_line">
-                <div class="titlebox">是否需要借款</div>
-                <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa39">
-                    <el-radio :label="1">是</el-radio>
-                    <el-radio :label="2">否</el-radio>
-                  </el-radio-group>
-                </div>
+                <div class="titlebox">员工编号</div>
+                <div class="infobox middlebox">{{showData.oaa04_gen01}}</div>
+                <div class="titlebox">所属部门</div>
+                <div class="infobox middlebox">{{showData.oaa04_gen03}}</div>
               </div>
               <!-- 借款信息 -->
-              <div v-if="tableData.oaa39 == 1">
-                <div class="title_line">借款信息</div>
-                <div class="form_line">
-                  <div class="titlebox">项目</div>
-                  <div class="infobox middlebox selectbox">
-                    <div class="selector" @click="selectDialog('XM')">
-                    {{ showData.oaa14_show }}
-                    </div>
-                  </div>
-                  <div class="titlebox">项目WBS</div>
-                  <div class="infobox middlebox selectbox last_row">
-                    <div class="selector" @click="selectDialog('WBS')">
-                    {{ showData.oaa15_show }}
-                    </div>
+              <div class="title_line">借款信息</div>
+              <div class="form_line">
+                <div class="titlebox">项目</div>
+                <div class="infobox middlebox selectbox">
+                  <div class="selector" @click="selectDialog('XM')">
+                  {{ showData.oaa14_show }}
                   </div>
                 </div>
-                <div class="form_line">
-                  <div class="titlebox">币种</div>
-                  <div class="infobox selectbox">
-                    <el-select
-                      v-model="tableData.oaa06"
-                      class="select"
-                      placeholder="请选择币种"
-                      :loading="fixedData.selectLoading"
+                <div class="titlebox">项目WBS</div>
+                <div class="infobox middlebox selectbox last_row">
+                  <div class="selector" @click="selectDialog('WBS')">
+                  {{ showData.oaa15_show }}
+                  </div>
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">币种</div>
+                <div class="infobox selectbox">
+                  <el-select
+                    v-model="tableData.oaa06"
+                    class="select"
+                    placeholder="请选择币种"
+                    :loading="fixedData.selectLoading"
+                  >
+                    <el-option
+                      v-for="item in fixedData.azisList"
+                      :key="item.azi01"
+                      :label="item.azi02"
+                      :value="item.azi01"
                     >
-                      <el-option
-                        v-for="item in fixedData.azisList"
-                        :key="item.azi01"
-                        :label="item.azi02"
-                        :value="item.azi01"
-                      >
-                      </el-option>
-                    </el-select>
-                  </div>
-                  <div class="titlebox">借款金额</div>
-                  <div class="infobox">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa07"
-                      placeholder="请输入借款金额"
-                      @input="getExchangeRate()"
-                    />
-                  </div>
-                  <div class="titlebox">汇率</div>
-                  <div class="infobox last_row">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa08"
-                      placeholder="请输入汇率"
-                      @input="getExchangeRate()"
-                    />
-                  </div>
+                    </el-option>
+                  </el-select>
                 </div>
-                <div class="form_line">
-                  <div class="titlebox">收款人</div>
-                  <div class="infobox">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa09"
-                      placeholder="请输入收款人"
-                    />
-                  </div>
-                  <div class="titlebox">账号</div>
-                  <div class="infobox">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa10"
-                      placeholder="请输入账号"
-                    />
-                  </div>
-                  <div class="titlebox">开户行</div>
-                  <div class="infobox last_row">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa11"
-                      placeholder="请输入开户行"
-                    />
-                  </div>
+                <div class="titlebox">借款金额</div>
+                <div class="infobox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa07"
+                    placeholder="请输入借款金额"
+                    @input="getExchangeRate()"
+                  />
                 </div>
-                <div class="form_line">
-                  <div class="titlebox">支付方式</div>
-                  <div class="infobox longbox selectbox disabledbox">
-                    <el-select
-                      v-model="tableData.oaa12"
-                      class="select"
-                      placeholder="请选择支付方式"
-                      :loading="fixedData.selectLoading"
-                      disabled
+                <div class="titlebox">汇率</div>
+                <div class="infobox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa08"
+                    placeholder="请输入汇率"
+                    @input="getExchangeRate()"
+                  />
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">收款人</div>
+                <div class="infobox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa09"
+                    placeholder="请输入收款人"
+                  />
+                </div>
+                <div class="titlebox">账号</div>
+                <div class="infobox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa10"
+                    placeholder="请输入账号"
+                  />
+                </div>
+                <div class="titlebox">开户行</div>
+                <div class="infobox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa11"
+                    placeholder="请输入开户行"
+                  />
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">支付方式</div>
+                <div class="infobox longbox selectbox disabledbox">
+                  <el-select
+                    v-model="tableData.oaa12"
+                    class="select"
+                    placeholder="请选择支付方式"
+                    :loading="fixedData.selectLoading"
+                    disabled
+                  >
+                    <el-option
+                      v-for="item in fixedData.pmasList"
+                      :key="item.pma01"
+                      :label="item.pma02"
+                      :value="item.pma01"
                     >
-                      <el-option
-                        v-for="item in fixedData.pmasList"
-                        :key="item.pma01"
-                        :label="item.pma02"
-                        :value="item.pma01"
-                      >
-                      </el-option>
-                    </el-select>
-                  </div>
+                    </el-option>
+                  </el-select>
                 </div>
-                <div class="form_line">
-                  <div class="titlebox">折合汇率金额</div>
-                  <div class="infobox middlebox disabledbox">{{exchange}}</div>
-                  <div class="titlebox">折合汇率金额大写</div>
-                  <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
-                </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">借款事由</div>
-                  <div class="infobox longbox">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa13"
-                      placeholder="请输入借款事由"
-                    />
-                  </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">折合汇率金额</div>
+                <div class="infobox middlebox disabledbox">{{exchange}}</div>
+                <div class="titlebox">折合汇率金额大写</div>
+                <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">借款事由</div>
+                <div class="infobox longbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa13"
+                    placeholder="请输入借款事由"
+                  />
                 </div>
               </div>
               <!-- 交际信息 -->
@@ -408,15 +313,9 @@ export default {
   components: {SelectData},
   data() {
     return {
-      workname: '出差借款申请',
       activeTab: "firTab",
       workid: '',
-      workName:"出差借款申请",//流程名
-      showData:{
-        oaa04_show: "", //申请人
-        oaa14_show: "", //项目
-        oaa15_show:"",//项目WBS
-      },
+      workName:"借款申请",//流程名
       tableData: {
         oaa01: '',
         oaa02: '',
@@ -450,6 +349,13 @@ export default {
         oaa36: '',
         oaa38: '',
         oaa39: ''
+      },
+      showData: {
+        oaa04_show: "", //申请人
+        oaa04_gen01: "", //申请人编号
+        oaa04_gen03: "", //部门编号
+        oaa14_show: "", //项目
+        oaa15_show:"",//项目WBS
       },
       // 汇率数据
       exchange: '', //折合汇率
@@ -704,7 +610,7 @@ export default {
             query: {
               workName:this.workName,
               workid: this.workid,
-              workname: this.workname,
+              workName: this.workName,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02
             }

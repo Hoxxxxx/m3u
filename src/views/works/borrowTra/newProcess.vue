@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{workName}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -408,7 +408,6 @@ export default {
   components: {SelectData},
   data() {
     return {
-      workname: '出差借款申请',
       activeTab: "firTab",
       workid: '',
       workName:"出差借款申请",//流程名
@@ -701,7 +700,7 @@ export default {
             query: {
               workName:this.workName,
               workid: this.workid,
-              workname: this.workname,
+              workName: this.workName,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02
             }
