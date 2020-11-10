@@ -29,18 +29,6 @@ export default {
   data() {
     return {
       workList: [
-        // {
-        //   name: "新建流程",
-        //   path: "/newPro",
-        // },
-        // {
-        //   name: "审批流程",
-        //   path: "/approvalPro",
-        // },
-        // {
-        //   name: "查看",
-        //   path: "/check",
-        // },
         {
           name: "外地差旅报销单——申请",
           path: "/travel",
@@ -64,6 +52,30 @@ export default {
         {
           name: "出差借款申请——查看",
           path: "/borrow/check",
+        },
+        {
+          name: "借款申请——申请",
+          path: "/borrowMoney",
+        },
+        {
+          name: "借款申请——审核",
+          path: "/borrowMoney/approval",
+        },
+        {
+          name: "借款申请——查看",
+          path: "/borrowMoney/check",
+        },
+        {
+          name: "其他费用报销——申请",
+          path: "/otherFees",
+        },
+        {
+          name: "其他费用报销——审核",
+          path: "/otherFees/approval",
+        },
+        {
+          name: "其他费用报销——查看",
+          path: "/otherFees/check",
         },
       ]
     };

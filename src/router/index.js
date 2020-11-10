@@ -103,6 +103,40 @@ const routes = [
     name: 'approval',
     component: () => import('@/views/works/travel/newApproval')
   },
+
+  // 其他费用报销
+  {
+    path: '/otherFees',
+    name: 'otherFees',
+    component: () => import('@/views/works/otherFees/newProcess')
+  },
+  {
+    path: '/otherFees/check',
+    name: 'check',
+    component: () => import('@/views/works/otherFees/check')
+  },
+  {
+    path: '/otherFees/approval',
+    name: 'approval',
+    component: () => import('@/views/works/otherFees/newApproval')
+  },
+
+  // 借款申请
+  {
+    path: '/borrowMoney',
+    name: 'borrowMoney',
+    component: () => import('@/views/works/borrowMoney/newProcess')
+  },
+  {
+    path: '/borrowMoney/check',
+    name: 'check',
+    component: () => import('@/views/works/borrowMoney/check')
+  },
+  {
+    path: '/borrowMoney/approval',
+    name: 'approval',
+    component: () => import('@/views/works/borrowMoney/newApproval')
+  },
 ]
 
 const router = new VueRouter({
