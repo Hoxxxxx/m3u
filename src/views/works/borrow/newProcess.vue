@@ -72,7 +72,6 @@
                     v-model="tableData.oaa06"
                     class="select"
                     placeholder="请选择币种"
-                    :loading="fixedData.selectLoading"
                   >
                     <el-option
                       v-for="item in fixedData.azisList"
@@ -135,7 +134,6 @@
                     v-model="tableData.oaa12"
                     class="select"
                     placeholder="请选择支付方式"
-                    :loading="fixedData.selectLoading"
                     disabled
                   >
                     <el-option
@@ -154,6 +152,14 @@
                 <div class="titlebox">折合汇率金额大写</div>
                 <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">出差单</div>
+                <div class="infobox longbox selectbox">
+                  <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('CCSQD')">
+                    {{ showData.oaa17_show }}
+                  </div>
+                </div>
+              </div>
               <div class="form_line last_line">
                 <div class="titlebox">借款事由</div>
                 <div class="infobox longbox">
@@ -162,79 +168,6 @@
                     v-model="tableData.oaa13"
                     placeholder="请输入借款事由"
                   />
-                </div>
-              </div>
-              <!-- 交际信息 -->
-              <div class="title_line">交际信息</div>
-              <div class="form_line">
-                <div class="titlebox">支出项目</div>
-                <div class="infobox middlebox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa20"
-                    placeholder="请输入支出项目"
-                  />
-                </div>
-                <div class="titlebox">实施时间</div>
-                <div class="infobox middlebox databox last_row">
-                  <el-date-picker
-                    v-model="tableData.oaa21"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                  >
-                  </el-date-picker>
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">我方参加部门</div>
-                <div class="infobox middlebox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa22"
-                    placeholder="请输入我方参加部门"
-                  />
-                </div>
-                <div class="titlebox">对方单位</div>
-                <div class="infobox middlebox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa23"
-                    placeholder="请输入对方单位"
-                  />
-                </div>
-                <div class="titlebox">我方参加人员</div>
-                <div class="infobox middlebox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa24"
-                    placeholder="请输入我方参加人员"
-                  />
-                </div>
-                <div class="titlebox">对方参加人员</div>
-                <div class="infobox middlebox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa25"
-                    placeholder="请输入对方参加人员"
-                  />
-                </div>
-              </div>
-              <div class="form_line last_line">
-                <div class="titlebox">付款预算金额</div>
-                <div class="infobox middlebox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa26"
-                    placeholder="请输入付款预算金额"
-                  />
-                </div>
-                <div class="titlebox">区分</div>
-                <div class="infobox middlebox last_row">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa27">
-                    <el-radio :label="1">交际费</el-radio>
-                    <el-radio :label="2">会议费</el-radio>
-                  </el-radio-group>
                 </div>
               </div>
             </div>
@@ -332,30 +265,15 @@ export default {
         oaa13: '',
         oaa14: '',
         oaa15: '',
-        oaa20: '',
-        oaa21: '',
-        oaa22: '',
-        oaa23: '',
-        oaa24: '',
-        oaa25: '',
-        oaa26: '',
-        oaa27: '',
-        oaa30: '',
-        oaa31: '',
-        oaa32: '',
-        oaa33: '',
-        oaa34: '',
-        oaa35: '',
-        oaa36: '',
-        oaa38: '',
-        oaa39: ''
+        oaa17: '',
       },
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
         oaa04_gen03: "", //部门编号
         oaa14_show: "", //项目
-        oaa15_show:"",//项目WBS
+        oaa15_show: "", //项目WBS
+        oaa17_show: "", // 出差单
       },
       // 汇率数据
       exchange: '', //折合汇率
@@ -379,7 +297,7 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8941
+        tplid: 8944
       },
       //数据选择弹出框
       dataSelect: {
@@ -416,11 +334,15 @@ export default {
           { name: "pjb01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
         ],
+        head_CCSQD:[
+          { name: "id", title: "id" },
+          { name: "title", title: "流程名称" },
+        ],
       },
     };
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid
+    // this.addParams.tplid = this.$route.query.tplid
     this.getGens()
     this.getAzis()
     this.getPmas()
@@ -437,7 +359,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.genList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取员工列表失败：" + result.error.message);
         }
@@ -448,7 +369,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.azisList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取币种列表失败：" + result.error.message);
         }
@@ -459,7 +379,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.pmasList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取付款方式列表失败：" + result.error.message);
         }
@@ -470,7 +389,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.pjasList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取项目列表失败：" + result.error.message);
         }
@@ -481,7 +399,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.pjbsList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取WBS列表失败：" + result.error.message);
         }
@@ -505,7 +422,7 @@ export default {
       })
     },
     handlePreview(file) {
-      console.log(file);
+      // console.log(file);
     },
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -629,26 +546,38 @@ export default {
         case "SQR":
           let filter_SQR = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "search"
           this.dataSelect.searchApi = "meta/gens";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
           break;
         case "XM":
           let filter_XM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_XM;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "search"
           this.dataSelect.searchApi = "meta/pjas";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_XM;
           this.dataSelect.dialogTitle = "项目";
           break;
         case "WBS":
           let filter_WBS = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_WBS;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "search"
           this.dataSelect.searchApi = "meta/pjbs";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
+          break;
+        case "CCSQD":
+          let filter_CCSQD = [{ label: "", model_key_search: "title" }];
+          this.dataSelect.filter = filter_CCSQD;
+          this.dataSelect.searchType = "mixed"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "oa/workflows";
+          this.dataSelect.headList = this.tableHead.head_CCSQD;
+          this.dataSelect.dialogTitle = "出差申请单列表";
           break;
         default:
           return;
@@ -669,6 +598,8 @@ export default {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
             this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen03 = val[0].gen03;
             break;
           case "XM":
             this.tableData.oaa14 = val[0].pja01;
@@ -677,6 +608,10 @@ export default {
           case "WBS":
             this.tableData.oaa15 = val[0].pjb02;
             this.showData.oaa15_show = val[0].pjb03;
+            break;
+          case "CCSQD":
+            this.tableData.oaa17 = val[0].id;
+            this.showData.oaa17_show = val[0].title;
             break;
           default:
             return;
