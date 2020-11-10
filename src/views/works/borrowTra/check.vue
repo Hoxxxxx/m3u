@@ -1,17 +1,11 @@
 <template>
   <div class="workSpace">
+    
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <!-- <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button> -->
-        <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
-        <!-- <el-button class="normal">挂起</el-button> -->
-        <!-- <el-button class="normal">增加会签人</el-button> -->
-        <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
-        <el-button type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
-        <el-button type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
-        <el-button type="primary" class="back" @click="nextStep('/back')">退回</el-button>
+        <el-button type="primary">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -128,30 +122,38 @@
                 </div>
               </div>
               <!-- 借款信息 -->
-              <div class="title_line">借款信息</div>
-              <div class="form_line">
-                <div class="titlebox">币种</div>
-                <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
-                <div class="titlebox">借款金额</div>
-                <div class="infobox">{{tableData.oaa07}}</div>
-                <div class="titlebox">汇率</div>
-                <div class="infobox last_row">{{tableData.oaa08}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">收款人</div>
-                <div class="infobox">{{tableData.oaa09}}</div>
-                <div class="titlebox">账号</div>
-                <div class="infobox">{{tableData.oaa10}}</div>
-                <div class="titlebox">开户行</div>
-                <div class="infobox last_row">{{tableData.oaa11}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">支付方式</div>
-                <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
-              </div>
-              <div class="form_line last_line">
-                <div class="titlebox">借款事由</div>
-                <div class="infobox longbox">{{tableData.oaa13}}</div>
+              <div v-if="tableData.oaa39 == 1">
+                <div class="title_line">借款信息</div>
+                <div class="form_line">
+                  <div class="form_line">
+                    <div class="titlebox">项目</div>
+                    <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
+                    <div class="titlebox">项目WBS</div>
+                    <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
+                  </div>
+                  <div class="titlebox">币种</div>
+                  <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
+                  <div class="titlebox">借款金额</div>
+                  <div class="infobox">{{tableData.oaa07}}</div>
+                  <div class="titlebox">汇率</div>
+                  <div class="infobox last_row">{{tableData.oaa08}}</div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">收款人</div>
+                  <div class="infobox">{{tableData.oaa09}}</div>
+                  <div class="titlebox">账号</div>
+                  <div class="infobox">{{tableData.oaa10}}</div>
+                  <div class="titlebox">开户行</div>
+                  <div class="infobox last_row">{{tableData.oaa11}}</div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">支付方式</div>
+                  <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">借款事由</div>
+                  <div class="infobox longbox">{{tableData.oaa13}}</div>
+                </div>
               </div>
               <!-- 交际信息 -->
               <div class="title_line">交际信息</div>
@@ -232,19 +234,6 @@
             </div>
           </div>
         </div>
-        <!-- 上传部分 -->
-        <el-upload
-          class="upload_annex"
-          :action="$store.state.upload_url"
-          :on-success="handleSuccess"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-remove="beforeRemove"
-          multiple
-          :on-exceed="handleExceed"
-          :file-list="fileList">
-          <el-button size="small" type="primary">点击上传</el-button>
-        </el-upload>
       </div>
     </el-card>
 
@@ -281,7 +270,6 @@
 <script>
 // api
 import { workflowsList, } from "@/api/process_new.js"
-import { addFlow,  } from "@/api/process_new";
 
 export default {
   components: {},
@@ -304,6 +292,8 @@ export default {
         oaa11: '',
         oaa12: '',
         oaa13: '',
+        oaa14: '',
+        oaa15: '',
         oaa20: '',
         oaa21: '',
         oaa22: '',
@@ -332,7 +322,6 @@ export default {
         pmasList: [],
       },
       fileList_user: [],
-      fileList: [],
       addParams: {
         from_data: {},
         annexurlid: [],
@@ -344,7 +333,6 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 3926
     this.getworkflows()
   },
   methods: {
@@ -371,7 +359,7 @@ export default {
             })
           }
         }else{
-          this.$message.error('获取流程信息失败：' + res.error.message);
+          this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
     },
@@ -405,30 +393,16 @@ export default {
       return this.$confirm(`确定移除 ${ file.name }？`);
     },
     // 下载文件流
-    async download(id, filename) {
+    async download(viewId, viewName) {
       const { data: res } = await this.axios({
           method: 'get',
-          url: `files/download/${id}`,
+          url: `files/download/27`,
           responseType: "blob",
       })
-      if (res.status !== 200) {
-        this.$message.error('下载文件失败' + res.error.message);
-      }
-      let fileName = filename;
+      let fileName = '测试pdf1.pdf';
       let fileType = {
-        doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        xls: 'application/vnd.ms-excel',
-        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        ppt: 'application/vnd.ms-powerpoint',
-        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
-        txt: 'text/plain',
-        png: 'image/png',
-        jpg: 'image/jpeg',
-        jpeg: 'image/jpeg',
-        zip: 'application/zip',
-        rar: 'application/x-rar',
+        docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        pdf:'application/pdf',
       }
       let type=fileName.split('.')[1];//获取文件后缀名
       let blob = new Blob([res],{
@@ -445,32 +419,6 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
-    // ****************其他操作*******************
-    // 新增表单
-    addNewFlow() {
-      this.addParams.from_data = this.tableData
-      addFlow(this.addParams)
-      .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
-      })
-    },
-    // 下一步
-    nextStep(url) {
-      this.$router.push({
-        path: url,
-        query: {
-          workid: this.workid,
-          workname: this.workname,
-          oaa01: this.tableData.oaa01,
-          oaa02: this.tableData.oaa02
-        }
-      })
-    },
-    // ******************************************
-
-
   },
 };
 </script>

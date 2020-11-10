@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">出差借款申请</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -122,30 +122,38 @@
                 </div>
               </div>
               <!-- 借款信息 -->
-              <div class="title_line">借款信息</div>
-              <div class="form_line">
-                <div class="titlebox">币种</div>
-                <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
-                <div class="titlebox">借款金额</div>
-                <div class="infobox">{{tableData.oaa07}}</div>
-                <div class="titlebox">汇率</div>
-                <div class="infobox last_row">{{tableData.oaa08}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">收款人</div>
-                <div class="infobox">{{tableData.oaa09}}</div>
-                <div class="titlebox">账号</div>
-                <div class="infobox">{{tableData.oaa10}}</div>
-                <div class="titlebox">开户行</div>
-                <div class="infobox last_row">{{tableData.oaa11}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">支付方式</div>
-                <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
-              </div>
-              <div class="form_line last_line">
-                <div class="titlebox">借款事由</div>
-                <div class="infobox longbox">{{tableData.oaa13}}</div>
+              <div v-if="tableData.oaa39 == 1">
+                <div class="title_line">借款信息</div>
+                <div class="form_line">
+                  <div class="form_line">
+                    <div class="titlebox">项目</div>
+                    <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
+                    <div class="titlebox">项目WBS</div>
+                    <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
+                  </div>
+                  <div class="titlebox">币种</div>
+                  <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
+                  <div class="titlebox">借款金额</div>
+                  <div class="infobox">{{tableData.oaa07}}</div>
+                  <div class="titlebox">汇率</div>
+                  <div class="infobox last_row">{{tableData.oaa08}}</div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">收款人</div>
+                  <div class="infobox">{{tableData.oaa09}}</div>
+                  <div class="titlebox">账号</div>
+                  <div class="infobox">{{tableData.oaa10}}</div>
+                  <div class="titlebox">开户行</div>
+                  <div class="infobox last_row">{{tableData.oaa11}}</div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">支付方式</div>
+                  <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">借款事由</div>
+                  <div class="infobox longbox">{{tableData.oaa13}}</div>
+                </div>
               </div>
               <!-- 交际信息 -->
               <div class="title_line">交际信息</div>
@@ -200,10 +208,10 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">固定资产付款</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name">流程名称：固定资产付款(No:20201102134630)张康成</span>
+              <span class="code">业务日期：{{tableData.oaa02}}</span>
+              <span class="name">申请单编号：{{tableData.oaa01}}</span>
             </div>
           </div>
         </el-tab-pane>
@@ -219,7 +227,7 @@
         <div class="saveList">
           <div class="saveItem" v-for="(item,index) in fileList_user" :key="index">
             <i class="el-icon-document" style="margin-right: 7px"></i>
-            <span>{{item.name}}</span>
+            <a style="cursor: pointer;" @click="download(item.id, item.name)"><span>{{item.name}}</span></a>
             <div class="btnBox">
               <!-- <el-button type="text">预览</el-button> -->
               <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
@@ -233,18 +241,23 @@
       <div class="tabContent">
         <div class="title">流程办理进度</div>
           <el-timeline class="timeline">
-            <el-timeline-item timestamp="2018/4/12" placement="top">
+            <el-timeline-item 
+              v-for="(item, index) in workclass_perflow"
+              :key="index"
+              :timestamp="item.date" 
+              placement="top">
               <el-card>
-                <p class="step">第一步：申请人提交申请</p>
-                <p class="result">通过</p>
-                <p class="admin">分公司(2)系统管理员	2020-11-02 13:37:42</p>
-              </el-card>
-            </el-timeline-item>
-            <el-timeline-item timestamp="2018/4/3" placement="top">
-              <el-card>
-                <p class="step">第二步：部门主管审批 (主办：部门主管)</p>
-                <p class="result handling">流程办理中</p>
-                <p class="admin">分公司(2)系统管理员	2020-11-02 13:37:42</p>
+                <p class="step">第{{index+1}}步：{{item.title}}</p>
+                <p class="result">
+                  <template>
+                    <p v-if="item.pertype == '99'">通过</p>
+                    <p v-if="item.pertype == '0'" class="handling">审批中</p>
+                    <p v-if="item.pertype == '2'">拒绝</p>
+                    <p v-if="item.pertype == '3'">退回</p>
+                    <p v-if="item.pertype == '5'">审批结束</p>
+                  </template>
+                </p>
+                <p class="admin">{{item.name}}  {{item.date}}</p>
               </el-card>
             </el-timeline-item>
           </el-timeline>
@@ -279,6 +292,8 @@ export default {
         oaa11: '',
         oaa12: '',
         oaa13: '',
+        oaa14: '',
+        oaa15: '',
         oaa20: '',
         oaa21: '',
         oaa22: '',
@@ -312,6 +327,8 @@ export default {
         annexurlid: [],
         tplid: 8936
       },
+      // 当前流程列表
+      workclass_perflow: [],
     };
   },
   created() {
@@ -330,6 +347,8 @@ export default {
       workflowsList(params).then(res=>{
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
+          this.workname = res.data.workclass_info.title
+          this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({
