@@ -17,7 +17,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">外地差旅报销单（华录新媒）</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -39,50 +39,45 @@
                   {{ tableData.oaa05 }}
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">费用类别</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa35">
+                    <el-radio :label="1" disabled>行政费用</el-radio>
+                    <el-radio :label="2" disabled>工会费用</el-radio>
+                  </el-radio-group>
+                </div>
+              </div>
               <!-- 报销信息 -->
               <div class="title_line">报销信息</div>
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">币种</div>
-                <div class="infobox selectbox">
+                <div class="infobox selectbox ">
                   {{ tableData.oaa06_show }}
                 </div>
                 <div class="titlebox">汇率</div>
-                <div class="infobox">
+                <div class="infobox ">
                   {{ tableData.oaa08 }}
                 </div>
                 <div class="titlebox">支付金额</div>
-                <div class="infobox last_row editNot">
+                <div class="infobox last_row ">
                   {{ tableData.payMoney }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">报销金额</div>
-                <div class="infobox editNot">
+                <div class="infobox ">
                   {{ tableData.expenseMoney }}
                 </div>
                 <div class="titlebox">报销金额大写</div>
-                <div class="infobox editNot">
+                <div class="infobox ">
                   {{ tableData.expenseMoneyF }}
                 </div>
                 <div class="titlebox">支付方式</div>
-                <div class="infobox last_row selectbox">
+                <div class="infobox last_row selectbox ">
                   {{ tableData.oaa12_show }}
-                </div>
-              </div>
-              <!-- 3 -->
-              <div class="form_line">
-                <div class="titlebox">发票张数</div>
-                <div class="infobox longbox">
-                  {{ tableData.oaa14 }}
-                </div>
-              </div>
-              <!-- 4 -->
-              <div class="form_line">
-                <div class="titlebox">出差申请单</div>
-                <div class="infobox longbox selectbox">
-                  {{ tableData.oaa15 }}
                 </div>
               </div>
               <!-- 5 -->
@@ -112,185 +107,6 @@
                 <div class="titlebox">支票号</div>
                 <div class="infobox last_row longbox" style="width: 100%">
                   {{ tableData.oaa17 }}
-                </div>
-              </div>
-              <!-- 差旅明细 -->
-              <div class="title_line">差旅明细</div>
-              <div>
-                <el-table
-                  :data="tableData.oab"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
-                >
-                  <el-table-column
-                    prop="oab01"
-                    label="开始日期"
-                    min-width="160px"
-                    align="center"
-                  >
-                  <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oab01"
-                          style="width: 100%"
-                          disabled
-                          type="date"
-                          placeholder="开始日期"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab02"
-                    label="结束日期"
-                    min-width="160px"
-                    align="center"
-                  >
-                  <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oab02"
-                          style="width: 100%"
-                          disabled
-                          type="date"
-                          placeholder="结束日期"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab03"
-                    label="单据号"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab04"
-                    label="出发地"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab05"
-                    label="目的地"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab06"
-                    label="车船费"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab07"
-                    label="车补"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab08"
-                    label="住宿费"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab09"
-                    label="住补"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab10"
-                    label="市内交通费"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab11"
-                    label="市补"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab12"
-                    label="会议费"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab13"
-                    label="交际费"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab14"
-                    label="其他"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab15"
-                    label="伙食补助"
-                    min-width="120px"
-                    align="center"
-                  >
-                  </el-table-column>
-                </el-table>
-                <div class="summry">
-                  <ul class="summryUl">
-                    <li class="summryLi">
-                      <div class="summryName">费用合计</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                    <li class="summryLi">
-                      <div class="summryName">车船费合计</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                    <li class="summryLi">
-                      <div class="summryName">住宿费</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                    <li class="summryLi">
-                      <div class="summryName">室内交通费</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                    <li class="summryLi">
-                      <div class="summryName">会议费</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                    <li class="summryLi">
-                      <div class="summryName">交际费</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                    <li class="summryLi">
-                      <div class="summryName">其他</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                    <li class="summryLi">
-                      <div class="summryName">补助合计</div>
-                      <div class="summryCont">0</div>
-                    </li>
-                  </ul>
                 </div>
               </div>
               <!-- 费用明细行项目 -->
@@ -446,12 +262,10 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">固定资产付款</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
-              <span class="code">编号：20201102134</span>
-              <span class="name"
-                >流程名称：固定资产付款(No:20201102134630)张康成</span
-              >
+              <span class="code">业务日期：{{ tableData.oaa02 }}</span>
+              <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
             </div>
           </div>
         </el-tab-pane>
@@ -481,21 +295,26 @@
       <div class="tabContent">
         <div class="title">流程办理进度</div>
         <el-timeline class="timeline">
-          <el-timeline-item timestamp="2018/4/12" placement="top">
-            <el-card>
-              <p class="step">第一步：申请人提交申请</p>
-              <p class="result">通过</p>
-              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2018/4/3" placement="top">
-            <el-card>
-              <p class="step">第二步：部门主管审批 (主办：部门主管)</p>
-              <p class="result handling">流程办理中</p>
-              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
+            <el-timeline-item 
+              v-for="(item, index) in workclass_perflow"
+              :key="index"
+              :timestamp="item.date" 
+              placement="top">
+              <el-card>
+                <p class="step">第{{index+1}}步：{{item.title}}</p>
+                <p class="result">
+                  <template>
+                    <p v-if="item.pertype == '99'">通过</p>
+                    <p v-if="item.pertype == '0'" class="handling">审批中</p>
+                    <p v-if="item.pertype == '2'">拒绝</p>
+                    <p v-if="item.pertype == '3'">退回</p>
+                    <p v-if="item.pertype == '5'">审批结束</p>
+                  </template>
+                </p>
+                <p class="admin">{{item.name}}  {{item.date}}</p>
+              </el-card>
+            </el-timeline-item>
+          </el-timeline>
       </div>
     </el-card>
   </div>
@@ -508,7 +327,7 @@ export default {
   data() {
     return {
       workid: '',
-      workname: '外地差旅报销单',
+      workname: '其他费用报销单',
       activeTab: "firTab",
       tableData: {
         // 基本信息
@@ -521,8 +340,6 @@ export default {
         oaa06: "", //币种
         oaa08: "", //汇率
         oaa12: "", //支付方式
-        oaa14: "", //发票张数
-        oaa15: "", //出差申请单
         oaa16: "", //说明
         payMoney: "", //支付金额
         expenseMoney: "", //报销金额
@@ -533,7 +350,6 @@ export default {
         oaa11: "", //收款账号
         oaa17: "", //支票号
         // 表格部分
-        oab: [], // 差旅明细
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
@@ -543,6 +359,8 @@ export default {
         annexurlid: [],
         tplid: 8936
       },
+      // 当前流程列表
+      workclass_perflow: [],
     };
   },
   created() {
@@ -561,6 +379,8 @@ export default {
       workflowsList(params).then(res=>{
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
+          this.workname = res.data.workclass_info.title
+          this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({

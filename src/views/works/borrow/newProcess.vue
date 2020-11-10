@@ -398,6 +398,11 @@ export default {
       // 弹出框表头数据
       tableHead: {
         // 申请人
+        head_SQR: [
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+        ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
@@ -621,6 +626,14 @@ export default {
       this.dataSelect.cur_input = type;
       this.dataSelect.choosedData = [];
       switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchApi = "meta/gens";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
         case "XM":
           let filter_XM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_XM;
@@ -653,6 +666,10 @@ export default {
       this.dataSelect.choosedData = val;
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.tableData.oaa04 = val[0].gen01;
+            this.showData.oaa04_show = val[0].gen02;
+            break;
           case "XM":
             this.tableData.oaa14 = val[0].pja01;
             this.showData.oaa14_show = val[0].pja02;

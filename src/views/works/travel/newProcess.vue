@@ -140,7 +140,9 @@
                     type="textarea"
                     :autosize="{ minRows: 2, maxRows: 4 }"
                     v-model="tableData.oaa16"
-                    placeholder="请输入说明"
+                    maxlength="80"
+                    :show-word-limit="true"
+                    placeholder="请输入说明（内容不要超过80个字）"
                   />
                 </div>
               </div>
@@ -588,7 +590,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.oac06"
-                          placeholder="单位"
+                          placeholder="摘要"
                         ></el-input>
                       </div>
                     </template>
@@ -603,7 +605,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.oac07"
-                          placeholder="单位"
+                          placeholder="金额（不含税）"
                         ></el-input>
                       </div>
                     </template>
@@ -618,7 +620,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.apb28"
-                          placeholder="单位"
+                          placeholder="折合后金额"
                         ></el-input>
                       </div>
                     </template>
@@ -721,7 +723,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.id"
-                          placeholder="请输入待抵单号"
+                          placeholder=""
                           disabled
                         ></el-input>
                       </div>
@@ -740,7 +742,7 @@
                           style="width: 100%"
                           type="date"
                           disabled
-                          placeholder="选择借款日期"
+                          placeholder=""
                         >
                         </el-date-picker>
                       </div>
@@ -756,7 +758,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.rname"
-                          placeholder="请输入借款人"
+                          placeholder=""
                           disabled
                         ></el-input>
                       </div>
@@ -772,7 +774,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.original_amount"
-                          placeholder="请输入借款总金额"
+                          placeholder=""
                           disabled
                         ></el-input>
                       </div>
@@ -803,7 +805,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.voucher_code"
-                          placeholder="请输入凭证号"
+                          placeholder=""
                           disabled
                         ></el-input>
                       </div>
