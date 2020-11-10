@@ -313,6 +313,8 @@ export default {
         bodyData: [], //表格数据
         choosedData: [], //选中的数据
         searchApi: "", //搜索框的接口地址
+        searchParams:{},//搜索接口自带参数
+        searchType:"",//搜索类型
         filter: [], //筛选条件
         keyMsg: [], //需要显示在顶部的数据
       },
@@ -577,7 +579,7 @@ export default {
           let filter_SQR = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_SQR;
           this.dataSelect.searchType = "single"
-          this.dataSelect.editType = "search"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/gens";
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
@@ -586,7 +588,7 @@ export default {
           let filter_XM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_XM;
           this.dataSelect.searchType = "single"
-          this.dataSelect.editType = "search"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjas";
           this.dataSelect.headList = this.tableHead.head_XM;
           this.dataSelect.dialogTitle = "项目";
@@ -595,7 +597,7 @@ export default {
           let filter_WBS = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_WBS;
           this.dataSelect.searchType = "single"
-          this.dataSelect.editType = "search"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjbs";
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
