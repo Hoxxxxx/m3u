@@ -733,6 +733,7 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid
+    // this.addParams.tplid = 8945
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -877,7 +878,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/gens";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
           break;
@@ -887,7 +887,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/aags";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_KJKM;
           this.dataSelect.dialogTitle = "会计科目";
           break;
@@ -897,7 +896,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjas";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_XM;
           this.dataSelect.dialogTitle = "项目";
           break;
@@ -907,7 +905,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjbs";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
           break;

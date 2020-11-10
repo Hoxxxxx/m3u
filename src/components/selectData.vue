@@ -34,7 +34,7 @@
           ref="selectData"
           max-height="400"
           :data="tableData"
-          v-loading="isLoading"
+          v-loading="showLoading"
           element-loading-background="rgba(0, 0, 0, 0.5)"
           element-loading-text="数据正在加载中"
           element-loading-spinner="el-icon-loading"
@@ -138,6 +138,7 @@ export default {
   },
   data() {
     return {
+      showLoading:false,
       dialogShow: false,
       filter_key: {}, //条件筛选的值
       msg_key: {}, //需要显示的数据
@@ -147,6 +148,12 @@ export default {
     };
   },
   watch: {
+    isLoading:{
+      handler(newval,oldval){
+        this.showLoading = newval
+      },
+      immediate:true
+    },
     dialogVisible: {
       handler(newval, oldval) {
         this.dialogShow = newval;
@@ -219,8 +226,7 @@ export default {
     },
     // 单选的搜索功能
     search_single() {
-      console.log(this.filter_key);
-      let params = this.filter_key;
+      this.showLoading = true;
       if (this.searchType == "mixed") {
         let workParams = {};
         Object.keys(this.filter_key).forEach((key) => {
@@ -228,6 +234,7 @@ export default {
         });
         request.get(this.searchApi, {}, { params: workParams }).then((res) => {
           if (res.status == 200) {
+            this.showLoading = false;
             this.tableData = res.data;
           }
         });
@@ -236,6 +243,7 @@ export default {
         let params = { ...temp, ...this.filter_key };
         request.get(this.searchApi, {}, { params }).then((res) => {
           if (res.status == 200 || res.code == 0) {
+            this.showLoading = false;
             this.tableData = res.data;
           }
         });
@@ -248,10 +256,6 @@ export default {
           this.tableData = res.data;
         }
       });
-    },
-    // 多选的搜索功能
-    search_more() {
-      console.log(this.keyWord_double_1, this.keyWord_double_2);
     },
     // 表格行点击
     rowClick(row) {
