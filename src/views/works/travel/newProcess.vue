@@ -1317,7 +1317,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/gens";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
           break;
@@ -1327,7 +1326,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/aags";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_KJKM;
           this.dataSelect.dialogTitle = "会计科目";
           break;
@@ -1337,7 +1335,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjas";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_XM;
           this.dataSelect.dialogTitle = "项目";
           break;
@@ -1347,7 +1344,6 @@ export default {
           this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjbs";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
           break;
@@ -1357,12 +1353,10 @@ export default {
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "oa/workflows";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_CCSQD;
           this.dataSelect.dialogTitle = "出差申请单列表";
           break;
         case "WQX":
-          // let filter_WQX = [{ label: "", model_key_search: "type" }];
           let params = {
             type:1,
             number:this.tableData.oaa04
