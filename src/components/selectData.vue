@@ -121,15 +121,12 @@ export default {
       type: String,
       default: "single",
     },
+    // 搜索时需要携带的固定值参数
     searchParams: {
       type: Object,
-      
     },
     // 筛选条件
-    filter: {
-      type: Array,
-      default: [],
-    },
+    filter: Array,
     // 重点信息显示
     keyMsg: {
       type: Array,
@@ -194,6 +191,7 @@ export default {
           this.filter_key = res;
         }
       },
+      deep:true
     },
     keyMsg: {
       handler(newval, oldval) {
@@ -204,6 +202,8 @@ export default {
         });
         this.msg_key = res;
       },
+      immediate: true,
+      deep: true,
     },
   },
   methods: {
