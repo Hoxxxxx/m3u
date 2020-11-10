@@ -166,7 +166,6 @@
                       v-model="tableData.oaa06"
                       class="select"
                       placeholder="请选择币种"
-                      :loading="fixedData.selectLoading"
                     >
                       <el-option
                         v-for="item in fixedData.azisList"
@@ -229,7 +228,6 @@
                       v-model="tableData.oaa12"
                       class="select"
                       placeholder="请选择支付方式"
-                      :loading="fixedData.selectLoading"
                       disabled
                     >
                       <el-option
@@ -349,10 +347,13 @@
           :on-success="handleSuccess"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
+          :before-upload="beforeAvatarUpload"
           :before-remove="beforeRemove"
           multiple
           :on-exceed="handleExceed"
-          :file-list="fileList">
+          :file-list="fileList"
+          accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.png,.jpg,.jpeg,.zip,.rar"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
       </div>
@@ -493,6 +494,11 @@ export default {
       // 弹出框表头数据
       tableHead: {
         // 申请人
+        head_SQR: [
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+        ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
@@ -527,7 +533,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.genList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取员工列表失败：" + result.error.message);
         }
@@ -538,7 +543,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.azisList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取币种列表失败：" + result.error.message);
         }
@@ -549,7 +553,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.pmasList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取付款方式列表失败：" + result.error.message);
         }
@@ -560,7 +563,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.pjasList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取项目列表失败：" + result.error.message);
         }
@@ -571,7 +573,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.pjbsList = result.data;
-          this.fixedData.selectLoading = false;
         } else {
           this.$message.error("获取WBS列表失败：" + result.error.message);
         }
@@ -579,6 +580,33 @@ export default {
     },
     // *******************************************
     // ****************附件上传*****************
+    // 限制格式
+    beforeAvatarUpload(file) {
+      const isDoc = file.type === "application/msword";
+      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+      const isXls = file.type === "application/vnd.ms-excel";
+      const isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      const isPPT = file.type === "application/vnd.ms-powerpoint";
+      const isPPTX = file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+      const isPDF = file.type === "application/pdf";
+      const isTXT = file.type === "text/plain";
+      const isPNG = file.type === "image/png";
+      const isJPG = file.type === "image/jpeg";
+      const isJPEG = file.type === "image/jpeg";
+      const isZIP = file.type === "application/zip";
+      const isRAR = file.type === "application/x-rar";
+      const isNull = file.type === '';
+      const isLt200M = file.size / 1024 / 1024 < 200;
+
+      if (!isDoc && !isDocx && !isXls && !isXlsx && !isPPT && !isPPTX && !isPDF && !isTXT && !isPNG && !isJPG && !isJPEG && !isZIP && !isRAR ) {
+        this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
+        return false;
+      }
+      if (!isLt20M) {
+        this.$message.warning("上传文件大小不能超过 200MB!");
+        return false;
+      }
+    },
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
@@ -716,11 +744,17 @@ export default {
       this.dataSelect.cur_input = type;
       this.dataSelect.choosedData = [];
       switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
         case "XM":
           let filter_XM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_XM;
           this.dataSelect.searchApi = "meta/pjas";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_XM;
           this.dataSelect.dialogTitle = "项目";
           break;
@@ -728,7 +762,6 @@ export default {
           let filter_WBS = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_WBS;
           this.dataSelect.searchApi = "meta/pjbs";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
           break;
@@ -748,6 +781,10 @@ export default {
       this.dataSelect.choosedData = val;
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.tableData.oaa04 = val[0].gen01;
+            this.showData.oaa04_show = val[0].gen02;
+            break;
           case "XM":
             this.tableData.oaa14 = val[0].pja01;
             this.showData.oaa14_show = val[0].pja02;

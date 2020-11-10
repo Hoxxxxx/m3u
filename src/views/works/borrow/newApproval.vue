@@ -33,171 +33,55 @@
             <div class="tableBox">
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
-              <div class="form_line  last_line">
+              <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox">{{tableData.oaa03}}</div>
+                <div class="infobox middlebox">{{tableData.oaa03}}</div>
+                <div class="titlebox">联系电话</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa05}}</div>
+              </div>
+              <div class="form_line  last_line">
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">{{tableData.oaa04_show}}</div>
-                <div class="titlebox">联系电话</div>
-                <div class="infobox last_row">{{tableData.oaa05}}</div>
-              </div>
-              <!-- 出差信息 -->
-              <div class="title_line">出差信息</div>
-              <div class="form_line">
-                <div class="titlebox">预计开始时间</div>
-                <div class="infobox middlebox databox">
-                  <el-date-picker
-                    v-model="tableData.oaa31"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox databox">
-                  <el-date-picker
-                    v-model="tableData.oaa32"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox databox">
-                  <el-date-picker
-                    v-model="tableData.oaa33"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox databox last_row">
-                  <el-date-picker
-                    v-model="tableData.oaa34"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">出差目的</div>
-                <div class="infobox longbox">{{tableData.oaa30}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">出差地点</div>
-                <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa35">
-                    <el-radio :label="1" disabled>一般地区</el-radio>
-                    <el-radio :label="2" disabled>特殊地区</el-radio>
-                  </el-radio-group>
-                  {{tableData.oaa36}}
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">交通工具</div>
-                <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa37">
-                    <el-radio :label="1" disabled>飞机</el-radio>
-                    <el-radio :label="2" disabled>火车</el-radio>
-                    <el-radio :label="3" disabled>汽车</el-radio>
-                    <el-radio :label="4" disabled>其它</el-radio>
-                  </el-radio-group>
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">访问单位</div>
-                <div class="infobox longbox">{{tableData.oaa38}}</div>
-              </div>
-              <div class="form_line  last_line">
-                <div class="titlebox">是否需要借款</div>
-                <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa39">
-                    <el-radio :label="1" disabled>是</el-radio>
-                    <el-radio :label="2" disabled>否</el-radio>
-                  </el-radio-group>
-                </div>
+                <div class="titlebox">员工编号</div>
+                <div class="infobox middlebox">{{tableData.oaa04_gen01}}</div>
+                <div class="titlebox">所属部门</div>
+                <div class="infobox middlebox">{{tableData.oaa04_gen03}}</div>
               </div>
               <!-- 借款信息 -->
-              <div v-if="tableData.oaa39 == 1">
-                <div class="title_line">借款信息</div>
-                <div class="form_line">
-                  <div class="titlebox">项目</div>
-                  <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
-                  <div class="titlebox">项目WBS</div>
-                  <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">币种</div>
-                  <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
-                  <div class="titlebox">借款金额</div>
-                  <div class="infobox">{{tableData.oaa07}}</div>
-                  <div class="titlebox">汇率</div>
-                  <div class="infobox last_row">{{tableData.oaa08}}</div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">收款人</div>
-                  <div class="infobox">{{tableData.oaa09}}</div>
-                  <div class="titlebox">账号</div>
-                  <div class="infobox">{{tableData.oaa10}}</div>
-                  <div class="titlebox">开户行</div>
-                  <div class="infobox last_row">{{tableData.oaa11}}</div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">支付方式</div>
-                  <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
-                </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">借款事由</div>
-                  <div class="infobox longbox">{{tableData.oaa13}}</div>
-                </div>
-              </div>
-              <!-- 交际信息 -->
-              <div class="title_line">交际信息</div>
+              <div class="title_line">借款信息</div>
               <div class="form_line">
-                <div class="titlebox">支出项目</div>
-                <div class="infobox middlebox">{{tableData.oaa20}}</div>
-                <div class="titlebox">实施时间</div>
-                <div class="infobox middlebox databox last_row">
-                  <el-date-picker
-                    v-model="tableData.oaa21"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
+                <div class="titlebox">项目</div>
+                <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
+                <div class="titlebox">项目WBS</div>
+                <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">我方参加部门</div>
-                <div class="infobox middlebox">{{tableData.oaa22}}</div>
-                <div class="titlebox">对方参加部门</div>
-                <div class="infobox middlebox">{{tableData.oaa23}}</div>
-                <div class="titlebox">我方参加人员</div>
-                <div class="infobox middlebox">{{tableData.oaa24}}</div>
-                <div class="titlebox">对方参加人员</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa25}}</div>
+                <div class="titlebox">币种</div>
+                <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
+                <div class="titlebox">借款金额</div>
+                <div class="infobox">{{tableData.oaa07}}</div>
+                <div class="titlebox">汇率</div>
+                <div class="infobox last_row">{{tableData.oaa08}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">收款人</div>
+                <div class="infobox">{{tableData.oaa09}}</div>
+                <div class="titlebox">账号</div>
+                <div class="infobox">{{tableData.oaa10}}</div>
+                <div class="titlebox">开户行</div>
+                <div class="infobox last_row">{{tableData.oaa11}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">支付方式</div>
+                <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">出差单</div>
+                <div class="infobox longbox">{{tableData.oaa17_show}}</div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">付款预算金额</div>
-                <div class="infobox middlebox">{{tableData.oaa26}}</div>
-                <div class="titlebox">区分</div>
-                <div class="infobox middlebox last_row">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa27">
-                    <el-radio :label="1" disabled>交际费</el-radio>
-                    <el-radio :label="2" disabled>会议费</el-radio>
-                  </el-radio-group>
-                </div>
+                <div class="titlebox">借款事由</div>
+                <div class="infobox longbox">{{tableData.oaa13}}</div>
               </div>
             </div>
           </div>
@@ -247,10 +131,13 @@
           :on-success="handleSuccess"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
+          :before-upload="beforeAvatarUpload"
           :before-remove="beforeRemove"
           multiple
           :on-exceed="handleExceed"
-          :file-list="fileList">
+          :file-list="fileList"
+          accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.png,.jpg,.jpeg,.zip,.rar"
+        >
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
       </div>
@@ -298,40 +185,7 @@ export default {
       workid: '',
       workName: '出差借款申请',
       activeTab: "firTab",
-      tableData: {
-        oaa01: '',
-        oaa02: '',
-        oaa03: '',
-        oaa04: '',
-        oaa05: '',
-        oaa06: 'RMB',
-        oaa07: '',
-        oaa08: '1',
-        oaa09: '',
-        oaa10: '',
-        oaa11: '',
-        oaa12: '',
-        oaa13: '',
-        oaa14: '',
-        oaa15: '',
-        oaa20: '',
-        oaa21: '',
-        oaa22: '',
-        oaa23: '',
-        oaa24: '',
-        oaa25: '',
-        oaa26: '',
-        oaa27: '',
-        oaa30: '',
-        oaa31: '',
-        oaa32: '',
-        oaa33: '',
-        oaa34: '',
-        oaa35: '',
-        oaa36: '',
-        oaa38: '',
-        oaa39: ''
-      },
+      tableData: {},
       fixedData: {
         selectLoading: true,
         // 申请人列表
@@ -346,7 +200,7 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8936
+        tplid: 8944
       },
       // 当前流程列表
       workclass_perflow: [],
@@ -387,6 +241,33 @@ export default {
     },
     // *******************************************
     // ***************附件上传******************
+    // 限制格式
+    beforeAvatarUpload(file) {
+      const isDoc = file.type === "application/msword";
+      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+      const isXls = file.type === "application/vnd.ms-excel";
+      const isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      const isPPT = file.type === "application/vnd.ms-powerpoint";
+      const isPPTX = file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+      const isPDF = file.type === "application/pdf";
+      const isTXT = file.type === "text/plain";
+      const isPNG = file.type === "image/png";
+      const isJPG = file.type === "image/jpeg";
+      const isJPEG = file.type === "image/jpeg";
+      const isZIP = file.type === "application/zip";
+      const isRAR = file.type === "application/x-rar";
+      const isNull = file.type === '';
+      const isLt200M = file.size / 1024 / 1024 < 200;
+
+      if (!isDoc && !isDocx && !isXls && !isXlsx && !isPPT && !isPPTX && !isPDF && !isTXT && !isPNG && !isJPG && !isJPEG && !isZIP && !isRAR ) {
+        this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
+        return false;
+      }
+      if (!isLt20M) {
+        this.$message.warning("上传文件大小不能超过 200MB!");
+        return false;
+      }
+    },
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
@@ -427,12 +308,12 @@ export default {
       let fileName = filename;
       let fileType = {
         doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         xls: 'application/vnd.ms-excel',
         xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ppt: 'application/vnd.ms-powerpoint',
         pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
+        pdf: 'application/pdf',
         txt: 'text/plain',
         png: 'image/png',
         jpg: 'image/jpeg',
