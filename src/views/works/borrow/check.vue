@@ -37,9 +37,9 @@
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">{{tableData.oaa04_show}}</div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox middlebox">{{tableData.oaa04_gen01}}</div>
+                <div class="infobox middlebox">{{tableData.oaa04}}</div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox middlebox">{{tableData.oaa04_gen03}}</div>
+                <div class="infobox middlebox">{{tableData.oaa04_gen04}}</div>
               </div>
               <!-- 借款信息 -->
               <div class="title_line">借款信息</div>
