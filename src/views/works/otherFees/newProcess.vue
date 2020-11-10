@@ -947,7 +947,6 @@ export default {
           this.dataSelect.filter = [];
           this.dataSelect.searchType = "single"
           this.dataSelect.searchApi = "oa/openitems";
-          this.selectLoading = false;
           this.dataSelect.headList = this.tableHead.head_WQX;
           this.dataSelect.dialogTitle = "未清项列表";
           break;
