@@ -29,9 +29,13 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox">{{tableData.oaa03}}</div>
+                <div class="infobox">{{tableData.oaa03}}</div>
+                <div class="titlebox">申请人</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
+                </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox middlebox selectbox">
+                <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
@@ -39,37 +43,79 @@
                   />
                 </div>
               </div>
+              <!-- 卡片信息 -->
+              <div class="title_line">卡片信息</div>
               <div class="form_line">
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">财产编号</div>
                 <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa11"
+                    placeholder="请输入财产编号"
+                  />
                 </div>
-                <div class="titlebox">员工编号</div>
-                <div class="infobox middlebox">{{showData.oaa04_gen01}}</div>
-                <div class="titlebox">所属部门</div>
-                <div class="infobox middlebox">{{showData.oaa04_gen04}}</div>
+                <div class="titlebox">资产主类别</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('ZCZLB')">{{showData.oaa12_show}}</div>
+                </div>
+                <div class="titlebox">资产次类别</div>
+                <div class="infobox selectbox last_row">
+                  <div class="selector" @click="selectDialog('ZCCLB')">{{showData.oaa13_show}}</div>
+                </div>
               </div>
-              <!-- 借款信息 -->
-              <div class="title_line">借款信息</div>
               <div class="form_line">
-                <div class="titlebox">项目</div>
-                <div class="infobox middlebox selectbox">
-                  <div class="selector" @click="selectDialog('XM')">
-                  {{ showData.oaa14_show }}
-                  </div>
+                <div class="titlebox">资产中文名称</div>
+                <div class="infobox selectbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa14"
+                    placeholder="请输入资产中文名称"
+                  />
                 </div>
-                <div class="titlebox">项目WBS</div>
-                <div class="infobox middlebox selectbox last_row">
-                  <div class="selector" @click="selectDialog('WBS')">
-                  {{ showData.oaa15_show }}
-                  </div>
+                <div class="titlebox">资产英文名称</div>
+                <div class="infobox selectbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa15"
+                    placeholder="请输入资产英文名称"
+                  />
+                </div>
+                <div class="titlebox">规格型号</div>
+                <div class="infobox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa16"
+                    placeholder="请输入规格型号"
+                  />
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">供应商编号</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('GYS')">{{tableData.oaa17}}</div>
+                </div>
+                <div class="titlebox">本币单价</div>
+                <div class="infobox selectbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa18"
+                    placeholder="请输入本币单价"
+                  />
+                </div>
+                <div class="titlebox">本币成本</div>
+                <div class="infobox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa19"
+                    placeholder="请输入本币成本"
+                  />
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">币种</div>
                 <div class="infobox selectbox">
                   <el-select
-                    v-model="tableData.oaa06"
+                    v-model="tableData.oaa20"
                     class="select"
                     placeholder="请选择币种"
                   >
@@ -82,94 +128,130 @@
                     </el-option>
                   </el-select>
                 </div>
-                <div class="titlebox">借款金额</div>
+                <div class="titlebox">原币成本</div>
                 <div class="infobox selectbox">
                   <input
                     class="abstracInput"
-                    v-model="tableData.oaa07"
-                    placeholder="请输入借款金额"
-                    @input="getExchangeRate()"
+                    v-model="tableData.oaa21"
+                    placeholder="请输入原币成本"
                   />
                 </div>
-                <div class="titlebox">汇率</div>
+                <div class="titlebox">数量</div>
                 <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
-                    v-model="tableData.oaa08"
-                    placeholder="请输入汇率"
-                    @input="getExchangeRate()"
+                    v-model="tableData.oaa22"
+                    placeholder="请输入数量"
                   />
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">收款人</div>
+                <div class="titlebox">计量单位</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('JLDW')">{{showData.oaa23_show}}</div>
+                </div>
+                <div class="titlebox">保管人</div>
                 <div class="infobox selectbox">
                   <input
                     class="abstracInput"
-                    v-model="tableData.oaa09"
-                    placeholder="请输入收款人"
+                    v-model="tableData.oaa24"
+                    placeholder="请输入保管人"
                   />
                 </div>
-                <div class="titlebox">账号</div>
-                <div class="infobox selectbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa10"
-                    placeholder="请输入账号"
-                  />
-                </div>
-                <div class="titlebox">开户行</div>
+                <div class="titlebox">保管部门</div>
                 <div class="infobox selectbox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa11"
-                    placeholder="请输入开户行"
-                  />
+                  <div class="selector" @click="selectDialog('BGBM')">{{showData.oaa25_show}}</div>
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">支付方式</div>
-                <div class="infobox longbox selectbox disabledbox">
+                <div class="titlebox">存放位置</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('WZ')">{{showData.oaa26_show}}</div>
+                </div>
+                <div class="titlebox">分摊方式</div>
+                <div class="infobox selectbox">
                   <el-select
-                    v-model="tableData.oaa12"
+                    v-model="tableData.oaa27"
                     class="select"
-                    placeholder="请选择支付方式"
-                    disabled
+                    placeholder="请选择分摊方式"
                   >
                     <el-option
-                      v-for="item in fixedData.pmasList"
-                      :key="item.pma01"
-                      :label="item.pma02"
-                      :value="item.pma01"
+                      v-for="item in fixedData.shareList"
+                      :key="item.id"
+                      :label="item.label"
+                      :value="item.id"
                     >
                     </el-option>
                   </el-select>
                 </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">折合汇率金额</div>
-                <div class="infobox middlebox disabledbox">{{exchange}}</div>
-                <div class="titlebox">折合汇率金额大写</div>
-                <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">出差单</div>
-                <div class="infobox longbox selectbox">
-                  <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('CCSQD')">
-                    {{ showData.oaa17_show }}
-                  </div>
+                <div class="titlebox">分摊部门</div>
+                <div class="infobox selectbox last_row">
+                  <div class="selector" @click="selectDialog('FTBM')">{{showData.oaa28_show}}</div>
                 </div>
               </div>
-              <div class="form_line last_line">
-                <div class="titlebox">借款事由</div>
-                <div class="infobox longbox selectbox">
+              <div class="form_line">
+                <div class="titlebox">取得日期</div>
+                <div class="infobox datebox">
+                  <el-date-picker
+                    v-model="tableData.oaa29"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
+                <div class="titlebox">项目编号</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('XM')">{{tableData.oaa30}}</div>
+                </div>
+                <div class="titlebox">WBS编号</div>
+                <div class="infobox selectbox last_row">
+                  <div class="selector" @click="selectDialog('WBS')">{{tableData.oaa31}}</div>
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">入账日期</div>
+                <div class="infobox middlebox datebox">
+                  <el-date-picker
+                    v-model="tableData.oaa32"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                  >
+                  </el-date-picker>
+                </div>
+                <div class="titlebox">耐用月数</div>
+                <div class="infobox middlebox selectbox last_row">
                   <input
                     class="abstracInput"
-                    v-model="tableData.oaa13"
-                    placeholder="请输入借款事由"
+                    v-model="tableData.oaa33"
+                    placeholder="请输入耐用月数"
                   />
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">构建编号</div>
+                <div class="infobox longbox selectbox last_row">
+                  <div class="selector" @click="selectDialog('SQD')">{{showData.oaa34_show}}</div>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">说明</div>
+                <div class="infobox longbox areabox last_row">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa35"
+                    placeholder="请输入说明"
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              
+              
+              
             </div>
           </div>
         </el-tab-pane>
@@ -242,7 +324,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
+import { gensList, azisList,  } from "@/api/basic";
 import { addFlow,  } from "@/api/process_new";
 
 export default {
@@ -251,37 +333,49 @@ export default {
     return {
       activeTab: "firTab",
       workid: '',
-      workName:"借款申请",//流程名
+      workName:"固定资产卡片",//流程名
       tableData: {
         oaa01: '',
         oaa02: '',
         oaa03: '',
         oaa04: '',
         oaa05: '',
-        oaa06: 'RMB',
-        oaa07: '',
-        oaa08: '1',
-        oaa09: '',
-        oaa10: '',
         oaa11: '',
-        oaa12: 'TT',
+        oaa12: '',
         oaa13: '',
         oaa14: '',
         oaa15: '',
+        oaa16: '',
         oaa17: '',
+        oaa18: '',
+        oaa19: '',
+        oaa20: 'RMB',
+        oaa21: '',
+        oaa22: '1',
+        oaa23: '',
+        oaa24: '',
+        oaa25: '',
+        oaa26: '',
+        oaa27: 1,
+        oaa28: '',
+        oaa29: '',
+        oaa30: '',
+        oaa31: '',
+        oaa32: '',
+        oaa33: '',
+        oaa34: '',
+        oaa35: '',
       },
       showData: {
         oaa04_show: "", //申请人
-        oaa04_gen01: "", //申请人编号
-        oaa04_gen04: "", //部门编号
-        oaa14_show: "", //项目
-        oaa15_show: "", //项目WBS
-        oaa17_show: "", // 出差单
+        oaa12_show: "", //资产主类别
+        oaa13_show: "", //资产次类别
+        oaa23_show: "", //计量单位
+        oaa25_show: "", //保管部门
+        oaa26_show: "", //存放位置
+        oaa28_show: "", //分摊部门
+        oaa34_show: "", //申请单
       },
-      // 汇率数据
-      exchange: '', //折合汇率
-      exchange_Cap: '', //折合汇率大写
-      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       // 表单数据
       fixedData: {
         selectLoading: true,
@@ -289,18 +383,22 @@ export default {
         genList: [],
         // 币种列表
         azisList: [],
-        // 付款方式列表
-        pmasList: [],
-        // 项目列表
-        pjasList: [],
-        // WBS列表
-        pjbsList: [],
+        // 分摊列表
+        shareList: [
+          {
+            id: 1,
+            label: '单一部门分摊'
+          },{
+            id: 2,
+            label: '多部门分摊'
+          }
+        ],
       },
       fileList: [],
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8944
+        tplid: 8947
       },
       //数据选择弹出框
       dataSelect: {
@@ -326,6 +424,34 @@ export default {
           { name: "gen02", title: "员工名称" },
           { name: "gen03", title: "所属部门编号" },
         ],
+        head_ZCZLB: [
+          { name: "fab01", title: "资产主类别编号" },
+          { name: "fab02", title: "资产主类别名称" },
+        ],
+        head_ZCCLB: [
+          { name: "fac01", title: "资产次类别编号" },
+          { name: "fac02", title: "资产次类别名称" },
+        ],
+        head_GYS: [
+          { name: "pmc01", title: "供应厂商编号" },
+          { name: "pmc02", title: "厂商分类" },
+          { name: "pmc03", title: "厂商简称" },
+          { name: "pmc04", title: "付款厂商编号" },
+          { name: "pmc30", title: "厂商性质" },
+          { name: "pmc47", title: "税别" },
+        ],
+        head_JLDW: [
+          { name: "gfe01", title: "计量单位编号" },
+          { name: "gfe02", title: "计量单位名称" },
+        ],
+        head_BM: [
+          { name: "gem01", title: "部门编号" },
+          { name: "gem02", title: "部门名称" },
+        ],
+        head_WZ: [
+          { name: "faf01", title: "位置编号" },
+          { name: "faf02", title: "位置名称" },
+        ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
@@ -334,25 +460,22 @@ export default {
           { name: "pja13", title: "项目预计总额" },
         ],
         head_WBS: [
-          { name: "pjb02", title: "WBS编号" },
-          { name: "pjb03", title: "WBS名称" },
           { name: "pjb01", title: "项目编号" },
+          { name: "pjb02", title: "WBS编号" },
+          { name: "pjb08", title: "WBS名称" },
           { name: "pja02", title: "项目名称" },
         ],
-        head_CCSQD:[
-          { name: "id", title: "id" },
-          { name: "title", title: "流程名称" },
-        ],
+        head_SQD: [
+          { name: "id", title: "申请单id" },
+          { name: "title", title: "申请单名称" },
+        ]
       },
     };
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid
+    // this.addParams.tplid = this.$route.query.tplid
     this.getGens()
     this.getAzis()
-    this.getPmas()
-    this.getPjas()
-    this.getPjbs()
   },
   methods: {
     handleClick() {
@@ -376,36 +499,6 @@ export default {
           this.fixedData.azisList = result.data;
         } else {
           this.$message.error("获取币种列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPmas () {
-      pmasList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pmasList = result.data;
-        } else {
-          this.$message.error("获取付款方式列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjas () {
-      pjasList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjasList = result.data;
-        } else {
-          this.$message.error("获取项目列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjbs () {
-      pjbsList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjbsList = result.data;
-        } else {
-          this.$message.error("获取WBS列表失败：" + result.error.message);
         }
       })
     },
@@ -465,65 +558,6 @@ export default {
     },
     // *******************************************
     // ****************其他操作*******************
-    // 计算折合汇率
-    getExchangeRate() {
-      this.exchange = Number(this.tableData.oaa07) * Number(this.tableData.oaa08)
-      this.exchange = this.exchange.toFixed(2)
-      this.NumberToChinese(this.exchange)
-    },
-    //阿拉伯数字转换函数
-    toDx(n) {
-      switch (n) {
-          case "0":
-              return "零";
-          case "1":
-              return "壹";
-          case "2":
-              return "贰";
-          case "3":
-              return "叁";
-          case "4":
-              return "肆";
-          case "5":
-              return "伍";
-          case "6":
-              return "陆";
-          case "7":
-              return "柒";
-          case "8":
-              return "捌";
-          case "9":
-              return "玖";
-      }
-    },
-    // 转大写
-    NumberToChinese(m){
-      m *= 100;
-      m += "";
-      var length = m.length;
-
-      var result = "";
-      for (var i = 0; i < length; i++) {
-          if (i == 2) {
-            result = "元" + result;
-          } else if (i == 6) {
-            result = "万" + result;
-          } else if (i == 10) {
-            result = "亿" + result;
-          }
-          if (m.charAt(length - i - 1) == 0) {
-              if (i != 0 && i != 1) {
-                  if (result.charAt(0) != '零' && result.charAt(0) != '元' && result.charAt(0) != '万') {
-                      result = "零" + result;
-                  }
-              }
-              continue;
-          }
-          result = this.toDx(m.charAt(length - i - 1)) + this.unit[this.unit.length - i - 1] + result;
-      }
-      result += result.charAt(result.length - 1) == '元' ? "整" : "";
-      this.exchange_Cap = result;
-    },
     // 新增表单
     addNewFlow() {
       this.addParams.from_data = this.tableData
@@ -584,7 +618,70 @@ export default {
           this.dataSelect.searchApi = "meta/gens";
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
-          break;
+        break;
+        case "ZCZLB":
+          let filter_ZCZLB = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_ZCZLB;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/fabs";
+          this.dataSelect.headList = this.tableHead.head_ZCZLB;
+          this.dataSelect.dialogTitle = "资产主类别列表";
+        break;
+        case "ZCCLB":
+          let filter_ZCCLB = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_ZCCLB;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/facs";
+          this.dataSelect.headList = this.tableHead.head_ZCCLB;
+          this.dataSelect.dialogTitle = "资产次类别列表";
+        break;
+        case "GYS":
+          let filter_GYS = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_GYS;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/pmcs";
+          this.dataSelect.headList = this.tableHead.head_GYS;
+          this.dataSelect.dialogTitle = "供应商列表";
+        break;
+        case "JLDW":
+          let filter_JLDW = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_JLDW;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/gfes";
+          this.dataSelect.headList = this.tableHead.head_JLDW;
+          this.dataSelect.dialogTitle = "计量单位列表";
+        break;
+        case "BGBM":
+          let filter_BGBM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_BGBM;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/gems";
+          this.dataSelect.headList = this.tableHead.head_BM;
+          this.dataSelect.dialogTitle = "保管部门列表";
+        break;
+        case "FTBM":
+          let filter_FTBM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_FTBM;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/gems";
+          this.dataSelect.headList = this.tableHead.head_BM;
+          this.dataSelect.dialogTitle = "分摊部门列表";
+        break;
+        case "WZ":
+          let filter_WZ = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_WZ;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/fafs";
+          this.dataSelect.headList = this.tableHead.head_WZ;
+          this.dataSelect.dialogTitle = "存放位置列表";
+        break;
         case "XM":
           let filter_XM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_XM;
@@ -592,8 +689,8 @@ export default {
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/pjas";
           this.dataSelect.headList = this.tableHead.head_XM;
-          this.dataSelect.dialogTitle = "项目";
-          break;
+          this.dataSelect.dialogTitle = "项目列表";
+        break;
         case "WBS":
           let filter_WBS = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_WBS;
@@ -602,19 +699,19 @@ export default {
           this.dataSelect.searchApi = "meta/pjbs";
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
-          break;
-        case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "title" }];
-          this.dataSelect.filter = filter_CCSQD;
-          this.dataSelect.searchType = "mixed"
+        break;
+        case "SQD":
+          let filter_SQD = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQD;
+          this.dataSelect.searchType = "single"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "oa/workflows";
-          this.dataSelect.headList = this.tableHead.head_CCSQD;
-          this.dataSelect.dialogTitle = "出差申请单列表";
-          break;
+          this.dataSelect.headList = this.tableHead.head_SQD;
+          this.dataSelect.dialogTitle = "申请单列表";
+        break;
         default:
-          return;
-          break;
+        return;
+        break;
       }
     },
     selectCancel(val) {
@@ -633,22 +730,47 @@ export default {
             this.showData.oaa04_show = val[0].gen02;
             this.showData.oaa04_gen01 = val[0].gen01;
             this.showData.oaa04_gen04 = val[0].gen04;
-            break;
+          break;
+          case "ZCZLB":
+            this.tableData.oaa12 = val[0].fab01;
+            this.showData.oaa12_show = val[0].fab02;
+          break;
+          case "ZCCLB":
+            this.tableData.oaa13 = val[0].fac01;
+            this.showData.oaa13_show = val[0].fac02;
+          break;
+          case "GYS":
+            this.tableData.oaa17 = val[0].pmc01;
+          break;
+          case "JLDW":
+            this.tableData.oaa23 = val[0].gfe01;
+            this.showData.oaa23_show = val[0].gfe02;
+          break;
+          case "BGBM":
+            this.tableData.oaa25 = val[0].gem01;
+            this.showData.oaa25_show = val[0].gem02;
+          break;
+          case "FTBM":
+            this.tableData.oaa28 = val[0].gem01;
+            this.showData.oaa28_show = val[0].gem02;
+          break;
+          case "WZ":
+            this.tableData.oaa26 = val[0].faf01;
+            this.showData.oaa26_show = val[0].faf02;
+          break;
           case "XM":
-            this.tableData.oaa14 = val[0].pja01;
-            this.showData.oaa14_show = val[0].pja02;
-            break;
+            this.tableData.oaa30 = val[0].pja01;
+          break;
           case "WBS":
-            this.tableData.oaa15 = val[0].pjb02;
-            this.showData.oaa15_show = val[0].pjb03;
-            break;
-          case "CCSQD":
-            this.tableData.oaa17 = val[0].id;
-            this.showData.oaa17_show = val[0].title;
-            break;
+            this.tableData.oaa31 = val[0].pjb01;
+          break;
+          case "SQD":
+            this.tableData.oaa34 = val[0].id;
+            this.showData.oaa34_show = val[0].title;
+          break;
           default:
-            return;
-            break;
+          return;
+          break;
         }
       }
     },

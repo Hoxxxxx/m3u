@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{workName}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -30,58 +30,77 @@
               <div class="form_line">
                 <div class="titlebox">经办人</div>
                 <div class="infobox middlebox">{{tableData.oaa03}}</div>
-                <div class="titlebox">联系电话</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa05}}</div>
-              </div>
-              <div class="form_line last_line">
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">{{tableData.oaa04_show}}</div>
-                <div class="titlebox">员工编号</div>
-                <div class="infobox middlebox">{{tableData.oaa04}}</div>
-                <div class="titlebox">所属部门</div>
-                <div class="infobox middlebox">{{tableData.oaa04_gen04}}</div>
+                <div class="infobox">{{tableData.oaa04_show}}</div>
+                <div class="titlebox">联系电话</div>
+                <div class="infobox middlebox">{{tableData.oaa05}}</div>
               </div>
-              <!-- 借款信息 -->
-              <div class="title_line">借款信息</div>
+              <!-- 构建信息 -->
+              <div class="title_line">构建信息</div>
               <div class="form_line">
-                <div class="titlebox">项目</div>
-                <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
-                <div class="titlebox">项目WBS</div>
-                <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">币种</div>
-                <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
-                <div class="titlebox">借款金额</div>
-                <div class="infobox">{{tableData.oaa07}}</div>
-                <div class="titlebox">汇率</div>
-                <div class="infobox last_row">{{tableData.oaa08}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">收款人</div>
-                <div class="infobox">{{tableData.oaa09}}</div>
-                <div class="titlebox">账号</div>
-                <div class="infobox">{{tableData.oaa10}}</div>
-                <div class="titlebox">开户行</div>
-                <div class="infobox last_row">{{tableData.oaa11}}</div>
+                <div class="titlebox">购置类别</div>
+                <div class="infobox longbox selectbox">
+                  <el-select
+                    v-model="tableData.oaa11"
+                    class="select"
+                    placeholder="请选择购置类别"
+                  >
+                    <el-option
+                      v-for="item in fixedData.buyList"
+                      :key="item.id"
+                      :label="item.label"
+                      :value="item.id"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">支付方式</div>
-                <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
+                <div class="titlebox">固定资产名称</div>
+                <div class="infobox middlebox">{{tableData.oaa12}}</div>
+                <div class="titlebox">规格型号</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa13}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">折合汇率金额</div>
-                <div class="infobox middlebox disabledbox">{{exchange}}</div>
-                <div class="titlebox">折合汇率金额大写</div>
-                <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
+                <div class="titlebox">计量单位</div>
+                <div class="infobox middlebox">{{tableData.oaa14}}</div>
+                <div class="titlebox">构建数量</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa15}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">出差单</div>
-                <div class="infobox longbox">{{tableData.oaa17_show}}</div>
+                <div class="titlebox">计划金额</div>
+                <div class="infobox middlebox">{{tableData.oaa16}}</div>
+                <div class="titlebox">生产厂家</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa17}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">构建时间</div>
+                <div class="infobox middlebox databox">
+                  <el-date-picker
+                    v-model="tableData.oaa18"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                    disabled
+                  >
+                  </el-date-picker>
+                </div>
+                <div class="titlebox">使用部门</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa19}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">计划内外</div>
+                <div class="infobox middlebox">{{tableData.oaa20}}</div>
+                <div class="titlebox">采购金额</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">主要参数配置</div>
+                <div class="infobox longbox">{{tableData.oaa22}}</div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">借款事由</div>
-                <div class="infobox longbox">{{tableData.oaa13}}</div>
+                <div class="titlebox">构建依据</div>
+                <div class="infobox longbox">{{tableData.oaa23}}</div>
               </div>
             </div>
           </div>
@@ -98,7 +117,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{workName}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -165,35 +184,36 @@ export default {
   components: {},
   data() {
     return {
-      workid: '',
-      workname: '借款申请',
       activeTab: "firTab",
+      workid: '',
+      workName:"固定资产卡片",//流程名
       tableData: {},
-      // 汇率数据
-      exchange: '', //折合汇率
-      exchange_Cap: '', //折合汇率大写
-      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
+      showData: {
+        oaa04_show: "", //申请人
+        oaa04_gen01: "", //申请人编号
+      },
+      // 表单数据
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
-        // 币种列表
-        azisList: [],
-        // 付款方式列表
-        pmasList: [],
+        // 购置列表
+        buyList: [
+          {
+            id: 1,
+            label: '全新购置'
+          },
+          {
+            id: 2,
+            label: '升级更换'
+          }
+        ],
       },
       fileList_user: [],
-      addParams: {
-        from_data: {},
-        annexurlid: [],
-        tplid: 8936
-      },
       // 当前流程列表
       workclass_perflow: [],
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    // this.workid = this.$route.query.workid
+    this.workid = 3963
     this.getworkflows()
   },
   methods: {
@@ -208,7 +228,7 @@ export default {
       workflowsList(params).then(res=>{
         if(res.status == 200){
           this.tableData = res.data.workclass_info.from_data
-          this.workname = res.data.workclass_info.title
+          this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
@@ -219,100 +239,12 @@ export default {
               })
             })
           }
-          this.getExchangeRate()
         }else{
           this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
     },
-    // 计算折合汇率
-    getExchangeRate() {
-      this.exchange = Number(this.tableData.oaa07) * Number(this.tableData.oaa08)
-      this.exchange = this.exchange.toFixed(2)
-      this.NumberToChinese(this.exchange)
-    },
-    //阿拉伯数字转换函数
-    toDx(n) {
-      switch (n) {
-          case "0":
-              return "零";
-          case "1":
-              return "壹";
-          case "2":
-              return "贰";
-          case "3":
-              return "叁";
-          case "4":
-              return "肆";
-          case "5":
-              return "伍";
-          case "6":
-              return "陆";
-          case "7":
-              return "柒";
-          case "8":
-              return "捌";
-          case "9":
-              return "玖";
-      }
-    },
-    // 转大写
-    NumberToChinese(m){
-      m *= 100;
-      m += "";
-      var length = m.length;
-
-      var result = "";
-      for (var i = 0; i < length; i++) {
-          if (i == 2) {
-            result = "元" + result;
-          } else if (i == 6) {
-            result = "万" + result;
-          } else if (i == 10) {
-            result = "亿" + result;
-          }
-          if (m.charAt(length - i - 1) == 0) {
-              if (i != 0 && i != 1) {
-                  if (result.charAt(0) != '零' && result.charAt(0) != '元' && result.charAt(0) != '万') {
-                      result = "零" + result;
-                  }
-              }
-              continue;
-          }
-          result = this.toDx(m.charAt(length - i - 1)) + this.unit[this.unit.length - i - 1] + result;
-      }
-      result += result.charAt(result.length - 1) == '元' ? "整" : "";
-      this.exchange_Cap = result;
-    },
     // *******************************************
-    // ***************附件上传******************
-    // 上传成功
-    handleSuccess(response, file, fileList) {
-      this.addParams.annexurlid.push({
-        filename: response.data.filename,
-        fileaddr: response.data.path
-      })
-    },
-    // 移除上传项
-    handleRemove(file, fileList) {
-      this.addParams.annexurlid.forEach( (item, index) => {
-        if (item.filename == file.name) {
-          this.addParams.annexurlid.splice( index, 1 )
-        }
-      })
-    },
-    // 点击上传项回调
-    handlePreview(file) {
-      console.log(file);
-    },
-    // 超出上传限制回调
-    handleExceed(files, fileList) {
-      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-    },
-    // 移除前回调
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
-    },
     // 下载文件流
     async download(id, filename) {
       const { data: res } = await this.axios({
@@ -350,7 +282,6 @@ export default {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     },
-    // ******************************************
     // ******************************************
   },
 };

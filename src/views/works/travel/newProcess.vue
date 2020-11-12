@@ -43,7 +43,7 @@
                   </div>
                 </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox">
+                <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
@@ -72,7 +72,7 @@
                   </el-select>
                 </div>
                 <div class="titlebox">汇率</div>
-                <div class="infobox">
+                <div class="infobox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa08"
@@ -114,7 +114,7 @@
               <!-- 3 -->
               <div class="form_line">
                 <div class="titlebox">发票张数</div>
-                <div class="infobox longbox">
+                <div class="infobox selectbox longbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa14"
@@ -134,23 +134,23 @@
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">说明</div>
-                <div class="infobox last_row longbox" style="width: 100%">
-                  <input
-                    class="abstracInput"
+                <div class="infobox areabox last_row longbox" style="width: 100%">
+                  <el-input
                     type="textarea"
-                    :autosize="{ minRows: 2, maxRows: 4 }"
+                    :rows="4"
                     v-model="tableData.oaa16"
+                    placeholder="请输入说明"
                     maxlength="80"
-                    :show-word-limit="true"
-                    placeholder="请输入说明（内容不要超过80个字）"
-                  />
+                    show-word-limit
+                  >
+                  </el-input>
                 </div>
               </div>
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
               <div class="form_line">
                 <div class="titlebox">收款人</div>
-                <div class="infobox">
+                <div class="infobox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa09"
@@ -158,7 +158,7 @@
                   />
                 </div>
                 <div class="titlebox">开户行</div>
-                <div class="infobox">
+                <div class="infobox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa10"
@@ -166,7 +166,7 @@
                   />
                 </div>
                 <div class="titlebox">收款账号</div>
-                <div class="infobox last_row">
+                <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa11"
@@ -176,7 +176,7 @@
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">支票号</div>
-                <div class="infobox last_row longbox" style="width: 100%">
+                <div class="infobox last_row longbox selectbox" style="width: 100%">
                   <input
                     class="abstracInput"
                     type="textarea"
@@ -1160,6 +1160,7 @@ export default {
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
+        id: response.data.id,
         filename: response.data.filename,
         fileaddr: response.data.path,
       });

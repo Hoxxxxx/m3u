@@ -45,7 +45,7 @@
               <div class="title_line">出差信息</div>
               <div class="form_line">
                 <div class="titlebox">预计开始时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa31"
                     type="date"
@@ -56,7 +56,7 @@
                   </el-date-picker>
                 </div>
                 <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa32"
                     type="date"
@@ -67,7 +67,7 @@
                   </el-date-picker>
                 </div>
                 <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa33"
                     type="date"
@@ -78,7 +78,7 @@
                   </el-date-picker>
                 </div>
                 <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox databox last_row">
+                <div class="infobox middlebox datebox last_row">
                   <el-date-picker
                     v-model="tableData.oaa34"
                     type="date"
@@ -173,7 +173,7 @@
                 <div class="titlebox">支出项目</div>
                 <div class="infobox middlebox">{{tableData.oaa20}}</div>
                 <div class="titlebox">实施时间</div>
-                <div class="infobox middlebox databox last_row">
+                <div class="infobox middlebox datebox last_row">
                   <el-date-picker
                     v-model="tableData.oaa21"
                     type="date"
@@ -298,7 +298,7 @@
 <script>
 // api
 import { workflowsList, } from "@/api/process_new.js"
-import { addFlow,  } from "@/api/process_new";
+import { editFlow,  } from "@/api/process_new";
 
 export default {
   components: {},
@@ -397,6 +397,7 @@ export default {
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
+        id: response.data.id,
         filename: response.data.filename,
         fileaddr: response.data.path
       })
@@ -428,9 +429,6 @@ export default {
           url: `files/download/${id}`,
           responseType: "blob",
       })
-      if (res.status !== 200) {
-        this.$message.error('下载文件失败' + res.error.message);
-      }
       let fileName = filename;
       let fileType = {
         doc: 'application/msword',
@@ -523,9 +521,9 @@ export default {
       this.exchange_Cap = result;
     },
     // 新增表单
-    addNewFlow() {
+    editNewFlow() {
       this.addParams.from_data = this.tableData
-      addFlow(this.addParams)
+      editFlow(this.addParams)
       .then( result => {
         this.workid = result.data.workid
         this.tableData.oaa01 = result.data.oaa01
@@ -534,15 +532,44 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      this.$router.push({
-        path: url,
-        query: {
-          workid: this.workid,
-          workName: this.workName,
-          oaa01: this.tableData.oaa01,
-          oaa02: this.tableData.oaa02
-        }
-      })
+      if (this.addParams.annexurlid.length !== 0) {
+        this.addParams.from_data = this.tableData
+        this.addParams.workid = this.workid
+        this.fileList_user.forEach(item => {
+          this.addParams.annexurlid.push({
+            id: item.id,
+            filename: item.name,
+            fileaddr: item.url
+          })
+        })
+        editFlow(this.addParams)
+        .then( result => {
+          if (result.status == 200) {
+            this.$message.success("编辑成功！");
+            this.$router.push({
+              path: url,
+              query: {
+                workid: this.workid,
+                workName: this.workName,
+                oaa01: this.tableData.oaa01,
+                oaa02: this.tableData.oaa02
+              }
+            })
+          } else {
+            this.$message.error("编辑失败：" + result.error.message);
+          }
+        })
+      } else {
+        this.$router.push({
+          path: url,
+          query: {
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02
+          }
+        })
+      }
     },
     // ******************************************
 

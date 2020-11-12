@@ -35,7 +35,7 @@
                   <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
                 </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox last_row">
+                <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
@@ -47,7 +47,7 @@
               <div class="title_line">出差信息</div>
               <div class="form_line">
                 <div class="titlebox">预计开始时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa31"
                     type="date"
@@ -57,7 +57,7 @@
                   </el-date-picker>
                 </div>
                 <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa32"
                     type="date"
@@ -67,7 +67,7 @@
                   </el-date-picker>
                 </div>
                 <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa33"
                     type="date"
@@ -77,7 +77,7 @@
                   </el-date-picker>
                 </div>
                 <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox databox last_row">
+                <div class="infobox middlebox datebox last_row">
                   <el-date-picker
                     v-model="tableData.oaa34"
                     type="date"
@@ -89,7 +89,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">出差目的</div>
-                <div class="infobox longbox">
+                <div class="infobox longbox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa30"
@@ -99,7 +99,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">出差地点</div>
-                <div class="infobox longbox">
+                <div class="infobox longbox selectbox">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa35">
                     <el-radio :label="1">一般地区</el-radio>
                     <el-radio :label="2">特殊地区</el-radio>
@@ -125,7 +125,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">访问单位</div>
-                <div class="infobox longbox">
+                <div class="infobox longbox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa38"
@@ -177,7 +177,7 @@
                     </el-select>
                   </div>
                   <div class="titlebox">借款金额</div>
-                  <div class="infobox">
+                  <div class="infobox selectbox">
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa07"
@@ -186,7 +186,7 @@
                     />
                   </div>
                   <div class="titlebox">汇率</div>
-                  <div class="infobox last_row">
+                  <div class="infobox selectbox last_row">
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa08"
@@ -197,7 +197,7 @@
                 </div>
                 <div class="form_line">
                   <div class="titlebox">收款人</div>
-                  <div class="infobox">
+                  <div class="infobox selectbox">
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa09"
@@ -205,7 +205,7 @@
                     />
                   </div>
                   <div class="titlebox">账号</div>
-                  <div class="infobox">
+                  <div class="infobox selectbox">
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa10"
@@ -213,7 +213,7 @@
                     />
                   </div>
                   <div class="titlebox">开户行</div>
-                  <div class="infobox last_row">
+                  <div class="infobox selectbox last_row">
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa11"
@@ -248,7 +248,7 @@
                 </div>
                 <div class="form_line last_line">
                   <div class="titlebox">借款事由</div>
-                  <div class="infobox longbox">
+                  <div class="infobox selectbox longbox">
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa13"
@@ -261,7 +261,7 @@
               <div class="title_line">交际信息</div>
               <div class="form_line">
                 <div class="titlebox">支出项目</div>
-                <div class="infobox middlebox">
+                <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa20"
@@ -269,7 +269,7 @@
                   />
                 </div>
                 <div class="titlebox">实施时间</div>
-                <div class="infobox middlebox databox last_row">
+                <div class="infobox middlebox datebox last_row">
                   <el-date-picker
                     v-model="tableData.oaa21"
                     type="date"
@@ -281,7 +281,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">我方参加部门</div>
-                <div class="infobox middlebox">
+                <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa22"
@@ -289,7 +289,7 @@
                   />
                 </div>
                 <div class="titlebox">对方单位</div>
-                <div class="infobox middlebox">
+                <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa23"
@@ -297,7 +297,7 @@
                   />
                 </div>
                 <div class="titlebox">我方参加人员</div>
-                <div class="infobox middlebox">
+                <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa24"
@@ -305,7 +305,7 @@
                   />
                 </div>
                 <div class="titlebox">对方参加人员</div>
-                <div class="infobox middlebox last_row">
+                <div class="infobox middlebox selectbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa25"
@@ -315,7 +315,7 @@
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">付款预算金额</div>
-                <div class="infobox middlebox">
+                <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa26"
@@ -610,6 +610,7 @@ export default {
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
+        id: response.data.id,
         filename: response.data.filename,
         fileaddr: response.data.path
       })
