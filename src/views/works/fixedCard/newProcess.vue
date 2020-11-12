@@ -232,7 +232,9 @@
               <div class="form_line">
                 <div class="titlebox">构建编号</div>
                 <div class="infobox longbox selectbox last_row">
-                  <div class="selector" @click="selectDialog('SQD')">{{showData.oaa34_show}}</div>
+                  <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('SQD')">
+                    {{ showData.oaa34_show }}
+                  </div>
                 </div>
               </div>
               <div class="form_line last_line">
@@ -701,9 +703,17 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "SQD":
-          let filter_SQD = [{ label: "", model_key_search: "keyword" }];
+          let filter_SQD = [
+            { label: "模板类型", model_key_search: "typeid" },
+            { label: "流程模板id", model_key_search: "tplid" },
+            { label: "流程流水号", model_key_search: "number" },
+            { label: "流程名称", model_key_search: "title" },
+            { label: "流程建立时间段（开始时间）", model_key_search: "startdate" },
+            { label: "流程建立时间段（结束时间）", model_key_search: "enddate" },
+            { label: "经办人", model_key_search: "uid" },
+          ];
           this.dataSelect.filter = filter_SQD;
-          this.dataSelect.searchType = "single"
+          this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "oa/workflows";
           this.dataSelect.headList = this.tableHead.head_SQD;
