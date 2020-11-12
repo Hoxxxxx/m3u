@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+// 获取token
+
+export const getToken = (params) => {
+  return request.post('hr/authorizations',
+      params
+  )
+}
+
 // 获取账套列表
 export const sobsList = (params) => {
   return request.get('meta/sobs',

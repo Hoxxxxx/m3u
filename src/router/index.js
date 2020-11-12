@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 const Home = () => import('@/views/Home')
 const workList = () => import('@/views/workList/workList')
+const error = () => import('@/components/error')
 const newPro = () => import('@/views/allProcess/newProcess') // 新建流程
 const apply = () => import('@/views/allProcess/apply') // 申请
 const newApp = () => import('@/views/allProcess/newApproval') // 新建流程
@@ -14,19 +15,20 @@ const check = () => import('@/views/allProcess/check') // 退回
 // 申请单
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home,
     redirect: '/workList',
-    children: [
-      {
-        path: '/workList',
-        name: 'workList',
-        component: workList
-      }
-    ]
+    children: [{
+      path: '/workList',
+      name: 'workList',
+      component: workList
+    }]
+  },
+  {
+    path: '/error',
+    component: error,
   },
   // 新建流程
   {
@@ -185,4 +187,43 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
+
+import {
+  getToken
+} from '@/api/basic'
+// 挂载路由导航守卫
+router.beforeEach((to, from, next) => {
+  const token = window.sessionStorage.getItem("token")
+  if (token) {
+    next()
+  } else {
+    if (window.location.href.includes('code')) {
+      let urlParams = window.location.href.split('code')[1].split('&')[0].split('=')[1]
+      let params = {
+        code:urlParams
+      }
+      getToken(params).then(res => {
+        if (res.status == 200) {
+          let token = res.data.token
+          sessionStorage.setItem('token', token)
+          next({
+            path: to.path
+          })
+        } else {
+          console.log(res.error)
+        }
+      })
+    } else {
+      window.sessionStorage.clear()
+      // 通过判断path防止出现死循环
+      if (to.path === '/error') {
+        next()
+      } else {
+        next('/error')
+      }
+    }
+  }
+})
+
+
 export default router
