@@ -314,9 +314,6 @@ export default {
           url: `files/download/${id}`,
           responseType: "blob",
       })
-      if (res.status !== 200) {
-        this.$message.error('下载文件失败' + res.error.message);
-      }
       let fileName = filename;
       let fileType = {
         doc: 'application/msword',

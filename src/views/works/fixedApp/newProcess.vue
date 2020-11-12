@@ -29,13 +29,13 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox">{{tableData.oaa03}}</div>
+                <div class="infobox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
                 </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox middlebox selectbox">
+                <div class="infobox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
@@ -119,7 +119,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">构建时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa18"
                     type="date"

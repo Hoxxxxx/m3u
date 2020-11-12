@@ -1,17 +1,11 @@
 <template>
   <div class="workSpace">
+    
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <!-- <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button> -->
-        <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
-        <!-- <el-button class="normal">挂起</el-button> -->
-        <!-- <el-button class="normal">增加会签人</el-button> -->
-        <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
-        <el-button type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
-        <el-button type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
-        <el-button type="primary" class="back" @click="nextStep('/back')">退回</el-button>
+        <el-button type="primary">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -35,11 +29,11 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox">{{tableData.oaa03}}</div>
+                <div class="infobox middlebox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox">{{tableData.oaa04_show}}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox">{{tableData.oaa05}}</div>
+                <div class="infobox middlebox">{{tableData.oaa05}}</div>
               </div>
               <!-- 构建信息 -->
               <div class="title_line">构建信息</div>
@@ -81,7 +75,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">构建时间</div>
-                <div class="infobox middlebox datebox">
+                <div class="infobox middlebox databox">
                   <el-date-picker
                     v-model="tableData.oaa18"
                     type="date"
@@ -149,22 +143,6 @@
             </div>
           </div>
         </div>
-        <!-- 上传部分 -->
-        <el-upload
-          class="upload_annex"
-          :action="$store.state.upload_url"
-          :on-success="handleSuccess"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-upload="beforeAvatarUpload"
-          :before-remove="beforeRemove"
-          multiple
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-          accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.pdf,.txt,.png,.jpg,.jpeg,.zip,.rar"
-        >
-          <el-button size="small" type="primary">点击上传</el-button>
-        </el-upload>
       </div>
     </el-card>
 
@@ -201,7 +179,6 @@
 <script>
 // api
 import { workflowsList, } from "@/api/process_new.js"
-import { editFlow  } from "@/api/process_new";
 
 export default {
   components: {},
@@ -209,7 +186,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产申请",//流程名
+      workName:"固定资产卡片",//流程名
       tableData: {},
       showData: {
         oaa04_show: "", //申请人
@@ -230,19 +207,13 @@ export default {
         ],
       },
       fileList_user: [],
-      fileList: [],
-      addParams: {
-        from_data: {},
-        annexurlid: [],
-        tplid: 8946
-      },
       // 当前流程列表
       workclass_perflow: [],
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    // this.workid = 3963
+    // this.workid = this.$route.query.workid
+    this.workid = 3963
     this.getworkflows()
   },
   methods: {
@@ -269,67 +240,11 @@ export default {
             })
           }
         }else{
-          this.$message.error('获取流程信息失败：' + res.error.message);
+          this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
     },
     // *******************************************
-    // ***************附件上传******************
-    // 限制格式
-    beforeAvatarUpload(file) {
-      const isDoc = file.type === "application/msword";
-      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-      const isXls = file.type === "application/vnd.ms-excel";
-      const isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      const isPPT = file.type === "application/vnd.ms-powerpoint";
-      const isPPTX = file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-      const isPDF = file.type === "application/pdf";
-      const isTXT = file.type === "text/plain";
-      const isPNG = file.type === "image/png";
-      const isJPG = file.type === "image/jpeg";
-      const isJPEG = file.type === "image/jpeg";
-      const isZIP = file.type === "application/zip";
-      const isRAR = file.type === "application/x-rar";
-      const isNull = file.type === '';
-      const isLt200M = file.size / 1024 / 1024 < 200;
-
-      if (!isDoc && !isDocx && !isXls && !isXlsx && !isPPT && !isPPTX && !isPDF && !isTXT && !isPNG && !isJPG && !isJPEG && !isZIP && !isRAR ) {
-        this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
-        return false;
-      }
-      if (!isLt200M) {
-        this.$message.warning("上传文件大小不能超过 200MB!");
-        return false;
-      }
-    },
-    // 上传成功
-    handleSuccess(response, file, fileList) {
-      this.addParams.annexurlid.push({
-        id: response.data.id,
-        filename: response.data.filename,
-        fileaddr: response.data.path
-      })
-    },
-    // 移除上传项
-    handleRemove(file, fileList) {
-      this.addParams.annexurlid.forEach( (item, index) => {
-        if (item.filename == file.name) {
-          this.addParams.annexurlid.splice( index, 1 )
-        }
-      })
-    },
-    // 点击上传项回调
-    handlePreview(file) {
-      // console.log(file);
-    },
-    // 超出上传限制回调
-    handleExceed(files, fileList) {
-      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-    },
-    // 移除前回调
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
-    },
     // 下载文件流
     async download(id, filename) {
       const { data: res } = await this.axios({
@@ -368,61 +283,6 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
-    // ****************其他操作*******************
-    // 编辑表单
-    editNewFlow() {
-      this.addParams.from_data = this.tableData
-      editFlow(this.addParams)
-      .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
-      })
-    },
-    // 下一步
-    nextStep(url) {
-      if (this.addParams.annexurlid.length !== 0) {
-        this.addParams.from_data = this.tableData
-        this.addParams.workid = this.workid
-        this.fileList_user.forEach(item => {
-          this.addParams.annexurlid.push({
-            id: item.id,
-            filename: item.name,
-            fileaddr: item.url
-          })
-        })
-        editFlow(this.addParams)
-        .then( result => {
-          if (result.status == 200) {
-            this.$message.success("编辑成功！");
-            this.$router.push({
-              path: url,
-              query: {
-                workid: this.workid,
-                workName: this.workName,
-                oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02
-              }
-            })
-          } else {
-            this.$message.error("编辑失败：" + result.error.message);
-          }
-        })
-      } else {
-        this.$router.push({
-          path: url,
-          query: {
-            workid: this.workid,
-            workName: this.workName,
-            oaa01: this.tableData.oaa01,
-            oaa02: this.tableData.oaa02
-          }
-        })
-      }
-    },
-    // ******************************************
-
-
   },
 };
 </script>

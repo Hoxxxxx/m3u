@@ -89,6 +89,18 @@ export default {
           name: "固定资产申请——查看",
           path: "/fixedApp/check",
         },
+        {
+          name: "固定资产卡片——申请",
+          path: "/fixedCard",
+        },
+        {
+          name: "固定资产卡片——审核",
+          path: "/fixedCard/approval",
+        },
+        {
+          name: "固定资产卡片——查看",
+          path: "/fixedCard/check",
+        },
       ]
     };
   },

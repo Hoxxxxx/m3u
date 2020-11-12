@@ -314,16 +314,27 @@ export default {
       return this.$confirm(`确定移除 ${ file.name }？`);
     },
     // 下载文件流
-    async download(viewId, viewName) {
+    async download(id, filename) {
       const { data: res } = await this.axios({
           method: 'get',
-          url: `files/download/27`,
+          url: `files/download/${id}`,
           responseType: "blob",
       })
-      let fileName = '测试pdf1.pdf';
+      let fileName = filename;
       let fileType = {
-        docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        pdf:'application/pdf',
+        doc: 'application/msword',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        xls: 'application/vnd.ms-excel',
+        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ppt: 'application/vnd.ms-powerpoint',
+        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        pdf: 'application/pdf',
+        txt: 'text/plain',
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        zip: 'application/zip',
+        rar: 'application/x-rar',
       }
       let type=fileName.split('.')[1];//获取文件后缀名
       let blob = new Blob([res],{
@@ -339,6 +350,7 @@ export default {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     },
+    // ******************************************
     // ******************************************
   },
 };

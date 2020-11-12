@@ -29,11 +29,11 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox">{{tableData.oaa03}}</div>
+                <div class="infobox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox">{{tableData.oaa04_show}}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox middlebox">{{tableData.oaa05}}</div>
+                <div class="infobox">{{tableData.oaa05}}</div>
               </div>
               <!-- 构建信息 -->
               <div class="title_line">构建信息</div>
@@ -75,7 +75,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">构建时间</div>
-                <div class="infobox middlebox databox">
+                <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa18"
                     type="date"
@@ -213,7 +213,7 @@ export default {
   },
   created() {
     // this.workid = this.$route.query.workid
-    this.workid = 3956
+    this.workid = 3963
     this.getworkflows()
   },
   methods: {
@@ -245,6 +245,44 @@ export default {
       })
     },
     // *******************************************
+    // 下载文件流
+    async download(id, filename) {
+      const { data: res } = await this.axios({
+          method: 'get',
+          url: `files/download/${id}`,
+          responseType: "blob",
+      })
+      let fileName = filename;
+      let fileType = {
+        doc: 'application/msword',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        xls: 'application/vnd.ms-excel',
+        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ppt: 'application/vnd.ms-powerpoint',
+        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        pdf: 'application/pdf',
+        txt: 'text/plain',
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        zip: 'application/zip',
+        rar: 'application/x-rar',
+      }
+      let type=fileName.split('.')[1];//获取文件后缀名
+      let blob = new Blob([res],{
+        type:fileType.type
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    },
+    // ******************************************
   },
 };
 </script>

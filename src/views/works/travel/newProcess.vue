@@ -134,16 +134,16 @@
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">说明</div>
-                <div class="infobox selectbox last_row longbox" style="width: 100%">
-                  <input
-                    class="abstracInput"
+                <div class="infobox areabox last_row longbox" style="width: 100%">
+                  <el-input
                     type="textarea"
-                    :autosize="{ minRows: 2, maxRows: 4 }"
+                    :rows="4"
                     v-model="tableData.oaa16"
+                    placeholder="请输入说明"
                     maxlength="80"
-                    :show-word-limit="true"
-                    placeholder="请输入说明（内容不要超过80个字）"
-                  />
+                    show-word-limit
+                  >
+                  </el-input>
                 </div>
               </div>
               <!-- 收款信息 -->

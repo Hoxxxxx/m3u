@@ -35,11 +35,11 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox">{{tableData.oaa03}}</div>
+                <div class="infobox middlebox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox">{{tableData.oaa04_show}}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox">{{tableData.oaa05}}</div>
+                <div class="infobox middlebox">{{tableData.oaa05}}</div>
               </div>
               <!-- 构建信息 -->
               <div class="title_line">构建信息</div>
@@ -81,7 +81,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">构建时间</div>
-                <div class="infobox middlebox datebox">
+                <div class="infobox middlebox databox">
                   <el-date-picker
                     v-model="tableData.oaa18"
                     type="date"
@@ -209,7 +209,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产申请",//流程名
+      workName:"固定资产卡片",//流程名
       tableData: {},
       showData: {
         oaa04_show: "", //申请人
@@ -234,7 +234,7 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8946
+        tplid: 8947
       },
       // 当前流程列表
       workclass_perflow: [],

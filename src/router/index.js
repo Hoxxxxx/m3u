@@ -78,12 +78,12 @@ const routes = [
   },
   {
     path: '/borrowTra/check',
-    name: 'check',
+    name: 'borrowTra_check',
     component: () => import('@/views/works/borrowTra/check')
   },
   {
     path: '/borrowTra/approval',
-    name: 'approval',
+    name: 'borrowTra_approval',
     component: () => import('@/views/works/borrowTra/newApproval')
   },
 
@@ -95,12 +95,12 @@ const routes = [
   },
   {
     path: '/travel/check',
-    name: 'check',
+    name: 'travel_check',
     component: () => import('@/views/works/travel/check')
   },
   {
     path: '/travel/approval',
-    name: 'approval',
+    name: 'travel_approval',
     component: () => import('@/views/works/travel/newApproval')
   },
 
@@ -112,12 +112,12 @@ const routes = [
   },
   {
     path: '/otherFees/check',
-    name: 'check',
+    name: 'otherFees_check',
     component: () => import('@/views/works/otherFees/check')
   },
   {
     path: '/otherFees/approval',
-    name: 'approval',
+    name: 'otherFees_approval',
     component: () => import('@/views/works/otherFees/newApproval')
   },
 
@@ -129,12 +129,12 @@ const routes = [
   },
   {
     path: '/borrow/check',
-    name: 'check',
+    name: 'borrow_check',
     component: () => import('@/views/works/borrow/check')
   },
   {
     path: '/borrow/approval',
-    name: 'approval',
+    name: 'borrow_approval',
     component: () => import('@/views/works/borrow/newApproval')
   },
 
@@ -146,13 +146,30 @@ const routes = [
   },
   {
     path: '/fixedApp/check',
-    name: 'check',
+    name: 'fixedApp_check',
     component: () => import('@/views/works/fixedApp/check')
   },
   {
     path: '/fixedApp/approval',
-    name: 'approval',
+    name: 'fixedApp_approval',
     component: () => import('@/views/works/fixedApp/newApproval')
+  },
+
+  // 固定资产卡片
+  {
+    path: '/fixedCard',
+    name: 'fixedCard',
+    component: () => import('@/views/works/fixedCard/newProcess')
+  },
+  {
+    path: '/fixedCard/check',
+    name: 'fixedCard_check',
+    component: () => import('@/views/works/fixedCard/check')
+  },
+  {
+    path: '/fixedApp/approval',
+    name: 'fixedCard_approval',
+    component: () => import('@/views/works/fixedCard/newApproval')
   },
 
 ]

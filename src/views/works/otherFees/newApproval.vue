@@ -501,18 +501,15 @@ export default {
       return this.$confirm(`确定移除 ${ file.name }？`);
     },
     // 下载文件流
-    async download(viewId, viewName) {
+    async download(id, filename) {
       const { data: res } = await this.axios({
           method: 'get',
-          url: `files/download/27`,
+          url: `files/download/${id}`,
           responseType: "blob",
       })
-      if (res.status !== 200) {
-        this.$message.error('下载文件失败：' + res.error.message);
-      }
-      let fileName = '测试pdf1.pdf';
+      let fileName = filename;
       let fileType = {
-        doc: 'application/msword',
+        doc: 'application/msword',
         docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         xls: 'application/vnd.ms-excel',
         xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
