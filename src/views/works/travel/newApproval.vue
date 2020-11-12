@@ -60,18 +60,18 @@
                   {{ tableData.oaa08 }}
                 </div>
                 <div class="titlebox">支付金额</div>
-                <div class="infobox last_row editNot">
-                  {{ tableData.payMoney }}
+                <div class="infobox last_row ">
+                  {{ payMoney }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">报销金额</div>
-                <div class="infobox editNot">
-                  {{ tableData.expenseMoney }}
+                <div class="infobox ">
+                  {{ expenseMoney }}
                 </div>
                 <div class="titlebox">报销金额大写</div>
-                <div class="infobox editNot">
+                <div class="infobox ">
                   {{ tableData.expenseMoneyF }}
                 </div>
                 <div class="titlebox">支付方式</div>
@@ -267,36 +267,36 @@
                 <div class="summry">
                   <ul class="summryUl">
                     <li class="summryLi">
-                      <div class="summryName">费用合计</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryName ">费用合计</div>
+                      <div class="summryCont editNot">{{ totalCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">车船费合计</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont editNot">{{ carCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">住宿费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont editNot">{{ accomCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">室内交通费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont editNot">{{ tansportCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">会议费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont editNot">{{ conferCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">交际费</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont editNot">{{ commuCost }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">其他</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont editNot">{{ others }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">补助合计</div>
-                      <div class="summryCont">0</div>
+                      <div class="summryCont editNot">{{ subside }}</div>
                     </li>
                   </ul>
                 </div>
@@ -533,6 +533,7 @@
 <script>
 import { workflowsList, } from "@/api/process_new.js"
 import { editFlow, } from "@/api/process_new";
+import { dateFmt,number_chinese } from "@/utils/utils.js";
 
 export default {
   components: {},
@@ -556,7 +557,6 @@ export default {
         oaa15: "", //出差申请单
         oaa16: "", //说明
         payMoney: "", //支付金额
-        expenseMoney: "", //报销金额
         expenseMoneyF: "", //报销金额大写
         // 收款信息
         oaa09: "", //收款人
@@ -579,9 +579,86 @@ export default {
     };
   },
   created() {
-    // this.workid = '3927'
     this.workid = this.$route.query.workid
     this.getworkflows()
+  },
+  computed: {
+    totalCost() {
+      let sum = this.carCost +
+        this.accomCost +
+        this.tansportCost +
+        this.conferCost +
+        this.commuCost +
+        this.others
+      return sum;
+    },
+    // 车船费
+    carCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab06);
+      }, 0);
+    },
+    //住宿费
+    accomCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab08);
+      }, 0);
+    },
+    // 室内交通费
+    tansportCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab10);
+      }, 0);
+    },
+    // 会议费
+    conferCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab12);
+      }, 0);
+    },
+    //交际费
+    commuCost() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab13);
+      }, 0);
+    },
+    // 其他
+    others() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return prev + Number(cur.oab14);
+      }, 0);
+    },
+    // 补助合计
+    subside() {
+      return this.tableData.oab.reduce((prev, cur) => {
+        return (
+          prev +
+          (Number(cur.oab07) +
+            Number(cur.oab09) +
+            Number(cur.oab11) +
+            Number(cur.oab15))
+        );
+      }, 0);
+    },
+    // 报销金额（不含税）
+    expenseMoney(){
+      let sum =  this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac07);
+      }, 0);
+      this.tableData.expenseMoneyF = number_chinese(sum)
+      return sum
+    },
+    // 支付金额
+    payMoney(){
+      // 还款金额总和
+      let sum = this.tableData.oad.reduce((prev, cur) => {
+        return prev + Number(cur.oad02);
+      }, 0);
+      // 支付金额
+      let res = this.expenseMoney - sum
+      this.tableData.payMoney = res
+      return res
+    }
   },
   methods: {
     handleClick() {

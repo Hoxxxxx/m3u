@@ -70,14 +70,14 @@
                 </div>
                 <div class="titlebox">支付金额</div>
                 <div class="infobox last_row ">
-                  {{ tableData.payMoney }}
+                  {{ payMoney }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">报销金额</div>
                 <div class="infobox ">
-                  {{ tableData.expenseMoney }}
+                  {{ expenseMoney }}
                 </div>
                 <div class="titlebox">报销金额大写</div>
                 <div class="infobox ">
@@ -219,7 +219,7 @@
                           style="width: 100%"
                           disabled
                           type="date"
-                          placeholder="选择借款日期"
+                          placeholder=""
                         >
                         </el-date-picker>
                       </div>
@@ -347,6 +347,7 @@
 <script>
 import { workflowsList, } from "@/api/process_new.js"
 import { editFlow,  } from "@/api/process_new";
+import { number_chinese } from "@/utils/utils.js";
 
 export default {
   components: {},
@@ -369,7 +370,6 @@ export default {
         oaa12: "", //支付方式
         oaa16: "", //说明
         payMoney: "", //支付金额
-        expenseMoney: "", //报销金额
         expenseMoneyF: "", //报销金额大写
         // 收款信息
         oaa09: "", //收款人
@@ -392,9 +392,28 @@ export default {
     };
   },
   created() {
-    // this.workid = '3927'
     this.workid = this.$route.query.workid
     this.getworkflows()
+  },
+  computed: {
+    // 报销金额（不含税）
+    expenseMoney(){
+      let sum =  this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac07);
+      }, 0);
+      this.tableData.expenseMoneyF = number_chinese(sum)
+      return sum
+    },
+    // 支付金额
+    payMoney(){
+      // 还款金额总和
+      let sum = this.tableData.oad.reduce((prev, cur) => {
+        return prev + Number(cur.oad02);
+      }, 0);
+      // 支付金额
+      let res = this.expenseMoney - sum
+      return res
+    }
   },
   methods: {
     handleClick() {
