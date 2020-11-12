@@ -15,7 +15,7 @@
             @clear="search_all"
             :clearable="true"
             v-model="filter_key[item.model_key_search]"
-            :placeholder="`请输入关键词${item.label}`"
+            :placeholder="`请输入${item.label == '' ? '关键词' : item.label}`"
             class="searchInput"
           ></el-input>
           <el-button class="searchBtn" @click="search_single()"
