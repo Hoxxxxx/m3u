@@ -77,6 +77,18 @@ export default {
           name: "其他费用报销——查看",
           path: "/otherFees/check",
         },
+        {
+          name: "固定资产申请——申请",
+          path: "/fixedApp",
+        },
+        {
+          name: "固定资产申请——审核",
+          path: "/fixedApp/approval",
+        },
+        {
+          name: "固定资产申请——查看",
+          path: "/fixedApp/check",
+        },
       ]
     };
   },

@@ -532,7 +532,7 @@
 
 <script>
 import { workflowsList, } from "@/api/process_new.js"
-import { addFlow,  } from "@/api/process_new";
+import { editFlow, } from "@/api/process_new";
 
 export default {
   components: {},
@@ -643,6 +643,7 @@ export default {
     // 上传成功
     handleSuccess(response, file, fileList) {
       this.addParams.annexurlid.push({
+        id: response.data.id,
         filename: response.data.filename,
         fileaddr: response.data.path
       })
@@ -710,9 +711,9 @@ export default {
     // ******************************************
     // ****************其他操作*******************
     // 新增表单
-    addNewFlow() {
+    editNewFlow() {
       this.addParams.from_data = this.tableData
-      addFlow(this.addParams)
+      editFlow(this.addParams)
       .then( result => {
         this.workid = result.data.workid
         this.tableData.oaa01 = result.data.oaa01
@@ -721,15 +722,44 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      this.$router.push({
-        path: url,
-        query: {
-          workid: this.workid,
-          workname: this.workname,
-          oaa01: this.tableData.oaa01,
-          oaa02: this.tableData.oaa02
-        }
-      })
+      if (this.addParams.annexurlid.length !== 0) {
+        this.addParams.from_data = this.tableData
+        this.addParams.workid = this.workid
+        this.fileList_user.forEach(item => {
+          this.addParams.annexurlid.push({
+            id: item.id,
+            filename: item.name,
+            fileaddr: item.url
+          })
+        })
+        editFlow(this.addParams)
+        .then( result => {
+          if (result.status == 200) {
+            this.$message.success("编辑成功！");
+            this.$router.push({
+              path: url,
+              query: {
+                workid: this.workid,
+                workName: this.workName,
+                oaa01: this.tableData.oaa01,
+                oaa02: this.tableData.oaa02
+              }
+            })
+          } else {
+            this.$message.error("编辑失败：" + result.error.message);
+          }
+        })
+      } else {
+        this.$router.push({
+          path: url,
+          query: {
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02
+          }
+        })
+      }
     },
     // *******************************************
 

@@ -13,6 +13,7 @@ export const transact = (params) => {
       params
   )
 }
+
 // 流程详情
 export const workflowsList = (params) => {
   return request.get(`oa/workflows/${params.workid}`,
@@ -20,4 +21,10 @@ export const workflowsList = (params) => {
   {
     params
   })
+}
+
+// 修改杂项应付款请款作业
+export const editFlow = (params) => {
+  return request.put(`oa/workflows/${params.workid}`,
+  params)
 }

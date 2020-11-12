@@ -166,11 +166,13 @@ export default {
   data() {
     return {
       workid: '',
-      workname: '出差借款申请',
+      workname: '借款申请',
       activeTab: "firTab",
       tableData: {},
-      exchange: '',
-      exchange_Cap: '',
+      // 汇率数据
+      exchange: '', //折合汇率
+      exchange_Cap: '', //折合汇率大写
+      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       fixedData: {
         selectLoading: true,
         // 申请人列表

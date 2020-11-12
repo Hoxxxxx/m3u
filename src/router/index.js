@@ -137,6 +137,24 @@ const routes = [
     name: 'approval',
     component: () => import('@/views/works/borrow/newApproval')
   },
+
+  // 固定资产申请
+  {
+    path: '/fixedApp',
+    name: 'fixedApp',
+    component: () => import('@/views/works/fixedApp/newProcess')
+  },
+  {
+    path: '/fixedApp/check',
+    name: 'check',
+    component: () => import('@/views/works/fixedApp/check')
+  },
+  {
+    path: '/fixedApp/approval',
+    name: 'approval',
+    component: () => import('@/views/works/fixedApp/newApproval')
+  },
+
 ]
 
 const router = new VueRouter({
