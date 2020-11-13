@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // axios配置
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://test-erp.hualumedia.com/api/v2/'
+axios.defaults.baseURL = 'http://test.o.hualumedia.com/api/v2/'
 
 
 //http request 
