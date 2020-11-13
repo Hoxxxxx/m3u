@@ -9,9 +9,15 @@
         <!-- <el-button class="normal">挂起</el-button> -->
         <!-- <el-button class="normal">增加会签人</el-button> -->
         <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
-        <el-button type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
-        <el-button type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
-        <el-button type="primary" class="back" @click="nextStep('/back')">退回</el-button>
+        <el-button type="primary" class="agree" @click="nextStep('/agree')"
+          >同意</el-button
+        >
+        <el-button type="primary" class="reject" @click="nextStep('/reject')"
+          >拒绝</el-button
+        >
+        <el-button type="primary" class="back" @click="nextStep('/back')"
+          >退回</el-button
+        >
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -25,7 +31,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{ workname }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -60,18 +66,18 @@
                   {{ tableData.oaa08 }}
                 </div>
                 <div class="titlebox">支付金额</div>
-                <div class="infobox last_row ">
+                <div class="infobox last_row">
                   {{ payMoney }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">报销金额</div>
-                <div class="infobox ">
+                <div class="infobox">
                   {{ expenseMoney }}
                 </div>
                 <div class="titlebox">报销金额大写</div>
-                <div class="infobox ">
+                <div class="infobox">
                   {{ tableData.expenseMoneyF }}
                 </div>
                 <div class="titlebox">支付方式</div>
@@ -140,7 +146,7 @@
                     min-width="160px"
                     align="center"
                   >
-                  <template slot-scope="scope">
+                    <template slot-scope="scope">
                       <div>
                         <el-date-picker
                           v-model="scope.row.oab01"
@@ -159,7 +165,7 @@
                     min-width="160px"
                     align="center"
                   >
-                  <template slot-scope="scope">
+                    <template slot-scope="scope">
                       <div>
                         <el-date-picker
                           v-model="scope.row.oab02"
@@ -267,7 +273,7 @@
                 <div class="summry">
                   <ul class="summryUl">
                     <li class="summryLi">
-                      <div class="summryName ">费用合计</div>
+                      <div class="summryName">费用合计</div>
                       <div class="summryCont editNot">{{ totalCost }}</div>
                     </li>
                     <li class="summryLi">
@@ -396,7 +402,7 @@
                     min-width="130px"
                     align="center"
                   >
-                  <template slot-scope="scope">
+                    <template slot-scope="scope">
                       <div>
                         <el-date-picker
                           v-model="scope.row.borrowDate"
@@ -439,6 +445,57 @@
                   </el-table-column>
                 </el-table>
               </div>
+              <!-- 财务信息 -->
+              <div>
+                <div class="title_line">
+                  财务信息
+                  <el-button
+                    type="primary"
+                    size="small"
+                    style="position: absolute; right: 4px; top: 4px"
+                    @click="generate()"
+                    >生成凭证</el-button
+                  >
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">银行</div>
+                  <div class="infobox selectbox">
+                    <input
+                      class="abstracInput"
+                      v-model="financialData.bank"
+                      placeholder="请输入银行"
+                    />
+                  </div>
+                  <div class="titlebox">异动码</div>
+                  <div class="infobox selectbox">
+                    <input
+                      class="abstracInput"
+                      v-model="financialData.num"
+                      placeholder="请输入异动码"
+                    />
+                  </div>
+                  <div class="titlebox">记账日期</div>
+                  <div class="infobox middlebox datebox">
+                    <el-date-picker
+                      v-model="financialData.apa02"
+                      type="date"
+                      format="yyyy-MM-dd"
+                      value-format="yyyy-MM-dd"
+                    >
+                    </el-date-picker>
+                  </div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">账款类型</div>
+                  <div class="infobox selectbox">3002</div>
+                  <div class="titlebox">凭证编号</div>
+                  <div class="infobox selectbox editNot">
+                    {{ financialData.apa01 }}
+                  </div>
+                  <div class="titlebox"></div>
+                  <div class="infobox selectbox last_row"></div>
+                </div>
+              </div>
             </div>
           </div>
         </el-tab-pane>
@@ -454,7 +511,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{ workname }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -471,12 +528,20 @@
         <div class="title">附件内容</div>
         <!-- 已有文件部分 -->
         <div class="saveList">
-          <div class="saveItem" v-for="(item,index) in fileList_user" :key="index">
+          <div
+            class="saveItem"
+            v-for="(item, index) in fileList_user"
+            :key="index"
+          >
             <i class="el-icon-document" style="margin-right: 7px"></i>
-            <a style="cursor: pointer;" @click="download(item.id, item.name)"><span>{{item.name}}</span></a>
+            <a style="cursor: pointer" @click="download(item.id, item.name)"
+              ><span>{{ item.name }}</span></a
+            >
             <div class="btnBox">
               <!-- <el-button type="text">预览</el-button> -->
-              <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
+              <el-button type="text" @click="download(item.id, item.name)"
+                >下载</el-button
+              >
             </div>
           </div>
         </div>
@@ -502,45 +567,44 @@
     <el-card class="secContentCard" v-if="activeTab == 'secTab'">
       <div class="tabContent">
         <div class="title">流程办理进度</div>
-          <el-timeline class="timeline">
-            <el-timeline-item 
-              v-for="(item, index) in workclass_perflow"
-              :key="index"
-              :timestamp="item.date" 
-              placement="top">
-              <el-card>
-                <p class="step">第{{index+1}}步：{{item.title}}</p>
-                <p class="result">
-                  <template>
-                    <p v-if="item.pertype == '99'">通过</p>
-                    <p v-if="item.pertype == '0'" class="handling">审批中</p>
-                    <p v-if="item.pertype == '2'">拒绝</p>
-                    <p v-if="item.pertype == '3'">退回</p>
-                    <p v-if="item.pertype == '5'">审批结束</p>
-                  </template>
-                </p>
-                <p class="admin">{{item.name}}  {{item.date}}</p>
-              </el-card>
-            </el-timeline-item>
-          </el-timeline>
+        <el-timeline class="timeline">
+          <el-timeline-item
+            v-for="(item, index) in workclass_perflow"
+            :key="index"
+            :timestamp="item.date"
+            placement="top"
+          >
+            <el-card>
+              <p class="step">第{{ index + 1 }}步：{{ item.title }}</p>
+              <p class="result">
+                <template>
+                  <p v-if="item.pertype == '99'">通过</p>
+                  <p v-if="item.pertype == '0'" class="handling">审批中</p>
+                  <p v-if="item.pertype == '2'">拒绝</p>
+                  <p v-if="item.pertype == '3'">退回</p>
+                  <p v-if="item.pertype == '5'">审批结束</p>
+                </template>
+              </p>
+              <p class="admin">{{ item.name }} {{ item.date }}</p>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
       </div>
     </el-card>
-
-
   </div>
 </template>
 
 <script>
-import { workflowsList, } from "@/api/process_new.js"
-import { editFlow, } from "@/api/process_new";
-import { dateFmt,number_chinese } from "@/utils/utils.js";
+import { workflowsList } from "@/api/process_new.js";
+import { editFlow,transfer } from "@/api/process_new";
+import { dateFmt, number_chinese } from "@/utils/utils.js";
 
 export default {
   components: {},
   data() {
     return {
-      workid: '',
-      workname: '外地差旅报销单',
+      workid: "",
+      workname: "外地差旅报销单",
       activeTab: "firTab",
       tableData: {
         // 基本信息
@@ -568,28 +632,35 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
-      workclass_perflow:[],//流程进度
+      financialData: {
+        bank: "", //银行
+        num: "", //异动码
+        apa02: new Date(), //记账日期
+        apa01: "", //凭证编号
+      }, //财务信息
+      workclass_perflow: [], //流程进度
       fileList_user: [],
       fileList: [],
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8936
+        tplid: 8936,
       },
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    this.getworkflows()
+    this.workid = this.$route.query.workid;
+    this.getworkflows();
   },
   computed: {
     totalCost() {
-      let sum = this.carCost +
+      let sum =
+        this.carCost +
         this.accomCost +
         this.tansportCost +
         this.conferCost +
         this.commuCost +
-        this.others
+        this.others;
       return sum;
     },
     // 车船费
@@ -641,63 +712,69 @@ export default {
       }, 0);
     },
     // 报销金额（不含税）
-    expenseMoney(){
-      let sum =  this.tableData.oac.reduce((prev, cur) => {
+    expenseMoney() {
+      let sum = this.tableData.oac.reduce((prev, cur) => {
         return prev + Number(cur.oac07);
       }, 0);
-      this.tableData.expenseMoneyF = number_chinese(sum)
-      return sum
+      this.tableData.expenseMoneyF = number_chinese(sum);
+      return sum;
     },
     // 支付金额
-    payMoney(){
+    payMoney() {
       // 还款金额总和
       let sum = this.tableData.oad.reduce((prev, cur) => {
         return prev + Number(cur.oad02);
       }, 0);
       // 支付金额
-      let res = this.expenseMoney - sum
-      this.tableData.payMoney = res
-      return res
-    }
+      let res = this.expenseMoney - sum;
+      this.tableData.payMoney = res;
+      return res;
+    },
   },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
     },
     // ***********获取流程信息************
-    getworkflows(){
+    getworkflows() {
       const params = {
-        workid: this.workid
-      }
-      workflowsList(params).then(res=>{
-        if(res.status == 200){
-          this.tableData = res.data.workclass_info.from_data
-          this.workname = res.data.workclass_info.title
-          this.workclass_perflow = res.data.workclass_perflow
+        workid: this.workid,
+      };
+      workflowsList(params).then((res) => {
+        if (res.status == 200) {
+          this.tableData = res.data.workclass_info.from_data;
+          this.workname = res.data.workclass_info.title;
+          this.workclass_perflow = res.data.workclass_perflow;
           if (res.data.file !== null) {
-            res.data.file.forEach( item => {
+            res.data.file.forEach((item) => {
               this.fileList_user.push({
                 id: item.id,
                 name: item.filename,
-                url: item.fileaddr
-              })
-            })
+                url: item.fileaddr,
+              });
+            });
           }
-        }else{
-          this.$message.error('获取流程信息失败：' + res.error.message);
+        } else {
+          this.$message.error("获取流程信息失败：" + res.error.message);
         }
-      })
+      });
     },
     // *******************************************
     // ***************附件上传******************
     // 限制格式
     beforeAvatarUpload(file) {
       const isDoc = file.type === "application/msword";
-      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+      const isDocx =
+        file.type ===
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
       const isXls = file.type === "application/vnd.ms-excel";
-      const isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      const isXlsx =
+        file.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
       const isPPT = file.type === "application/vnd.ms-powerpoint";
-      const isPPTX = file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+      const isPPTX =
+        file.type ===
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation";
       const isPDF = file.type === "application/pdf";
       const isTXT = file.type === "text/plain";
       const isPNG = file.type === "image/png";
@@ -705,11 +782,27 @@ export default {
       const isJPEG = file.type === "image/jpeg";
       const isZIP = file.type === "application/zip";
       const isRAR = file.type === "application/x-rar";
-      const isNull = file.type === '';
+      const isNull = file.type === "";
       const isLt200M = file.size / 1024 / 1024 < 200;
 
-      if (!isDoc && !isDocx && !isXls && !isXlsx && !isPPT && !isPPTX && !isPDF && !isTXT && !isPNG && !isJPG && !isJPEG && !isZIP && !isRAR ) {
-        this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
+      if (
+        !isDoc &&
+        !isDocx &&
+        !isXls &&
+        !isXlsx &&
+        !isPPT &&
+        !isPPTX &&
+        !isPDF &&
+        !isTXT &&
+        !isPNG &&
+        !isJPG &&
+        !isJPEG &&
+        !isZIP &&
+        !isRAR
+      ) {
+        this.$message.warning(
+          "上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!"
+        );
         return false;
       }
       if (!isLt200M) {
@@ -722,16 +815,16 @@ export default {
       this.addParams.annexurlid.push({
         id: response.data.id,
         filename: response.data.filename,
-        fileaddr: response.data.path
-      })
+        fileaddr: response.data.path,
+      });
     },
     // 移除上传项
     handleRemove(file, fileList) {
-      this.addParams.annexurlid.forEach( (item, index) => {
+      this.addParams.annexurlid.forEach((item, index) => {
         if (item.filename == file.name) {
-          this.addParams.annexurlid.splice( index, 1 )
+          this.addParams.annexurlid.splice(index, 1);
         }
-      })
+      });
     },
     // 点击上传项回调
     handlePreview(file) {
@@ -743,40 +836,43 @@ export default {
     },
     // 移除前回调
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
     // 下载文件流
-    async download(id, filename) {
+    async download(id, filename) {
       const { data: res } = await this.axios({
-          method: 'get',
-          url: `files/download/${id}`,
-          responseType: "blob",
-      })
-      let fileName = filename;
-      let fileType = {
-        doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        xls: 'application/vnd.ms-excel',
-        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        ppt: 'application/vnd.ms-powerpoint',
-        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
-        txt: 'text/plain',
-        png: 'image/png',
-        jpg: 'image/jpeg',
-        jpeg: 'image/jpeg',
-        zip: 'application/zip',
-        rar: 'application/x-rar',
-      }
-      let type=fileName.split('.')[1];//获取文件后缀名
-      let blob = new Blob([res],{
-        type:fileType.type
-      });
-      let url = window.URL.createObjectURL(blob);
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      link.setAttribute("download", fileName);
+        method: "get",
+        url: `files/download/${id}`,
+        responseType: "blob",
+      });
+      let fileName = filename;
+      let fileType = {
+        doc: "application/msword",
+        docx:
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        xls: "application/vnd.ms-excel",
+        xlsx:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        ppt: "application/vnd.ms-powerpoint",
+        pptx:
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        pdf: "application/pdf",
+        txt: "text/plain",
+        png: "image/png",
+        jpg: "image/jpeg",
+        jpeg: "image/jpeg",
+        zip: "application/zip",
+        rar: "application/x-rar",
+      };
+      let type = fileName.split(".")[1]; //获取文件后缀名
+      let blob = new Blob([res], {
+        type: fileType.type,
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -786,28 +882,37 @@ export default {
     // ****************其他操作*******************
     // 新增表单
     editNewFlow() {
-      this.addParams.from_data = this.tableData
-      editFlow(this.addParams)
-      .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
-      })
+      this.addParams.from_data = this.tableData;
+      editFlow(this.addParams).then((result) => {
+        this.workid = result.data.workid;
+        this.tableData.oaa01 = result.data.oaa01;
+        this.tableData.oaa02 = result.data.oaa02;
+      });
     },
     // 下一步
     nextStep(url) {
+      if (url == "/agree") {
+        if (this.financialData.apa01 == "") {
+          this.$message.error("请先生成凭证！");
+        } else {
+          this.nextFuns(url);
+        }
+      } else {
+        this.nextFuns(url);
+      }
+    },
+    nextFuns(url) {
       if (this.addParams.annexurlid.length !== 0) {
-        this.addParams.from_data = this.tableData
-        this.addParams.workid = this.workid
-        this.fileList_user.forEach(item => {
+        this.addParams.from_data = this.tableData;
+        this.addParams.workid = this.workid;
+        this.fileList_user.forEach((item) => {
           this.addParams.annexurlid.push({
             id: item.id,
             filename: item.name,
-            fileaddr: item.url
-          })
-        })
-        editFlow(this.addParams)
-        .then( result => {
+            fileaddr: item.url,
+          });
+        });
+        editFlow(this.addParams).then((result) => {
           if (result.status == 200) {
             this.$message.success("编辑成功！");
             this.$router.push({
@@ -816,13 +921,13 @@ export default {
                 workid: this.workid,
                 workName: this.workName,
                 oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02
-              }
-            })
+                oaa02: this.tableData.oaa02,
+              },
+            });
           } else {
             this.$message.error("编辑失败：" + result.error.message);
           }
-        })
+        });
       } else {
         this.$router.push({
           path: url,
@@ -830,14 +935,27 @@ export default {
             workid: this.workid,
             workName: this.workName,
             oaa01: this.tableData.oaa01,
-            oaa02: this.tableData.oaa02
-          }
-        })
+            oaa02: this.tableData.oaa02,
+          },
+        });
       }
     },
     // *******************************************
-
-
+    // 生成凭证
+    generate() {
+      let params={
+        workid:this.workid
+      }
+      transfer(params).then(res=>{
+        if(res.status ==200){
+          this.$message.success('抛转成功！')
+          this.financialData.apa01 = res.data.apa01
+          this.financialData.apa02 = res.data.apa02
+        }else{
+          this.$message.error('抛转失败！')
+        }
+      })
+    },
   },
 };
 </script>
@@ -847,6 +965,8 @@ export default {
 .summry {
   display: flex;
   flex-direction: row;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
   .summryUl {
     width: 100%;
     display: flex;

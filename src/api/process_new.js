@@ -28,3 +28,13 @@ export const editFlow = (params) => {
   return request.put(`oa/workflows/${params.workid}`,
   params)
 }
+
+// 抛转凭证
+
+export const transfer = (params) => {
+  return request.get(`oa/workflows/transfer`,
+  {},
+  {
+    params
+  })
+}

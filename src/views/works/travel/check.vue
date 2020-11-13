@@ -739,6 +739,8 @@ export default {
 .summry {
   display: flex;
   flex-direction: row;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
   .summryUl {
     width: 100%;
     display: flex;
