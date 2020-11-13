@@ -58,12 +58,8 @@
                 <div class="titlebox">厂商简称</div>
                 <div class="infobox disabledbox">{{showData.oaa11_pmc03}}</div>
                 <div class="titlebox">本次支付金额</div>
-                <div class="infobox selectbox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa12"
-                    placeholder="请输入本次支付金额"
-                  />
+                <div class="infobox selectbox last_row editNot">
+                  {{ payMoney }}
                 </div>
               </div>
               <!-- 2 -->
@@ -124,7 +120,7 @@
               <div class="form_line">
                 <div class="titlebox">报销金额</div>
                 <div class="infobox middlebox editNot">
-                  {{ showData.expenseMoney }}
+                  {{ expenseMoney }}
                 </div>
                 <div class="titlebox">报销金额大写</div>
                 <div class="infobox middlebox editNot">
@@ -345,15 +341,15 @@
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName">税前金额（原币）</div>
-                      <div class="summryCont">{{ showData.preTax_origin }}</div>
+                      <div class="summryCont editNot">{{ showData.preTax_origin }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">税额（原币）</div>
-                      <div class="summryCont">{{ showData.tax_origin }}</div>
+                      <div class="summryCont editNot">{{ showData.tax_origin }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">含税合计（原币）</div>
-                      <div class="summryCont">{{ showData.taxSum_origin }}</div>
+                      <div class="summryCont editNot">{{ showData.taxSum_origin }}</div>
                     </li>
                   </ul>
                 </div>
@@ -361,15 +357,15 @@
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName ">税前金额（本币）</div>
-                      <div class="summryCont">{{ showData.preTax_local }}</div>
+                      <div class="summryCont editNot">{{ showData.preTax_local }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">税额（本币）</div>
-                      <div class="summryCont">{{ showData.tax_local }}</div>
+                      <div class="summryCont editNot">{{ showData.tax_local }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">含税合计（本币）</div>
-                      <div class="summryCont">{{ showData.taxSum_local }}</div>
+                      <div class="summryCont editNot">{{ showData.taxSum_local }}</div>
                     </li>
                   </ul>
                 </div>
@@ -935,7 +931,27 @@ export default {
     };
   },
   computed: {
-    
+    // 金额（不含税）
+    expenseMoney(){
+      let sum =  this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac07);
+      }, 0);
+      this.showData.expenseMoney = sum
+      this.showData.expenseMoneyF = number_chinese(sum)
+      return sum
+    },
+    // 支付金额
+    payMoney(){
+      // 还款金额总和
+      let sum = this.tableData.oad.reduce((prev, cur) => {
+        return prev + Number(cur.oad02);
+      }, 0);
+      // 支付金额
+      let res = this.expenseMoney - sum
+      this.tableData.oaa12 = res
+      console.log(res)
+      return res
+    }
   },
   created() {
     // this.addParams.tplid = this.$route.query.tplid
@@ -1338,8 +1354,8 @@ export default {
         border-right: 1px solid #cccccc;
       }
       .summryCont {
-        width: 73px;
-        // flex: 1 1 auto;
+        height: 40px;
+        flex: 1 1 auto;
         line-height: 40px;
         text-align: center;
       }

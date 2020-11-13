@@ -675,7 +675,7 @@
               </div>
               <!-- 冲销信息 -->
               <div class="title_line">
-                <el-button type="primary" size="small" style="position:absolute;left:0;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
+                <el-button type="primary" size="small" style="position:absolute;left:4px;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
                 冲销信息
               </div>
               <div>
