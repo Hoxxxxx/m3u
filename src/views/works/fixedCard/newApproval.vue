@@ -303,8 +303,8 @@ export default {
     };
   },
   created() {
-    // this.workid = this.$route.query.workid
-    this.workid = 3965
+    this.workid = this.$route.query.workid
+    // this.workid = 3965
     this.getAzis()
     this.getworkflows()
   },
