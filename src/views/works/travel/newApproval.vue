@@ -596,7 +596,7 @@
 
 <script>
 import { workflowsList } from "@/api/process_new.js";
-import { editFlow,transfer } from "@/api/process_new";
+import { editFlow, transfer } from "@/api/process_new";
 import { dateFmt, number_chinese } from "@/utils/utils.js";
 
 export default {
@@ -650,6 +650,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
+    this.workid ='3947'
     this.getworkflows();
   },
   computed: {
@@ -737,11 +738,18 @@ export default {
     },
     // ***********获取流程信息************
     getworkflows() {
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       const params = {
         workid: this.workid,
       };
       workflowsList(params).then((res) => {
         if (res.status == 200) {
+          loading.close()
           this.tableData = res.data.workclass_info.from_data;
           this.workname = res.data.workclass_info.title;
           this.workclass_perflow = res.data.workclass_perflow;
@@ -755,6 +763,7 @@ export default {
             });
           }
         } else {
+          loading.close()
           this.$message.error("获取流程信息失败：" + res.error.message);
         }
       });
@@ -943,18 +952,18 @@ export default {
     // *******************************************
     // 生成凭证
     generate() {
-      let params={
-        workid:this.workid
-      }
-      transfer(params).then(res=>{
-        if(res.status ==200){
-          this.$message.success('抛转成功！')
-          this.financialData.apa01 = res.data.apa01
-          this.financialData.apa02 = res.data.apa02
-        }else{
-          this.$message.error('抛转失败！')
+      let params = {
+        workid: this.workid,
+      };
+      transfer(params).then((res) => {
+        if (res.status == 200) {
+          this.$message.success("抛转成功！");
+          this.financialData.apa01 = res.data.apa01;
+          this.financialData.apa02 = res.data.apa02;
+        } else {
+          this.$message.error("抛转失败:"+res.error.message);
         }
-      })
+      });
     },
   },
 };
