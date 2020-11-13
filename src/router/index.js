@@ -19,9 +19,9 @@ const routes = [{
     path: '/',
     name: 'Home',
     component: Home,
-    redirect: '/workList',
+    redirect: '/workList?code=asdas',
     children: [{
-      path: '/workList',
+      path: '/workList?code=asdas',
       name: 'workList',
       component: workList
     }]
