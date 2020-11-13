@@ -174,6 +174,23 @@ const routes = [{
     component: () => import('@/views/works/fixedCard/newApproval')
   },
 
+  // 固定资产付款
+  {
+    path: '/fixedPay',
+    name: 'fixedPay',
+    component: () => import('@/views/works/fixedPay/newProcess')
+  },
+  {
+    path: '/fixedPay/check',
+    name: 'fixedPay_check',
+    component: () => import('@/views/works/fixedPay/check')
+  },
+  {
+    path: '/fixedPay/approval',
+    name: 'fixedPay_approval',
+    component: () => import('@/views/works/fixedPay/newApproval')
+  },
+
 ]
 
 const router = new VueRouter({
