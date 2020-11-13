@@ -101,6 +101,18 @@ export default {
           name: "固定资产卡片——查看",
           path: "/fixedCard/check",
         },
+        {
+          name: "固定资产付款——申请",
+          path: "/fixedPay",
+        },
+        {
+          name: "固定资产付款——审核",
+          path: "/fixedPay/approval",
+        },
+        {
+          name: "固定资产付款——查看",
+          path: "/fixedPay/check",
+        },
       ]
     };
   },
