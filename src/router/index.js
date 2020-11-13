@@ -19,9 +19,9 @@ const routes = [{
     path: '/',
     name: 'Home',
     component: Home,
-    redirect: '/workList?code=asdas',
+    redirect: '/workList',
     children: [{
-      path: '/workList?code=asdas',
+      path: '/workList',
       name: 'workList',
       component: workList
     }]
@@ -169,7 +169,7 @@ const routes = [{
     component: () => import('@/views/works/fixedCard/check')
   },
   {
-    path: '/fixedApp/approval',
+    path: '/fixedCard/approval',
     name: 'fixedCard_approval',
     component: () => import('@/views/works/fixedCard/newApproval')
   },

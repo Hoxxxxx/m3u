@@ -137,11 +137,12 @@
                   />
                 </div>
                 <div class="titlebox">数量</div>
-                <div class="infobox selectbox last_row">
+                <div class="infobox selectbox disabledbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa22"
                     placeholder="请输入数量"
+                    disabled
                   />
                 </div>
               </div>
@@ -251,9 +252,6 @@
                   </el-input>
                 </div>
               </div>
-              
-              
-              
             </div>
           </div>
         </el-tab-pane>
@@ -326,7 +324,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { gensList, azisList,  } from "@/api/basic";
+import { azisList,  } from "@/api/basic";
 import { addFlow,  } from "@/api/process_new";
 
 export default {
@@ -380,9 +378,6 @@ export default {
       },
       // 表单数据
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
         // 币种列表
         azisList: [],
         // 分摊列表
@@ -476,7 +471,6 @@ export default {
   },
   created() {
     // this.addParams.tplid = this.$route.query.tplid
-    this.getGens()
     this.getAzis()
   },
   methods: {
@@ -484,16 +478,6 @@ export default {
       // console.log(this.activeTab);
     },
     // ***********获取下拉列表信息************
-    getGens () {
-      gensList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.genList = result.data;
-        } else {
-          this.$message.error("获取员工列表失败：" + result.error.message);
-        }
-      })
-    },
     getAzis () {
       azisList()
       .then( result => {

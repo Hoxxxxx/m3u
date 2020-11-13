@@ -35,24 +35,80 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox">{{tableData.oaa03}}</div>
+                <div class="infobox">{{tableData.oaa03}}</div>
                 <div class="titlebox">申请人</div>
                 <div class="infobox">{{tableData.oaa04_show}}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox middlebox">{{tableData.oaa05}}</div>
+                <div class="infobox last_row">{{tableData.oaa05}}</div>
               </div>
-              <!-- 构建信息 -->
-              <div class="title_line">构建信息</div>
+              <!-- 卡片信息 -->
+              <div class="title_line">卡片信息</div>
               <div class="form_line">
-                <div class="titlebox">购置类别</div>
-                <div class="infobox longbox selectbox">
+                <div class="titlebox">财产编号</div>
+                <div class="infobox">{{tableData.oaa11}}</div>
+                <div class="titlebox">资产主类别</div>
+                <div class="infobox">{{tableData.oaa12_show}}</div>
+                <div class="titlebox">资产次类别</div>
+                <div class="infobox last_row">{{tableData.oaa13_show}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">资产中文名称</div>
+                <div class="infobox">{{tableData.oaa14}}</div>
+                <div class="titlebox">资产英文名称</div>
+                <div class="infobox">{{tableData.oaa15}}</div>
+                <div class="titlebox">规格型号</div>
+                <div class="infobox last_row">{{tableData.oaa16}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">供应商编号</div>
+                <div class="infobox">{{tableData.oaa17}}</div>
+                <div class="titlebox">本币单价</div>
+                <div class="infobox">{{tableData.oaa18}}</div>
+                <div class="titlebox">本币成本</div>
+                <div class="infobox last_row">{{tableData.oaa19}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">币种</div>
+                <div class="infobox selectbox disabledbox">
                   <el-select
-                    v-model="tableData.oaa11"
+                    v-model="tableData.oaa20"
                     class="select"
-                    placeholder="请选择购置类别"
+                    disabled
                   >
                     <el-option
-                      v-for="item in fixedData.buyList"
+                      v-for="item in fixedData.azisList"
+                      :key="item.azi01"
+                      :label="item.azi02"
+                      :value="item.azi01"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
+                <div class="titlebox">原币成本</div>
+                <div class="infobox selectbox">{{tableData.oaa21}}</div>
+                <div class="titlebox">数量</div>
+                <div class="infobox selectbox last_row">{{tableData.oaa22}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">计量单位</div>
+                <div class="infobox">{{tableData.oaa23_show}}</div>
+                <div class="titlebox">保管人</div>
+                <div class="infobox">{{tableData.oaa24}}</div>
+                <div class="titlebox">保管部门</div>
+                <div class="infobox last_row">{{tableData.oaa25_show}}</div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">存放位置</div>
+                <div class="infobox">{{tableData.oaa26_show}}</div>
+                <div class="titlebox">分摊方式</div>
+                <div class="infobox selectbox disabledbox">
+                  <el-select
+                    v-model="tableData.oaa27"
+                    class="select"
+                    disabled
+                  >
+                    <el-option
+                      v-for="item in fixedData.shareList"
                       :key="item.id"
                       :label="item.label"
                       :value="item.id"
@@ -60,30 +116,14 @@
                     </el-option>
                   </el-select>
                 </div>
+                <div class="titlebox">分摊部门</div>
+                <div class="infobox last_row">{{tableData.oaa28_show}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">固定资产名称</div>
-                <div class="infobox middlebox">{{tableData.oaa12}}</div>
-                <div class="titlebox">规格型号</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa13}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">计量单位</div>
-                <div class="infobox middlebox">{{tableData.oaa14}}</div>
-                <div class="titlebox">构建数量</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa15}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">计划金额</div>
-                <div class="infobox middlebox">{{tableData.oaa16}}</div>
-                <div class="titlebox">生产厂家</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa17}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">构建时间</div>
-                <div class="infobox middlebox databox">
+                <div class="titlebox">取得日期</div>
+                <div class="infobox datebox">
                   <el-date-picker
-                    v-model="tableData.oaa18"
+                    v-model="tableData.oaa29"
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
@@ -91,22 +131,43 @@
                   >
                   </el-date-picker>
                 </div>
-                <div class="titlebox">使用部门</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa19}}</div>
+                <div class="titlebox">项目编号</div>
+                <div class="infobox">{{tableData.oaa30}}</div>
+                <div class="titlebox">WBS编号</div>
+                <div class="infobox last_row">{{tableData.oaa31}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">计划内外</div>
-                <div class="infobox middlebox">{{tableData.oaa20}}</div>
-                <div class="titlebox">采购金额</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
+                <div class="titlebox">入账日期</div>
+                <div class="infobox middlebox datebox">
+                  <el-date-picker
+                    v-model="tableData.oaa32"
+                    type="date"
+                    format="yyyy-MM-dd"
+                    value-format="yyyy-MM-dd"
+                    disabled
+                  >
+                  </el-date-picker>
+                </div>
+                <div class="titlebox">耐用月数</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa33}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">主要参数配置</div>
-                <div class="infobox longbox">{{tableData.oaa22}}</div>
+                <div class="titlebox">构建编号</div>
+                <div class="infobox longbox last_row">{{tableData.oaa34_show}}</div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">构建依据</div>
-                <div class="infobox longbox">{{tableData.oaa23}}</div>
+                <div class="titlebox">说明</div>
+                <div class="infobox longbox areabox last_row">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa35"
+                    maxlength="80"
+                    show-word-limit
+                    disabled
+                  >
+                  </el-input>
+                </div>
               </div>
             </div>
           </div>
@@ -200,8 +261,8 @@
 
 <script>
 // api
-import { workflowsList, } from "@/api/process_new.js"
-import { editFlow  } from "@/api/process_new";
+import { workflowsList, editFlow  } from "@/api/process_new";
+import { azisList,  } from "@/api/basic";
 
 export default {
   components: {},
@@ -217,15 +278,16 @@ export default {
       },
       // 表单数据
       fixedData: {
-        // 购置列表
-        buyList: [
+        // 币种列表
+        azisList: [],
+        // 分摊列表
+        shareList: [
           {
             id: 1,
-            label: '全新购置'
-          },
-          {
+            label: '单一部门分摊'
+          },{
             id: 2,
-            label: '升级更换'
+            label: '多部门分摊'
           }
         ],
       },
@@ -241,8 +303,9 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    // this.workid = 3963
+    // this.workid = this.$route.query.workid
+    this.workid = 3965
+    this.getAzis()
     this.getworkflows()
   },
   methods: {
@@ -270,6 +333,18 @@ export default {
           }
         }else{
           this.$message.error('获取流程信息失败：' + res.error.message);
+        }
+      })
+    },
+    // *******************************************
+    // ***********获取下拉列表信息************
+    getAzis () {
+      azisList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.azisList = result.data;
+        } else {
+          this.$message.error("获取币种列表失败：" + result.error.message);
         }
       })
     },
