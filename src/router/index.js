@@ -198,16 +198,25 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (window.location.href.includes('code')) {
-      let urlParams = window.location.href.split('code')[1].split('&')[0].split('=')[1]
+      // let urlParams = window.location.href.split('code')[1].split('&')[0].split('=')[1]
+      let urlParams = window.location.href.split('?')[1].split('&')
+      let allParams = {}
+      urlParams.forEach(item => {
+        let key = item.split('=')[0]
+        let val = item.split('=')[1]
+        allParams[key] = val
+      })
+      console.log(allParams)
       let params = {
-        code:urlParams
+        code: allParams.code
       }
       getToken(params).then(res => {
         if (res.status == 200) {
           let token = res.data.token
           sessionStorage.setItem('token', token)
           next({
-            path: to.path
+            path: to.path,
+            query: allParams
           })
         } else {
           console.log(res.error)
