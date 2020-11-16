@@ -27,20 +27,34 @@
             <div class="tableBox">
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
-              <div class="form_line  last_line">
+              <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox">{{tableData.oaa03}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.oaa03 }}
                 </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox last_row">
+                <div class="infobox selectbox middlebox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
                     placeholder="请输入联系电话"
                   />
+                </div>
+              </div>
+              <div class="form_line lastline">
+                <div class="titlebox">申请人</div>
+                <div class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('SQR')">
+                    {{ showData.oaa04_show }}
+                  </div>
+                </div>
+                <div class="titlebox">员工编号</div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen01 }}
+                </div>
+                <div class="titlebox">所属部门</div>
+                <div class="infobox editNot last_row">
+                  {{ showData.oaa04_gen04 }}
                 </div>
               </div>
               <!-- 出差信息 -->
@@ -414,6 +428,10 @@ export default {
       workName:"出差借款申请",//流程名
       showData:{
         oaa04_show: "", //申请人
+        oaa04_gen01: "", //申请人编号
+        oaa04_gen04: "", //申请人部门
+        oaa14_show: "", //项目
+        oaa15_show:"",//项目WBS
       },
       tableData: {
         oaa01: '',
@@ -448,10 +466,6 @@ export default {
         oaa36: '',
         oaa38: '',
         oaa39: ''
-      },
-      showData: {
-        oaa14_show: "", //项目
-        oaa15_show:"",//项目WBS
       },
       // 汇率数据
       exchange: '', //折合汇率
@@ -498,6 +512,7 @@ export default {
           { name: "gen01", title: "员工编号" },
           { name: "gen02", title: "员工名称" },
           { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
         ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
@@ -785,6 +800,8 @@ export default {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
             this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen04 = val[0].gen04;
             break;
           case "XM":
             this.tableData.oaa14 = val[0].pja01;

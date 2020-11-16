@@ -29,17 +29,17 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox">{{tableData.oaa03}}</div>
+                <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa05}}</div>
+                <div class="infobox selectbox middlebox last_row">{{ tableData.oaa05 }}</div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">{{tableData.oaa04_show}}</div>
+                <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox middlebox">{{tableData.oaa04}}</div>
+                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox middlebox">{{tableData.oaa04_gen04}}</div>
+                <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
               <!-- 借款信息 -->
               <div class="title_line">借款信息</div>

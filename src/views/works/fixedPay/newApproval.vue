@@ -35,61 +35,38 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox editNot">
-                  {{ tableData.oaa03 }}
-                </div>
+                <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox middlebox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa05"
-                    placeholder="请输入联系电话"
-                  />
-                </div>
+                <div class="infobox selectbox middlebox last_row">{{ tableData.oaa05 }}</div>
               </div>
               <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('SQR')">
-                    {{ showData.oaa04_show }}
-                  </div>
-                </div>
+                <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">
-                  {{ showData.oaa04_gen01 }}
-                </div>
+                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox editNot last_row">
-                  {{ showData.oaa04_gen04 }}
-                </div>
+                <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
               <!-- 付款信息 -->
               <div class="title_line">付款信息</div>
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">预付厂商</div>
-                <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('YFCS')">{{tableData.oaa11}}</div>
-                </div>
+                <div class="infobox selectbox">{{tableData.oaa11}}</div>
                 <div class="titlebox">厂商简称</div>
-                <div class="infobox disabledbox">{{showData.oaa11_pmc03}}</div>
+                <div class="infobox disabledbox">{{tableData.oaa11_pmc03}}</div>
                 <div class="titlebox">本次支付金额</div>
-                <div class="infobox selectbox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa12"
-                    placeholder="请输入本次支付金额"
-                  />
-                </div>
+                <div class="infobox selectbox last_row">{{tableData.oaa12}}</div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">币种</div>
-                <div class="infobox selectbox">
+                <div class="infobox selectbox disabledbox">
                   <el-select
                     v-model="tableData.oaa13"
                     class="select"
                     placeholder="请选择币种"
+                    disabled
                   >
                     <el-option
                       v-for="(item, index) in fixedData.cointypes"
@@ -101,30 +78,23 @@
                   </el-select>
                 </div>
                 <div class="titlebox">汇率</div>
-                <div class="infobox selectbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa14"
-                    placeholder="请输入汇率"
-                  />
-                </div>
+                <div class="infobox selectbox">{{tableData.oaa14}}</div>
                 <div class="titlebox">应付金额</div>
-                <div class="infobox selectbox disabledbox last_row">{{tableData.oaa15}}</div>
+                <div class="infobox selectbox disabledbox last_row">{{com_YFJE}}</div>
               </div>
               <!-- 3 -->
               <div class="form_line">
                 <div class="titlebox">税别</div>
-                <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('SB')">{{tableData.oaa15}}</div>
-                </div>
+                <div class="infobox selectbox">{{tableData.oaa15}}</div>
                 <div class="titlebox">税率</div>
-                <div class="infobox editNot">{{showData.oaa15_gec04}}</div>
+                <div class="infobox editNot">{{tableData.oaa15_gec04}}</div>
                 <div class="titlebox">支付方式</div>
-                <div class="infobox last_row selectbox">
+                <div class="infobox last_row selectbox disabledbox">
                   <el-select
                     v-model="tableData.oaa16"
                     class="select"
                     placeholder="请选择支付方式"
+                    disabled
                   >
                     <el-option
                       v-for="(item, index) in fixedData.payTypes"
@@ -144,85 +114,37 @@
                 </div>
                 <div class="titlebox">报销金额大写</div>
                 <div class="infobox middlebox editNot">
-                  {{ showData.expenseMoneyF }}
+                  {{ tableData.expenseMoneyF }}
                 </div>
               </div> -->
               <!-- 4 -->
               <div class="form_line">
                 <div class="titlebox">固定资产申请单</div>
-                <div class="infobox longbox selectbox">
-                  <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('GDZCSQD')">
-                    {{ showData.oaa17_show }}
-                  </div>
-                </div>
+                <div class="infobox longbox selectbox">{{tableData.oaa17_show}}</div>
               </div>
               <!-- 5 -->
               <div class="form_line">
                 <div class="titlebox">说明</div>
-                <div class="infobox areabox longbox" style="width: 100%">
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa18"
-                    placeholder="请输入说明"
-                    maxlength="80"
-                    show-word-limit
-                  >
-                  </el-input>
-                </div>
+                <div class="infobox areabox longbox" style="width: 100%">{{tableData.oaa18}}</div>
               </div>
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">验收信息</div>
-                <div class="infobox areabox last_row longbox" style="width: 100%">
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa19"
-                    placeholder="请输入验收信息"
-                  >
-                  </el-input>
-                </div>
+                <div class="infobox areabox last_row longbox" style="width: 100%">{{tableData.oaa19}}</div>
               </div>
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
               <div class="form_line">
                 <div class="titlebox">收款人</div>
-                <div class="infobox selectbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa21"
-                    placeholder="请输入收款人"
-                  />
-                </div>
+                <div class="infobox selectbox">{{tableData.oaa21}}</div>
                 <div class="titlebox">开户行</div>
-                <div class="infobox selectbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa22"
-                    placeholder="请输入开户行"
-                  />
-                </div>
+                <div class="infobox selectbox">{{tableData.oaa22}}</div>
                 <div class="titlebox">收款账号</div>
-                <div class="infobox selectbox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa23"
-                    placeholder="请输入收款账号"
-                  />
-                </div>
+                <div class="infobox selectbox last_row">{{tableData.oaa23}}</div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">支票号</div>
-                <div class="infobox last_row longbox selectbox" style="width: 100%">
-                  <input
-                    class="abstracInput"
-                    type="textarea"
-                    :autosize="{ minRows: 2, maxRows: 4 }"
-                    v-model="tableData.oaa24"
-                    placeholder="请输入支票号"
-                  />
-                </div>
+                <div class="infobox last_row longbox selectbox" style="width: 100%">{{tableData.oaa24}}</div>
               </div>
               <!-- 发票明细行 -->
               <div class="title_line">发票明细行</div>
@@ -236,7 +158,7 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <el-table-column
+                  <!-- <el-table-column
                     prop="id"
                     label="增 / 删"
                     fixed="left"
@@ -260,21 +182,13 @@
                         </div>
                       </div>
                     </template>
-                  </el-table-column>
+                  </el-table-column> -->
                   <el-table-column
                     prop="oaf01"
                     label="发票号码"
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oaf01"
-                          placeholder="发票号码"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oaf02"
@@ -282,17 +196,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oaf02"
-                          style="width: 100%"
-                          type="date"
-                          placeholder="发票日期"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oaf03"
@@ -300,16 +203,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('FPSB', scope.$index)"
-                        >
-                          {{ scope.row.oaf03 }}
-                        </div>
-                      </div>
-                    </template>
                   </el-table-column>
                    <el-table-column
                     prop="oaf03_gec04"
@@ -317,13 +210,6 @@
                     min-width="130px"
                     align="center"
                   >
-                  <div slot-scope="scope">
-                    <el-input
-                      v-model="scope.row.oaf03_gec04"
-                      placeholder="税率"
-                      disabled
-                    ></el-input>
-                  </div>
                   </el-table-column>
                   <el-table-column
                     prop="oaf05"
@@ -331,14 +217,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oaf05"
-                          placeholder="税前金额（原币）"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oaf06"
@@ -346,14 +224,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oaf06"
-                          placeholder="税额（原币）"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oaf07"
@@ -361,14 +231,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oaf07"
-                          placeholder="含税金额（原币）"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="sqjeBB"
@@ -376,15 +238,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.sqjeBB"
-                          placeholder="税前金额（本币）"
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="seBB"
@@ -392,15 +245,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.seBB"
-                          placeholder="税额（本币）"
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="hsjeBB"
@@ -408,30 +252,21 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.hsjeBB"
-                          placeholder="含税金额（本币）"
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                 </el-table>
                 <div class="summry">
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName">税前金额（原币）</div>
-                      <div class="summryCont editNot">{{ showData.preTax_origin }}</div>
+                      <div class="summryCont editNot">{{ com_SQJEyb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">税额（原币）</div>
-                      <div class="summryCont editNot">{{ showData.tax_origin }}</div>
+                      <div class="summryCont editNot">{{ com_SEyb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">含税合计（原币）</div>
-                      <div class="summryCont editNot">{{ showData.taxSum_origin }}</div>
+                      <div class="summryCont editNot">{{ com_HSHJyb }}</div>
                     </li>
                   </ul>
                 </div>
@@ -439,15 +274,15 @@
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName ">税前金额（本币）</div>
-                      <div class="summryCont editNot">{{ showData.preTax_local }}</div>
+                      <div class="summryCont editNot">{{ com_SQJEbb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">税额（本币）</div>
-                      <div class="summryCont editNot">{{ showData.tax_local }}</div>
+                      <div class="summryCont editNot">{{ com_SEbb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">含税合计（本币）</div>
-                      <div class="summryCont editNot">{{ showData.taxSum_local }}</div>
+                      <div class="summryCont editNot">{{ com_HSHJbb }}</div>
                     </li>
                   </ul>
                 </div>
@@ -464,7 +299,7 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <el-table-column
+                  <!-- <el-table-column
                     prop="id"
                     label="增 / 删"
                     fixed="left"
@@ -488,23 +323,13 @@
                         </div>
                       </div>
                     </template>
-                  </el-table-column>
+                  </el-table-column> -->
                   <el-table-column
                     prop="oac01"
                     label="会计科目"
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('KJKM', scope.$index)"
-                        >
-                          {{ scope.row.oac01 }}
-                        </div>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac04"
@@ -512,16 +337,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('XM', scope.$index)"
-                        >
-                          {{ scope.row.oac04 }}
-                        </div>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac05"
@@ -529,16 +344,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('WBS', scope.$index)"
-                        >
-                          {{ scope.row.oac05 }}
-                        </div>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac08"
@@ -546,16 +351,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('ZCKP', scope.$index)"
-                        >
-                          {{ scope.row.oac08 }}
-                        </div>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac07"
@@ -563,14 +358,6 @@
                     min-width="180px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac07"
-                          placeholder="金额（不含税）"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac11"
@@ -583,6 +370,7 @@
                         <el-select
                           v-model="scope.row.oac11"
                           placeholder="请选择核算项一"
+                          disabled
                         >
                           <el-option
                             v-for="(item, index) in fixedData.options_04"
@@ -606,6 +394,7 @@
                         <el-select
                           v-model="scope.row.oac12"
                           placeholder="请选择核算项二"
+                          disabled
                         >
                           <el-option
                             v-for="(item, index) in fixedData.options_05"
@@ -622,7 +411,6 @@
               </div>
               <!-- 冲销信息 -->
               <div class="title_line">
-                <el-button type="primary" size="small" style="position:absolute;left:0;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
                 冲销信息
               </div>
               <div>
@@ -666,15 +454,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.id"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="date"
@@ -682,18 +461,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.date"
-                          style="width: 100%"
-                          type="date"
-                          disabled
-                          placeholder=""
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="rname"
@@ -701,15 +468,6 @@
                     min-width="110px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.rname"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="original_amount"
@@ -717,15 +475,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.original_amount"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad02"
@@ -733,14 +482,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oad02"
-                          placeholder="请输入还款金额"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="voucher_code"
@@ -748,15 +489,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.voucher_code"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                 </el-table>
               </div>
@@ -834,7 +566,7 @@
 <script>
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
-import { azisList,  } from "@/api/basic";
+import { azisList, pmasList, } from "@/api/basic";
 
 export default {
   components: {},
@@ -843,10 +575,11 @@ export default {
       activeTab: "firTab",
       workid: '',
       workName:"固定资产卡片",//流程名
-      tableData: {},
-      showData: {
-        oaa04_show: "", //申请人
-        oaa04_gen01: "", //申请人编号
+      tableData: {
+        // 表格部分
+        oaf: [], // 发票明细
+        oac: [], // 费用明细行项目
+        oad: [], // 冲销信息
       },
       // 表单数据
       fixedData: {
@@ -876,9 +609,74 @@ export default {
   },
   created() {
     // this.workid = this.$route.query.workid
-    // this.workid = 3965
-    // this.getAzis()
-    // this.getworkflows()
+    this.workid = 3965
+    this.getAzi() //币种列表
+    this.getPma() //支付方式
+    this.getworkflows()
+  },
+  computed: {
+    // 应付金额
+    com_YFJE(){
+      if (this.tableData.oaf) {
+        console.log('111')
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf07);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 税前金额（原币）
+    com_SQJEyb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf05);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 税额（原币）
+    com_SEyb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf06);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 含税合计（原币）
+    com_HSHJyb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf07);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+     // 税前金额（本币）
+    com_SQJEbb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.sqjeBB);
+      }, 0);
+      return sum.toFixed(2)
+    },
+    // 税额（本币）
+    com_SEbb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.seBB);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 含税合计（本币）
+    com_HSHJbb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.hsjeBB);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
   },
   methods: {
     handleClick() {
@@ -918,7 +716,7 @@ export default {
     },
     // *******************************************
     // ***********获取下拉列表信息************
-    getAzis () {
+    getAzi () {
       azisList()
       .then( result => {
         if (result.status == 200) {
@@ -927,6 +725,15 @@ export default {
           this.$message.error("获取币种列表失败：" + result.error.message);
         }
       })
+    },
+    getPma() {
+      pmasList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.payTypes = res.data;
+        } else {
+          this.$message.error("获取支付方式列表失败：" + result.error.message);
+        }
+      });
     },
     // *******************************************
     // ***************附件上传******************

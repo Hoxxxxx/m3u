@@ -1007,6 +1007,13 @@ export default {
       },
     };
   },
+  created() {
+    // this.addParams.tplid = this.$route.query.tplid
+    this.addRow1();
+    this.addRow2();
+    this.getAzi(); //币种列表
+    this.getPma(); //支付方式
+  },
   computed: {
     // 应付金额
     com_YFJE(){
@@ -1057,25 +1064,6 @@ export default {
       }, 0);
       return sum.toFixed(2)
     },
-    // 支付金额
-    payMoney(){
-      // 还款金额总和
-      let sum = this.tableData.oad.reduce((prev, cur) => {
-        return prev + Number(cur.oad02);
-      }, 0);
-      // 支付金额
-      let res = this.com_YFJE - sum
-      this.tableData.oaa12 = res
-      // console.log(res)
-      return res
-    }
-  },
-  created() {
-    // this.addParams.tplid = this.$route.query.tplid
-    this.addRow1();
-    this.addRow2();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
   },
   methods: {
     handleClick() {
@@ -1276,7 +1264,7 @@ export default {
         if (res.status == 200) {
           this.fixedData.cointypes = res.data;
         } else {
-          this.$message.error(res.error);
+          this.$message.error("获取币种列表失败：" + result.error.message);
         }
       });
     },
@@ -1286,7 +1274,7 @@ export default {
         if (res.status == 200) {
           this.fixedData.payTypes = res.data;
         } else {
-          this.$message.error(res.error);
+          this.$message.error("获取支付方式列表失败：" + result.error.message);
         }
       });
     },
