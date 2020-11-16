@@ -32,22 +32,32 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox editNot">
+                <div class="infobox middlebox editNot">
                   {{ tableData.oaa03 }}
                 </div>
+                <div class="titlebox">联系电话</div>
+                <div class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa05"
+                    placeholder="请输入联系电话"
+                  />
+                </div>
+              </div>
+              <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa05"
-                    placeholder="请输入联系电话"
-                  />
+                <div class="titlebox">员工编号</div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen01 }}
+                </div>
+                <div class="titlebox">所属部门</div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen04 }}
                 </div>
               </div>
               <div class="form_line">
@@ -679,6 +689,7 @@ export default {
           { name: "gen01", title: "员工编号" },
           { name: "gen02", title: "员工名称" },
           { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
         ],
         head_KJKM: [
           { name: "aag01", title: "科目编号" },
@@ -970,6 +981,8 @@ export default {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
             this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen04 = val[0].gen04;
             break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;

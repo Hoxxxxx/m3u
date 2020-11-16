@@ -29,9 +29,11 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox">{{tableData.oaa03}}</div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.oaa03 }}
+                </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox middlebox selectbox">
+                <div class="infobox selectbox middlebox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
@@ -39,15 +41,21 @@
                   />
                 </div>
               </div>
-              <div class="form_line">
+              <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
+                  <div class="selector" @click="selectDialog('SQR')">
+                    {{ showData.oaa04_show }}
+                  </div>
                 </div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox middlebox">{{showData.oaa04_gen01}}</div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen01 }}
+                </div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox middlebox">{{showData.oaa04_gen04}}</div>
+                <div class="infobox editNot last_row">
+                  {{ showData.oaa04_gen04 }}
+                </div>
               </div>
               <!-- 借款信息 -->
               <div class="title_line">借款信息</div>
@@ -325,6 +333,7 @@ export default {
           { name: "gen01", title: "员工编号" },
           { name: "gen02", title: "员工名称" },
           { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
         ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
@@ -347,8 +356,7 @@ export default {
     };
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid
-    this.addParams.tplid = 8944
+    // this.addParams.tplid = this.$route.query.tplid
     this.getGens()
     this.getAzis()
     this.getPmas()

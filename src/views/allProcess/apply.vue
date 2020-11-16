@@ -23,12 +23,12 @@
               <div class="processName">
                 <img src="../../assets/img/step.png" />
                 <span>当前步骤：</span>
-                <div class="mainPeo">第1步：申请人发起申请</div>
+                <div class="mainPeo">第{{fixedData.now_workFlows.flownum}}步：{{fixedData.now_workFlows.flowname}}</div>
               </div>
               <div class="processPeo">
                 <img src="../../assets/img/person.png" />
                 <span>主办人员：</span>
-                <div class="mainPeo">某某人</div>
+                <div class="mainPeo">{{fixedData.now_workFlows.flowuser}}</div>
               </div>
             </div>
             <img class="arrowImg" src="../../assets/img/jiantou.png" />
@@ -42,9 +42,10 @@
                     v-model="uploadData.next_flowid"
                     class="memeberSelect"
                     placeholder="请选择下一步骤"
+                    @change="checkNextFlow()"
                   >
                     <el-option
-                      v-for="(item,index) in fixedData.workFlows"
+                      v-for="(item,index) in fixedData.next_workFlows"
                       :key="index"
                       :label="item.flowname"
                       :value="item.fid"
@@ -57,20 +58,55 @@
                 <img src="../../assets/img/person.png" />
                 <span>主办人员：</span>
                 <div class="mainSelect">
-                  <!-- <el-select
-                    v-model="uploadData.next_userid"
-                    class="memeberSelect"
-                    placeholder="请选择主办人员"
-                  >
-                    <el-option
-                      v-for="(item,index) in fixedData.members"
-                      :key="index"
-                      :label="item.name"
-                      :value="item.id"
+                  <!-- 未选择流程 -->
+                  <div v-if="uploadData.next_flowid == ''">
+                    <el-select
+                      v-model="uploadData.next_userid"
+                      class="memeberSelect"
+                      placeholder="请先选择下一步骤"
+                      disabled
                     >
-                    </el-option> -->
-                  <!-- </el-select> -->
-                  <div class="selector" @click="selectDialog('SQR')">{{showData.oaa04_show}}</div>
+                    </el-select>
+                  </div>
+                  <div v-if="uploadData.next_flowid !== ''">
+                    <!-- 可选所有 -->
+                    <div 
+                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == 1"
+                      class="selector" 
+                      @click="selectDialog('SQR')">
+                        {{showData.oaa04_show}}
+                    </div>
+                    <!-- 条件内可选 -->
+                    <el-select
+                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == 2"
+                      v-model="uploadData.next_userid"
+                      class="memeberSelect"
+                      placeholder="请选择主办人员"
+                    >
+                      <el-option
+                        v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
+                        :key="index"
+                        :label="item.name"
+                        :value="item.id"
+                      >
+                      </el-option>
+                    </el-select>
+                    <!-- 不可选 -->
+                    <el-select
+                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == 3"
+                      v-model="uploadData.next_userid"
+                      class="memeberSelect"
+                      disabled
+                    >
+                      <el-option
+                        v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
+                        :key="index"
+                        :label="item.name"
+                        :value="item.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -221,7 +257,8 @@ export default {
       // 页面固定数据
       fixedData: {
         members: [],
-        workFlows:[],
+        now_workFlows: [],
+        next_workFlows:[],
         msgs: [
           { label: "同意", value: 0 },
           { label: "拒绝", value: 1 },
@@ -229,6 +266,7 @@ export default {
       },
       showData:{
         oaa04_show: "", //申请人
+        nextInfo_index: ''
       },
       // 需上传的数据
       uploadData: {
@@ -279,11 +317,21 @@ export default {
     // 初始化数据
     initData() {
       this.uploadData.workid =  this.$route.query.workid
+      // this.uploadData.workid = 3966
       this.workname = this.$route.query.workname
       this.oaa01 =  this.$route.query.oaa01
       this.oaa02 =  this.$route.query.oaa02
     },
     // ***********获取下拉列表信息************
+    checkNextFlow() {
+      if (this.fixedData.next_workFlows.length !== 0) {
+        this.fixedData.next_workFlows.forEach( (item, index) => {
+          if (item.fid == this.uploadData.next_flowid) {
+            this.showData.nextInfo_index = index
+          }
+        })
+      }
+    },
     handleClick() {},
     // 常用语选择
     handleCommand(command) {
@@ -325,7 +373,11 @@ export default {
       workflowsList(params)
       .then(res=>{
         if(res.status == 200){
-          this.fixedData.workFlows = res.data.workclass_personnel.next_perid
+          this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
+          this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 下一步骤
+          if (this.fixedData.next_workFlows[0].flowuser.length == 1) {
+            this.uploadData.next_flowid = this.fixedData.next_workFlows[0].flowuser[0].id
+          }
           this.workname = res.data.workclass_info.title
           this.uploadData.sms_content = `您有新的流程需要办理，流水号：${res.data.workclass_info.number}，流程名称：${res.data.workclass_info.title}`
         }else{

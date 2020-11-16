@@ -25,169 +25,473 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workName}}</div>
+            <div class="title">{{ workName }}</div>
             <div class="table_Info">
-              <span class="code">业务日期：{{tableData.oaa02}}</span>
-              <span class="name">申请单编号：{{tableData.oaa01}}</span>
+              <span class="code">业务日期：{{ tableData.oaa02 }}</span>
+              <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
             </div>
             <div class="tableBox">
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox">{{tableData.oaa03}}</div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox">{{tableData.oaa04_show}}</div>
+                <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox last_row">{{tableData.oaa05}}</div>
+                <div class="infobox selectbox middlebox last_row">{{ tableData.oaa05 }}</div>
               </div>
-              <!-- 卡片信息 -->
-              <div class="title_line">卡片信息</div>
+              <div class="form_line lastline">
+                <div class="titlebox">申请人</div>
+                <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
+                <div class="titlebox">员工编号</div>
+                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
+                <div class="titlebox">所属部门</div>
+                <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
+              </div>
+              <!-- 付款信息 -->
+              <div class="title_line">付款信息</div>
+              <!-- 1 -->
               <div class="form_line">
-                <div class="titlebox">财产编号</div>
-                <div class="infobox">{{tableData.oaa11}}</div>
-                <div class="titlebox">资产主类别</div>
-                <div class="infobox">{{tableData.oaa12_show}}</div>
-                <div class="titlebox">资产次类别</div>
-                <div class="infobox last_row">{{tableData.oaa13_show}}</div>
+                <div class="titlebox">预付厂商</div>
+                <div class="infobox selectbox">{{tableData.oaa11}}</div>
+                <div class="titlebox">厂商简称</div>
+                <div class="infobox disabledbox">{{tableData.oaa11_pmc03}}</div>
+                <div class="titlebox">本次支付金额</div>
+                <div class="infobox selectbox last_row">{{tableData.oaa12}}</div>
               </div>
-              <div class="form_line">
-                <div class="titlebox">资产中文名称</div>
-                <div class="infobox">{{tableData.oaa14}}</div>
-                <div class="titlebox">资产英文名称</div>
-                <div class="infobox">{{tableData.oaa15}}</div>
-                <div class="titlebox">规格型号</div>
-                <div class="infobox last_row">{{tableData.oaa16}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">供应商编号</div>
-                <div class="infobox">{{tableData.oaa17}}</div>
-                <div class="titlebox">本币单价</div>
-                <div class="infobox">{{tableData.oaa18}}</div>
-                <div class="titlebox">本币成本</div>
-                <div class="infobox last_row">{{tableData.oaa19}}</div>
-              </div>
+              <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">币种</div>
                 <div class="infobox selectbox disabledbox">
                   <el-select
-                    v-model="tableData.oaa20"
+                    v-model="tableData.oaa13"
                     class="select"
+                    placeholder="请选择币种"
                     disabled
                   >
                     <el-option
-                      v-for="item in fixedData.azisList"
-                      :key="item.azi01"
+                      v-for="(item, index) in fixedData.cointypes"
+                      :key="index"
                       :label="item.azi02"
                       :value="item.azi01"
                     >
                     </el-option>
                   </el-select>
                 </div>
-                <div class="titlebox">原币成本</div>
-                <div class="infobox selectbox">{{tableData.oaa21}}</div>
-                <div class="titlebox">数量</div>
-                <div class="infobox selectbox last_row">{{tableData.oaa22}}</div>
+                <div class="titlebox">汇率</div>
+                <div class="infobox selectbox">{{tableData.oaa14}}</div>
+                <div class="titlebox">应付金额</div>
+                <div class="infobox selectbox disabledbox last_row">{{com_YFJE}}</div>
               </div>
+              <!-- 3 -->
               <div class="form_line">
-                <div class="titlebox">计量单位</div>
-                <div class="infobox">{{tableData.oaa23_show}}</div>
-                <div class="titlebox">保管人</div>
-                <div class="infobox">{{tableData.oaa24}}</div>
-                <div class="titlebox">保管部门</div>
-                <div class="infobox last_row">{{tableData.oaa25_show}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">存放位置</div>
-                <div class="infobox">{{tableData.oaa26_show}}</div>
-                <div class="titlebox">分摊方式</div>
-                <div class="infobox selectbox disabledbox">
+                <div class="titlebox">税别</div>
+                <div class="infobox selectbox">{{tableData.oaa15}}</div>
+                <div class="titlebox">税率</div>
+                <div class="infobox editNot">{{tableData.oaa15_gec04}}</div>
+                <div class="titlebox">支付方式</div>
+                <div class="infobox last_row selectbox disabledbox">
                   <el-select
-                    v-model="tableData.oaa27"
+                    v-model="tableData.oaa16"
                     class="select"
+                    placeholder="请选择支付方式"
                     disabled
                   >
                     <el-option
-                      v-for="item in fixedData.shareList"
-                      :key="item.id"
-                      :label="item.label"
-                      :value="item.id"
+                      v-for="(item, index) in fixedData.payTypes"
+                      :key="index"
+                      :label="item.pma02"
+                      :value="item.pma01"
                     >
                     </el-option>
                   </el-select>
                 </div>
-                <div class="titlebox">分摊部门</div>
-                <div class="infobox last_row">{{tableData.oaa28_show}}</div>
               </div>
-              <div class="form_line">
-                <div class="titlebox">取得日期</div>
-                <div class="infobox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa29"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                    disabled
-                  >
-                  </el-date-picker>
+              <!-- 4 -->
+              <!-- <div class="form_line">
+                <div class="titlebox">报销金额</div>
+                <div class="infobox middlebox editNot">
+                  {{ expenseMoney }}
                 </div>
-                <div class="titlebox">项目编号</div>
-                <div class="infobox">{{tableData.oaa30}}</div>
-                <div class="titlebox">WBS编号</div>
-                <div class="infobox last_row">{{tableData.oaa31}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">入账日期</div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa32"
-                    type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
-                    disabled
-                  >
-                  </el-date-picker>
+                <div class="titlebox">报销金额大写</div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.expenseMoneyF }}
                 </div>
-                <div class="titlebox">耐用月数</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa33}}</div>
-              </div>
+              </div> -->
+              <!-- 4 -->
               <div class="form_line">
-                <div class="titlebox">构建编号</div>
-                <div class="infobox longbox last_row">{{tableData.oaa34_show}}</div>
+                <div class="titlebox">固定资产申请单</div>
+                <div class="infobox longbox selectbox">{{tableData.oaa17_show}}</div>
+              </div>
+              <!-- 5 -->
+              <div class="form_line">
+                <div class="titlebox">说明</div>
+                <div class="infobox areabox longbox" style="width: 100%">{{tableData.oaa18}}</div>
+              </div>
+              <!-- 5 -->
+              <div class="form_line last_line">
+                <div class="titlebox">验收信息</div>
+                <div class="infobox areabox last_row longbox" style="width: 100%">{{tableData.oaa19}}</div>
+              </div>
+              <!-- 收款信息 -->
+              <div class="title_line">收款信息</div>
+              <div class="form_line">
+                <div class="titlebox">收款人</div>
+                <div class="infobox selectbox">{{tableData.oaa21}}</div>
+                <div class="titlebox">开户行</div>
+                <div class="infobox selectbox">{{tableData.oaa22}}</div>
+                <div class="titlebox">收款账号</div>
+                <div class="infobox selectbox last_row">{{tableData.oaa23}}</div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">说明</div>
-                <div class="infobox longbox areabox last_row">
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa35"
-                    maxlength="80"
-                    show-word-limit
-                    disabled
+                <div class="titlebox">支票号</div>
+                <div class="infobox last_row longbox selectbox" style="width: 100%">{{tableData.oaa24}}</div>
+              </div>
+              <!-- 发票明细行 -->
+              <div class="title_line">发票明细行</div>
+              <div>
+                <el-table
+                  :data="tableData.oaf"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                >
+                  <!-- <el-table-column
+                    prop="id"
+                    label="增 / 删"
+                    fixed="left"
+                    width="100px"
+                    align="center"
                   >
-                  </el-input>
+                    <template slot-scope="scope">
+                      <div>
+                        <div style="font-size: 24px; width: 100%; height: 100%">
+                          <i
+                            v-if="scope.$index == tableData.oaf.length - 1"
+                            @click="addRow1()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i>
+                          <i
+                            @click="deleteRow1(scope.$index)"
+                            class="el-icon-remove"
+                            style="color: #f56c6c; width: 30px; cursor: pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column> -->
+                  <el-table-column
+                    prop="oaf01"
+                    label="发票号码"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf02"
+                    label="发票日期"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf03"
+                    label="税别"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                   <el-table-column
+                    prop="oaf03_gec04"
+                    label="税率"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf05"
+                    label="税前金额（原币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf06"
+                    label="税额（原币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf07"
+                    label="含税金额（原币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="sqjeBB"
+                    label="税前金额（本币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="seBB"
+                    label="税额（本币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="hsjeBB"
+                    label="含税金额（本币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                </el-table>
+                <div class="summry">
+                  <ul class="summryUl">
+                    <li class="summryLi">
+                      <div class="summryName">税前金额（原币）</div>
+                      <div class="summryCont editNot">{{ com_SQJEyb }}</div>
+                    </li>
+                    <li class="summryLi">
+                      <div class="summryName">税额（原币）</div>
+                      <div class="summryCont editNot">{{ com_SEyb }}</div>
+                    </li>
+                    <li class="summryLi">
+                      <div class="summryName">含税合计（原币）</div>
+                      <div class="summryCont editNot">{{ com_HSHJyb }}</div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="summry">
+                  <ul class="summryUl">
+                    <li class="summryLi">
+                      <div class="summryName ">税前金额（本币）</div>
+                      <div class="summryCont editNot">{{ com_SQJEbb }}</div>
+                    </li>
+                    <li class="summryLi">
+                      <div class="summryName">税额（本币）</div>
+                      <div class="summryCont editNot">{{ com_SEbb }}</div>
+                    </li>
+                    <li class="summryLi">
+                      <div class="summryName">含税合计（本币）</div>
+                      <div class="summryCont editNot">{{ com_HSHJbb }}</div>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
-        </el-tab-pane>
-
-        <el-tab-pane label="流程进度" name="secTab">
-          <!-- tab标签 -->
-          <div slot="label" class="potBox">
-            <span
-              class="pot"
-              :class="activeTab == 'secTab' ? 'potActive' : ''"
-            ></span>
-            <span> 流程进度</span>
-          </div>
-          <!-- 内容 -->
-          <div class="tabContent">
-            <div class="title">{{workName}}</div>
-            <div class="table_Info">
-              <span class="code">业务日期：{{tableData.oaa02}}</span>
-              <span class="name">申请单编号：{{tableData.oaa01}}</span>
+              <!-- 费用明细行项目 -->
+              <div class="title_line">费用明细行项目</div>
+              <div>
+                <el-table
+                  :data="tableData.oac"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                >
+                  <!-- <el-table-column
+                    prop="id"
+                    label="增 / 删"
+                    fixed="left"
+                    width="100px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div style="font-size: 24px; width: 100%; height: 100%">
+                          <i
+                            v-if="scope.$index == tableData.oac.length - 1"
+                            @click="addRow2()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i>
+                          <i
+                            @click="deleteRow2(scope.$index)"
+                            class="el-icon-remove"
+                            style="color: #f56c6c; width: 30px; cursor: pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column> -->
+                  <el-table-column
+                    prop="oac01"
+                    label="会计科目"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac04"
+                    label="项目"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac05"
+                    label="项目WBS"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac08"
+                    label="资产卡片"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac07"
+                    label="金额（不含税）"
+                    min-width="180px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac11"
+                    label="核算项一"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-select
+                          v-model="scope.row.oac11"
+                          placeholder="请选择核算项一"
+                          disabled
+                        >
+                          <el-option
+                            v-for="(item, index) in fixedData.options_04"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac12"
+                    label="核算项二"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-select
+                          v-model="scope.row.oac12"
+                          placeholder="请选择核算项二"
+                          disabled
+                        >
+                          <el-option
+                            v-for="(item, index) in fixedData.options_05"
+                            :key="index.value"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </div>
+              <!-- 冲销信息 -->
+              <div class="title_line">
+                冲销信息
+              </div>
+              <div>
+                <el-table
+                  :data="tableData.oad"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                >
+                  <!-- <el-table-column
+                    prop=""
+                    label="增 / 删"
+                    fixed="left"
+                    width="100px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div style="font-size: 24px; width: 100%; height: 100%">
+                          <i
+                            v-if="scope.$index == tableData.oad.length - 1"
+                            @click="addRow3()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i>
+                          <i
+                            @click="deleteRow3(scope.$index)"
+                            class="el-icon-remove"
+                            style="color: #f56c6c; width: 30px; cursor: pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column> -->
+                  <el-table-column
+                    prop="id"
+                    label="待抵单号"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="date"
+                    label="借款日期"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="rname"
+                    label="借款人"
+                    min-width="110px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="original_amount"
+                    label="借款总金额"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oad02"
+                    label="还款金额"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="voucher_code"
+                    label="凭证号"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                </el-table>
+              </div>
             </div>
           </div>
         </el-tab-pane>
@@ -262,7 +566,7 @@
 <script>
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
-import { azisList,  } from "@/api/basic";
+import { azisList, pmasList, } from "@/api/basic";
 
 export default {
   components: {},
@@ -271,10 +575,11 @@ export default {
       activeTab: "firTab",
       workid: '',
       workName:"固定资产卡片",//流程名
-      tableData: {},
-      showData: {
-        oaa04_show: "", //申请人
-        oaa04_gen01: "", //申请人编号
+      tableData: {
+        // 表格部分
+        oaf: [], // 发票明细
+        oac: [], // 费用明细行项目
+        oad: [], // 冲销信息
       },
       // 表单数据
       fixedData: {
@@ -303,10 +608,75 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    // this.workid = 3965
-    this.getAzis()
+    // this.workid = this.$route.query.workid
+    this.workid = 3965
+    this.getAzi() //币种列表
+    this.getPma() //支付方式
     this.getworkflows()
+  },
+  computed: {
+    // 应付金额
+    com_YFJE(){
+      if (this.tableData.oaf) {
+        console.log('111')
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf07);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 税前金额（原币）
+    com_SQJEyb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf05);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 税额（原币）
+    com_SEyb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf06);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 含税合计（原币）
+    com_HSHJyb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.oaf07);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+     // 税前金额（本币）
+    com_SQJEbb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.sqjeBB);
+      }, 0);
+      return sum.toFixed(2)
+    },
+    // 税额（本币）
+    com_SEbb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.seBB);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
+    // 含税合计（本币）
+    com_HSHJbb(){
+      if (this.tableData.oaf) {
+        let sum =  this.tableData.oaf.reduce((prev, cur) => {
+          return prev + Number(cur.hsjeBB);
+        }, 0);
+        return sum.toFixed(2)
+      }
+    },
   },
   methods: {
     handleClick() {
@@ -346,7 +716,7 @@ export default {
     },
     // *******************************************
     // ***********获取下拉列表信息************
-    getAzis () {
+    getAzi () {
       azisList()
       .then( result => {
         if (result.status == 200) {
@@ -355,6 +725,15 @@ export default {
           this.$message.error("获取币种列表失败：" + result.error.message);
         }
       })
+    },
+    getPma() {
+      pmasList().then((res) => {
+        if (res.status == 200) {
+          this.fixedData.payTypes = res.data;
+        } else {
+          this.$message.error("获取支付方式列表失败：" + result.error.message);
+        }
+      });
     },
     // *******************************************
     // ***************附件上传******************
@@ -512,4 +891,46 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
+.summry {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
+  .summryUl {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #666;
+    .summryLi {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex: 1 1 auto;
+      border-right: 1px solid #cccccc;
+      .summryName {
+        background: #FCFDFF;
+        min-width: 80px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 5px 0 5px;
+        text-align: center;
+        box-sizing: border-box;
+        border-right: 1px solid #cccccc;
+      }
+      .summryCont {
+        height: 40px;
+        flex: 1 1 auto;
+        line-height: 40px;
+        text-align: center;
+      }
+      &:last-child {
+        border-right: none;
+        .summryCont{
+          flex: 1 1 auto;
+        }
+      }
+    }
+  }
+}
 </style>
