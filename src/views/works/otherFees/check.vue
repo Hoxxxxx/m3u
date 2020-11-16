@@ -122,7 +122,7 @@
                   :cell-style="{ background: '#FCFDFF', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="oac01"
+                    prop="oac01_show"
                     label="会计科目"
                     min-width="150px"
                     align="center"
