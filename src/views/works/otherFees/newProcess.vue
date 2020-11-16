@@ -735,7 +735,7 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid
-    // this.addParams.tplid = 8945
+    this.addParams.tplid = 8945
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -983,6 +983,7 @@ export default {
           case "WQX":
             val.forEach(item =>{
               this.$set(item,'oad02','')
+              this.$set(item,'oad01',item.id)
             })
             this.tableData.oad = val
             break;
