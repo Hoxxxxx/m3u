@@ -608,6 +608,7 @@ export default {
         oaa04: "", //申请人id
         oaa05: "", //联系电话
         oaa35:"",//费用类别
+        oaa18:"",
         //报销信息
         oaa06: "RMB", //币种
         oaa08: "1", //汇率
@@ -622,6 +623,15 @@ export default {
         // 表格部分
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
+      },
+      //财务信息
+      oaz: {
+        oaz01: "", //银行
+        oaz02: "", //异动码
+        oaz03: new Date(), //记账日期
+        oaz04: "", //账款类型
+        oaz05: "", //支付方式
+        oaz06: "", //凭证编号
       },
       fixedData: {
         // 币种列表
@@ -662,7 +672,7 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8943,
+        tplid: 8945,
       },
 
       rowIndex: "", //当前点击的行数
@@ -745,8 +755,7 @@ export default {
     }
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid
-    this.addParams.tplid = 8945
+    // this.addParams.tplid = this.$route.query.tplid
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -816,8 +825,8 @@ export default {
     // ****************其他操作*******************
     // 新增表单
     addNewFlow() {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData;
-      console.log(this.addParams)
       addFlow(this.addParams).then((result) => {
         if (result.status == 200) {
           this.workid = result.data.workid;
@@ -831,6 +840,7 @@ export default {
     },
     // 下一步
     nextStep() {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData;
       addFlow(this.addParams)
         .then((result) => {

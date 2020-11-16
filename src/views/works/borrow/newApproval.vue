@@ -341,7 +341,6 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    this.workid = 4036
     this.getworkflows()
   },
   methods: {
@@ -365,8 +364,7 @@ export default {
           this.tableData = res.data.workclass_info.from_data
           this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
-          this.oazShow = 1
-          // res.data.workclass_flow.erp_turn
+          this.oazShow = res.data.workclass_flow.erp_turn
           this.oaz.oaz05 = res.data.workclass_info.from_data.oaa12;
           this.financialData.oaz05_show = res.data.workclass_info.from_data.oaa12_show;
           if (res.data.file !== null) {

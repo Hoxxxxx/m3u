@@ -278,6 +278,15 @@ export default {
         oaa15: '',
         oaa17: '',
       },
+      //财务信息
+      oaz: {
+        oaz01: "", //银行
+        oaz02: "", //异动码
+        oaz03: new Date(), //记账日期
+        oaz04: "", //账款类型
+        oaz05: "", //支付方式
+        oaz06: "", //凭证编号
+      },
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
@@ -535,6 +544,7 @@ export default {
     },
     // 新增表单
     addNewFlow() {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData
       addFlow(this.addParams)
       .then( result => {
@@ -550,6 +560,7 @@ export default {
     },
     // 下一步
     nextStep() {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData
       addFlow(this.addParams)
       .then( result => {
