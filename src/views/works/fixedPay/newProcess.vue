@@ -29,22 +29,32 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox editNot">
+                <div class="infobox middlebox editNot">
                   {{ tableData.oaa03 }}
                 </div>
+                <div class="titlebox">联系电话</div>
+                <div class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa05"
+                    placeholder="请输入联系电话"
+                  />
+                </div>
+              </div>
+              <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa05"
-                    placeholder="请输入联系电话"
-                  />
+                <div class="titlebox">员工编号</div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen01 }}
+                </div>
+                <div class="titlebox">所属部门</div>
+                <div class="infobox editNot last_row">
+                  {{ showData.oaa04_gen04 }}
                 </div>
               </div>
               <!-- 付款信息 -->
@@ -58,8 +68,12 @@
                 <div class="titlebox">厂商简称</div>
                 <div class="infobox disabledbox">{{showData.oaa11_pmc03}}</div>
                 <div class="titlebox">本次支付金额</div>
-                <div class="infobox selectbox last_row editNot">
-                  {{ payMoney }}
+                <div class="infobox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa12"
+                    placeholder="请输入本次支付金额"
+                  />
                 </div>
               </div>
               <!-- 2 -->
@@ -128,14 +142,14 @@
                 </div>
               </div>
               <!-- 4 -->
-              <div class="form_line">
+              <!-- <div class="form_line">
                 <div class="titlebox">固定资产申请单</div>
                 <div class="infobox longbox selectbox">
                   <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('GDZCSQD')">
                     {{ showData.oaa17_show }}
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- 5 -->
               <div class="form_line">
                 <div class="titlebox">说明</div>
@@ -291,6 +305,20 @@
                       </div>
                     </template>
                   </el-table-column>
+                   <el-table-column
+                    prop="oaf03_gec04"
+                    label="税率"
+                    min-width="130px"
+                    align="center"
+                  >
+                  <div slot-scope="scope">
+                    <el-input
+                      v-model="scope.row.oaf03_gec04"
+                      placeholder="税率"
+                      disabled
+                    ></el-input>
+                  </div>
+                  </el-table-column>
                   <el-table-column
                     prop="oaf05"
                     label="税前金额（原币）"
@@ -332,6 +360,54 @@
                         <el-input
                           v-model="scope.row.oaf07"
                           placeholder="含税金额（原币）"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="sqjeBB"
+                    label="税前金额（本币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.sqjeBB"
+                          placeholder="税前金额（本币）"
+                          disabled
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="seBB"
+                    label="税额（本币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.seBB"
+                          placeholder="税额（本币）"
+                          disabled
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="hsjeBB"
+                    label="含税金额（本币）"
+                    min-width="130px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.hsjeBB"
+                          placeholder="含税金额（本币）"
+                          disabled
                         ></el-input>
                       </div>
                     </template>
@@ -770,6 +846,8 @@ export default {
       workName: "固定资产付款", //流程名
       showData: {
         oaa04_show: "", //申请人
+        oaa04_gen01: "", //申请人编号
+        oaa04_gen04: "", //申请人部门
         oaa11_pmc03: "", //厂商简称
         oaa15_gec04: "", //税率
         oaa17_show: "", //申请单
@@ -791,7 +869,7 @@ export default {
         oaa05: "", //联系电话
         //付款信息
         oaa11: "", //预付厂商
-        oaa12: "", //本次支付金额
+        oaa12: "0", //本次支付金额
         oaa13: "RMB", //币种
         oaa14: "1", //汇率
         oaa15: "", //税别
@@ -874,14 +952,18 @@ export default {
           { name: "gen01", title: "员工编号" },
           { name: "gen02", title: "员工名称" },
           { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
         ],
         head_YFCS: [
-          { name: "pmc01", title: "供应厂商编号" },
-          { name: "pmc02", title: "厂商分类" },
+          { name: "pmc01", title: "厂商编号" },
+          // { name: "pmc02", title: "厂商分类" },
           { name: "pmc03", title: "厂商简称" },
-          { name: "pmc04", title: "付款厂商编号" },
-          { name: "pmc30", title: "厂商性质" },
-          { name: "pmc47", title: "税别" },
+          // { name: "pmc04", title: "付款厂商编号" },
+          // { name: "pmc30", title: "厂商性质" },
+          // { name: "pmc47", title: "税别" },
+          { name: "pmc56", title: "银行账号" },
+          { name: "pmcud01", title: "开户银行" },
+          { name: "pmcud04", title: "账户名称" },
         ],
         head_SB: [
           { name: "gec01", title: "税别编号" },
@@ -949,7 +1031,7 @@ export default {
       // 支付金额
       let res = this.expenseMoney - sum
       this.tableData.oaa12 = res
-      console.log(res)
+      // console.log(res)
       return res
     }
   },
@@ -1071,10 +1153,15 @@ export default {
     addRow1() {
       let data = {
         oaf01: "", //发票号码
-        oaf02: "", //发票日期
+        oaf02: new Date(), //发票日期
         oaf03: "", //税别
-        oaf05: "", //税前金额（原币）
-        oaf06: "", //税额（原币）
+        oaf03_gec04: "", //税率
+        oaf05: "0.00", //税前金额（原币）
+        oaf06: "0.00", //税额（原币）
+        oaf07: "0.00", //含税金额（原币）
+        sqjeBB: "0.00", //税前金额（本币）
+        seBB: "0.00", //税额（本币）
+        hsjeBB: "0.00", //含税金额（本币）
       };
       this.tableData.oaf.push(data);
     },
@@ -1280,10 +1367,15 @@ export default {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
             this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen04 = val[0].gen04;
           break;
           case "YFCS":
           this.tableData.oaa11 = val[0].pmc01;
           this.showData.oaa11_pmc03 = val[0].pmc03;
+          this.tableData.oaa21 = val[0].pmc03;
+          this.tableData.oaa22 = val[0].pmcud01;
+          this.tableData.oaa23 = val[0].pmc56;
           break;
           case "SB":
           this.tableData.oaa15 = val[0].gec01;
@@ -1291,6 +1383,7 @@ export default {
           break;
           case "FPSB":
             this.tableData.oaf[this.rowIndex].oaf03 = val[0].gec01;
+            this.tableData.oaf[this.rowIndex].oaf03_gec04 = val[0].gec04;
           break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
