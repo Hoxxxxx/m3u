@@ -446,7 +446,7 @@
                 </el-table>
               </div>
               <!-- 财务信息 -->
-              <div>
+              <div v-if="oazShow == 1">
                 <div class="title_line">
                   财务信息
                   <el-button
@@ -460,24 +460,20 @@
                 <div class="form_line">
                   <div class="titlebox">银行</div>
                   <div class="infobox selectbox">
-                    <input
-                      class="abstracInput"
-                      v-model="financialData.bank"
-                      placeholder="请输入银行"
-                    />
+                    <div class="selector" @click="selectDialog('bank')">
+                      {{ financialData.bank_show }}
+                    </div>
                   </div>
                   <div class="titlebox">异动码</div>
                   <div class="infobox selectbox">
-                    <input
-                      class="abstracInput"
-                      v-model="financialData.num"
-                      placeholder="请输入异动码"
-                    />
+                    <div class="selector" @click="selectDialog('YDM')">
+                      {{ financialData.num_show }}
+                    </div>
                   </div>
                   <div class="titlebox">记账日期</div>
-                  <div class="infobox middlebox datebox">
+                  <div class="infobox middlebox datebox last_row">
                     <el-date-picker
-                      v-model="financialData.apa02"
+                      v-model="oaz.oaz03"
                       type="date"
                       format="yyyy-MM-dd"
                       value-format="yyyy-MM-dd"
@@ -487,13 +483,19 @@
                 </div>
                 <div class="form_line last_line">
                   <div class="titlebox">账款类型</div>
-                  <div class="infobox selectbox">3002</div>
+                  <div class="infobox selectbox">
+                    <div class="selector" @click="selectDialog('ZKLX')">
+                      {{ financialData.oaz04_show }}
+                    </div>
+                  </div>
                   <div class="titlebox">凭证编号</div>
                   <div class="infobox selectbox editNot">
-                    {{ financialData.apa01 }}
+                    {{ oaz.oaz06 }}
                   </div>
-                  <div class="titlebox"></div>
-                  <div class="infobox selectbox last_row"></div>
+                  <div class="titlebox">支付方式</div>
+                  <div class="infobox middlebox selectbox last_row">
+                    {{ financialData.oaz05_show }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -591,16 +593,34 @@
         </el-timeline>
       </div>
     </el-card>
+
+    <!-- 数据选择弹出框 -->
+    <SelectData
+      :isLoading="dataSelect.selectLoading"
+      :dialogTitle.sync="dataSelect.dialogTitle"
+      :dialogVisible.sync="dataSelect.dialogVisible"
+      :headList.sync="dataSelect.headList"
+      :bodyData.sync="dataSelect.bodyData"
+      :choosedData="dataSelect.choosedData"
+      :editType.sync="dataSelect.editType"
+      :searchApi="dataSelect.searchApi"
+      :searchType="dataSelect.searchType"
+      :searchParams="dataSelect.searchParams"
+      :filter="dataSelect.filter"
+      :keyMsg="dataSelect.keyMsg"
+      @selectSure="selectSure"
+      @selectCancel="selectCancel"
+    ></SelectData>
   </div>
 </template>
 
 <script>
-import { workflowsList } from "@/api/process_new.js";
-import { editFlow, transfer } from "@/api/process_new";
+import SelectData from "@/components/selectData";
+import { workflowsList, editFlow, transfer, addFlow } from "@/api/process_new";
 import { dateFmt, number_chinese } from "@/utils/utils.js";
 
 export default {
-  components: {},
+  components: { SelectData },
   data() {
     return {
       workid: "",
@@ -633,24 +653,70 @@ export default {
         oad: [], // 冲销信息
       },
       financialData: {
-        bank: "", //银行
-        num: "", //异动码
-        apa02: new Date(), //记账日期
-        apa01: "", //凭证编号
-      }, //财务信息
+        bank_show: "", //银行回显数据
+        num_show: "", //异动码回显数据
+        oaz05_show: "", //支付方式回显数据
+        oaz04_show: "", //账款类型回显数据
+      },
+      //财务信息
+      oaz: {
+        oaz01: "", //银行
+        oaz02: "", //异动码
+        oaz03: new Date(), //记账日期
+        oaz04: "", //账款类型
+        oaz05: "", //支付方式
+        oaz06: "", //凭证编号
+      },
+      oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
       workclass_perflow: [], //流程进度
       fileList_user: [],
       fileList: [],
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8936,
+        tplid: 8943,
+      },
+      //数据选择弹出框
+      dataSelect: {
+        editType: "entry",
+        selectLoading: false,
+        cur_input: "", // 当前点击的输入框
+        dialogTitle: "数据选择", //当前弹框的title
+        dialogVisible: false, //控制显示隐藏弹框
+        headList: [], //表头
+        bodyData: [], //表格数据
+        choosedData: [], //选中的数据
+        searchApi: "", //搜索框的接口地址
+        searchParams: {}, //搜索接口自带参数
+        searchType: "", //搜索类型
+        filter: [], //筛选条件
+        keyMsg: [], //需要显示在顶部的数据
+      },
+      // 弹出框表头数据
+      tableHead: {
+        // 申请人
+        head_bank: [
+          { name: "nma01", title: "银行编号" },
+          { name: "nma02", title: "银行名称" },
+          { name: "nma28", title: "1.支存 2.活存 3.其他" },
+          { name: "nma04", title: "银行账号" },
+          { name: "nma09", title: "存款类别" },
+          { name: "nma10", title: "存款币别" },
+        ],
+        head_YDM: [
+          { name: "nmc01", title: "银行异动码编号" },
+          { name: "nmc02", title: "核算项名称" },
+          { name: "nmc03", title: "存提款" },
+        ],
+        head_ZKLX: [
+          { name: "apr01", title: "账款类型编号" },
+          { name: "apr02", title: "账款类型名称" },
+        ],
       },
     };
   },
   created() {
     this.workid = this.$route.query.workid;
-    this.workid ='3947'
     this.getworkflows();
   },
   computed: {
@@ -749,10 +815,14 @@ export default {
       };
       workflowsList(params).then((res) => {
         if (res.status == 200) {
-          loading.close()
+          loading.close();
           this.tableData = res.data.workclass_info.from_data;
           this.workname = res.data.workclass_info.title;
           this.workclass_perflow = res.data.workclass_perflow;
+          this.oazShow = res.data.workclass_flow.erp_turn
+          this.oaz.oaz05 = res.data.workclass_info.from_data.oaa12;
+          this.financialData.oaz05_show =
+            res.data.workclass_info.from_data.oaa12_show;
           if (res.data.file !== null) {
             res.data.file.forEach((item) => {
               this.fileList_user.push({
@@ -763,7 +833,7 @@ export default {
             });
           }
         } else {
-          loading.close()
+          loading.close();
           this.$message.error("获取流程信息失败：" + res.error.message);
         }
       });
@@ -900,8 +970,9 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (url == "/agree") {
-        if (this.financialData.apa01 == "") {
+      if (url == "/agree" && this.oazShow == 1) {
+        console.log(this.oaz, this.oazShow);
+        if (this.oaz.oaz06 == "") {
           this.$message.error("请先生成凭证！");
         } else {
           this.nextFuns(url);
@@ -952,18 +1023,98 @@ export default {
     // *******************************************
     // 生成凭证
     generate() {
-      let params = {
-        workid: this.workid,
-      };
-      transfer(params).then((res) => {
+      const loading = this.$loading({
+        lock: true,
+        text: "抛转中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+
+      this.addParams.from_data = {...this.tableData,...this.oaz};
+      addFlow(this.addParams).then((res) => {
         if (res.status == 200) {
-          this.$message.success("抛转成功！");
-          this.financialData.apa01 = res.data.apa01;
-          this.financialData.apa02 = res.data.apa02;
+          let params = {
+            workid: res.data.workid,
+          };
+          transfer(params).then((res) => {
+            if (res.status == 200) {
+              loading.close();
+              this.$message.success("抛转成功！");
+              this.oaz.oaz03 = res.data.oaz03;
+              this.oaz.oaz06 = res.data.oaz06;
+            } else {
+              loading.close();
+              this.$message.error("抛转失败:" + res.error.message);
+            }
+          });
         } else {
-          this.$message.error("抛转失败:"+res.error.message);
+          loading.close();
+          this.$message.error("抛转失败:" + res.error.message);
         }
       });
+    },
+    // **************************
+    // 数据选择
+    selectDialog(type, rowIndex) {
+      this.rowIndex = rowIndex;
+      this.dataSelect.dialogVisible = true;
+      this.dataSelect.cur_input = type;
+      this.dataSelect.choosedData = [];
+      switch (type) {
+        case "bank":
+          let filter_bank = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_bank;
+          this.dataSelect.searchApi = "meta/nmas";
+          this.dataSelect.headList = this.tableHead.head_bank;
+          this.dataSelect.dialogTitle = "银行";
+          break;
+        case "YDM":
+          let filter_YDM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_YDM;
+          this.dataSelect.searchApi = "meta/nmcs";
+          this.dataSelect.headList = this.tableHead.head_YDM;
+          this.dataSelect.dialogTitle = "异动码";
+          break;
+        case "ZKLX":
+          let filter_ZKLX = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_ZKLX;
+          this.dataSelect.searchApi = "meta/aprs";
+          this.dataSelect.headList = this.tableHead.head_ZKLX;
+          this.dataSelect.dialogTitle = "账款类型";
+          break;
+        default:
+          return;
+          break;
+      }
+    },
+    selectCancel(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = val;
+      this.dataSelect.choosedData = val;
+    },
+    selectSure(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = [];
+      this.dataSelect.choosedData = val;
+      if (val.length > 0) {
+        switch (this.dataSelect.cur_input) {
+          case "bank":
+            this.oaz.oaz01 = val[0].nma01;
+            this.financialData.bank_show = val[0].nma02;
+            break;
+          case "YDM":
+            this.oaz.oaz02 = val[0].nmc01;
+            this.financialData.num_show = val[0].nmc02;
+            break;
+          case "ZKLX":
+            this.oaz.oaz04 = val[0].apr01;
+            this.financialData.oaz04_show = val[0].apr02;
+            break;
+          default:
+            return;
+            break;
+        }
+      }
     },
   },
 };

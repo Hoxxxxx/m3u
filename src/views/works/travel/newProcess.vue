@@ -1436,6 +1436,7 @@ export default {
           case "WQX":
             val.forEach(item =>{
               this.$set(item,'oad02','')
+              this.$set(item,'oad01',item.id)
             })
             this.tableData.oad = val
             break;
