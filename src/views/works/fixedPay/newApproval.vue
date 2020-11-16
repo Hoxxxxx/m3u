@@ -43,7 +43,7 @@
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
+                <div class="infobox editNot">{{ tableData.oaa04 }}</div>
                 <div class="titlebox">所属部门</div>
                 <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
@@ -54,7 +54,7 @@
                 <div class="titlebox">预付厂商</div>
                 <div class="infobox selectbox">{{tableData.oaa11}}</div>
                 <div class="titlebox">厂商简称</div>
-                <div class="infobox disabledbox">{{tableData.oaa11_pmc03}}</div>
+                <div class="infobox disabledbox">{{tableData.oaa11_show}}</div>
                 <div class="titlebox">本次支付金额</div>
                 <div class="infobox selectbox last_row">{{tableData.oaa12}}</div>
               </div>
@@ -87,7 +87,7 @@
                 <div class="titlebox">税别</div>
                 <div class="infobox selectbox">{{tableData.oaa15}}</div>
                 <div class="titlebox">税率</div>
-                <div class="infobox editNot">{{tableData.oaa15_gec04}}</div>
+                <div class="infobox editNot">{{tableData.oaa15_show}}</div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox disabledbox">
                   <el-select
@@ -125,12 +125,12 @@
               <!-- 5 -->
               <div class="form_line">
                 <div class="titlebox">说明</div>
-                <div class="infobox areabox longbox" style="width: 100%">{{tableData.oaa18}}</div>
+                <div class="infobox longbox" style="width: 100%">{{tableData.oaa18}}</div>
               </div>
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">验收信息</div>
-                <div class="infobox areabox last_row longbox" style="width: 100%">{{tableData.oaa19}}</div>
+                <div class="infobox last_row longbox" style="width: 100%">{{tableData.oaa19}}</div>
               </div>
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
@@ -158,31 +158,6 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <!-- <el-table-column
-                    prop="id"
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oaf.length - 1"
-                            @click="addRow1()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow1(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column> -->
                   <el-table-column
                     prop="oaf01"
                     label="发票号码"
@@ -205,7 +180,7 @@
                   >
                   </el-table-column>
                    <el-table-column
-                    prop="oaf03_gec04"
+                    prop="oaf03_show"
                     label="税率"
                     min-width="130px"
                     align="center"
@@ -299,31 +274,6 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <!-- <el-table-column
-                    prop="id"
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oac.length - 1"
-                            @click="addRow2()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow2(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column> -->
                   <el-table-column
                     prop="oac01"
                     label="会计科目"
@@ -423,33 +373,8 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <!-- <el-table-column
-                    prop=""
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oad.length - 1"
-                            @click="addRow3()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow3(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column> -->
                   <el-table-column
-                    prop="id"
+                    prop="oad01"
                     label="待抵单号"
                     min-width="150px"
                     align="center"
@@ -608,8 +533,8 @@ export default {
     };
   },
   created() {
-    // this.workid = this.$route.query.workid
-    this.workid = 3965
+    this.workid = this.$route.query.workid
+    // this.workid = 4034
     this.getAzi() //币种列表
     this.getPma() //支付方式
     this.getworkflows()
@@ -618,7 +543,6 @@ export default {
     // 应付金额
     com_YFJE(){
       if (this.tableData.oaf) {
-        console.log('111')
         let sum =  this.tableData.oaf.reduce((prev, cur) => {
           return prev + Number(cur.oaf07);
         }, 0);
@@ -683,6 +607,16 @@ export default {
       // console.log(this.activeTab);
     },
     // ***********获取流程信息************
+    change_SB(rowIndex) {
+      this.tableData.oaf[rowIndex].sqjeBB = (this.tableData.oaf[rowIndex].oaf03_show * this.tableData.oaf[rowIndex].oaf05).toFixed(2)
+      this.tableData.oaf[rowIndex].seBB = (this.tableData.oaf[rowIndex].oaf03_show * this.tableData.oaf[rowIndex].oaf06).toFixed(2)
+      this.tableData.oaf[rowIndex].hsjeBB = (this.tableData.oaf[rowIndex].oaf03_show * this.tableData.oaf[rowIndex].oaf07).toFixed(2)
+    },
+    change_HSJE(rowIndex) {
+      this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / 1.06).toFixed(2)
+      this.tableData.oaf[rowIndex].oaf06 = (this.tableData.oaf[rowIndex].oaf07 / 1.06 * 0.06).toFixed(2)
+      this.change_SB(rowIndex)
+    },
     getworkflows(){
       const loading = this.$loading({
         lock: true,
@@ -697,6 +631,9 @@ export default {
         if(res.status == 200){
           loading.close()
           this.tableData = res.data.workclass_info.from_data
+          this.tableData.oaf.forEach((item, index) => {
+            this.change_HSJE(index)
+          })
           this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
@@ -714,6 +651,7 @@ export default {
         }
       })
     },
+    
     // *******************************************
     // ***********获取下拉列表信息************
     getAzi () {
@@ -919,6 +857,7 @@ export default {
         border-right: 1px solid #cccccc;
       }
       .summryCont {
+        width: 300px;
         height: 40px;
         flex: 1 1 auto;
         line-height: 40px;

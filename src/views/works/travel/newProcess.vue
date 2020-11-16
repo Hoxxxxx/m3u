@@ -1052,6 +1052,13 @@ export default {
       },
     };
   },
+  created() {
+    this.addParams.tplid = this.$route.query.tplid
+    this.addRow1();
+    this.addRow2();
+    this.getAzi(); //币种列表
+    this.getPma(); //支付方式
+  },
   computed: {
     totalCost() {
       let sum = this.carCost +
@@ -1130,13 +1137,6 @@ export default {
       this.tableData.payMoney = res
       return res
     }
-  },
-  created() {
-    this.addParams.tplid = this.$route.query.tplid
-    this.addRow1();
-    this.addRow2();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
   },
   methods: {
     handleClick() {

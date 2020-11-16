@@ -630,33 +630,8 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <!-- <el-table-column
-                    prop=""
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oad.length - 1"
-                            @click="addRow3()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow3(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column> -->
                   <el-table-column
-                    prop="id"
+                    prop="oad01"
                     label="待抵单号"
                     min-width="150px"
                     align="center"
@@ -664,7 +639,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.id"
+                          v-model="scope.row.oad01"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -1240,6 +1215,7 @@ export default {
     // 冲销信息表格
     addRow3() {
       let data = {
+        oad01: "", //待抵账款编号
         oad02: "", //还款金额
       };
       this.tableData.oad.push(data);
@@ -1445,6 +1421,7 @@ export default {
           break;
           case "WQX":
             val.forEach(item =>{
+              this.$set(item,'oad01',item.id)
               this.$set(item,'oad02','')
             })
             this.tableData.oad = val
