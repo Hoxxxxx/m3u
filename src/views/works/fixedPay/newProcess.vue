@@ -103,7 +103,7 @@
                   />
                 </div>
                 <div class="titlebox">应付金额</div>
-                <div class="infobox selectbox disabledbox last_row">{{tableData.oaa15}}</div>
+                <div class="infobox selectbox disabledbox last_row">{{com_YFJE}}</div>
               </div>
               <!-- 3 -->
               <div class="form_line">
@@ -131,7 +131,7 @@
                 </div>
               </div>
               <!-- 4 -->
-              <div class="form_line">
+              <!-- <div class="form_line">
                 <div class="titlebox">报销金额</div>
                 <div class="infobox middlebox editNot">
                   {{ expenseMoney }}
@@ -140,16 +140,16 @@
                 <div class="infobox middlebox editNot">
                   {{ showData.expenseMoneyF }}
                 </div>
-              </div>
+              </div> -->
               <!-- 4 -->
-              <!-- <div class="form_line">
+              <div class="form_line">
                 <div class="titlebox">固定资产申请单</div>
                 <div class="infobox longbox selectbox">
                   <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('GDZCSQD')">
                     {{ showData.oaa17_show }}
                   </div>
                 </div>
-              </div> -->
+              </div>
               <!-- 5 -->
               <div class="form_line">
                 <div class="titlebox">说明</div>
@@ -360,6 +360,7 @@
                         <el-input
                           v-model="scope.row.oaf07"
                           placeholder="含税金额（原币）"
+                          @input="change_HSJE(scope.$index)"
                         ></el-input>
                       </div>
                     </template>
@@ -417,15 +418,15 @@
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName">税前金额（原币）</div>
-                      <div class="summryCont editNot">{{ showData.preTax_origin }}</div>
+                      <div class="summryCont editNot">{{ com_SQJEyb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">税额（原币）</div>
-                      <div class="summryCont editNot">{{ showData.tax_origin }}</div>
+                      <div class="summryCont editNot">{{ com_SEyb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">含税合计（原币）</div>
-                      <div class="summryCont editNot">{{ showData.taxSum_origin }}</div>
+                      <div class="summryCont editNot">{{ com_HSHJyb }}</div>
                     </li>
                   </ul>
                 </div>
@@ -433,15 +434,15 @@
                   <ul class="summryUl">
                     <li class="summryLi">
                       <div class="summryName ">税前金额（本币）</div>
-                      <div class="summryCont editNot">{{ showData.preTax_local }}</div>
+                      <div class="summryCont editNot">{{ com_SQJEbb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">税额（本币）</div>
-                      <div class="summryCont editNot">{{ showData.tax_local }}</div>
+                      <div class="summryCont editNot">{{ com_SEbb }}</div>
                     </li>
                     <li class="summryLi">
                       <div class="summryName">含税合计（本币）</div>
-                      <div class="summryCont editNot">{{ showData.taxSum_local }}</div>
+                      <div class="summryCont editNot">{{ com_HSHJbb }}</div>
                     </li>
                   </ul>
                 </div>
@@ -851,14 +852,8 @@ export default {
         oaa11_pmc03: "", //厂商简称
         oaa15_gec04: "", //税率
         oaa17_show: "", //申请单
-        expenseMoney: "", //报销金额
-        expenseMoneyF: "", //报销金额大写
-        preTax_origin: '', //税前原币
-        preTax_local: '', //税前本币
-        tax_origin: '', //税额本币
-        tax_local: '', //税额原币
-        taxSum_origin: '', //含税合计原币
-        taxSum_local: '', //含税合计本币
+        // expenseMoney: "", //报销金额
+        // expenseMoneyF: "", //报销金额大写
       },
       tableData: {
         // 基本信息
@@ -1013,14 +1008,54 @@ export default {
     };
   },
   computed: {
-    // 金额（不含税）
-    expenseMoney(){
-      let sum =  this.tableData.oac.reduce((prev, cur) => {
-        return prev + Number(cur.oac07);
+    // 应付金额
+    com_YFJE(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.oaf07);
       }, 0);
-      this.showData.expenseMoney = sum
-      this.showData.expenseMoneyF = number_chinese(sum)
-      return sum
+      return sum.toFixed(2)
+    },
+    // 税前金额（原币）
+    com_SQJEyb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.oaf05);
+      }, 0);
+      return sum.toFixed(2)
+    },
+    // 税额（原币）
+    com_SEyb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.oaf06);
+      }, 0);
+      return sum.toFixed(2)
+    },
+    // 含税合计（原币）
+    com_HSHJyb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.oaf07);
+      }, 0);
+      return sum.toFixed(2)
+    },
+     // 税前金额（本币）
+    com_SQJEbb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.sqjeBB);
+      }, 0);
+      return sum.toFixed(2)
+    },
+    // 税额（本币）
+    com_SEbb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.seBB);
+      }, 0);
+      return sum.toFixed(2)
+    },
+    // 含税合计（本币）
+    com_HSHJbb(){
+      let sum =  this.tableData.oaf.reduce((prev, cur) => {
+        return prev + Number(cur.hsjeBB);
+      }, 0);
+      return sum.toFixed(2)
     },
     // 支付金额
     payMoney(){
@@ -1029,7 +1064,7 @@ export default {
         return prev + Number(cur.oad02);
       }, 0);
       // 支付金额
-      let res = this.expenseMoney - sum
+      let res = this.com_YFJE - sum
       this.tableData.oaa12 = res
       // console.log(res)
       return res
@@ -1149,13 +1184,13 @@ export default {
     // *******************************************
     // 表格部分
     // 增加一行
-    // 差旅明细表格
+    // 发票明细表格
     addRow1() {
       let data = {
         oaf01: "", //发票号码
         oaf02: new Date(), //发票日期
         oaf03: "", //税别
-        oaf03_gec04: "", //税率
+        oaf03_gec04: "1", //税率
         oaf05: "0.00", //税前金额（原币）
         oaf06: "0.00", //税额（原币）
         oaf07: "0.00", //含税金额（原币）
@@ -1203,6 +1238,16 @@ export default {
           this.addRow2();
         }
       });
+    },
+    change_SB(rowIndex) {
+      this.tableData.oaf[rowIndex].sqjeBB = (this.tableData.oaf[rowIndex].oaf03_gec04 * this.tableData.oaf[rowIndex].oaf05).toFixed(2)
+      this.tableData.oaf[rowIndex].seBB = (this.tableData.oaf[rowIndex].oaf03_gec04 * this.tableData.oaf[rowIndex].oaf06).toFixed(2)
+      this.tableData.oaf[rowIndex].hsjeBB = (this.tableData.oaf[rowIndex].oaf03_gec04 * this.tableData.oaf[rowIndex].oaf07).toFixed(2)
+    },
+    change_HSJE(rowIndex) {
+      this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / 1.06).toFixed(2)
+      this.tableData.oaf[rowIndex].oaf06 = (this.tableData.oaf[rowIndex].oaf07 / 1.06 * 0.06).toFixed(2)
+      this.change_SB(rowIndex)
     },
     // 冲销信息表格
     addRow3() {
@@ -1335,22 +1380,30 @@ export default {
           this.dataSelect.dialogTitle = "申请单列表";
         break;
         case "WQX":
-          let params = {
-            type:1,
-            number:this.tableData.oaa04
+          this.dataSelect.dialogVisible = false;
+          if (this.tableData.oaa04 == '') {
+            this.$message.warning("请先选择申请人！" );
+          } else if (this.tableData.oaa11 == '') {
+            this.$message.warning("请先选择厂商信息！" );
+          } else {
+            this.dataSelect.dialogVisible = true;
+            let params = {
+              type:1,
+              number:this.tableData.oaa04
+            }
+            this.dataSelect.editType = "search"
+            this.dataSelect.searchParams = params
+            this.dataSelect.filter = [];
+            this.dataSelect.searchType = "single"
+            this.dataSelect.searchApi = "oa/openitems";
+            this.selectLoading = false;
+            this.dataSelect.headList = this.tableHead.head_WQX;
+            this.dataSelect.dialogTitle = "未清项列表";
           }
-          this.dataSelect.editType = "search"
-          this.dataSelect.searchParams = params
-          this.dataSelect.filter = [];
-          this.dataSelect.searchType = "single"
-          this.dataSelect.searchApi = "oa/openitems";
-          this.selectLoading = false;
-          this.dataSelect.headList = this.tableHead.head_WQX;
-          this.dataSelect.dialogTitle = "未清项列表";
-          break;
+        break;
         default:
-          return;
-          break;
+        return;
+        break;
       }
     },
     selectCancel(val) {
@@ -1384,6 +1437,7 @@ export default {
           case "FPSB":
             this.tableData.oaf[this.rowIndex].oaf03 = val[0].gec01;
             this.tableData.oaf[this.rowIndex].oaf03_gec04 = val[0].gec04;
+            this.change_SB(this.rowIndex)
           break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
@@ -1447,6 +1501,7 @@ export default {
         border-right: 1px solid #cccccc;
       }
       .summryCont {
+        width: 300px;
         height: 40px;
         flex: 1 1 auto;
         line-height: 40px;
