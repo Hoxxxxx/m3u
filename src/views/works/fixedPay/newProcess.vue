@@ -857,6 +857,14 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
+      oaz: {
+        oaz01: "", //银行
+        oaz02: "", //异动码
+        oaz03: new Date(), //记账日期
+        oaz04: "", //账款类型
+        oaz05: "", //支付方式
+        oaz06: "", //凭证编号
+      },
       fixedData: {
         // 币种列表
         cointypes: [],
@@ -1105,6 +1113,7 @@ export default {
     // ****************其他操作*******************
     // 新增表单
     addNewFlow() {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData;
       addFlow(this.addParams).then((result) => {
         if (result.status == 200) {
@@ -1119,6 +1128,7 @@ export default {
     },
     // 下一步
     nextStep() {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData;
       addFlow(this.addParams)
         .then((result) => {
