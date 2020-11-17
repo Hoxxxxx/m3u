@@ -1061,13 +1061,6 @@ export default {
       },
     };
   },
-  created() {
-    this.addParams.tplid = this.$route.query.tplid
-    this.addRow1();
-    this.addRow2();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
-  },
   computed: {
     totalCost() {
       let sum = this.carCost +
@@ -1148,7 +1141,7 @@ export default {
     }
   },
   created() {
-    // this.addParams.tplid = this.$route.query.tplid
+    this.addParams.tplid = this.$route.query.tplid
     this.addRow1();
     this.addRow2();
     this.getAzi(); //币种列表
@@ -1251,6 +1244,7 @@ export default {
           this.$router.push({
             path: "/apply",
             query: {
+              url_type: 'travel',
               workName: this.workName,
               workid: this.workid,
               workname: this.workname,

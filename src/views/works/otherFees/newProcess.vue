@@ -755,7 +755,7 @@ export default {
     }
   },
   created() {
-    // this.addParams.tplid = this.$route.query.tplid
+    this.addParams.tplid = this.$route.query.tplid
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -857,6 +857,7 @@ export default {
           this.$router.push({
             path: "/apply",
             query: {
+              url_type: 'otherFees',
               workName: this.workName,
               workid: this.workid,
               workname: this.workname,

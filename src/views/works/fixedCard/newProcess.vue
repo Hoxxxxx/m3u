@@ -593,6 +593,7 @@ export default {
           {
             path:'/apply',
             query: {
+              url_type: 'fixedCard',
               workName:this.workName,
               workid: this.workid,
               workName: this.workName,

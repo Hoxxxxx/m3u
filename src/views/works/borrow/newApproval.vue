@@ -472,7 +472,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    this.workid = 4079
+    // this.workid = 4079
     this.getworkflows()
     this.getGens()
     this.getAzis()
@@ -760,6 +760,7 @@ export default {
             this.$router.push({
               path: url,
               query: {
+                url_type: 'borrow',
                 workid: this.workid,
                 workName: this.workName,
                 oaa01: this.tableData.oaa01,

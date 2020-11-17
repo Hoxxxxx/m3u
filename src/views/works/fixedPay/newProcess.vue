@@ -1141,6 +1141,7 @@ export default {
           this.$router.push({
             path: "/apply",
             query: {
+              url_type: 'fixedPay',
               workName: this.workName,
               workid: this.workid,
               workName: this.workName,
