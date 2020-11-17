@@ -1087,7 +1087,7 @@ export default {
       border-right: 1px solid #cccccc;
       .summryName {
         background: #FCFDFF;
-        min-width: 80px;
+        width: 150px;
         height: 40px;
         line-height: 40px;
         padding: 0 5px 0 5px;
@@ -1096,7 +1096,7 @@ export default {
         border-right: 1px solid #cccccc;
       }
       .summryCont {
-        width: 300px;
+        width: 230px;
         height: 40px;
         flex: 1 1 auto;
         line-height: 40px;
