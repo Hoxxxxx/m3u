@@ -32,9 +32,9 @@
                 <div class="mainPeo">{{fixedData.now_workFlows.flowuser}}</div>
               </div>
             </div>
-            <img class="arrowImg" src="../../assets/img/jiantou.png" />
+            <img v-if="fixedData.is_last==1" class="arrowImg" src="../../assets/img/jiantou.png" />
             <!-- 下一步骤 -->
-            <div class="curProcess">
+            <div v-if="fixedData.is_last==1" class="curProcess">
               <div class="processName">
                 <img src="../../assets/img/step.png" />
                 <span>下一步骤：</span>
@@ -258,6 +258,7 @@ export default {
       // 页面固定数据
       fixedData: {
         members: [],
+        is_last: '',
         now_workFlows: [],
         next_workFlows:[],
         memberMsg: "请选择主办人员",
@@ -318,16 +319,25 @@ export default {
   methods: {
     // 初始化数据
     initData() {
-      this.uploadData.workid =  this.$route.query.workid
+      // this.uploadData.workid =  this.$route.query.workid
+      this.uploadData.workid = 3963
       this.workname = this.$route.query.workname
       this.oaa01 =  this.$route.query.oaa01
       this.oaa02 =  this.$route.query.oaa02
     },
     checkNextFlow() {
       if (this.fixedData.next_workFlows.length !== 0) {
+        // 获取指定下标的步骤信息
         this.fixedData.next_workFlows.forEach( (item, index) => {
           if (item.fid == this.uploadData.next_flowid) {
+            // 获取下标
             this.showData.nextInfo_index = index
+            // 如果只有一个审批人，默认选中
+            if (this.fixedData.next_workFlows[index].changetype !== 1) {
+              if (this.fixedData.next_workFlows[index].flowuser.length == 1) {
+                this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
+              }
+            }
           }
         })
       }
@@ -361,16 +371,25 @@ export default {
       })
     },
     getworkflows(){
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       const params = {
         workid: this.uploadData.workid
       }
       workflowsList(params)
       .then(res=>{
+        loading.close()
         if(res.status == 200){
+          this.fixedData.is_last = res.data.workclass_personnel.perid.is_last // 是否最终步
           this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
           this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 下一步骤
-          if (this.fixedData.next_workFlows[0].flowuser.length == 1) {
-            this.uploadData.next_flowid = this.fixedData.next_workFlows[0].flowuser[0].id
+          if (this.fixedData.next_workFlows.length == 1) {
+            this.uploadData.next_flowid = this.fixedData.next_workFlows[0].fid
+            this.checkNextFlow()
           }
           this.uploadData.sms_content = `您有新的流程需要办理，流水号：${res.data.workclass_info.number}，流程名称：${res.data.workclass_info.title}`
         }else{

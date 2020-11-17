@@ -131,17 +131,6 @@
                 </div>
               </div>
               <!-- 4 -->
-              <!-- <div class="form_line">
-                <div class="titlebox">报销金额</div>
-                <div class="infobox middlebox editNot">
-                  {{ expenseMoney }}
-                </div>
-                <div class="titlebox">报销金额大写</div>
-                <div class="infobox middlebox editNot">
-                  {{ showData.expenseMoneyF }}
-                </div>
-              </div> -->
-              <!-- 4 -->
               <div class="form_line">
                 <div class="titlebox">固定资产申请单</div>
                 <div class="infobox longbox selectbox">
@@ -979,6 +968,13 @@ export default {
           { name: "id", title: "id" },
           { name: "title", title: "流程名称" },
         ],
+        head_ZCKP:[
+          { name: "faj02", title: "财产编号" },
+          { name: "faj04", title: "资产主类别" },
+          { name: "faj05", title: "资产次类别" },
+          { name: "faj06", title: "资产中文名称" },
+          { name: "faj10", title: "预付厂商" },
+        ],
         head_WQX:[
           { name: "id", title: "待抵账款编号" },
           { name: "original_amount", title: "本币未冲金额" },
@@ -1345,13 +1341,13 @@ export default {
           this.dataSelect.dialogTitle = "申请单列表";
         break;
         case "ZCKP":
-          let filter_ZCKP = [{ label: "", model_key_search: "title" }];
+          let filter_ZCKP = [{ label: "", model_key_search: "faj02" }];
           this.dataSelect.filter = filter_ZCKP;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "oa/workflows";
-          this.dataSelect.headList = this.tableHead.head_GDZCSQD;
-          this.dataSelect.dialogTitle = "申请单列表";
+          this.dataSelect.searchApi = "meta/cards";
+          this.dataSelect.headList = this.tableHead.head_ZCKP;
+          this.dataSelect.dialogTitle = "资产卡片列表";
         break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
@@ -1427,7 +1423,7 @@ export default {
             this.showData.oaa17_show = val[0].title;
           break;
           case "ZCKP":
-            this.tableData.oac[this.rowIndex].oac08 = val[0].id;
+            this.tableData.oac[this.rowIndex].oac08 = val[0].faj02;
           break;
           case "WQX":
             val.forEach(item =>{

@@ -37,13 +37,29 @@
                 <div class="titlebox">经办人</div>
                 <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox middlebox last_row">{{ tableData.oaa05 }}</div>
+                <div v-if="!table_able.includes('oaa05')" class="infobox selectbox middlebox last_row editNot">
+                    {{ tableData.oaa05 }}
+                </div>
+                <div v-if="table_able.includes('oaa05')" class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa05"
+                    placeholder="请输入联系电话"
+                  />
+                </div>
               </div>
               <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
+                <div v-if="!table_able.includes('oaa04')" class="infobox selectbox editNot">
+                  {{ tableData.oaa04_show }}
+                </div>
+                <div v-if="table_able.includes('oaa04')" class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('SQR')">
+                    {{ tableData.oaa04_show }}
+                  </div>
+                </div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
+                <div class="infobox editNot">{{ tableData.oaa04 }}</div>
                 <div class="titlebox">所属部门</div>
                 <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
@@ -51,11 +67,12 @@
               <div class="title_line">构建信息</div>
               <div class="form_line">
                 <div class="titlebox">购置类别</div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox longbox selectbox" :class="!table_able.includes('oaa11')?'disabledbox':''">
                   <el-select
                     v-model="tableData.oaa11"
                     class="select"
                     placeholder="请选择购置类别"
+                    :disabled="!table_able.includes('oaa11')"
                   >
                     <el-option
                       v-for="item in fixedData.buyList"
@@ -69,21 +86,75 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">固定资产名称</div>
-                <div class="infobox middlebox">{{tableData.oaa12}}</div>
+                <div v-if="!table_able.includes('oaa12')" class="infobox middlebox editNot">
+                  {{tableData.oaa12}}
+                </div>
+                <div v-if="table_able.includes('oaa12')" class="infobox middlebox selectbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa12"
+                    placeholder="请输入固定资产名称"
+                  />
+                </div>
                 <div class="titlebox">规格型号</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa13}}</div>
+                <div v-if="!table_able.includes('oaa13')" class="infobox middlebox last_row editNot">
+                  {{tableData.oaa13}}
+                </div>
+                <div v-if="table_able.includes('oaa13')" class="infobox middlebox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa13"
+                    placeholder="请输入规格型号"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">计量单位</div>
-                <div class="infobox middlebox">{{tableData.oaa14}}</div>
+                <div v-if="!table_able.includes('oaa14')" class="infobox middlebox editNot">
+                  {{tableData.oaa14}}
+                </div>
+                <div v-if="table_able.includes('oaa14')" class="infobox middlebox selectbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa14"
+                    placeholder="请输入计量单位"
+                  />
+                </div>
                 <div class="titlebox">构建数量</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa15}}</div>
+                <div v-if="!table_able.includes('oaa15')" class="infobox middlebox last_row editNot">
+                  {{tableData.oaa15}}
+                </div>
+                <div v-if="table_able.includes('oaa15')" class="infobox middlebox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa15"
+                    placeholder="请输入构建数量"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">计划金额</div>
-                <div class="infobox middlebox">{{tableData.oaa16}}</div>
+                <div v-if="!table_able.includes('oaa16')" class="infobox middlebox editNot">
+                  {{tableData.oaa16}}
+                </div>
+                <div v-if="table_able.includes('oaa16')" class="infobox middlebox selectbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa16"
+                    placeholder="请输入计划金额"
+                  />
+                </div>
                 <div class="titlebox">生产厂家</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa17}}</div>
+                <div v-if="!table_able.includes('oaa17')" class="infobox middlebox last_row editNot">
+                  {{tableData.oaa17}}
+                </div>
+                <div v-if="table_able.includes('oaa17')" class="infobox middlebox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa17"
+                    placeholder="请输入生产厂家"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">构建时间</div>
@@ -93,26 +164,75 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
-                    disabled
+                    :disabled="!table_able.includes('oaa18')"
                   >
                   </el-date-picker>
                 </div>
                 <div class="titlebox">使用部门</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa19}}</div>
+                <div v-if="!table_able.includes('oaa19')" class="infobox middlebox last_row editNot">
+                  {{tableData.oaa19}}
+                </div>
+                <div v-if="table_able.includes('oaa19')" class="infobox middlebox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa19"
+                    placeholder="请输入使用部门"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">计划内外</div>
-                <div class="infobox middlebox">{{tableData.oaa20}}</div>
+                <div v-if="!table_able.includes('oaa20')" class="infobox middlebox editNot">
+                  {{tableData.oaa20}}
+                </div>
+                <div v-if="table_able.includes('oaa20')" class="infobox middlebox selectbox">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa20"
+                    placeholder="请输入计划内外"
+                  />
+                </div>
                 <div class="titlebox">采购金额</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
+                <div v-if="!table_able.includes('oaa21')" class="infobox middlebox last_row editNot">
+                  {{tableData.oaa21}}
+                </div>
+                <div v-if="table_able.includes('oaa21')" class="infobox middlebox selectbox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa21"
+                    placeholder="请输入采购金额"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">主要参数配置</div>
-                <div class="infobox longbox">{{tableData.oaa22}}</div>
+                <div v-if="!table_able.includes('oaa22')" class="infobox longbox editNot">
+                  {{tableData.oaa22}}
+                </div>
+                <div v-if="table_able.includes('oaa22')" class="infobox longbox areabox">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa22"
+                    placeholder="请输入主要参数配置"
+                  >
+                  </el-input>
+                </div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">构建依据</div>
-                <div class="infobox longbox">{{tableData.oaa23}}</div>
+                <div v-if="!table_able.includes('oaa23')" class="infobox longbox editNot">
+                  {{tableData.oaa23}}
+                </div>
+                <div v-if="table_able.includes('oaa23')" class="infobox longbox areabox">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa23"
+                    placeholder="请输入构建依据"
+                  >
+                  </el-input>
+                </div>
               </div>
             </div>
           </div>
@@ -201,26 +321,39 @@
       </div>
     </el-card>
 
+  <!-- 数据选择弹出框 -->
+    <SelectData
+      :isLoading="dataSelect.selectLoading"
+      :dialogTitle.sync="dataSelect.dialogTitle"
+      :dialogVisible.sync="dataSelect.dialogVisible"
+      :headList.sync="dataSelect.headList"
+      :bodyData.sync="dataSelect.bodyData"
+      :choosedData="dataSelect.choosedData"
+      :editType.sync="dataSelect.editType"
+      :searchApi="dataSelect.searchApi"
+      :filter="dataSelect.filter"
+      :keyMsg="dataSelect.keyMsg"
+      @selectSure="selectSure"
+      @selectCancel="selectCancel"
+    ></SelectData>
   </div>
 </template>
 
 <script>
+import SelectData from "@/components/selectData";
 // api
 import { workflowsList, } from "@/api/process_new.js"
 import { editFlow  } from "@/api/process_new";
 
 export default {
-  components: {},
+  components: {SelectData},
   data() {
     return {
       activeTab: "firTab",
       workid: '',
       workName:"固定资产申请",//流程名
       tableData: {},
-      showData: {
-        oaa04_show: "", //申请人
-        oaa04_gen01: "", //申请人编号
-      },
+      table_able: [],
       // 表单数据
       fixedData: {
         // 购置列表
@@ -241,6 +374,32 @@ export default {
         from_data: {},
         annexurlid: [],
         tplid: 8946
+      },
+      //数据选择弹出框
+      dataSelect: {
+        editType:"entry",
+        selectLoading:false,
+        cur_input: "", // 当前点击的输入框
+        dialogTitle: "数据选择", //当前弹框的title
+        dialogVisible: false, //控制显示隐藏弹框
+        headList: [], //表头
+        bodyData: [], //表格数据
+        choosedData: [], //选中的数据
+        searchApi: "", //搜索框的接口地址
+        searchParams:{},//搜索接口自带参数
+        searchType:"",//搜索类型
+        filter: [], //筛选条件
+        keyMsg: [], //需要显示在顶部的数据
+      },
+      // 弹出框表头数据
+      tableHead: {
+        // 申请人
+        head_SQR: [
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
+        ],
       },
       // 当前流程列表
       workclass_perflow: [],
@@ -270,6 +429,7 @@ export default {
         if(res.status == 200){
           loading.close()
           this.tableData = res.data.workclass_info.from_data
+          this.table_able = res.data.workclass_info.form_able
           this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
@@ -382,57 +542,90 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
-    // ****************其他操作*******************
-    // 编辑表单
-    editNewFlow() {
-      this.addParams.from_data = this.tableData
-      editFlow(this.addParams)
-      .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
-      })
+    // 数据选择
+    selectDialog(type,rowIndex) {
+      this.rowIndex = rowIndex;
+      this.dataSelect.dialogVisible = true;
+      this.dataSelect.cur_input = type;
+      this.dataSelect.choosedData = [];
+      switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
+        default:
+          return;
+          break;
+      }
     },
+    selectCancel(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = val;
+      this.dataSelect.choosedData = val;
+    },
+    selectSure(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = [];
+      this.dataSelect.choosedData = val;
+      if (val.length > 0) {
+        switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.tableData.oaa04 = val[0].gen01;
+            this.tableData.oaa04_show = val[0].gen02;
+            this.tableData.oaa04_gen04 = val[0].gen04;
+            break;
+          case "XM":
+            this.tableData.oaa14 = val[0].pja01;
+            this.tableData.oaa14_show = val[0].pja02;
+            break;
+          case "WBS":
+            this.tableData.oaa15 = val[0].pjb02;
+            this.tableData.oaa15_show = val[0].pjb03;
+            break;
+          case "CCSQD":
+            this.tableData.oaa17 = val[0].id;
+            this.tableData.oaa17_show = val[0].title;
+            break;
+          default:
+            return;
+            break;
+        }
+      }
+    },
+    // ****************其他操作*******************
     // 下一步
     nextStep(url) {
-      if (this.addParams.annexurlid.length !== 0) {
-        this.addParams.from_data = this.tableData
-        this.addParams.workid = this.workid
-        this.fileList_user.forEach(item => {
-          this.addParams.annexurlid.push({
-            id: item.id,
-            filename: item.name,
-            fileaddr: item.url
+      this.addParams.from_data = this.tableData
+      this.addParams.workid = this.workid
+      this.fileList_user.forEach(item => {
+        this.addParams.annexurlid.push({
+          id: item.id,
+          filename: item.name,
+          fileaddr: item.url
+        })
+      })
+      editFlow(this.addParams)
+      .then( result => {
+        if (result.status == 200) {
+          this.$message.success("编辑成功！");
+          this.$router.push({
+            path: url,
+            query: {
+              workid: this.workid,
+              workName: this.workName,
+              oaa01: this.tableData.oaa01,
+              oaa02: this.tableData.oaa02
+            }
           })
-        })
-        editFlow(this.addParams)
-        .then( result => {
-          if (result.status == 200) {
-            this.$message.success("编辑成功！");
-            this.$router.push({
-              path: url,
-              query: {
-                workid: this.workid,
-                workName: this.workName,
-                oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02
-              }
-            })
-          } else {
-            this.$message.error("编辑失败：" + result.error.message);
-          }
-        })
-      } else {
-        this.$router.push({
-          path: url,
-          query: {
-            workid: this.workid,
-            workName: this.workName,
-            oaa01: this.tableData.oaa01,
-            oaa02: this.tableData.oaa02
-          }
-        })
-      }
+        } else {
+          this.$message.error("编辑失败：" + result.error.message);
+        }
+      })
     },
     // ******************************************
 
