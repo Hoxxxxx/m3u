@@ -72,14 +72,14 @@
                   <div v-if="uploadData.next_flowid !== ''">
                     <!-- 可选所有 -->
                     <div 
-                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == 1"
+                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '1'"
                       class="selector" 
                       @click="selectDialog('SQR')">
                         {{showData.oaa04_show}}
                     </div>
                     <!-- 条件内可选 -->
                     <el-select
-                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == 2"
+                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '2'"
                       v-model="uploadData.next_userid"
                       class="memeberSelect"
                       placeholder="请选择主办人员"
@@ -94,7 +94,7 @@
                     </el-select>
                     <!-- 不可选 -->
                     <el-select
-                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == 3"
+                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '3'"
                       v-model="uploadData.next_userid"
                       class="memeberSelect"
                       disabled
@@ -313,14 +313,14 @@ export default {
   },
   created() {
     this.initData()
-    // this.getUsers()
+    this.getUsers()
     this.getworkflows()
   },
   methods: {
     // 初始化数据
     initData() {
-      // this.uploadData.workid =  this.$route.query.workid
-      this.uploadData.workid = 3963
+      this.uploadData.workid =  this.$route.query.workid
+      // this.uploadData.workid = 3963
       this.workname = this.$route.query.workname
       this.oaa01 =  this.$route.query.oaa01
       this.oaa02 =  this.$route.query.oaa02
@@ -333,10 +333,13 @@ export default {
             // 获取下标
             this.showData.nextInfo_index = index
             // 如果只有一个审批人，默认选中
-            if (this.fixedData.next_workFlows[index].changetype !== 1) {
-              if (this.fixedData.next_workFlows[index].flowuser.length == 1) {
+            if (this.fixedData.next_workFlows[index].changetype !== '1') {
+              if (this.fixedData.next_workFlows[index].flowuser.length > 0) {
                 this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
               }
+            } else {
+              this.uploadData.next_userid = this.fixedData.members[0].id;
+              this.showData.oaa04_show = this.fixedData.members[0].name;
             }
           }
         })
