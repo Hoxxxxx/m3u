@@ -63,7 +63,7 @@
               <div class="form_line">
                 <div class="titlebox">费用类别</div>
                 <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa35">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa18">
                     <el-radio :label="1">行政费用</el-radio>
                     <el-radio :label="2">工会费用</el-radio>
                   </el-radio-group>
@@ -607,7 +607,7 @@ export default {
         oaa03: "", //经办人
         oaa04: "", //申请人id
         oaa05: "", //联系电话
-        oaa35:"",//费用类别
+        oaa18:"",//费用类别
         oaa18:"",
         //报销信息
         oaa06: "RMB", //币种

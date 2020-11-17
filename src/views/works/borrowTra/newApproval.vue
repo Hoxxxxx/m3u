@@ -37,13 +37,25 @@
                 <div class="titlebox">经办人</div>
                 <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox middlebox last_row">{{ tableData.oaa05 }}</div>
+                <div class="infobox selectbox middlebox last_row" v-if="!table_able.includes('oaa05')">{{ tableData.oaa05 }}</div>
+                <div class="infobox selectbox middlebox last_row" v-if="table_able.includes('oaa05')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa05"
+                    placeholder="请输入联系电话"
+                  />
+                </div>
               </div>
               <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
+                <div class="infobox selectbox" v-if="!table_able.includes('oaa04')">{{ tableData.oaa04_show }}</div>
+                <div class="infobox selectbox" v-if="table_able.includes('oaa04')">
+                  <div class="selector" @click="selectDialog('SQR')">
+                    {{ tableData.oaa04_show }}
+                  </div>
+                </div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
+                <div class="infobox editNot">{{ tableData.oaa04 }}</div>
                 <div class="titlebox">所属部门</div>
                 <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
@@ -57,7 +69,7 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
-                    disabled
+                    :disabled="table_able.includes('oaa31')?false:true"
                   >
                   </el-date-picker>
                 </div>
@@ -68,7 +80,7 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
-                    disabled
+                    :disabled="table_able.includes('oaa32')?false:true"
                   >
                   </el-date-picker>
                 </div>
@@ -79,7 +91,7 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
-                    disabled
+                    :disabled="table_able.includes('oaa33')?false:true"
                   >
                   </el-date-picker>
                 </div>
@@ -90,46 +102,66 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
-                    disabled
+                    :disabled="table_able.includes('oaa34')?false:true"
                   >
                   </el-date-picker>
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">出差目的</div>
-                <div class="infobox longbox">{{tableData.oaa30}}</div>
+                <div class="infobox longbox" v-if="!table_able.includes('oaa30')">{{tableData.oaa30}}</div>
+                <div class="infobox longbox selectbox" v-if="table_able.includes('oaa30')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa30"
+                    placeholder="请输入出差目的"
+                  />
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">出差地点</div>
-                <div class="infobox longbox">
+                <div class="infobox longbox selectbox">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa35">
-                    <el-radio :label="1" disabled>一般地区</el-radio>
-                    <el-radio :label="2" disabled>特殊地区</el-radio>
+                    <el-radio :label="1" :disabled="table_able.includes('oaa35') ? false : true">一般地区</el-radio>
+                    <el-radio :label="2" :disabled="table_able.includes('oaa35') ? false : true">特殊地区</el-radio>
                   </el-radio-group>
-                  {{tableData.oaa36}}
+                  <div class="columLine"></div>
+                  <input
+                    class="abstracInput"
+                    :disabled="table_able.includes('oaa36') ? false : true"
+                    v-model="tableData.oaa36"
+                    placeholder="请输入出差地点"
+                  />
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">交通工具</div>
                 <div class="infobox longbox">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa37">
-                    <el-radio :label="1" disabled>飞机</el-radio>
-                    <el-radio :label="2" disabled>火车</el-radio>
-                    <el-radio :label="3" disabled>汽车</el-radio>
-                    <el-radio :label="4" disabled>其它</el-radio>
+                    <el-radio :label="1" :disabled="table_able.includes('oaa37') ? false : true">飞机</el-radio>
+                    <el-radio :label="2" :disabled="table_able.includes('oaa37') ? false : true">火车</el-radio>
+                    <el-radio :label="3" :disabled="table_able.includes('oaa37') ? false : true">汽车</el-radio>
+                    <el-radio :label="4" :disabled="table_able.includes('oaa37') ? false : true">其它</el-radio>
                   </el-radio-group>
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">访问单位</div>
-                <div class="infobox longbox">{{tableData.oaa38}}</div>
+                <div class="infobox longbox"  v-if="!table_able.includes('oaa38')">{{tableData.oaa38}}</div>
+                <div class="infobox longbox selectbox"  v-if="table_able.includes('oaa38')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa38"
+                    placeholder="请输入访问单位"
+                  />
+                </div>
               </div>
               <div class="form_line  last_line">
                 <div class="titlebox">是否需要借款</div>
                 <div class="infobox longbox">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa39">
-                    <el-radio :label="1" disabled>是</el-radio>
-                    <el-radio :label="2" disabled>否</el-radio>
+                    <el-radio :label="1" :disabled="table_able.includes('oaa39') ? false : true">是</el-radio>
+                    <el-radio :label="2" :disabled="table_able.includes('oaa39') ? false : true">否</el-radio>
                   </el-radio-group>
                 </div>
               </div>
@@ -138,29 +170,108 @@
                 <div class="title_line">借款信息</div>
                 <div class="form_line">
                   <div class="titlebox">项目</div>
-                  <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
+                  <div class="infobox middlebox selectbox" v-if="!table_able.includes('oaa14')">{{tableData.oaa14_show}}</div>
+                  <div class="infobox middlebox selectbox" v-if="table_able.includes('oaa14')">
+                    <div class="selector" @click="selectDialog('XM')">
+                    {{ tableData.oaa14_show }}
+                    </div>
+                  </div>
                   <div class="titlebox">项目WBS</div>
-                  <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
+                  <div class="infobox middlebox selectbox last_row" v-if="!table_able.includes('oaa15')">{{tableData.oaa15_show}}</div>
+                  <div class="infobox middlebox selectbox last_row" v-if="table_able.includes('oaa15')">
+                    <div class="selector" @click="selectDialog('WBS')">
+                    {{ tableData.oaa15_show }}
+                    </div>
+                  </div>
                 </div>
                 <div class="form_line">
                   <div class="titlebox">币种</div>
-                  <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
+                  <!-- <div class="infobox selectbox">{{tableData.oaa06_show}}</div> -->
+                  <div class="infobox selectbox " :class="table_able.includes('oaa06')? '' : 'disabledbox'">
+                  <el-select
+                    v-model="tableData.oaa06"
+                    class="select"
+                    :disabled="table_able.includes('oaa06')?false:true"
+                    placeholder="请选择币种"
+                  >
+                    <el-option
+                      v-for="(item, index) in fixedData.azisList"
+                      :key="index"
+                      :label="item.azi02"
+                      :value="item.azi01"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
                   <div class="titlebox">借款金额</div>
-                  <div class="infobox">{{tableData.oaa07}}</div>
+                  <div class="infobox" v-if="!table_able.includes('oaa07')">{{tableData.oaa07}}</div>
+                  <div class="infobox selectbox" v-if="table_able.includes('oaa07')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa07"
+                    placeholder="请输入借款金额"
+                    @input="getExchangeRate()"
+                  />
+                  </div>
                   <div class="titlebox">汇率</div>
-                  <div class="infobox last_row">{{tableData.oaa08}}</div>
+                  <div class="infobox last_row" v-if="!table_able.includes('oaa08')">{{tableData.oaa08}}</div>
+                  <div class="infobox selectbox last_row" v-if="table_able.includes('oaa08')">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa08"
+                      placeholder="请输入汇率"
+                      @input="getExchangeRate()"
+                    />
+                  </div>
                 </div>
                 <div class="form_line">
                   <div class="titlebox">收款人</div>
-                  <div class="infobox">{{tableData.oaa09}}</div>
+                  <div class="infobox" v-if="!table_able.includes('oaa09')">{{tableData.oaa09}}</div>
+                  <div class="infobox selectbox" v-if="table_able.includes('oaa09')">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa09"
+                      placeholder="请输入收款人"
+                    />
+                  </div>
                   <div class="titlebox">账号</div>
-                  <div class="infobox">{{tableData.oaa10}}</div>
+                  <div class="infobox" v-if="!table_able.includes('oaa10')">{{tableData.oaa10}}</div>
+                  <div class="infobox selectbox" v-if="table_able.includes('oaa10')">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa10"
+                      placeholder="请输入账号"
+                    />
+                  </div>
                   <div class="titlebox">开户行</div>
-                  <div class="infobox last_row">{{tableData.oaa11}}</div>
+                  <div class="infobox last_row" v-if="!table_able.includes('oaa10')">{{tableData.oaa11}}</div>
+                  <div class="infobox selectbox last_row" v-if="table_able.includes('oaa10')">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa11"
+                      placeholder="请输入开户行"
+                    />
+                  </div>
                 </div>
                 <div class="form_line">
                   <div class="titlebox">支付方式</div>
-                  <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
+                  <!-- <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div> -->
+                  <div class="infobox longbox selectbox" :class="table_able.includes('oaa06')? '' : 'disabledbox'">
+                    <el-select
+                      v-model="tableData.oaa12"
+                      class="select"
+                      placeholder="请选择支付方式"
+                      :disabled="table_able.includes('oaa12')?false:true"
+                    >
+                      <el-option
+                        v-for="item in fixedData.pmasList"
+                        :key="item.pma01"
+                        :label="item.pma02"
+                        :value="item.pma01"
+                      >
+                      </el-option>
+                    </el-select>
+                  </div>
                 </div>
                 <div class="form_line">
                   <div class="titlebox">折合汇率金额</div>
@@ -170,14 +281,28 @@
                 </div>
                 <div class="form_line last_line">
                   <div class="titlebox">借款事由</div>
-                  <div class="infobox longbox">{{tableData.oaa13}}</div>
+                  <div class="infobox longbox" v-if="!table_able.includes('oaa13')">{{tableData.oaa13}}</div>
+                  <div class="infobox selectbox longbox" v-if="table_able.includes('oaa13')">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa13"
+                      placeholder="请输入借款事由"
+                    />
+                  </div>
                 </div>
               </div>
               <!-- 交际信息 -->
               <div class="title_line">交际信息</div>
               <div class="form_line">
                 <div class="titlebox">支出项目</div>
-                <div class="infobox middlebox">{{tableData.oaa20}}</div>
+                <div class="infobox middlebox" v-if="!table_able.includes('oaa20')">{{tableData.oaa20}}</div>
+                <div class="infobox middlebox selectbox" v-if="table_able.includes('oaa20')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa20"
+                    placeholder="请输入支出项目"
+                  />
+                </div>
                 <div class="titlebox">实施时间</div>
                 <div class="infobox middlebox datebox last_row">
                   <el-date-picker
@@ -185,29 +310,64 @@
                     type="date"
                     format="yyyy-MM-dd"
                     value-format="yyyy-MM-dd"
-                    disabled
+                    :disabled="table_able.includes('oaa21')?false:true"
                   >
                   </el-date-picker>
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">我方参加部门</div>
-                <div class="infobox middlebox">{{tableData.oaa22}}</div>
+                <div class="infobox middlebox" v-if="!table_able.includes('oaa22')">{{tableData.oaa22}}</div>
+                <div class="infobox middlebox selectbox" v-if="table_able.includes('oaa22')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa22"
+                    placeholder="请输入我方参加部门"
+                  />
+                </div>
                 <div class="titlebox">对方参加部门</div>
-                <div class="infobox middlebox">{{tableData.oaa23}}</div>
+                <div class="infobox middlebox" v-if="!table_able.includes('oaa23')">{{tableData.oaa23}}</div>
+                <div class="infobox middlebox selectbox" v-if="table_able.includes('oaa23')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa23"
+                    placeholder="请输入对方单位"
+                  />
+                </div>
                 <div class="titlebox">我方参加人员</div>
-                <div class="infobox middlebox">{{tableData.oaa24}}</div>
+                <div class="infobox middlebox" v-if="!table_able.includes('oaa24')">{{tableData.oaa24}}</div>
+                <div class="infobox middlebox selectbox" v-if="table_able.includes('oaa24')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa24"
+                    placeholder="请输入我方参加人员"
+                  />
+                </div>
                 <div class="titlebox">对方参加人员</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa25}}</div>
+                <div class="infobox middlebox last_row" v-if="!table_able.includes('oaa25')">{{tableData.oaa25}}</div>
+                <div class="infobox middlebox selectbox last_row" v-if="table_able.includes('oaa25')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa25"
+                    placeholder="请输入对方参加人员"
+                  />
+                </div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">付款预算金额</div>
-                <div class="infobox middlebox">{{tableData.oaa26}}</div>
+                <div class="infobox middlebox" v-if="!table_able.includes('oaa26')">{{tableData.oaa26}}</div>
+                <div class="infobox middlebox selectbox" v-if="table_able.includes('oaa26')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa26"
+                    placeholder="请输入付款预算金额"
+                  />
+                </div>
                 <div class="titlebox">区分</div>
                 <div class="infobox middlebox last_row">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa27">
-                    <el-radio :label="1" disabled>交际费</el-radio>
-                    <el-radio :label="2" disabled>会议费</el-radio>
+                    <el-radio :label="1" :disabled="table_able.includes('oaa27')?false:true">交际费</el-radio>
+                    <el-radio :label="2" :disabled="table_able.includes('oaa27')?false:true">会议费</el-radio>
                   </el-radio-group>
                 </div>
               </div>
@@ -375,6 +535,7 @@
 import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow, transfer, addFlow} from "@/api/process_new.js"
+import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
 import { dateFmt, number_chinese } from "@/utils/utils.js";
 
 export default {
@@ -385,6 +546,7 @@ export default {
       workName: '出差借款申请',
       activeTab: "firTab",
       tableData: {},
+      table_able:[],//表格可编辑项
       // 汇率数据
       exchange: '', //折合汇率
       exchange_Cap: '', //折合汇率大写
@@ -396,6 +558,10 @@ export default {
         azisList: [],
         // 付款方式列表
         pmasList: [],
+        // 项目列表
+        pjasList: [],
+        // WBS列表
+        pjbsList: [],
       },
       financialData: {
         bank_show: "", //银行回显数据
@@ -441,6 +607,25 @@ export default {
       // 弹出框表头数据
       tableHead: {
         // 申请人
+        head_SQR: [
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
+        ],
+        head_XM: [
+          { name: "pja01", title: "项目编号" },
+          { name: "pja02", title: "项目名称" },
+          { name: "pja08", title: "项目负责人" },
+          { name: "pja09", title: "负责部门" },
+          { name: "pja13", title: "项目预计总额" },
+        ],
+        head_WBS: [
+          { name: "pjb02", title: "WBS编号" },
+          { name: "pjb03", title: "WBS名称" },
+          { name: "pjb01", title: "项目编号" },
+          { name: "pja02", title: "项目名称" },
+        ],
         head_bank: [
           { name: "nma01", title: "银行编号" },
           { name: "nma02", title: "银行名称" },
@@ -463,11 +648,68 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    this.workid = 4088
     this.getworkflows()
+    this.getGens()
+    this.getAzis()
+    this.getPmas()
+    this.getPjas()
+    this.getPjbs()
   },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
+    },
+    // ***********获取下拉列表信息************
+    getGens () {
+      gensList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.genList = result.data;
+        } else {
+          this.$message.error("获取员工列表失败：" + result.error.message);
+        }
+      })
+    },
+    getAzis () {
+      azisList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.azisList = result.data;
+        } else {
+          this.$message.error("获取币种列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPmas () {
+      pmasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pmasList = result.data;
+        } else {
+          this.$message.error("获取付款方式列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPjas () {
+      pjasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pjasList = result.data;
+        } else {
+          this.$message.error("获取项目列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPjbs () {
+      pjbsList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pjbsList = result.data;
+        } else {
+          this.$message.error("获取WBS列表失败：" + result.error.message);
+        }
+      })
     },
     // ***********获取流程信息************
     getworkflows(){
@@ -486,6 +728,7 @@ export default {
           this.tableData = res.data.workclass_info.from_data
           this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
+          this.table_able = res.data.workclass_info.form_able
           this.oazShow = res.data.workclass_flow.erp_turn
           this.oaz.oaz05 = res.data.workclass_info.from_data.oaa12;
           this.financialData.oaz05_show = res.data.workclass_info.from_data.oaa12_show;
@@ -608,15 +851,6 @@ export default {
       this.exchange_Cap = number_chinese(this.exchange)
     },
     // 新增表单
-    editNewFlow() {
-      this.addParams.from_data = this.tableData
-      editFlow(this.addParams)
-      .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
-      })
-    },
     // 下一步
     nextStep(url) {
       if (url == "/agree" && this.oazShow == 1) {
@@ -630,19 +864,20 @@ export default {
         this.nextFuns(url);
       }
     },
-    nextFuns(url){
-      if (this.addParams.annexurlid.length !== 0) {
-        this.addParams.from_data = this.tableData
-        this.addParams.workid = this.workid
-        this.fileList_user.forEach(item => {
+    nextFuns(url) {
+        this.tableData = {...this.tableData,...this.oaz}
+        this.addParams.from_data = this.tableData;
+        this.addParams.workid = this.workid;
+        if(this.fileList_user.length > 0){
+          this.fileList_user.forEach((item) => {
           this.addParams.annexurlid.push({
             id: item.id,
             filename: item.name,
-            fileaddr: item.url
-          })
-        })
-        editFlow(this.addParams)
-        .then( result => {
+            fileaddr: item.url,
+          });
+        });
+        }
+        editFlow(this.addParams).then((result) => {
           if (result.status == 200) {
             this.$message.success("编辑成功！");
             this.$router.push({
@@ -651,24 +886,13 @@ export default {
                 workid: this.workid,
                 workName: this.workName,
                 oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02
-              }
-            })
+                oaa02: this.tableData.oaa02,
+              },
+            });
           } else {
             this.$message.error("编辑失败：" + result.error.message);
           }
-        })
-      } else {
-        this.$router.push({
-          path: url,
-          query: {
-            workid: this.workid,
-            workName: this.workName,
-            oaa01: this.tableData.oaa01,
-            oaa02: this.tableData.oaa02
-          }
-        })
-      }
+        });
     },
     // ******************************************
     // 生成凭证
@@ -680,10 +904,10 @@ export default {
         background: "rgba(0, 0, 0, 0.7)",
       });
       this.addParams.from_data = {...this.tableData,...this.oaz};
-      addFlow(this.addParams).then((res) => {
+      editFlow(this.addParams).then((res) => {
         if (res.status == 200) {
           let params = {
-            workid: res.data.workid,
+            workid: this.workid,
           };
           transfer(params).then((res) => {
             if (res.status == 200) {
@@ -703,12 +927,33 @@ export default {
       });
     },
     // 数据选择
-    selectDialog(type, rowIndex) {
+    selectDialog(type,rowIndex) {
       this.rowIndex = rowIndex;
       this.dataSelect.dialogVisible = true;
       this.dataSelect.cur_input = type;
       this.dataSelect.choosedData = [];
       switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
+        case "XM":
+          let filter_XM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_XM;
+          this.dataSelect.searchApi = "meta/pjas";
+          this.dataSelect.headList = this.tableHead.head_XM;
+          this.dataSelect.dialogTitle = "项目";
+          break;
+        case "WBS":
+          let filter_WBS = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_WBS;
+          this.dataSelect.searchApi = "meta/pjbs";
+          this.dataSelect.headList = this.tableHead.head_WBS;
+          this.dataSelect.dialogTitle = "WBS列表";
+          break;
         case "bank":
           let filter_bank = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_bank;
@@ -746,6 +991,19 @@ export default {
       this.dataSelect.choosedData = val;
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.tableData.oaa04 = val[0].gen01;
+            this.tableData.oaa04_show = val[0].gen02;
+            this.tableData.oaa04_gen04 = val[0].gen04;
+            break;
+          case "XM":
+            this.tableData.oaa14 = val[0].pja01;
+            this.showData.oaa14_show = val[0].pja02;
+            break;
+          case "WBS":
+            this.tableData.oaa15 = val[0].pjb02;
+            this.showData.oaa15_show = val[0].pjb03;
+            break;
           case "bank":
             this.oaz.oaz01 = val[0].nma01;
             this.financialData.bank_show = val[0].nma02;
@@ -770,4 +1028,14 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
+.infobox{
+  position: relative;
+  .columLine{
+    position: absolute;
+    height: 40px;
+    width: 1px;
+    left: 230px;
+    background: #CCCCCC;
+  }
+}
 </style>
