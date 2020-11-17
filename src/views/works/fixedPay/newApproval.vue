@@ -1333,7 +1333,24 @@ export default {
           { name: "rid", title: "借款人编号" },
           { name: "rname", title: "借款人名称" },
           { name: "voucher_code", title: "凭证编号" },
-        ]
+        ],
+        head_bank: [
+          { name: "nma01", title: "银行编号" },
+          { name: "nma02", title: "银行名称" },
+          { name: "nma28", title: "1.支存 2.活存 3.其他" },
+          { name: "nma04", title: "银行账号" },
+          { name: "nma09", title: "存款类别" },
+          { name: "nma10", title: "存款币别" },
+        ],
+        head_YDM: [
+          { name: "nmc01", title: "银行异动码编号" },
+          { name: "nmc02", title: "核算项名称" },
+          { name: "nmc03", title: "存提款" },
+        ],
+        head_ZKLX: [
+          { name: "apr01", title: "账款类型编号" },
+          { name: "apr02", title: "账款类型名称" },
+        ],
       },
     };
   },
@@ -1432,9 +1449,9 @@ export default {
           })
           this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
-          this.oazShow = 1
-          // res.data.workclass_flow.erp_turn
+          this.oazShow = res.data.workclass_flow.erp_turn
           this.oaz.oaz05 = res.data.workclass_info.from_data.oaa16;
+          this.oaz.oaz06 = res.data.workclass_info.from_data.oaz06;
           this.financialData.oaz05_show =
             res.data.workclass_info.from_data.oaa16_show;
           if (res.data.file !== null) {
@@ -1767,6 +1784,27 @@ export default {
             this.dataSelect.dialogTitle = "未清项列表";
           }
         break;
+        case "bank":
+          let filter_bank = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_bank;
+          this.dataSelect.searchApi = "meta/nmas";
+          this.dataSelect.headList = this.tableHead.head_bank;
+          this.dataSelect.dialogTitle = "银行";
+          break;
+        case "YDM":
+          let filter_YDM = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_YDM;
+          this.dataSelect.searchApi = "meta/nmcs";
+          this.dataSelect.headList = this.tableHead.head_YDM;
+          this.dataSelect.dialogTitle = "异动码";
+          break;
+        case "ZKLX":
+          let filter_ZKLX = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_ZKLX;
+          this.dataSelect.searchApi = "meta/aprs";
+          this.dataSelect.headList = this.tableHead.head_ZKLX;
+          this.dataSelect.dialogTitle = "账款类型";
+          break;
         default:
         return;
         break;
@@ -1828,6 +1866,18 @@ export default {
             })
             this.tableData.oad = val
           break;
+          case "bank":
+            this.oaz.oaz01 = val[0].nma01;
+            this.financialData.bank_show = val[0].nma02;
+            break;
+          case "YDM":
+            this.oaz.oaz02 = val[0].nmc01;
+            this.financialData.num_show = val[0].nmc02;
+            break;
+          case "ZKLX":
+            this.oaz.oaz04 = val[0].apr01;
+            this.financialData.oaz04_show = val[0].apr02;
+            break;
           default:
           return;
           break;
@@ -1892,10 +1942,11 @@ export default {
       });
 
       this.addParams.from_data = {...this.tableData,...this.oaz};
+      this.addParams.workid = this.workid;
       addFlow(this.addParams).then((res) => {
         if (res.status == 200) {
           let params = {
-            workid: res.data.workid,
+            workid: this.workid,
           };
           transfer(params).then((res) => {
             if (res.status == 200) {

@@ -1050,6 +1050,7 @@ export default {
           this.table_able = res.data.workclass_info.form_able
           this.oazShow = res.data.workclass_flow.erp_turn
           this.oaz.oaz05 = res.data.workclass_info.from_data.oaa12;
+          this.oaz.oaz06 = res.data.workclass_info.from_data.oaz06;
           this.financialData.oaz05_show = res.data.workclass_info.from_data.oaa12_show;
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
@@ -1218,6 +1219,7 @@ export default {
       });
 
       this.addParams.from_data = {...this.tableData,...this.oaz};
+      this.addParams.workid = this.workid;
       editFlow(this.addParams).then((res) => {
         if (res.status == 200) {
           let params = {
