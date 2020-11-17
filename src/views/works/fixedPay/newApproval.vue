@@ -1338,8 +1338,8 @@ export default {
     };
   },
   created() {
-    // this.workid = this.$route.query.workid
-    this.workid = 4064
+    this.workid = this.$route.query.workid
+    // this.workid = 4064
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1835,19 +1835,9 @@ export default {
       }
     },
     // ****************其他操作*******************
-    // 编辑表单
-    editNewFlow() {
-      this.tableData = {...this.tableData,...this.oaz}
-      this.addParams.from_data = this.tableData
-      editFlow(this.addParams)
-      .then( result => {
-        this.workid = result.data.workid
-        this.tableData.oaa01 = result.data.oaa01
-        this.tableData.oaa02 = result.data.oaa02
-      })
-    },
     // 下一步
     nextStep(url) {
+      this.tableData = {...this.tableData,...this.oaz}
       if (url == "/agree" && this.oazShow == 1) {
         console.log(this.oaz, this.oazShow);
         if (this.oaz.oaz06 == "") {
@@ -1860,45 +1850,34 @@ export default {
       }
       
     },
-    nextFuns(url){
-      if (this.addParams.annexurlid.length !== 0) {
-        this.addParams.from_data = this.tableData
-        this.addParams.workid = this.workid
-        this.fileList_user.forEach(item => {
-          this.addParams.annexurlid.push({
-            id: item.id,
-            filename: item.name,
-            fileaddr: item.url
-          })
-        })
-        editFlow(this.addParams)
-        .then( result => {
-          if (result.status == 200) {
-            this.$message.success("编辑成功！");
-            this.$router.push({
-              path: url,
-              query: {
-                workid: this.workid,
-                workName: this.workName,
-                oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02
-              }
-            })
-          } else {
-            this.$message.error("编辑失败：" + result.error.message);
-          }
-        })
-      } else {
-        this.$router.push({
-          path: url,
-          query: {
-            workid: this.workid,
-            workName: this.workName,
-            oaa01: this.tableData.oaa01,
-            oaa02: this.tableData.oaa02
-          }
-        })
+    nextFuns(url) {
+      this.addParams.from_data = this.tableData;
+      this.addParams.workid = this.workid;
+      if(this.fileList_user.length > 0){
+        this.fileList_user.forEach((item) => {
+        this.addParams.annexurlid.push({
+          id: item.id,
+          filename: item.name,
+          fileaddr: item.url,
+        });
+      });
       }
+      editFlow(this.addParams).then((result) => {
+        if (result.status == 200) {
+          this.$message.success("编辑成功！");
+          this.$router.push({
+            path: url,
+            query: {
+              workid: this.workid,
+              workName: this.workName,
+              oaa01: this.tableData.oaa01,
+              oaa02: this.tableData.oaa02,
+            },
+          });
+        } else {
+          this.$message.error("编辑失败：" + result.error.message);
+        }
+      });
     },
     // ******************************************
 
