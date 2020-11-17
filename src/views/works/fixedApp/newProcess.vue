@@ -459,6 +459,7 @@ export default {
           {
             path:'/apply',
             query: {
+              url_type: 'fixedApp',
               workName:this.workName,
               workid: this.workid,
               workName: this.workName,

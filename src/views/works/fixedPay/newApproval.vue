@@ -1932,6 +1932,7 @@ export default {
           this.$router.push({
             path: url,
             query: {
+              url_type: 'fixedPay',
               workid: this.workid,
               workName: this.workName,
               oaa01: this.tableData.oaa01,

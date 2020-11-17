@@ -350,7 +350,6 @@ export default {
       this.uploadData.content = command.label;
     },
     submit(){
-      // console.log(this.uploadData)
       if (this.uploadData.next_flowid == '') {
         this.$message.warning('请选择下一步骤' );
       } else if (this.uploadData.next_userid == '') {
@@ -362,6 +361,13 @@ export default {
               message: '提交成功！',
               type: 'success'
             })
+            this.$router.push({
+              path: `${this.$route.query.url_type}/check`,
+              query: {
+                workName: this.workName,
+                workid: this.uploadData.workid
+              },
+            });
           }else{
             this.$message.error('提交失败：' + res.error.message);
           }

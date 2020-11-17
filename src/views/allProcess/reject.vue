@@ -351,13 +351,19 @@ export default {
       this.uploadData.content = command.label
     },
     submit(){
-      console.log(this.uploadData)
       transact(this.uploadData).then(res=>{
         if(res.status == 200){
           this.$message({
             message: '提交成功！',
             type: 'success'
           })
+          this.$router.push({
+            path: `${this.$route.query.url_type}/check`,
+            query: {
+              workName: this.workName,
+              workid: this.uploadData.workid
+            },
+          });
         }else{
           this.$message.error('出错了！');
         }

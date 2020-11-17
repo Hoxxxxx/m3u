@@ -1001,6 +1001,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid =4069
     this.getworkflows()
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1209,6 +1210,7 @@ export default {
             this.$router.push({
               path: url,
               query: {
+                url_type: 'otherFees',
                 workid: this.workid,
                 workName: this.workName,
                 oaa01: this.tableData.oaa01,
