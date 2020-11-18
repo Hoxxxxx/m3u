@@ -212,11 +212,7 @@
                   {{tableData.oaa24}}
                 </div>
                 <div v-if="table_able.includes('oaa24')" class="infobox selectbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa24"
-                    placeholder="请输入保管人"
-                  />
+                  <div class="selector" @click="selectDialog('BGR')">{{tableData.oaa24_show}}</div>
                 </div>
                 <div class="titlebox">保管部门</div>
                 <div v-if="!table_able.includes('oaa25')" class="infobox last_row editNot">
@@ -231,8 +227,8 @@
                 <div v-if="!table_able.includes('oaa26')" class="infobox editNot">
                   {{tableData.oaa26_show}}
                 </div>
-                <div class="infobox selectbox">
-                  <div v-if="table_able.includes('oaa26')" class="selector" @click="selectDialog('WZ')">{{tableData.oaa26_show}}</div>
+                <div v-if="table_able.includes('oaa26')" class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('WZ')">{{tableData.oaa26_show}}</div>
                 </div>
                 <div class="titlebox">分摊方式</div>
                 <div class="infobox selectbox" :class="!table_able.includes('oaa27')?'disabledbox':''">
@@ -753,6 +749,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_JLDW;
           this.dataSelect.dialogTitle = "计量单位列表";
         break;
+        case "BGR":
+          let filter_BGR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_BGR;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+        break;
         case "BGBM":
           let filter_BGBM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_BGBM;
@@ -850,6 +855,10 @@ export default {
           case "JLDW":
             this.tableData.oaa23 = val[0].gfe01;
             this.tableData.oaa23_show = val[0].gfe02;
+          break;
+          case "BGR":
+            this.tableData.oaa24 = val[0].gen01;
+            this.tableData.oaa24_show = val[0].gen02;
           break;
           case "BGBM":
             this.tableData.oaa25 = val[0].gem01;

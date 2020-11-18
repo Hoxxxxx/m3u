@@ -167,11 +167,7 @@
                 </div>
                 <div class="titlebox">保管人</div>
                 <div class="infobox selectbox">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa24"
-                    placeholder="请输入保管人"
-                  />
+                  <div class="selector" @click="selectDialog('BGR')">{{showData.oaa24_show}}</div>
                 </div>
                 <div class="titlebox">保管部门</div>
                 <div class="infobox selectbox last_row">
@@ -385,6 +381,7 @@ export default {
         oaa12_show: "", //资产主类别
         oaa13_show: "", //资产次类别
         oaa23_show: "", //计量单位
+        oaa24_show: "", //保管人
         oaa25_show: "", //保管部门
         oaa26_show: "", //存放位置
         oaa28_show: "", //分摊部门
@@ -657,6 +654,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_JLDW;
           this.dataSelect.dialogTitle = "计量单位列表";
         break;
+        case "BGR":
+          let filter_BGR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_BGR;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+        break;
         case "BGBM":
           let filter_BGBM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_BGBM;
@@ -755,6 +761,10 @@ export default {
           case "JLDW":
             this.tableData.oaa23 = val[0].gfe01;
             this.showData.oaa23_show = val[0].gfe02;
+          break;
+          case "BGR":
+            this.tableData.oaa24 = val[0].gen01;
+            this.showData.oaa24_show = val[0].gen02;
           break;
           case "BGBM":
             this.tableData.oaa25 = val[0].gem01;
