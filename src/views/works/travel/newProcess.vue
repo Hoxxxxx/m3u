@@ -23,7 +23,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{ workname }}</div>
+            <div class="title">{{ workName }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -902,7 +902,7 @@
 <script>
 import SelectData from "@/components/selectData";
 import { dateFmt,number_chinese } from "@/utils/utils.js";
-import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
+import { addFlow, editFlow, workflows, openitems, workflowsList } from "@/api/process_new";
 import {
   gensList,
   azisList,
@@ -916,7 +916,6 @@ export default {
   components: { SelectData },
   data() {
     return {
-      workname: "外地差旅报销单",
       activeTab: "firTab",
       workid: "",
       workName: "外地差旅报销单（华录新媒）", //流程名
@@ -1147,16 +1146,59 @@ export default {
     }
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid
-    this.addRow1();
-    this.addRow2();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
+    this.init()
   },
   methods: {
+    // ***********初始化（判断是新建/编辑）************
+    init() {
+      if (!this.$route.query.workid) {
+        this.addRow1();
+        this.addRow2();
+      } else {
+        this.workid = this.$route.query.workid
+        this.getworkflows()
+      }
+      this.addParams.tplid = this.$route.query.tplid
+      this.getAzi(); //币种列表
+      this.getPma(); //支付方式
+    },
+    // *****************************************************
     handleClick() {
       // console.log(this.activeTab);
     },
+    // ***********获取流程信息************
+    getworkflows() {
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      const params = {
+        workid: this.workid,
+      };
+      workflowsList(params).then((res) => {
+        if (res.status == 200) {
+          loading.close();
+          this.tableData = res.data.workclass_info.from_data;
+          this.workName = res.data.workclass_info.title;
+          if (res.data.file !== null) {
+            this.addParams.annexurlid = res.data.file
+            res.data.file.forEach((item) => {
+              this.fileList.push({
+                id: item.id,
+                name: item.filename,
+                url: item.fileaddr,
+              });
+            });
+          }
+        } else {
+          loading.close();
+          this.$message.error("获取流程信息失败：" + res.error.message);
+        }
+      });
+    },
+    // *******************************************
     // ****************附件上传*****************
     // 限制格式
     beforeAvatarUpload(file) {
@@ -1253,7 +1295,6 @@ export default {
               url_type: 'travel',
               workName: this.workName,
               workid: this.workid,
-              workname: this.workname,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02,
             },
