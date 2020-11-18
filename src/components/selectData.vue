@@ -291,7 +291,6 @@ export default {
   }
   .searchInput {
     width: 270px;
-    width: 200px;
     flex: 1 1 auto;
   }
 }
