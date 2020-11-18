@@ -120,7 +120,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">出差地点</div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox longbox selectbox " :class="table_able.includes('oaa35') ? '' : 'disabledbox'">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa35">
                     <el-radio :label="1" :disabled="table_able.includes('oaa35') ? false : true">一般地区</el-radio>
                     <el-radio :label="2" :disabled="table_able.includes('oaa35') ? false : true">特殊地区</el-radio>
