@@ -534,7 +534,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { workflowsList, editFlow, transfer, addFlow} from "@/api/process_new.js"
+import { workflowsList, editFlow, transfer, } from "@/api/process_new.js"
 import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
 import { dateFmt, number_chinese } from "@/utils/utils.js";
 

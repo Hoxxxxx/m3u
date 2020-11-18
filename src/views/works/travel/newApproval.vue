@@ -1882,35 +1882,35 @@ export default {
       }
     },
     nextFuns(url) {
-        this.tableData = {...this.tableData,...this.oaz}
-        this.addParams.from_data = this.tableData;
-        this.addParams.workid = this.workid;
-        if(this.fileList_user.length > 0){
-          this.fileList_user.forEach((item) => {
-          this.addParams.annexurlid.push({
-            id: item.id,
-            filename: item.name,
-            fileaddr: item.url,
+      this.tableData = {...this.tableData,...this.oaz}
+      this.addParams.from_data = this.tableData;
+      this.addParams.workid = this.workid;
+      if(this.fileList_user.length > 0){
+        this.fileList_user.forEach((item) => {
+        this.addParams.annexurlid.push({
+          id: item.id,
+          filename: item.name,
+          fileaddr: item.url,
+        });
+      });
+      }
+      editFlow(this.addParams).then((result) => {
+        if (result.status == 200) {
+          this.$message.success("编辑成功！");
+          this.$router.push({
+            path: url,
+            query: {
+              url_type: 'travel',
+              workid: this.workid,
+              workName: this.workName,
+              oaa01: this.tableData.oaa01,
+              oaa02: this.tableData.oaa02,
+            },
           });
-        });
+        } else {
+          this.$message.error("编辑失败：" + result.error.message);
         }
-        editFlow(this.addParams).then((result) => {
-          if (result.status == 200) {
-            this.$message.success("编辑成功！");
-            this.$router.push({
-              path: url,
-              query: {
-                url_type: 'travel',
-                workid: this.workid,
-                workName: this.workName,
-                oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02,
-              },
-            });
-          } else {
-            this.$message.error("编辑失败：" + result.error.message);
-          }
-        });
+      });
     },
     // *******************************************
     // 生成凭证
