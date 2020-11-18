@@ -42,7 +42,7 @@
               <div class="form_line">
                 <div class="titlebox">费用类别</div>
                 <div class="infobox longbox">
-                  <el-radio-group class="radioGroup" v-model="tableData.oaa35">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa18">
                     <el-radio :label="1" disabled>行政费用</el-radio>
                     <el-radio :label="2" disabled>工会费用</el-radio>
                   </el-radio-group>
@@ -192,7 +192,7 @@
                   :cell-style="{ background: '#FCFDFF', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="apb02"
+                    prop="oad01"
                     label="待抵单号"
                     min-width="150px"
                     align="center"

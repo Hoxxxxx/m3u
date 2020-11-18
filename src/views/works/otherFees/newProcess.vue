@@ -917,6 +917,13 @@ export default {
       });
     },
     // ******************
+    selectWQX(){
+      if(!this.tableData.oaa04){
+        this.$message.warning('请先选择申请人！')
+      }else{
+        this.selectDialog('WQX')
+      }
+    },
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;

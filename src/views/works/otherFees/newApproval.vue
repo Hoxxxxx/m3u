@@ -55,7 +55,7 @@
                   </div>
                 </div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">{{ tableData.oaa04 }}</div>
+                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
                 <div class="titlebox">所属部门</div>
                 <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
@@ -1005,7 +1005,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid =4121
+    // this.workid = 4121
     this.getworkflows()
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1405,6 +1405,7 @@ export default {
         switch (this.dataSelect.cur_input) {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
+            this.tableData.oaa04_gen01 = val[0].gen01
             this.tableData.oaa04_show = val[0].gen02;
             this.tableData.oaa04_gen04 = val[0].gen04;
             break;
