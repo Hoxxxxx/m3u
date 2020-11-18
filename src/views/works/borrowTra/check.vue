@@ -49,8 +49,8 @@
                   <el-date-picker
                     v-model="tableData.oaa31"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     disabled
                   >
                   </el-date-picker>
@@ -60,8 +60,8 @@
                   <el-date-picker
                     v-model="tableData.oaa32"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     disabled
                   >
                   </el-date-picker>
@@ -71,8 +71,8 @@
                   <el-date-picker
                     v-model="tableData.oaa33"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     disabled
                   >
                   </el-date-picker>
@@ -82,8 +82,8 @@
                   <el-date-picker
                     v-model="tableData.oaa34"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     disabled
                   >
                   </el-date-picker>
@@ -177,8 +177,8 @@
                   <el-date-picker
                     v-model="tableData.oaa21"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     disabled
                   >
                   </el-date-picker>

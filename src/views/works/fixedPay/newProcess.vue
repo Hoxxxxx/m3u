@@ -272,6 +272,8 @@
                           style="width: 100%"
                           type="date"
                           placeholder="发票日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -649,6 +651,8 @@
                           type="date"
                           disabled
                           placeholder=""
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>

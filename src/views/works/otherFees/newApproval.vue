@@ -485,6 +485,8 @@
                           disabled
                           type="date"
                           placeholder="选择借款日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -590,6 +592,8 @@
                           type="date"
                           disabled
                           placeholder=""
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -690,8 +694,8 @@
                     <el-date-picker
                       v-model="oaz.oaz03"
                       type="date"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
                     >
                     </el-date-picker>
                   </div>

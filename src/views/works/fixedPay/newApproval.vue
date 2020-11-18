@@ -273,6 +273,20 @@
                     min-width="130px"
                     align="center"
                   >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.oaf02"
+                          style="width: 100%"
+                          type="date"
+                          placeholder="发票日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
+                          disabled
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oaf03"
@@ -427,6 +441,8 @@
                           style="width: 100%"
                           type="date"
                           placeholder="发票日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -953,6 +969,8 @@
                           type="date"
                           disabled
                           placeholder=""
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -1053,8 +1071,8 @@
                     <el-date-picker
                       v-model="oaz.oaz03"
                       type="date"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
                     >
                     </el-date-picker>
                   </div>

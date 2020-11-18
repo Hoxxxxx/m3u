@@ -212,6 +212,8 @@
                           disabled
                           type="date"
                           placeholder="选择借款日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
