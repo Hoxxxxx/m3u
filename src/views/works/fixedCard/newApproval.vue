@@ -227,8 +227,8 @@
                 <div v-if="!table_able.includes('oaa26')" class="infobox editNot">
                   {{tableData.oaa26_show}}
                 </div>
-                <div class="infobox selectbox">
-                  <div v-if="table_able.includes('oaa26')" class="selector" @click="selectDialog('WZ')">{{tableData.oaa26_show}}</div>
+                <div v-if="table_able.includes('oaa26')" class="infobox selectbox">
+                  <div class="selector" @click="selectDialog('WZ')">{{tableData.oaa26_show}}</div>
                 </div>
                 <div class="titlebox">分摊方式</div>
                 <div class="infobox selectbox" :class="!table_able.includes('oaa27')?'disabledbox':''">
