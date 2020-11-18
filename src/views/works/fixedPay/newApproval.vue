@@ -1374,7 +1374,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4064
+    this.workid = 4208
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1477,14 +1477,14 @@ export default {
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码
             oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : new Date(), //记账日期
             oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
-            oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa12, //支付方式
+            oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa16, //支付方式
             oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
           }
           this.financialData ={
             bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
             num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
             oaz04_show:res.data.workclass_info.from_data.oaz04_show,//账款类型回显数据
-            oaz05_show: res.data.workclass_info.from_data.oaz05_show ? res.data.workclass_info.from_data.oaz05_show : res.data.workclass_info.from_data.oaa12_show, //支付方式回显数据
+            oaz05_show: res.data.workclass_info.from_data.oaa16_show, //支付方式回显数据
           }
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
@@ -1919,7 +1919,6 @@ export default {
     // ****************其他操作*******************
     // 下一步
     nextStep(url) {
-      this.tableData = {...this.tableData,...this.oaz}
       if (url == "/agree" && this.oazShow == 1) {
         console.log(this.oaz, this.oazShow);
         if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
@@ -1933,6 +1932,7 @@ export default {
       
     },
     nextFuns(url) {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData;
       this.addParams.workid = this.workid;
       if(this.fileList_user.length > 0){
@@ -1944,6 +1944,7 @@ export default {
         });
       });
       }
+      
       editFlow(this.addParams).then((result) => {
         if (result.status == 200) {
           this.$message.success("编辑成功！");
@@ -1972,9 +1973,9 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
       });
-
       this.addParams.from_data = {...this.tableData,...this.oaz};
       this.addParams.workid = this.workid;
+      console.log(this.addParams)
       addFlow(this.addParams).then((res) => {
         if (res.status == 200) {
           let params = {
