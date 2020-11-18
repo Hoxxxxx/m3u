@@ -689,7 +689,7 @@
               </div>
               <!-- 冲销信息 -->
               <div class="title_line">
-                <el-button type="primary" size="small" style="position:absolute;left:4px;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
+                <el-button type="primary" size="small" style="position:absolute;left:4px;top:4px;" @click="selectWQX()">选择未清项</el-button>
                 冲销信息
               </div>
               <div>
@@ -1365,6 +1365,13 @@ export default {
       });
     },
     // ******************
+    selectWQX(){
+      if(!this.tableData.oaa04){
+        this.$message.warning('请先选择申请人！')
+      }else{
+        this.selectDialog('WQX')
+      }
+    },
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;

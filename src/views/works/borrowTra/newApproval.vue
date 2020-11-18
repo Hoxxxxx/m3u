@@ -120,7 +120,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">出差地点</div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox longbox selectbox " :class="table_able.includes('oaa35') ? '' : 'disabledbox'">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa35">
                     <el-radio :label="1" :disabled="table_able.includes('oaa35') ? false : true">一般地区</el-radio>
                     <el-radio :label="2" :disabled="table_able.includes('oaa35') ? false : true">特殊地区</el-radio>
@@ -648,7 +648,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4088
+    // this.workid = 4145
     this.getworkflows()
     this.getGens()
     this.getAzis()
@@ -869,7 +869,7 @@ export default {
     // 下一步
     nextStep(url) {
       if (url == "/agree" && this.oazShow == 1) {
-        if (this.oaz.oaz06 == "") {
+        if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
         } else {
           console.log(this.oaz,this.oazShow)
