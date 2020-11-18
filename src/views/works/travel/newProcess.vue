@@ -5,7 +5,7 @@
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
         <el-button type="primary" class="save" @click="addNewFlow()"
-          >暂存</el-button
+          >保存</el-button
         >
         <el-button type="primary" class="next" @click="nextStep()"
           >下一步</el-button
@@ -23,7 +23,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{ workname }}</div>
+            <div class="title">{{ workName }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -916,10 +916,9 @@ export default {
   components: { SelectData },
   data() {
     return {
-      workname: "外地差旅报销单",
       activeTab: "firTab",
       workid: "",
-      workName: "外地差旅报销单（华录新媒）", //流程名
+      workName: "外地差旅报销单", //流程名
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
@@ -1003,7 +1002,6 @@ export default {
         annexurlid: [],
         tplid: 8943,
       },
-
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -1251,9 +1249,8 @@ export default {
             path: "/apply",
             query: {
               url_type: 'travel',
-              workName: this.workName,
               workid: this.workid,
-              workname: this.workname,
+              workName: this.workName,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02,
             },
