@@ -1262,6 +1262,13 @@ export default {
       });
     },
     // ******************
+    selectWQX(){
+      if(!this.tableData.oaa04){
+        this.$message.warning('请先选择申请人！')
+      }else{
+        this.selectDialog('WQX')
+      }
+    },
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
@@ -1333,7 +1340,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "title" }];
+          let filter_GDZCSQD = [{ label: "", model_key_search: "title" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.addParams.tplid, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

@@ -376,7 +376,7 @@
                   :cell-style="{ background: '#FCFDFF', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="apb02"
+                    prop="oad01"
                     label="待抵单号"
                     min-width="150px"
                     align="center"

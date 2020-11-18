@@ -9,15 +9,17 @@
       <div class="selectTitle">{{ dialogTitle }}</div>
       <div class="filterBox" v-if="filter.length > 0">
         <div class="filter">
-          <el-input
-            v-for="(item, index) in filter"
-            :key="index"
-            @clear="search_all"
-            :clearable="true"
-            v-model="filter_key[item.model_key_search]"
-            :placeholder="`请输入${item.label == '' ? '关键词' : item.label}`"
-            class="searchInput"
-          ></el-input>
+          <div class="searchInputBox" v-for="(item, index) in filter" :key="index">
+            <el-input
+              v-if="!item.hide"
+              @clear="search_all"
+              :clearable="true"
+              v-model="filter_key[item.model_key_search]"
+              :placeholder="`请输入${item.label == '' ? '关键词' : item.label}`"
+              class="searchInput"
+              :disabled="item.disabled"
+            ></el-input>
+          </div>
           <el-button class="searchBtn" @click="search_single()"
             >搜 索</el-button
           >
@@ -135,7 +137,7 @@ export default {
   },
   data() {
     return {
-      showLoading:false,
+      showLoading: false,
       dialogShow: false,
       filter_key: {}, //条件筛选的值
       msg_key: {}, //需要显示的数据
@@ -145,11 +147,11 @@ export default {
     };
   },
   watch: {
-    isLoading:{
-      handler(newval,oldval){
-        this.showLoading = newval
+    isLoading: {
+      handler(newval, oldval) {
+        this.showLoading = newval;
       },
-      immediate:true
+      immediate: true,
     },
     dialogVisible: {
       handler(newval, oldval) {
@@ -186,12 +188,12 @@ export default {
           let res = {};
           newval.forEach((ele) => {
             let temp = ele.model_key_search;
-            res[temp] = "";
+            res[temp] = ele.value ? ele.value : "";
           });
           this.filter_key = res;
         }
       },
-      deep:true
+      deep: true,
     },
     keyMsg: {
       handler(newval, oldval) {
@@ -239,7 +241,7 @@ export default {
           }
         });
       } else {
-        let temp = this.searchParams ? this.searchParams : {}
+        let temp = this.searchParams ? this.searchParams : {};
         let params = { ...temp, ...this.filter_key };
         request.get(this.searchApi, {}, { params }).then((res) => {
           if (res.status == 200 || res.code == 0) {
@@ -284,11 +286,13 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  .searchInput {
-    max-width: 270px;
-    min-width: 200px;
-    flex: 1 1 auto;
+  .searchInputBox{
     margin: 0 10px 10px 0;
+  }
+  .searchInput {
+    width: 270px;
+    width: 200px;
+    flex: 1 1 auto;
   }
 }
 .extraBtns {
