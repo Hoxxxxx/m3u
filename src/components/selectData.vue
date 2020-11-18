@@ -9,7 +9,11 @@
       <div class="selectTitle">{{ dialogTitle }}</div>
       <div class="filterBox" v-if="filter.length > 0">
         <div class="filter">
-          <div class="searchInputBox" v-for="(item, index) in filter" :key="index">
+          <div
+            class="searchInputBox"
+            v-for="(item, index) in filter"
+            :key="index"
+          >
             <el-input
               v-if="!item.hide"
               @clear="search_all"
@@ -286,7 +290,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  .searchInputBox{
+  .searchInputBox {
     margin: 0 10px 10px 0;
   }
   .searchInput {

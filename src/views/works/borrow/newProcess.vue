@@ -239,6 +239,8 @@
       :choosedData="dataSelect.choosedData"
       :editType.sync="dataSelect.editType"
       :searchApi="dataSelect.searchApi"
+      :searchType="dataSelect.searchType"
+      :searchParams="dataSelect.searchParams"
       :filter="dataSelect.filter"
       :keyMsg="dataSelect.keyMsg"
       @selectSure="selectSure"
@@ -626,7 +628,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "title" }];
+          let filter_CCSQD = [{ label: "", model_key_search: "title" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.addParams.tplid, hide:true }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

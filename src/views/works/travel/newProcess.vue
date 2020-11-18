@@ -1417,7 +1417,6 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          console.log(this.addParams)
           let filter_CCSQD = [{ label: "", model_key_search: "title"},{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.addParams.tplid, hide:true }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
