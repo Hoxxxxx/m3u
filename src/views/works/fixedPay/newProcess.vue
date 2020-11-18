@@ -1216,9 +1216,9 @@ export default {
       });
     },
     change_SB(rowIndex) {
-      this.tableData.oaf[rowIndex].sqjeBB = (this.tableData.oaf[rowIndex].oaf03_gec04 * this.tableData.oaf[rowIndex].oaf05).toFixed(2)
-      this.tableData.oaf[rowIndex].seBB = (this.tableData.oaf[rowIndex].oaf03_gec04 * this.tableData.oaf[rowIndex].oaf06).toFixed(2)
-      this.tableData.oaf[rowIndex].hsjeBB = (this.tableData.oaf[rowIndex].oaf03_gec04 * this.tableData.oaf[rowIndex].oaf07).toFixed(2)
+      this.tableData.oaf[rowIndex].sqjeBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf05).toFixed(2)
+      this.tableData.oaf[rowIndex].seBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf06).toFixed(2)
+      this.tableData.oaf[rowIndex].hsjeBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf07).toFixed(2)
     },
     change_HSJE(rowIndex) {
       this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / 1.06).toFixed(2)
