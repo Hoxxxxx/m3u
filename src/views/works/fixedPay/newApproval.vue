@@ -1189,6 +1189,7 @@ import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow, transfer, addFlow } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
+import {dateFmt} from '@/utils/utils'
 
 export default {
   components: {SelectData},
@@ -1250,7 +1251,7 @@ export default {
       oaz: {
         oaz01: "", //银行
         oaz02: "", //异动码
-        oaz03: new Date(), //记账日期
+        oaz03: dateFmt(new Date()), //记账日期
         oaz04: "", //账款类型
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
@@ -1471,15 +1472,11 @@ export default {
           this.workName = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
           this.workclass_perflow = res.data.workclass_perflow
-          this.oazShow = res.data.workclass_flow.erp_turn
-          // this.oaz.oaz05 = res.data.workclass_info.from_data.oaa16;
-          // this.oaz.oaz06 = res.data.workclass_info.from_data.oaz06;
-          // this.financialData.oaz05_show =
-          //   res.data.workclass_info.from_data.oaa16_show;
+          this.oazShow = 1
           this.oaz = {
             oaz01: res.data.workclass_info.from_data.oaz01, //银行
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码
-            oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : new Date(), //记账日期
+            oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : dateFmt(new Date()), //记账日期
             oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
             oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa16, //支付方式
             oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
@@ -1488,7 +1485,7 @@ export default {
             bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
             num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
             oaz04_show:res.data.workclass_info.from_data.oaz04_show,//账款类型回显数据
-            oaz05_show: res.data.workclass_info.from_data.oaa16_show, //支付方式回显数据
+            oaz05_show: res.data.workclass_info.from_data.oaz05_show ? res.data.workclass_info.from_data.oaz05_show : res.data.workclass_info.from_data.oaa16_show , //支付方式回显数据
           }
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
@@ -1512,7 +1509,7 @@ export default {
     addRow1() {
       let data = {
         oaf01: "", //发票号码
-        oaf02: new Date(), //发票日期
+        oaf02: "", //发票日期
         oaf03: "", //税别
         oaf03_gec04: "1", //税率
         oaf05: "0.00", //税前金额（原币）

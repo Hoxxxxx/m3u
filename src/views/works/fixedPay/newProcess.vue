@@ -853,7 +853,7 @@ export default {
       oaz: {
         oaz01: "", //银行
         oaz02: "", //异动码
-        oaz03: new Date(), //记账日期
+        oaz03: "", //记账日期
         oaz04: "", //账款类型
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
@@ -1164,7 +1164,7 @@ export default {
     addRow1() {
       let data = {
         oaf01: "", //发票号码
-        oaf02: new Date(), //发票日期
+        oaf02: dateFmt(new Date()), //发票日期
         oaf03: "", //税别
         oaf03_gec04: "1", //税率
         oaf05: "0.00", //税前金额（原币）
@@ -1268,13 +1268,6 @@ export default {
       });
     },
     // ******************
-    selectWQX(){
-      if(!this.tableData.oaa04){
-        this.$message.warning('请先选择申请人！')
-      }else{
-        this.selectDialog('WQX')
-      }
-    },
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
@@ -1365,15 +1358,13 @@ export default {
         break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
-          if (this.tableData.oaa04 == '') {
-            this.$message.warning("请先选择申请人！" );
-          } else if (this.tableData.oaa11 == '') {
+          if (this.tableData.oaa11 == '') {
             this.$message.warning("请先选择厂商信息！" );
           } else {
             this.dataSelect.dialogVisible = true;
             let params = {
               type:1,
-              number:this.tableData.oaa04
+              number:this.tableData.oaa11
             }
             this.dataSelect.editType = "search"
             this.dataSelect.searchParams = params

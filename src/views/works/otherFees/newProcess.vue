@@ -626,7 +626,7 @@ export default {
       oaz: {
         oaz01: "", //银行
         oaz02: "", //异动码
-        oaz03: new Date(), //记账日期
+        oaz03: '', //记账日期
         oaz04: "", //账款类型
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
@@ -968,17 +968,24 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "WQX":
-          let params = {
-            type:1,
-            number:this.tableData.oaa04
+          this.dataSelect.dialogVisible = false;
+          if (this.tableData.oaa04 == '') {
+            this.$message.warning("请先选择申请人！" );
+          } else {
+            this.dataSelect.dialogVisible = true;
+            let params = {
+              type:1,
+              number:this.tableData.oaa04
+            }
+            this.dataSelect.editType = "search"
+            this.dataSelect.searchParams = params
+            this.dataSelect.filter = [];
+            this.dataSelect.searchType = "single"
+            this.dataSelect.searchApi = "oa/openitems";
+            this.selectLoading = false;
+            this.dataSelect.headList = this.tableHead.head_WQX;
+            this.dataSelect.dialogTitle = "未清项列表";
           }
-          this.dataSelect.editType = "search"
-          this.dataSelect.searchParams = params
-          this.dataSelect.filter = [];
-          this.dataSelect.searchType = "single"
-          this.dataSelect.searchApi = "oa/openitems";
-          this.dataSelect.headList = this.tableHead.head_WQX;
-          this.dataSelect.dialogTitle = "未清项列表";
           break;
         default:
           return;

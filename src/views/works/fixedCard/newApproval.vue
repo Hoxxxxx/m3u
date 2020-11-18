@@ -878,7 +878,7 @@ export default {
             this.tableData.oaa30 = val[0].pja01;
           break;
           case "WBS":
-            this.tableData.oaa31 = val[0].pjb01;
+            this.tableData.oaa31 = val[0].pjb02;
           break;
           case "SQD":
             this.tableData.oaa34 = val[0].id;

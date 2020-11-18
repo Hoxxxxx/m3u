@@ -1417,7 +1417,7 @@ export default {
       oaz: {
         oaz01: "", //银行
         oaz02: "", //异动码
-        oaz03: new Date(), //记账日期
+        oaz03: "", //记账日期
         oaz04: "", //账款类型
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
@@ -1656,14 +1656,10 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able
           this.oazShow = res.data.workclass_flow.erp_turn
-          // this.oaz.oaz05 = res.data.workclass_info.from_data.oaa12;
-          // this.oaz.oaz06 = res.data.workclass_info.from_data.oaz06;
-          // this.financialData.oaz05_show =
-          //   res.data.workclass_info.from_data.oaa12_show;
           this.oaz = {
             oaz01: res.data.workclass_info.from_data.oaz01, //银行
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码
-            oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : new Date(), //记账日期
+            oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : dateFmt(new Date()), //记账日期
             oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
             oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa12, //支付方式
             oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
