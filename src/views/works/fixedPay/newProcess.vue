@@ -1358,15 +1358,13 @@ export default {
         break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
-          if (this.tableData.oaa04 == '') {
-            this.$message.warning("请先选择申请人！" );
-          } else if (this.tableData.oaa11 == '') {
+          if (this.tableData.oaa11 == '') {
             this.$message.warning("请先选择厂商信息！" );
           } else {
             this.dataSelect.dialogVisible = true;
             let params = {
               type:1,
-              number:this.tableData.oaa04
+              number:this.tableData.oaa11
             }
             this.dataSelect.editType = "search"
             this.dataSelect.searchParams = params
