@@ -4,14 +4,15 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <!-- <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button> -->
+        <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button>
+        <el-button v-if="workclass_personnel.perid.flownum==1" type="primary" class="next" @click="nextStep('/apply')">下一步</el-button>
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
         <!-- <el-button class="normal">挂起</el-button> -->
         <!-- <el-button class="normal">增加会签人</el-button> -->
         <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
-        <el-button type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
-        <el-button type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
-        <el-button type="primary" class="back" @click="nextStep('/back')">退回</el-button>
+        <el-button v-if="workclass_personnel.perid.flownum!==1" type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
+        <el-button v-if="workclass_personnel.perid.flownum!==1" type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
+        <el-button v-if="workclass_personnel.perid.flownum!==1" type="primary" class="back" @click="nextStep('/back')">退回</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -1262,8 +1263,10 @@ export default {
         annexurlid: [],
         tplid: 8948
       },
-      // 当前流程列表
-      workclass_perflow: [],
+      workclass_personnel: {
+        perid: {flownum: ''}
+      }, //流程详情
+      workclass_perflow: [], //已流转流程进度
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -1374,7 +1377,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    this.workid = 4208
+    // this.workid = 4208
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1466,6 +1469,7 @@ export default {
             this.change_HSJE(index)
           })
           this.workName = res.data.workclass_info.title
+          this.workclass_personnel = res.data.workclass_personnel;
           this.workclass_perflow = res.data.workclass_perflow
           this.oazShow = res.data.workclass_flow.erp_turn
           // this.oaz.oaz05 = res.data.workclass_info.from_data.oaa16;
@@ -1917,6 +1921,28 @@ export default {
       }
     },
     // ****************其他操作*******************
+    // 保存
+    editNewFlow() {
+      this.tableData = {...this.tableData,...this.oaz}
+      this.addParams.from_data = this.tableData;
+      this.addParams.workid = this.workid;
+      if(this.fileList_user.length > 0){
+        this.fileList_user.forEach((item) => {
+        this.addParams.annexurlid.push({
+          id: item.id,
+          filename: item.name,
+          fileaddr: item.url,
+        });
+      });
+      }
+      editFlow(this.addParams).then((result) => {
+        if (result.status == 200) {
+          this.$message.success("编辑成功！");
+        } else {
+          this.$message.error("编辑失败：" + result.error.message);
+        }
+      });
+    },
     // 下一步
     nextStep(url) {
       if (url == "/agree" && this.oazShow == 1) {
