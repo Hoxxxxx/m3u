@@ -260,8 +260,8 @@
                   <el-date-picker
                     v-model="tableData.oaa29"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     :disabled="!table_able.includes('oaa29')"
                   >
                   </el-date-picker>
@@ -287,8 +287,8 @@
                   <el-date-picker
                     v-model="tableData.oaa32"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     :disabled="!table_able.includes('oaa32')"
                   >
                   </el-date-picker>

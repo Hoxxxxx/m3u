@@ -140,6 +140,8 @@
                           disabled
                           type="date"
                           placeholder="开始日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -159,6 +161,8 @@
                           disabled
                           type="date"
                           placeholder="结束日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -396,6 +400,8 @@
                           disabled
                           type="date"
                           placeholder=""
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>

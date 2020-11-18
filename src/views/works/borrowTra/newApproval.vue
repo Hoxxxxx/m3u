@@ -67,8 +67,8 @@
                   <el-date-picker
                     v-model="tableData.oaa31"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     :disabled="table_able.includes('oaa31')?false:true"
                   >
                   </el-date-picker>
@@ -78,8 +78,8 @@
                   <el-date-picker
                     v-model="tableData.oaa32"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     :disabled="table_able.includes('oaa32')?false:true"
                   >
                   </el-date-picker>
@@ -89,8 +89,8 @@
                   <el-date-picker
                     v-model="tableData.oaa33"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     :disabled="table_able.includes('oaa33')?false:true"
                   >
                   </el-date-picker>
@@ -100,8 +100,8 @@
                   <el-date-picker
                     v-model="tableData.oaa34"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     :disabled="table_able.includes('oaa34')?false:true"
                   >
                   </el-date-picker>
@@ -308,8 +308,8 @@
                   <el-date-picker
                     v-model="tableData.oaa21"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     :disabled="table_able.includes('oaa21')?false:true"
                   >
                   </el-date-picker>
@@ -401,8 +401,8 @@
                     <el-date-picker
                       v-model="oaz.oaz03"
                       type="date"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
+                      format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                     >
                     </el-date-picker>
                   </div>

@@ -137,8 +137,8 @@
                   <el-date-picker
                     v-model="tableData.oaa18"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="yyyy/MM/dd"
+                    value-format="yyyy/MM/dd"
                   >
                   </el-date-picker>
                 </div>

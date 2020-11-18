@@ -246,6 +246,8 @@
                           style="width: 100%"
                           type="date"
                           placeholder="开始日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -264,6 +266,8 @@
                           style="width: 100%"
                           type="date"
                           placeholder="结束日期"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                         >
                         </el-date-picker>
                       </div>
@@ -751,6 +755,8 @@
                           v-model="scope.row.date"
                           style="width: 100%"
                           type="date"
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
                           disabled
                           placeholder=""
                         >
