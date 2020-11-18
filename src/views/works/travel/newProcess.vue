@@ -1415,7 +1415,7 @@ export default {
           break;
         case "CCSQD":
           let filter_CCSQD = [{ label: "", model_key_search: "title"},
-          { label: "tplid", model_key_search: "tplid", disabled:true , value:this.addParams.tplid, hide:true }];
+          { label: "tplid", model_key_search: "tplid", disabled:true , value:8941, hide:true }];
           console.log(filter_CCSQD)
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
