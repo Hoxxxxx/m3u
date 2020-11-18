@@ -1164,7 +1164,7 @@ export default {
     addRow1() {
       let data = {
         oaf01: "", //发票号码
-        oaf02: new Date(), //发票日期
+        oaf02: dateFmt(new Date()), //发票日期
         oaf03: "", //税别
         oaf03_gec04: "1", //税率
         oaf05: "0.00", //税前金额（原币）
