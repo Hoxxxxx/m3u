@@ -3,7 +3,7 @@
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
-        <el-button type="primary" class="save" @click="addNewFlow()">暂存</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
         <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">

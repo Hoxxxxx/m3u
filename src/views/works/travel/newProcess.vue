@@ -5,7 +5,7 @@
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
         <el-button type="primary" class="save" @click="addNewFlow()"
-          >暂存</el-button
+          >保存</el-button
         >
         <el-button type="primary" class="next" @click="nextStep()"
           >下一步</el-button
@@ -902,7 +902,7 @@
 <script>
 import SelectData from "@/components/selectData";
 import { dateFmt,number_chinese } from "@/utils/utils.js";
-import { addFlow, editFlow, workflows, openitems, workflowsList } from "@/api/process_new";
+import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {
   gensList,
   azisList,
@@ -918,7 +918,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: "",
-      workName: "外地差旅报销单（华录新媒）", //流程名
+      workName: "外地差旅报销单", //流程名
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
@@ -1002,7 +1002,6 @@ export default {
         annexurlid: [],
         tplid: 8943,
       },
-
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -1146,59 +1145,16 @@ export default {
     }
   },
   created() {
-    this.init()
+    this.addParams.tplid = this.$route.query.tplid
+    this.addRow1();
+    this.addRow2();
+    this.getAzi(); //币种列表
+    this.getPma(); //支付方式
   },
   methods: {
-    // ***********初始化（判断是新建/编辑）************
-    init() {
-      if (!this.$route.query.workid) {
-        this.addRow1();
-        this.addRow2();
-      } else {
-        this.workid = this.$route.query.workid
-        this.getworkflows()
-      }
-      this.addParams.tplid = this.$route.query.tplid
-      this.getAzi(); //币种列表
-      this.getPma(); //支付方式
-    },
-    // *****************************************************
     handleClick() {
       // console.log(this.activeTab);
     },
-    // ***********获取流程信息************
-    getworkflows() {
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
-      const params = {
-        workid: this.workid,
-      };
-      workflowsList(params).then((res) => {
-        if (res.status == 200) {
-          loading.close();
-          this.tableData = res.data.workclass_info.from_data;
-          this.workName = res.data.workclass_info.title;
-          if (res.data.file !== null) {
-            this.addParams.annexurlid = res.data.file
-            res.data.file.forEach((item) => {
-              this.fileList.push({
-                id: item.id,
-                name: item.filename,
-                url: item.fileaddr,
-              });
-            });
-          }
-        } else {
-          loading.close();
-          this.$message.error("获取流程信息失败：" + res.error.message);
-        }
-      });
-    },
-    // *******************************************
     // ****************附件上传*****************
     // 限制格式
     beforeAvatarUpload(file) {
@@ -1293,8 +1249,8 @@ export default {
             path: "/apply",
             query: {
               url_type: 'travel',
-              workName: this.workName,
               workid: this.workid,
+              workName: this.workName,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02,
             },
