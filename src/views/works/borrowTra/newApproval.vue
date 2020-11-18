@@ -648,7 +648,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4088
+    // this.workid = 4145
     this.getworkflows()
     this.getGens()
     this.getAzis()
@@ -869,7 +869,7 @@ export default {
     // 下一步
     nextStep(url) {
       if (url == "/agree" && this.oazShow == 1) {
-        if (this.oaz.oaz06 == "") {
+        if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
         } else {
           console.log(this.oaz,this.oazShow)

@@ -1904,7 +1904,7 @@ export default {
       this.tableData = {...this.tableData,...this.oaz}
       if (url == "/agree" && this.oazShow == 1) {
         console.log(this.oaz, this.oazShow);
-        if (this.oaz.oaz06 == "") {
+        if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
         } else {
           this.nextFuns(url);

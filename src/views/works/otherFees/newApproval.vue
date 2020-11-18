@@ -465,7 +465,7 @@
                   :cell-style="{ background: '#FCFDFF', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="apb02"
+                    prop="oad01"
                     label="待抵单号"
                     min-width="150px"
                     align="center"
@@ -561,7 +561,7 @@
                     </template>
                   </el-table-column> -->
                   <el-table-column
-                    prop="id"
+                    prop="oad01"
                     label="待抵单号"
                     min-width="150px"
                     align="center"
@@ -569,7 +569,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.id"
+                          v-model="scope.row.oad01"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -1001,7 +1001,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid =4069
+    this.workid =4121
     this.getworkflows()
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1182,7 +1182,7 @@ export default {
     nextStep(url) {
       if (url == "/agree" && this.oazShow == 1) {
         console.log(this.oaz,this.oazShow)
-        if (this.oaz.oaz06 == "") {
+        if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
         } else {
           this.nextFuns(url);
@@ -1416,7 +1416,7 @@ export default {
           case "WQX":
             val.forEach(item =>{
               this.$set(item,'oad02','')
-              this.$set(item,'oad01',item.id)
+              this.$set(item,'oad01',item.oad01)
             })
             this.tableData.oad = val
             break;
