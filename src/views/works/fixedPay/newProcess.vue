@@ -853,7 +853,7 @@ export default {
       oaz: {
         oaz01: "", //银行
         oaz02: "", //异动码
-        oaz03: new Date(), //记账日期
+        oaz03: "", //记账日期
         oaz04: "", //账款类型
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
@@ -1268,13 +1268,6 @@ export default {
       });
     },
     // ******************
-    selectWQX(){
-      if(!this.tableData.oaa04){
-        this.$message.warning('请先选择申请人！')
-      }else{
-        this.selectDialog('WQX')
-      }
-    },
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;

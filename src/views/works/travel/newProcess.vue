@@ -957,7 +957,7 @@ export default {
       oaz: {
         oaz01: "", //银行
         oaz02: "", //异动码
-        oaz03: new Date(), //记账日期
+        oaz03: '', //记账日期
         oaz04: "", //账款类型
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
@@ -1417,7 +1417,9 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "title"},{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.addParams.tplid, hide:true }];
+          let filter_CCSQD = [{ label: "", model_key_search: "title"},
+          { label: "tplid", model_key_search: "tplid", disabled:true , value:this.addParams.tplid, hide:true }];
+          console.log(filter_CCSQD)
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

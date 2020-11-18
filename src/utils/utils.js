@@ -11,7 +11,7 @@ export function dateFmt(value) {
     if (d < 10) {
       d = "0" + d;
     }
-    return y + '-' + m + '-' + d;
+    return y + '/' + m + '/' + d;
   } else {
     return "";
   }
