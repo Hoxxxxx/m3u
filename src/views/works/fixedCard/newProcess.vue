@@ -4,7 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow()">暂存</el-button>
         <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
@@ -335,7 +335,7 @@
 import SelectData from "@/components/selectData";
 // api
 import { azisList,  } from "@/api/basic";
-import { addFlow,  } from "@/api/process_new";
+import { addFlow, editFlow } from "@/api/process_new";
 
 export default {
   components: {SelectData},
@@ -556,49 +556,52 @@ export default {
     },
     // *******************************************
     // ****************其他操作*******************
-    // 新增表单
+    // 新增（暂存）表单
     addNewFlow() {
+      this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData
-      addFlow(this.addParams)
-      .then( result => {
-        if (result.status == 200) {
-          this.workid = result.data.workid
-          this.tableData.oaa01 = result.data.oaa01
-          this.tableData.oaa02 = result.data.oaa02
-          this.$message.success("保存成功！");
-        } else {
-          this.$message.error("保存失败：" + result.error.message);
-        }
-      })
+      if (this.workid == '') {
+        addFlow(this.addParams)
+        .then( result => {
+          if (result.status == 200) {
+            this.workid = result.data.workid
+            this.tableData.oaa01 = result.data.oaa01
+            this.tableData.oaa02 = result.data.oaa02
+            this.$message.success("保存成功！");
+          } else {
+            this.$message.error("保存失败：" + result.error.message);
+          }
+        })
+      } else {
+        this.addParams.workid = this.workid;
+        editFlow(this.addParams).then((result) => {
+          if (result.status == 200) {
+            this.$message.success("保存成功！");
+          } else {
+            this.$message.error("保存失败：" + result.error.message);
+          }
+        });
+      }
     },
     // 下一步
     nextStep() {
-      this.addParams.from_data = this.tableData
-      addFlow(this.addParams)
-      .then( result => {
-        if (result.status == 200) {
-          this.workid = result.data.workid
-          this.tableData.oaa01 = result.data.oaa01
-          this.tableData.oaa02 = result.data.oaa02
-          // this.$message.success("保存成功！");
-        } else {
-          this.$message.error("保存失败：" + result.error.message);
-        }
-      })
-      .then(() => {
-        this.$router.push(
-          {
-            path:'/apply',
-            query: {
-              url_type: 'fixedCard',
-              workName:this.workName,
-              workid: this.workid,
-              workName: this.workName,
-              oaa01: this.tableData.oaa01,
-              oaa02: this.tableData.oaa02
+      this.addNewFlow()
+      this.$nextTick(() => {
+        if (this.workid !== '') {
+          this.$router.push(
+            {
+              path:'/apply',
+              query: {
+                url_type: 'fixedCard',
+                workName:this.workName,
+                workid: this.workid,
+                workName: this.workName,
+                oaa01: this.tableData.oaa01,
+                oaa02: this.tableData.oaa02
+              }
             }
-          }
-        )
+          )
+        }
       });
     },
     // ******************************************
