@@ -370,7 +370,7 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8944
+        tplid: 8951
       },
       workclass_personnel: {perid: {flownum: ''}}, //流程详情
       workclass_perflow: [], //已流转流程进度
@@ -449,7 +449,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4113
+    this.workid = 4353
     this.getworkflows()
     this.getGens()
     this.getAzis()

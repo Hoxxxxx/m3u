@@ -215,7 +215,7 @@ export default {
     return {
       overloading: '', //加载定时器
       workid: '',
-      workname: '借款申请',
+      workname: '预付款申请',
       activeTab: "firTab",
       tableData: {},
       // 汇率数据
@@ -235,7 +235,7 @@ export default {
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8936
+        tplid: 8951
       },
       // 当前流程列表
       workclass_perflow: [],
@@ -243,6 +243,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    this,this.workid = 4353
     this.getworkflows()
   },
   methods: {
