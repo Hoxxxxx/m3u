@@ -190,6 +190,22 @@ const routes = [{
     name: 'fixedPay_approval',
     component: () => import('@/views/works/fixedPay/newApproval')
   },
+  // 付款冲账申请
+  {
+    path: '/r0103',
+    name: 'r0103',
+    component: () => import('@/views/works/r0103/newProcess') 
+  },
+  {
+    path: '/r0103/check',
+    name: 'r0103_check',
+    component: () => import('@/views/works/r0103/check')
+  },
+  {
+    path: '/r0103/approval',
+    name: 'r0103_approval',
+    component: () => import('@/views/works/r0103/newApproval')
+  },
 
 ]
 

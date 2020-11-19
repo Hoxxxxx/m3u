@@ -113,6 +113,18 @@ export default {
           name: "固定资产付款——查看",
           path: "/fixedPay/check",
         },
+        {
+          name: "付款冲账——申请",
+          path: "/r0103",
+        },
+        {
+          name: "付款冲账——审核",
+          path: "/r0103/approval",
+        },
+        {
+          name: "付款冲账——查看",
+          path: "/r0103/check",
+        },
       ]
     };
   },
