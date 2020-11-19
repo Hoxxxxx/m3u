@@ -387,27 +387,68 @@
                     min-width="150px"
                     align="center"
                   >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oad01"
+                          placeholder=""
+                          disabled
+                        ></el-input>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
-                    prop="date"
+                    prop="oad03"
                     label="借款日期"
                     min-width="130px"
                     align="center"
                   >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-date-picker
+                          v-model="scope.row.oad03"
+                          style="width: 100%"
+                          type="date"
+                          disabled
+                          placeholder=""
+                          format="yyyy/MM/dd"
+                          value-format="yyyy/MM/dd"
+                        >
+                        </el-date-picker>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
-                    prop="rname"
+                    prop="oad04"
                     label="借款人"
                     min-width="110px"
                     align="center"
                   >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oad04"
+                          placeholder=""
+                          disabled
+                        ></el-input>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
-                    prop="original_amount"
+                    prop="oad05"
                     label="借款总金额"
                     min-width="130px"
                     align="center"
                   >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oad05"
+                          placeholder=""
+                          disabled
+                        ></el-input>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad02"
@@ -415,13 +456,30 @@
                     min-width="130px"
                     align="center"
                   >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oad02"
+                          placeholder="请输入还款金额"
+                        ></el-input>
+                      </div>
+                    </template>
                   </el-table-column>
                   <el-table-column
-                    prop="voucher_code"
+                    prop="oad06"
                     label="凭证号"
                     min-width="150px"
                     align="center"
                   >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oad06"
+                          placeholder=""
+                          disabled
+                        ></el-input>
+                      </div>
+                    </template>
                   </el-table-column>
                 </el-table>
               </div>
