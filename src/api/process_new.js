@@ -21,7 +21,7 @@ export const workflowsList = (params) => {
   })
 }
 
-// 修改杂项应付款请款作业
+// 修改流程
 export const editFlow = (params) => {
   return request.put(`oa/workflows/${params.workid}`,
     params)

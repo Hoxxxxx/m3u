@@ -4,8 +4,8 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary" class="save" @click="addNewFlow()">保存</el-button>
-        <el-button type="primary" class="next" @click="nextStep()">下一步</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow('add')">保存</el-button>
+        <el-button type="primary" class="next" @click="addNewFlow('next')">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -252,7 +252,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
+import { azisList, pmasList  } from "@/api/basic";
 import { addFlow, editFlow, } from "@/api/process_new";
 
 export default {
@@ -303,17 +303,10 @@ export default {
       unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       // 表单数据
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
         // 币种列表
         azisList: [],
         // 付款方式列表
         pmasList: [],
-        // 项目列表
-        pjasList: [],
-        // WBS列表
-        pjbsList: [],
       },
       fileList: [],
       addParams: {
@@ -368,27 +361,14 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid
-    this.getGens()
     this.getAzis()
     this.getPmas()
-    this.getPjas()
-    this.getPjbs()
   },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
     },
     // ***********获取下拉列表信息************
-    getGens () {
-      gensList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.genList = result.data;
-        } else {
-          this.$message.error("获取员工列表失败：" + result.error.message);
-        }
-      })
-    },
     getAzis () {
       azisList()
       .then( result => {
@@ -406,26 +386,6 @@ export default {
           this.fixedData.pmasList = result.data;
         } else {
           this.$message.error("获取付款方式列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjas () {
-      pjasList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjasList = result.data;
-        } else {
-          this.$message.error("获取项目列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjbs () {
-      pjbsList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjbsList = result.data;
-        } else {
-          this.$message.error("获取WBS列表失败：" + result.error.message);
         }
       })
     },
@@ -545,7 +505,7 @@ export default {
       this.exchange_Cap = result;
     },
     // 新增（暂存）表单
-    addNewFlow() {
+    addNewFlow(type) {
       this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData
       if (this.workid == '') {
@@ -555,7 +515,23 @@ export default {
             this.workid = result.data.workid
             this.tableData.oaa01 = result.data.oaa01
             this.tableData.oaa02 = result.data.oaa02
-            this.$message.success("保存成功！");
+            if (type == 'add') {
+              this.$message.success("保存成功！");
+            } else if (type == 'next') {
+              this.$router.push(
+                {
+                  path:'/apply',
+                  query: {
+                    url_type: 'borrow',
+                    workName:this.workName,
+                    workid: this.workid,
+                    workName: this.workName,
+                    oaa01: this.tableData.oaa01,
+                    oaa02: this.tableData.oaa02
+                  }
+                }
+              )
+            }
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
@@ -564,33 +540,28 @@ export default {
         this.addParams.workid = this.workid;
         editFlow(this.addParams).then((result) => {
           if (result.status == 200) {
-            this.$message.success("保存成功！");
+            if (type == 'add') {
+              this.$message.success("保存成功！");
+            } else if (type == 'next') {
+              this.$router.push(
+                {
+                  path:'/apply',
+                  query: {
+                    url_type: 'borrow',
+                    workName:this.workName,
+                    workid: this.workid,
+                    workName: this.workName,
+                    oaa01: this.tableData.oaa01,
+                    oaa02: this.tableData.oaa02
+                  }
+                }
+              )
+            }
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
         });
       }
-    },
-    // 下一步
-    nextStep() {
-      this.addNewFlow()
-      this.$nextTick(() => {
-        if (this.workid !== '') {
-          this.$router.push(
-            {
-              path:'/apply',
-              query: {
-                url_type: 'borrow',
-                workName:this.workName,
-                workid: this.workid,
-                workName: this.workName,
-                oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02
-              }
-            }
-          )
-        }
-      });
     },
     // ******************************************
     // 数据选择

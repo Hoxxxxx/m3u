@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workName}}</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -29,50 +29,50 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
+                <div class="infobox middlebox  ">{{ tableData.oaa03 }}</div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox middlebox last_row">{{ tableData.oaa05 }}</div>
+                <div class="infobox selectbox middlebox last_row  ">{{ tableData.oaa05 }}</div>
               </div>
               <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
+                <div class="infobox selectbox  ">{{ tableData.oaa04_show }}</div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
+                <div class="infobox  ">{{ tableData.oaa04_gen01 }}</div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
+                <div class="infobox last_row  ">{{ tableData.oaa04_gen04 }}</div>
               </div>
-              <!-- 卡片信息 -->
-              <div class="title_line">卡片信息</div>
+              <!-- 预付信息 -->
+              <div class="title_line">预付信息</div>
               <div class="form_line">
-                <div class="titlebox">财产编号</div>
-                <div class="infobox">{{tableData.oaa11}}</div>
-                <div class="titlebox">资产主类别</div>
-                <div class="infobox">{{tableData.oaa12_show}}</div>
-                <div class="titlebox">资产次类别</div>
-                <div class="infobox last_row">{{tableData.oaa13_show}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">资产中文名称</div>
-                <div class="infobox">{{tableData.oaa14}}</div>
-                <div class="titlebox">资产英文名称</div>
-                <div class="infobox">{{tableData.oaa15}}</div>
-                <div class="titlebox">规格型号</div>
-                <div class="infobox last_row">{{tableData.oaa16}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">供应商编号</div>
-                <div class="infobox">{{tableData.oaa17}}</div>
-                <div class="titlebox">本币单价</div>
-                <div class="infobox">{{tableData.oaa18}}</div>
-                <div class="titlebox">本币成本</div>
-                <div class="infobox last_row">{{tableData.oaa19}}</div>
+                <div class="titlebox">预付厂商</div>
+                <div class="infobox selectbox  ">{{tableData.oaa11}}</div>
+                <div class="titlebox">厂商简称</div>
+                <div class="infobox  ">{{tableData.oaa11_show}}</div>
+                <div class="titlebox">支付方式</div>
+                <div class="infobox last_row selectbox disabledbox">
+                  <el-select
+                    v-model="tableData.oaa16"
+                    class="select"
+                    placeholder="请选择支付方式"
+                    disabled
+                  >
+                    <el-option
+                      v-for="(item, index) in fixedData.payTypes"
+                      :key="index"
+                      :label="item.pma02"
+                      :value="item.pma01"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">币种</div>
                 <div class="infobox selectbox disabledbox">
                   <el-select
-                    v-model="tableData.oaa20"
+                    v-model="tableData.oaa13"
                     class="select"
+                    placeholder="请选择币种"
                     disabled
                   >
                     <el-option
@@ -84,90 +84,51 @@
                     </el-option>
                   </el-select>
                 </div>
-                <div class="titlebox">原币成本</div>
-                <div class="infobox selectbox">{{tableData.oaa21}}</div>
-                <div class="titlebox">数量</div>
-                <div class="infobox selectbox last_row">{{tableData.oaa22}}</div>
+                <div class="titlebox">汇率</div>
+                <div class="infobox selectbox  ">{{tableData.oaa14}}</div>
+                <div class="titlebox">预付金额</div>
+                <div class="infobox last_row  ">{{tableData.oaa12}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">计量单位</div>
-                <div class="infobox">{{tableData.oaa23_show}}</div>
-                <div class="titlebox">保管人</div>
-                <div class="infobox">{{tableData.oaa24}}</div>
-                <div class="titlebox">保管部门</div>
-                <div class="infobox last_row">{{tableData.oaa25_show}}</div>
+                <div class="titlebox">折合汇率金额</div>
+                <div class="infobox middlebox  ">{{exchange}}</div>
+                <div class="titlebox">折合汇率金额大写</div>
+                <div class="infobox middlebox   last_row">{{exchange_Cap}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">存放位置</div>
-                <div class="infobox">{{tableData.oaa26_show}}</div>
-                <div class="titlebox">分摊方式</div>
-                <div class="infobox selectbox disabledbox">
-                  <el-select
-                    v-model="tableData.oaa27"
-                    class="select"
-                    disabled
-                  >
-                    <el-option
-                      v-for="item in fixedData.shareList"
-                      :key="item.id"
-                      :label="item.label"
-                      :value="item.id"
-                    >
-                    </el-option>
-                  </el-select>
-                </div>
-                <div class="titlebox">分摊部门</div>
-                <div class="infobox last_row">{{tableData.oaa28_show}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">取得日期</div>
-                <div class="infobox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa29"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">项目编号</div>
-                <div class="infobox">{{tableData.oaa30}}</div>
-                <div class="titlebox">WBS编号</div>
-                <div class="infobox last_row">{{tableData.oaa31}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">入账日期</div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa32"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">耐用月数</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa33}}</div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">构建编号</div>
-                <div class="infobox longbox last_row">{{tableData.oaa34_show}}</div>
+                <div class="titlebox">项目</div>
+                <div class="infobox middlebox selectbox  ">{{ tableData.oaa27_show }}</div>
+                <div class="titlebox">项目WBS</div>
+                <div class="infobox middlebox selectbox last_row  ">{{ tableData.oaa28_show }}</div>
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">说明</div>
-                <div class="infobox longbox areabox last_row">
+                <div class="infobox areabox longbox" style="width: 100%">
                   <el-input
                     type="textarea"
                     :rows="4"
-                    v-model="tableData.oaa35"
+                    v-model="tableData.oaa18"
+                    placeholder="请输入说明"
                     maxlength="80"
                     show-word-limit
                     disabled
                   >
                   </el-input>
                 </div>
+              </div>
+              <!-- 收款信息 -->
+              <div class="title_line">收款信息</div>
+              <div class="form_line">
+                <div class="titlebox">收款人</div>
+                <div class="infobox selectbox  ">{{tableData.oaa21}}</div>
+                <div class="titlebox">开户行</div>
+                <div class="infobox selectbox  ">{{tableData.oaa22}}</div>
+                <div class="titlebox">收款账号</div>
+                <div class="infobox selectbox last_row  ">{{tableData.oaa23}}</div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">支票号</div>
+                <div class="infobox last_row longbox selectbox  " style="width: 100%">{{tableData.oaa24}}</div>
               </div>
             </div>
           </div>
@@ -184,7 +145,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workName}}</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -246,45 +207,42 @@
 <script>
 import { OpenLoading } from "@/utils/utils.js";
 // api
-import { workflowsList, editFlow  } from "@/api/process_new";
-import { azisList,  } from "@/api/basic";
+import { workflowsList, } from "@/api/process_new.js"
+import { azisList, pmasList  } from "@/api/basic";
 
 export default {
   components: {},
   data() {
     return {
       overloading: '', //加载定时器
-      activeTab: "firTab",
       workid: '',
-      workName:"固定资产卡片",//流程名
+      workname: '预付款申请',
+      activeTab: "firTab",
       tableData: {},
-      showData: {
-        oaa04_show: "", //申请人
-        oaa04_gen01: "", //申请人编号
-      },
-      // 表单数据
+      // 汇率数据
+      exchange: '', //折合汇率
+      exchange_Cap: '', //折合汇率大写
+      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       fixedData: {
+        //支付方式
+        payTypes: [],
         // 币种列表
         azisList: [],
-        // 分摊列表
-        shareList: [
-          {
-            id: 1,
-            label: '单一部门分摊'
-          },{
-            id: 2,
-            label: '多部门分摊'
-          }
-        ],
       },
       fileList_user: [],
+      addParams: {
+        from_data: {},
+        annexurlid: [],
+        tplid: 8951
+      },
       // 当前流程列表
       workclass_perflow: [],
     };
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 3965
+    // this,this.workid = 4353
+    this.getPmas()
     this.getAzis()
     this.getworkflows()
   },
@@ -303,7 +261,7 @@ export default {
           loading.close()
           clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
-          this.workName = res.data.workclass_info.title
+          this.workname = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
@@ -314,6 +272,7 @@ export default {
               })
             })
           }
+          this.getExchangeRate()
         }else{
           loading.close()
           clearTimeout(this.overloading)
@@ -321,7 +280,6 @@ export default {
         }
       })
     },
-    // *******************************************
     // ***********获取下拉列表信息************
     getAzis () {
       azisList()
@@ -333,7 +291,104 @@ export default {
         }
       })
     },
+    getPmas () {
+      pmasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.payTypes = result.data;
+        } else {
+          this.$message.error("获取付款方式列表失败：" + result.error.message);
+        }
+      })
+    },
+    // 计算折合汇率
+    getExchangeRate() {
+      this.exchange = Number(this.tableData.oaa14) * Number(this.tableData.oaa12)
+      this.exchange = this.exchange.toFixed(2)
+      this.NumberToChinese(this.exchange)
+    },
+    //阿拉伯数字转换函数
+    toDx(n) {
+      switch (n) {
+          case "0":
+              return "零";
+          case "1":
+              return "壹";
+          case "2":
+              return "贰";
+          case "3":
+              return "叁";
+          case "4":
+              return "肆";
+          case "5":
+              return "伍";
+          case "6":
+              return "陆";
+          case "7":
+              return "柒";
+          case "8":
+              return "捌";
+          case "9":
+              return "玖";
+      }
+    },
+    // 转大写
+    NumberToChinese(m){
+      m *= 100;
+      m += "";
+      var length = m.length;
+
+      var result = "";
+      for (var i = 0; i < length; i++) {
+          if (i == 2) {
+            result = "元" + result;
+          } else if (i == 6) {
+            result = "万" + result;
+          } else if (i == 10) {
+            result = "亿" + result;
+          }
+          if (m.charAt(length - i - 1) == 0) {
+              if (i != 0 && i != 1) {
+                  if (result.charAt(0) != '零' && result.charAt(0) != '元' && result.charAt(0) != '万') {
+                      result = "零" + result;
+                  }
+              }
+              continue;
+          }
+          result = this.toDx(m.charAt(length - i - 1)) + this.unit[this.unit.length - i - 1] + result;
+      }
+      result += result.charAt(result.length - 1) == '元' ? "整" : "";
+      this.exchange_Cap = result;
+    },
     // *******************************************
+    // ***************附件上传******************
+    // 上传成功
+    handleSuccess(response, file, fileList) {
+      this.addParams.annexurlid.push({
+        filename: response.data.filename,
+        fileaddr: response.data.path
+      })
+    },
+    // 移除上传项
+    handleRemove(file, fileList) {
+      this.addParams.annexurlid.forEach( (item, index) => {
+        if (item.filename == file.name) {
+          this.addParams.annexurlid.splice( index, 1 )
+        }
+      })
+    },
+    // 点击上传项回调
+    handlePreview(file) {
+      console.log(file);
+    },
+    // 超出上传限制回调
+    handleExceed(files, fileList) {
+      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    },
+    // 移除前回调
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${ file.name }？`);
+    },
     // 下载文件流
     async download(id, filename) {
       const { data: res } = await this.axios({
@@ -371,6 +426,7 @@ export default {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     },
+    // ******************************************
     // ******************************************
   },
 };
