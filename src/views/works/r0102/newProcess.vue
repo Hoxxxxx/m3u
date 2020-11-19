@@ -130,13 +130,14 @@
                   </el-select>
                 </div>
               </div>
-              <!-- 4 -->
               <div class="form_line">
-                <div class="titlebox">固定资产申请单</div>
-                <div class="infobox longbox selectbox">
-                  <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('GDZCSQD')">
-                    {{ showData.oaa17_show }}
-                  </div>
+                <div class="titlebox">报销金额</div>
+                <div class="infobox middlebox editNot">
+                  {{ showData.expenseMoney }}
+                </div>
+                <div class="titlebox">报销金额大写</div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ showData.expenseMoneyF }}
                 </div>
               </div>
               <!-- 5 -->
@@ -150,19 +151,6 @@
                     placeholder="请输入说明"
                     maxlength="80"
                     show-word-limit
-                  >
-                  </el-input>
-                </div>
-              </div>
-              <!-- 5 -->
-              <div class="form_line last_line">
-                <div class="titlebox">验收信息</div>
-                <div class="infobox areabox last_row longbox" style="width: 100%">
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa19"
-                    placeholder="请输入验收信息"
                   >
                   </el-input>
                 </div>
@@ -527,23 +515,6 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oac08"
-                    label="资产卡片"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('ZCKP', scope.$index)"
-                        >
-                          {{ scope.row.oac08 }}
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
                     prop="oac07"
                     label="金额（不含税）"
                     min-width="180px"
@@ -819,9 +790,8 @@ export default {
         oaa04_gen04: "", //申请人部门
         oaa11_pmc03: "", //厂商简称
         oaa15_gec04: "", //税率
-        oaa17_show: "", //申请单
-        // expenseMoney: "", //报销金额
-        // expenseMoneyF: "", //报销金额大写
+        expenseMoney: "", //报销金额
+        expenseMoneyF: "", //报销金额大写
       },
       tableData: {
         // 基本信息
@@ -837,7 +807,7 @@ export default {
         oaa14: "1", //汇率
         oaa15: "", //税别
         oaa16: "TT", //支付方式
-        oaa17: "", //固定资产申请单
+        oaa17: "", //应付金额
         oaa18: "", //说明
         oaa19: "", //验收信息
         // 收款信息
@@ -972,13 +942,6 @@ export default {
           { name: "id", title: "id" },
           { name: "title", title: "流程名称" },
         ],
-        head_ZCKP:[
-          { name: "faj02", title: "财产编号" },
-          { name: "faj04", title: "资产主类别" },
-          { name: "faj05", title: "资产次类别" },
-          { name: "faj06", title: "资产中文名称" },
-          { name: "faj10", title: "预付厂商" },
-        ],
         head_WQX:[
           { name: "id", title: "待抵账款编号" },
           { name: "original_amount", title: "本币未冲金额" },
@@ -1003,6 +966,7 @@ export default {
       let sum =  this.tableData.oaf.reduce((prev, cur) => {
         return prev + Number(cur.oaf07);
       }, 0);
+      this.tableData.oaa17 = sum.toFixed(2)
       return sum.toFixed(2)
     },
     // 税前金额（原币）
@@ -1045,6 +1009,8 @@ export default {
       let sum =  this.tableData.oaf.reduce((prev, cur) => {
         return prev + Number(cur.hsjeBB);
       }, 0);
+      this.showData.expenseMoney = sum.toFixed(2)
+      this.showData.expenseMoneyF = number_chinese(sum.toFixed(2))
       return sum.toFixed(2)
     },
   },
@@ -1360,15 +1326,6 @@ export default {
           this.dataSelect.headList = this.tableHead.head_GDZCSQD;
           this.dataSelect.dialogTitle = "申请单列表";
         break;
-        case "ZCKP":
-          let filter_ZCKP = [{ label: "", model_key_search: "faj02" }];
-          this.dataSelect.filter = filter_ZCKP;
-          this.dataSelect.searchType = "mixed"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "meta/cards";
-          this.dataSelect.headList = this.tableHead.head_ZCKP;
-          this.dataSelect.dialogTitle = "资产卡片列表";
-        break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
           if (this.tableData.oaa11 == '') {
@@ -1439,9 +1396,6 @@ export default {
           case "GDZCSQD":
             this.tableData.oaa17 = val[0].id;
             this.showData.oaa17_show = val[0].title;
-          break;
-          case "ZCKP":
-            this.tableData.oac[this.rowIndex].oac08 = val[0].faj02;
           break;
           case "WQX":
             val.forEach(item =>{
