@@ -191,6 +191,23 @@ const routes = [{
     component: () => import('@/views/works/fixedPay/newApproval')
   },
 
+  // 预付款申请
+  {
+    path: '/r0101',
+    name: 'r0101',
+    component: () => import('@/views/works/r0101/newProcess')
+  },
+  {
+    path: '/r0101/check',
+    name: 'r0101_check',
+    component: () => import('@/views/works/r0101/check')
+  },
+  {
+    path: '/r0101/approval',
+    name: 'r0101_approval',
+    component: () => import('@/views/works/r0101/newApproval')
+  },
+
 ]
 
 const router = new VueRouter({

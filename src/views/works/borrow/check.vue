@@ -158,6 +158,7 @@
 </template>
 
 <script>
+import { OpenLoading } from "@/utils/utils.js";
 // api
 import { workflowsList, } from "@/api/process_new.js"
 
@@ -165,6 +166,7 @@ export default {
   components: {},
   data() {
     return {
+      overloading: '', //加载定时器
       workid: '',
       workname: '借款申请',
       activeTab: "firTab",
@@ -202,18 +204,14 @@ export default {
     },
     // ***********获取流程信息************
     getworkflows(){
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = OpenLoading(this, 1)
       const params = {
         workid: this.workid
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
           loading.close()
+          clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
@@ -229,6 +227,7 @@ export default {
           this.getExchangeRate()
         }else{
           loading.close()
+          clearTimeout(this.overloading)
           this.$message.error('获取流程信息失败：', res.error.message);
         }
       })

@@ -802,7 +802,7 @@
 <script>
 import SelectData from "@/components/selectData";
 import { workflowsList, transfer,editFlow,addFlow,} from "@/api/process_new.js"
-import { number_chinese,dateFmt } from "@/utils/utils.js";
+import { number_chinese, dateFmt, OpenLoading } from "@/utils/utils.js";
 import {
   gensList,
   azisList,
@@ -816,6 +816,7 @@ export default {
   components: {SelectData},
   data() {
     return {
+      overloading: '', //加载定时器
       workid: '',
       workname: '其他费用报销单',
       activeTab: "firTab",
@@ -1014,18 +1015,14 @@ export default {
     },
     // ***********获取流程信息************
     getworkflows(){
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = OpenLoading(this, 1)
       const params = {
         workid: this.workid
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
           loading.close()
+          clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
@@ -1057,6 +1054,7 @@ export default {
           }
         }else{
           loading.close()
+          clearTimeout(this.overloading)
           this.$message.error('获取流程信息失败：' + res.error.message);
         }
       })
@@ -1226,12 +1224,7 @@ export default {
     // *******************************************
     // 生成凭证
     generate() {
-      const loading = this.$loading({
-        lock: true,
-        text: "抛转中...",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = OpenLoading(this, 2)
 
       this.addParams.from_data = {...this.tableData,...this.oaz};
       this.addParams.workid = this.workid;
@@ -1243,16 +1236,19 @@ export default {
           transfer(params).then((res) => {
             if (res.status == 200) {
               loading.close();
+              clearTimeout(this.overloading)
               this.$message.success("抛转成功！");
               this.oaz.oaz03 = res.data.oaz03;
               this.oaz.oaz06 = res.data.oaz06;
             } else {
               loading.close();
+              clearTimeout(this.overloading)
               this.$message.error("抛转失败:" + res.error.message);
             }
           });
         } else {
           loading.close();
+          clearTimeout(this.overloading)
           this.$message.error("抛转失败:" + res.error.message);
         }
       });

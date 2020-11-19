@@ -500,6 +500,7 @@
 </template>
 
 <script>
+import { OpenLoading } from "@/utils/utils.js";
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
@@ -508,6 +509,7 @@ export default {
   components: {},
   data() {
     return {
+      overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
       workName:"固定资产卡片",//流程名
@@ -539,7 +541,6 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4034
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -623,18 +624,14 @@ export default {
       this.change_SB(rowIndex)
     },
     getworkflows(){
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = OpenLoading(this, 1)
       const params = {
         workid: this.workid
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
           loading.close()
+          clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
           this.tableData.oaf.forEach((item, index) => {
             this.change_HSJE(index)
@@ -652,6 +649,7 @@ export default {
           }
         }else{
           loading.close()
+          clearTimeout(this.overloading)
           this.$message.error('获取流程信息失败：', res.error.message);
         }
       })

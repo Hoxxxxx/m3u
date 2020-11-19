@@ -438,6 +438,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
+import { OpenLoading } from "@/utils/utils.js";
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
 import { azisList,  } from "@/api/basic";
@@ -446,6 +447,7 @@ export default {
   components: {SelectData},
   data() {
     return {
+      overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
       workName:"固定资产卡片",//流程名
@@ -560,18 +562,14 @@ export default {
     },
     // ***********获取流程信息************
     getworkflows(){
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = OpenLoading(this, 1)
       const params = {
         workid: this.workid
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
           loading.close()
+          clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
           this.table_able = res.data.workclass_info.form_able
           this.workName = res.data.workclass_info.title
@@ -588,6 +586,7 @@ export default {
           }
         }else{
           loading.close()
+          clearTimeout(this.overloading)
           this.$message.error('获取流程信息失败：' + res.error.message);
         }
       })

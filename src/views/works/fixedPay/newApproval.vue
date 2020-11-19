@@ -1203,12 +1203,13 @@ import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow, transfer, addFlow } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
-import {dateFmt} from '@/utils/utils'
+import { dateFmt, OpenLoading } from '@/utils/utils'
 
 export default {
   components: {SelectData},
   data() {
     return {
+      overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
       workName:"固定资产卡片",//流程名
@@ -1466,18 +1467,14 @@ export default {
     },
     // ***********获取流程信息************
     getworkflows(){
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = OpenLoading(this, 1)
       const params = {
         workid: this.workid
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
           loading.close()
+          clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
           this.table_able = res.data.workclass_info.form_able
           this.tableData.oaf.forEach((item, index) => {
@@ -1512,6 +1509,7 @@ export default {
           }
         }else{
           loading.close()
+          clearTimeout(this.overloading)
           this.$message.error('获取流程信息失败：' + res.error.message);
         }
       })
@@ -2025,16 +2023,19 @@ export default {
           transfer(params).then((res) => {
             if (res.status == 200) {
               loading.close();
+              clearTimeout(this.overloading)
               this.$message.success("抛转成功！");
               this.oaz.oaz03 = res.data.oaz03;
               this.oaz.oaz06 = res.data.oaz06;
             } else {
               loading.close();
+              clearTimeout(this.overloading)
               this.$message.error("抛转失败:" + res.error.message);
             }
           });
         } else {
           loading.close();
+          clearTimeout(this.overloading)
           this.$message.error("抛转失败:" + res.error.message);
         }
       });
