@@ -638,7 +638,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="date"
+                    prop="oad03"
                     label="借款日期"
                     min-width="130px"
                     align="center"
@@ -646,7 +646,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-date-picker
-                          v-model="scope.row.date"
+                          v-model="scope.row.oad03"
                           style="width: 100%"
                           type="date"
                           disabled
@@ -659,7 +659,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="rname"
+                    prop="oad04"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -667,7 +667,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.rname"
+                          v-model="scope.row.oad04"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -675,7 +675,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="original_amount"
+                    prop="oad05"
                     label="借款总金额"
                     min-width="130px"
                     align="center"
@@ -683,7 +683,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.original_amount"
+                          v-model="scope.row.oad05"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -706,7 +706,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="voucher_code"
+                    prop="oad06"
                     label="凭证号"
                     min-width="150px"
                     align="center"
@@ -714,7 +714,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.voucher_code"
+                          v-model="scope.row.oad06"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -1434,6 +1434,10 @@ export default {
             val.forEach(item =>{
               this.$set(item,'oad01',item.id)
               this.$set(item,'oad02','')
+              this.$set(item,'oad03',item.date)
+              this.$set(item,'oad04',item.rid)
+              this.$set(item,'oad05',item.original_amount)
+              this.$set(item,'oad06',item.voucher_code)
             })
             this.tableData.oad = val
           break;

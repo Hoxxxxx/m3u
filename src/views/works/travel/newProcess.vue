@@ -685,7 +685,7 @@
               </div>
               <!-- 冲销信息 -->
               <div class="title_line">
-                <el-button type="primary" size="small" style="position:absolute;left:4px;top:4px;" @click="selectWQX()">选择未清项</el-button>
+                <el-button type="primary" size="small" style="position:absolute;left:4px;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
                 冲销信息
               </div>
               <div>
@@ -698,33 +698,8 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <!-- <el-table-column
-                    prop=""
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oad.length - 1"
-                            @click="addRow3()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow3(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column> -->
                   <el-table-column
-                    prop="id"
+                    prop="oad01"
                     label="待抵单号"
                     min-width="150px"
                     align="center"
@@ -732,7 +707,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.id"
+                          v-model="scope.row.oad01"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -740,7 +715,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="date"
+                    prop="oad03"
                     label="借款日期"
                     min-width="130px"
                     align="center"
@@ -748,7 +723,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-date-picker
-                          v-model="scope.row.date"
+                          v-model="scope.row.oad03"
                           style="width: 100%"
                           type="date"
                           format="yyyy/MM/dd"
@@ -761,7 +736,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="rname"
+                    prop="oad04"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -769,7 +744,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.rname"
+                          v-model="scope.row.oad04"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -777,7 +752,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="original_amount"
+                    prop="oad05"
                     label="借款总金额"
                     min-width="130px"
                     align="center"
@@ -785,7 +760,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.original_amount"
+                          v-model="scope.row.oad05"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -808,7 +783,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="voucher_code"
+                    prop="oad06"
                     label="凭证号"
                     min-width="150px"
                     align="center"
@@ -816,7 +791,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.voucher_code"
+                          v-model="scope.row.oad06"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -1317,26 +1292,6 @@ export default {
         }
       });
     },
-    // 冲销信息表格
-    addRow3() {
-      let data = {
-        oad02: "", //还款金额
-      };
-      this.tableData.oad.push(data);
-    },
-    // 删除当前行
-    deleteRow3(val) {
-      this.$confirm("确认删除本条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.tableData.oad.splice(val, 1);
-        if (this.tableData.oad.length == 0) {
-          this.addRow3();
-        }
-      });
-    },
     // 获取基础数据*******
     // 币种列表
     getAzi() {
@@ -1359,13 +1314,6 @@ export default {
       });
     },
     // ******************
-    selectWQX(){
-      if(!this.tableData.oaa04){
-        this.$message.warning('请先选择申请人！')
-      }else{
-        this.selectDialog('WQX')
-      }
-    },
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
@@ -1421,18 +1369,24 @@ export default {
           this.dataSelect.dialogTitle = "出差申请单列表";
           break;
         case "WQX":
-          let params = {
-            type:1,
-            number:this.tableData.oaa04
+          this.dataSelect.dialogVisible = false;
+          if (this.tableData.oaa04 == '') {
+            this.$message.warning("请先选择申请人！" );
+          } else {
+            this.dataSelect.dialogVisible = true;
+            let params = {
+              type:1,
+              number:this.tableData.oaa04
+            }
+            this.dataSelect.editType = "search"
+            this.dataSelect.searchParams = params
+            this.dataSelect.filter = [];
+            this.dataSelect.searchType = "single"
+            this.dataSelect.searchApi = "oa/openitems";
+            this.selectLoading = false;
+            this.dataSelect.headList = this.tableHead.head_WQX;
+            this.dataSelect.dialogTitle = "未清项列表";
           }
-          this.dataSelect.editType = "search"
-          this.dataSelect.searchParams = params
-          this.dataSelect.filter = [];
-          this.dataSelect.searchType = "single"
-          this.dataSelect.searchApi = "oa/openitems";
-          this.selectLoading = false;
-          this.dataSelect.headList = this.tableHead.head_WQX;
-          this.dataSelect.dialogTitle = "未清项列表";
           break;
         default:
           return;
@@ -1471,8 +1425,12 @@ export default {
             break;
           case "WQX":
             val.forEach(item =>{
-              this.$set(item,'oad02','')
               this.$set(item,'oad01',item.id)
+              this.$set(item,'oad02','')
+              this.$set(item,'oad03',item.date)
+              this.$set(item,'oad04',item.rid)
+              this.$set(item,'oad05',item.original_amount)
+              this.$set(item,'oad06',item.voucher_code)
             })
             this.tableData.oad = val
             break;
