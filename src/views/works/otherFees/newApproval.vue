@@ -1232,7 +1232,6 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
       });
-
       this.addParams.from_data = {...this.tableData,...this.oaz};
       this.addParams.workid = this.workid;
       editFlow(this.addParams).then((res) => {

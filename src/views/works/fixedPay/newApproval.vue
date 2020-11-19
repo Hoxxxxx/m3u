@@ -1392,7 +1392,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4208
+    // this.workid = 4317
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -2016,8 +2016,7 @@ export default {
       });
       this.addParams.from_data = {...this.tableData,...this.oaz};
       this.addParams.workid = this.workid;
-      console.log(this.addParams)
-      addFlow(this.addParams).then((res) => {
+      editFlow(this.addParams).then((res) => {
         if (res.status == 200) {
           let params = {
             workid: this.workid,
