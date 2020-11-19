@@ -134,8 +134,20 @@ export default {
           path: "/r0101/approval",
         },
         {
-          name: "预付款申请——查看",
-          path: "/r0101/check",
+          name: "付款申请——查看",
+          path: "/r0102/check",
+        },
+        {
+          name: "付款申请——申请",
+          path: "/r0102",
+        },
+        {
+          name: "付款申请——审核",
+          path: "/r0102/approval",
+        },
+        {
+          name: "付款申请——查看",
+          path: "/r0102/check",
         },
       ]
     };

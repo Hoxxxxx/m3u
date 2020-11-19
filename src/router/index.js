@@ -224,6 +224,23 @@ const routes = [{
     component: () => import('@/views/works/r0101/newApproval')
   },
 
+  // 付款申请
+  {
+    path: '/r0102',
+    name: 'r0102',
+    component: () => import('@/views/works/r0102/newProcess')
+  },
+  {
+    path: '/r0102/check',
+    name: 'r0102_check',
+    component: () => import('@/views/works/r0102/check')
+  },
+  {
+    path: '/r0102/approval',
+    name: 'r0102_approval',
+    component: () => import('@/views/works/r0102/newApproval')
+  },
+
 ]
 
 const router = new VueRouter({
