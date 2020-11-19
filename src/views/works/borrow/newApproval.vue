@@ -356,7 +356,7 @@
 import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow ,transfer,addFlow,} from "@/api/process_new.js"
-import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
+import { azisList, pmasList,  } from "@/api/basic";
 import { dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
 
 export default {
@@ -380,17 +380,10 @@ export default {
         oaz04_show:"",//账款类型回显数据
       },
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
         // 币种列表
         azisList: [],
         // 付款方式列表
         pmasList: [],
-        // 项目列表
-        pjasList: [],
-        // WBS列表
-        pjbsList: [],
       },
       //财务信息
       oaz: {
@@ -475,13 +468,10 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4113
+    // this.workid = 4358
     this.getworkflows()
-    this.getGens()
     this.getAzis()
     this.getPmas()
-    this.getPjas()
-    this.getPjbs()
   },
   methods: {
     handleClick() {
@@ -536,16 +526,6 @@ export default {
     },
     // *******************************************
     // ***********获取下拉列表信息************
-    getGens () {
-      gensList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.genList = result.data;
-        } else {
-          this.$message.error("获取员工列表失败：" + result.error.message);
-        }
-      })
-    },
     getAzis () {
       azisList()
       .then( result => {
@@ -563,26 +543,6 @@ export default {
           this.fixedData.pmasList = result.data;
         } else {
           this.$message.error("获取付款方式列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjas () {
-      pjasList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjasList = result.data;
-        } else {
-          this.$message.error("获取项目列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjbs () {
-      pjbsList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjbsList = result.data;
-        } else {
-          this.$message.error("获取WBS列表失败：" + result.error.message);
         }
       })
     },

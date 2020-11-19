@@ -160,6 +160,7 @@
 <script>
 import { OpenLoading } from "@/utils/utils.js";
 // api
+import { azisList, pmasList,  } from "@/api/basic";
 import { workflowsList, } from "@/api/process_new.js"
 
 export default {
@@ -176,9 +177,6 @@ export default {
       exchange_Cap: '', //折合汇率大写
       unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
         // 币种列表
         azisList: [],
         // 付款方式列表
@@ -196,7 +194,10 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 4358
     this.getworkflows()
+    this.getAzis()
+    this.getPmas()
   },
   methods: {
     handleClick() {
@@ -229,6 +230,27 @@ export default {
           loading.close()
           clearTimeout(this.overloading)
           this.$message.error('获取流程信息失败：', res.error.message);
+        }
+      })
+    },
+    // ***********获取下拉列表信息************
+    getAzis () {
+      azisList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.azisList = result.data;
+        } else {
+          this.$message.error("获取币种列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPmas () {
+      pmasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pmasList = result.data;
+        } else {
+          this.$message.error("获取付款方式列表失败：" + result.error.message);
         }
       })
     },

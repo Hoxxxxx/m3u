@@ -37,9 +37,9 @@
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox  ">{{ tableData.oaa04_show }}</div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
+                <div class="infobox  ">{{ tableData.oaa04_gen01 }}</div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox last_row editNot">{{ tableData.oaa04_gen04 }}</div>
+                <div class="infobox last_row  ">{{ tableData.oaa04_gen04 }}</div>
               </div>
               <!-- 预付信息 -->
               <div class="title_line">预付信息</div>
@@ -47,7 +47,7 @@
                 <div class="titlebox">预付厂商</div>
                 <div class="infobox selectbox  ">{{tableData.oaa11}}</div>
                 <div class="titlebox">厂商简称</div>
-                <div class="infobox disabledbox">{{tableData.oaa11_pmc03}}</div>
+                <div class="infobox  ">{{tableData.oaa11_show}}</div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox disabledbox">
                   <el-select
@@ -91,9 +91,9 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">折合汇率金额</div>
-                <div class="infobox middlebox disabledbox">{{exchange}}</div>
+                <div class="infobox middlebox  ">{{exchange}}</div>
                 <div class="titlebox">折合汇率金额大写</div>
-                <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
+                <div class="infobox middlebox   last_row">{{exchange_Cap}}</div>
               </div>
               <div class="form_line">
                 <div class="titlebox">项目</div>
@@ -208,6 +208,7 @@
 import { OpenLoading } from "@/utils/utils.js";
 // api
 import { workflowsList, } from "@/api/process_new.js"
+import { azisList, pmasList  } from "@/api/basic";
 
 export default {
   components: {},
@@ -223,13 +224,10 @@ export default {
       exchange_Cap: '', //折合汇率大写
       unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
+        //支付方式
+        payTypes: [],
         // 币种列表
         azisList: [],
-        // 付款方式列表
-        pmasList: [],
       },
       fileList_user: [],
       addParams: {
@@ -243,7 +241,9 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    this,this.workid = 4353
+    // this,this.workid = 4353
+    this.getPmas()
+    this.getAzis()
     this.getworkflows()
   },
   methods: {
@@ -280,9 +280,30 @@ export default {
         }
       })
     },
+    // ***********获取下拉列表信息************
+    getAzis () {
+      azisList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.azisList = result.data;
+        } else {
+          this.$message.error("获取币种列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPmas () {
+      pmasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.payTypes = result.data;
+        } else {
+          this.$message.error("获取付款方式列表失败：" + result.error.message);
+        }
+      })
+    },
     // 计算折合汇率
     getExchangeRate() {
-      this.exchange = Number(this.tableData.oaa07) * Number(this.tableData.oaa08)
+      this.exchange = Number(this.tableData.oaa14) * Number(this.tableData.oaa12)
       this.exchange = this.exchange.toFixed(2)
       this.NumberToChinese(this.exchange)
     },

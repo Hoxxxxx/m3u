@@ -69,7 +69,7 @@
                   <div class="selector" @click="selectDialog('YFCS')">{{tableData.oaa11}}</div>
                 </div>
                 <div class="titlebox">厂商简称</div>
-                <div class="infobox disabledbox">{{tableData.oaa11_pmc03}}</div>
+                <div class="infobox disabledbox">{{tableData.oaa11_show}}</div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox" :class="!table_able.includes('oaa16')?'disabledbox':''">
                   <el-select
@@ -108,7 +108,7 @@
                 </div>
                 <div class="titlebox">汇率</div>
                 <div v-if="!table_able.includes('oaa14')" class="infobox selectbox editNot">{{tableData.oaa14}}</div>
-                <div v-if="table_able.includes('oaa14')" class="infobox selectbox">
+                <div v-if="table_able.includes('oaa14')" class="infobox selectbox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa14"
@@ -117,8 +117,8 @@
                   />
                 </div>
                 <div class="titlebox">预付金额</div>
-                <div v-if="!table_able.includes('oaa12')" class="infobox last_row editNot">{{tableData.oaa12}}</div>
-                <div v-if="table_able.includes('oaa12')" class="infobox last_row">
+                <div v-if="!table_able.includes('oaa12')" class="infobox selectbox last_row editNot">{{tableData.oaa12}}</div>
+                <div v-if="table_able.includes('oaa12')" class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa12"
@@ -319,7 +319,7 @@
 import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow ,transfer,addFlow,} from "@/api/process_new.js"
-import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
+import { azisList, pmasList  } from "@/api/basic";
 import { dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
 
 export default {
@@ -343,17 +343,10 @@ export default {
         oaz04_show:"",//账款类型回显数据
       },
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
+        //支付方式
+        payTypes: [],
         // 币种列表
         azisList: [],
-        // 付款方式列表
-        pmasList: [],
-        // 项目列表
-        pjasList: [],
-        // WBS列表
-        pjbsList: [],
       },
       //财务信息
       oaz: {
@@ -449,7 +442,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    this.workid = 4353
+    // this.workid = 4353
     this.getworkflows()
     this.getGens()
     this.getAzis()
@@ -510,16 +503,6 @@ export default {
     },
     // *******************************************
     // ***********获取下拉列表信息************
-    getGens () {
-      gensList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.genList = result.data;
-        } else {
-          this.$message.error("获取员工列表失败：" + result.error.message);
-        }
-      })
-    },
     getAzis () {
       azisList()
       .then( result => {
@@ -534,29 +517,9 @@ export default {
       pmasList()
       .then( result => {
         if (result.status == 200) {
-          this.fixedData.pmasList = result.data;
+          this.fixedData.payTypes = result.data;
         } else {
           this.$message.error("获取付款方式列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjas () {
-      pjasList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjasList = result.data;
-        } else {
-          this.$message.error("获取项目列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjbs () {
-      pjbsList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjbsList = result.data;
-        } else {
-          this.$message.error("获取WBS列表失败：" + result.error.message);
         }
       })
     },
@@ -657,7 +620,7 @@ export default {
     // ****************其他操作*******************
     // 计算折合汇率
     getExchangeRate() {
-      this.exchange = Number(this.tableData.oaa07) * Number(this.tableData.oaa08)
+      this.exchange = Number(this.tableData.oaa14) * Number(this.tableData.oaa12)
       this.exchange = this.exchange.toFixed(2)
       this.NumberToChinese(this.exchange)
     },
