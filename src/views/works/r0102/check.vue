@@ -300,7 +300,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac09"
-                    label="金额（不含税）"
+                    label="摘要"
                     min-width="180px"
                     align="center"
                   >

@@ -615,7 +615,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac09"
-                    label="金额（不含税）"
+                    label="摘要"
                     min-width="180px"
                     align="center"
                   >
@@ -800,7 +800,7 @@
                     align="center"
                   >
                     <template slot-scope="scope">
-                      <div>
+                    <div>
                         <el-select
                           v-model="scope.row.oac11"
                           placeholder="请选择核算项一"
@@ -1352,7 +1352,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4374
+    // this.workid = 4376
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
