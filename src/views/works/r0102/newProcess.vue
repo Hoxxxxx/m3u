@@ -66,7 +66,7 @@
                   <div class="selector" @click="selectDialog('YFCS')">{{tableData.oaa11}}</div>
                 </div>
                 <div class="titlebox">厂商简称</div>
-                <div class="infobox disabledbox">{{showData.oaa11_pmc03}}</div>
+                <div class="infobox disabledbox">{{showData.oaa11_show}}</div>
                 <div class="titlebox">本次支付金额</div>
                 <div class="infobox selectbox last_row">
                   <input
@@ -112,7 +112,7 @@
                   <div class="selector" @click="selectDialog('SB')">{{tableData.oaa15}}</div>
                 </div>
                 <div class="titlebox">税率</div>
-                <div class="infobox editNot">{{showData.oaa15_gec04}}</div>
+                <div class="infobox editNot">{{showData.oaa15_show}}</div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox">
                   <el-select
@@ -285,14 +285,14 @@
                     </template>
                   </el-table-column>
                    <el-table-column
-                    prop="oaf03_gec04"
+                    prop="oaf03_show"
                     label="税率"
                     min-width="130px"
                     align="center"
                   >
                   <div slot-scope="scope">
                     <el-input
-                      v-model="scope.row.oaf03_gec04"
+                      v-model="scope.row.oaf03_show"
                       placeholder="税率"
                       disabled
                     ></el-input>
@@ -511,6 +511,21 @@
                         >
                           {{ scope.row.oac05 }}
                         </div>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac09"
+                    label="摘要"
+                    min-width="180px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oac09"
+                          placeholder="摘要"
+                        ></el-input>
                       </div>
                     </template>
                   </el-table-column>
@@ -788,8 +803,8 @@ export default {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
         oaa04_gen04: "", //申请人部门
-        oaa11_pmc03: "", //厂商简称
-        oaa15_gec04: "", //税率
+        oaa11_show: "", //厂商简称
+        oaa15_show: "", //税率
         expenseMoney: "", //报销金额
         expenseMoneyF: "", //报销金额大写
       },
@@ -809,7 +824,6 @@ export default {
         oaa16: "TT", //支付方式
         oaa17: "", //应付金额
         oaa18: "", //说明
-        oaa19: "", //验收信息
         // 收款信息
         oaa21: "", //收款人
         oaa22: "", //开户行
@@ -1095,7 +1109,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'fixedPay',
+                    url_type: 'r0102',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -1120,7 +1134,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'fixedPay',
+                    url_type: 'r0102',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -1145,7 +1159,7 @@ export default {
         oaf01: "", //发票号码
         oaf02: dateFmt(new Date()), //发票日期
         oaf03: "", //税别
-        oaf03_gec04: "1", //税率
+        oaf03_show: "1", //税率
         oaf05: "0.00", //税前金额（原币）
         oaf06: "0.00", //税额（原币）
         oaf07: "0.00", //含税金额（原币）
@@ -1174,8 +1188,8 @@ export default {
         oac01: "", //会计科目
         oac04: "", //项目、
         oac05: "", //项目wbs
-        oac06: "", //摘要
         oac07: "", //金额不含税
+        oac09: "", //摘要
         oac11: "", //核算项1
         oac12: "", //核算项2
       };
@@ -1370,18 +1384,18 @@ export default {
           break;
           case "YFCS":
           this.tableData.oaa11 = val[0].pmc01;
-          this.showData.oaa11_pmc03 = val[0].pmc03;
+          this.showData.oaa11_show = val[0].pmc03;
           this.tableData.oaa21 = val[0].pmc03;
           this.tableData.oaa22 = val[0].pmcud01;
           this.tableData.oaa23 = val[0].pmc56;
           break;
           case "SB":
           this.tableData.oaa15 = val[0].gec01;
-          this.showData.oaa15_gec04 = val[0].gec04;
+          this.showData.oaa15_show = val[0].gec04;
           break;
           case "FPSB":
             this.tableData.oaf[this.rowIndex].oaf03 = val[0].gec01;
-            this.tableData.oaf[this.rowIndex].oaf03_gec04 = val[0].gec04;
+            this.tableData.oaf[this.rowIndex].oaf03_show = val[0].gec04;
             this.change_SB(this.rowIndex)
           break;
           case "KJKM":

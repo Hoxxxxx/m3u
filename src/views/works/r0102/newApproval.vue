@@ -151,20 +151,8 @@
                   </el-select>
                 </div>
               </div>
-              <!-- 4 -->
-              <div class="form_line">
-                <div class="titlebox">固定资产申请单</div>
-                <div v-if="!table_able.includes('oaa17')" class="infobox longbox selectbox editNot">
-                  {{tableData.oaa17_show}}
-                </div>
-                <div v-if="table_able.includes('oaa17')" class="infobox longbox selectbox">
-                  <div class="selector" style="padding-right:0;background-position:right center;" @click="selectDialog('GDZCSQD')">
-                    {{ tableData.oaa17_show }}
-                  </div>
-                </div>
-              </div>
               <!-- 5 -->
-              <div class="form_line">
+              <div class="form_line last_line">
                 <div class="titlebox">说明</div>
                 <div v-if="!table_able.includes('oaa18')" class="infobox longbox editNot" style="width: 100%">
                   {{tableData.oaa18}}
@@ -177,22 +165,6 @@
                     placeholder="请输入说明"
                     maxlength="80"
                     show-word-limit
-                  >
-                  </el-input>
-                </div>
-              </div>
-              <!-- 5 -->
-              <div class="form_line last_line">
-                <div class="titlebox">验收信息</div>
-                <div v-if="!table_able.includes('oaa19')" class="infobox last_row longbox editNot" style="width: 100%">
-                  {{tableData.oaa19}}
-                </div>
-                <div v-if="table_able.includes('oaa19')" class="infobox areabox last_row longbox" style="width: 100%">
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa19"
-                    placeholder="请输入验收信息"
                   >
                   </el-input>
                 </div>
@@ -467,14 +439,14 @@
                     </template>
                   </el-table-column>
                    <el-table-column
-                    prop="oaf03_gec04"
+                    prop="oaf03_show"
                     label="税率"
                     min-width="130px"
                     align="center"
                   >
                   <div slot-scope="scope">
                     <el-input
-                      v-model="scope.row.oaf03_gec04"
+                      v-model="scope.row.oaf03_show"
                       placeholder="税率"
                       disabled
                     ></el-input>
@@ -642,9 +614,9 @@
                   >
                   </el-table-column>
                   <el-table-column
-                    prop="oac08"
-                    label="资产卡片"
-                    min-width="150px"
+                    prop="oac09"
+                    label="金额（不含税）"
+                    min-width="180px"
                     align="center"
                   >
                   </el-table-column>
@@ -792,19 +764,17 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oac08"
-                    label="资产卡片"
-                    min-width="150px"
+                    prop="oac09"
+                    label="摘要"
+                    min-width="180px"
                     align="center"
                   >
                     <template slot-scope="scope">
                       <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('ZCKP', scope.$index)"
-                        >
-                          {{ scope.row.oac08 }}
-                        </div>
+                        <el-input
+                          v-model="scope.row.oac09"
+                          placeholder="摘要"
+                        ></el-input>
                       </div>
                     </template>
                   </el-table-column>
@@ -1352,17 +1322,6 @@ export default {
           { name: "pjb01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
         ],
-        head_GDZCSQD:[
-          { name: "id", title: "id" },
-          { name: "title", title: "流程名称" },
-        ],
-        head_ZCKP:[
-          { name: "faj02", title: "财产编号" },
-          { name: "faj04", title: "资产主类别" },
-          { name: "faj05", title: "资产次类别" },
-          { name: "faj06", title: "资产中文名称" },
-          { name: "faj10", title: "预付厂商" },
-        ],
         head_WQX:[
           { name: "id", title: "待抵账款编号" },
           { name: "original_amount", title: "本币未冲金额" },
@@ -1393,7 +1352,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4317
+    // this.workid = 4374
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1405,6 +1364,7 @@ export default {
         let sum =  this.tableData.oaf.reduce((prev, cur) => {
           return prev + Number(cur.oaf07);
         }, 0);
+        this.tableData.oaa17 = sum.toFixed(2)
         return sum.toFixed(2)
       }
     },
@@ -1523,7 +1483,7 @@ export default {
         oaf01: "", //发票号码
         oaf02: "", //发票日期
         oaf03: "", //税别
-        oaf03_gec04: "1", //税率
+        oaf03_show: "1", //税率
         oaf05: "0.00", //税前金额（原币）
         oaf06: "0.00", //税额（原币）
         oaf07: "0.00", //含税金额（原币）
@@ -1552,8 +1512,8 @@ export default {
         oac01: "", //会计科目
         oac04: "", //项目、
         oac05: "", //项目wbs
-        oac06: "", //摘要
         oac07: "", //金额不含税
+        oac09: "", //摘要
         oac11: "", //核算项1
         oac12: "", //核算项2
       };
@@ -1789,24 +1749,6 @@ export default {
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
         break;
-        case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "title" }];
-          this.dataSelect.filter = filter_GDZCSQD;
-          this.dataSelect.searchType = "mixed"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "oa/workflows";
-          this.dataSelect.headList = this.tableHead.head_GDZCSQD;
-          this.dataSelect.dialogTitle = "申请单列表";
-        break;
-        case "ZCKP":
-          let filter_ZCKP = [{ label: "", model_key_search: "faj02" }];
-          this.dataSelect.filter = filter_ZCKP;
-          this.dataSelect.searchType = "mixed"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "meta/cards";
-          this.dataSelect.headList = this.tableHead.head_ZCKP;
-          this.dataSelect.dialogTitle = "资产卡片列表";
-        break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
           if (this.tableData.oaa04 == '') {
@@ -1832,6 +1774,8 @@ export default {
         case "bank":
           let filter_bank = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_bank;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/nmas";
           this.dataSelect.headList = this.tableHead.head_bank;
           this.dataSelect.dialogTitle = "银行";
@@ -1839,6 +1783,8 @@ export default {
         case "YDM":
           let filter_YDM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_YDM;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/nmcs";
           this.dataSelect.headList = this.tableHead.head_YDM;
           this.dataSelect.dialogTitle = "异动码";
@@ -1846,6 +1792,8 @@ export default {
         case "ZKLX":
           let filter_ZKLX = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_ZKLX;
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/aprs";
           this.dataSelect.headList = this.tableHead.head_ZKLX;
           this.dataSelect.dialogTitle = "账款类型";
@@ -1885,7 +1833,7 @@ export default {
           break;
           case "FPSB":
             this.tableData.oaf[this.rowIndex].oaf03 = val[0].gec01;
-            this.tableData.oaf[this.rowIndex].oaf03_gec04 = val[0].gec04;
+            this.tableData.oaf[this.rowIndex].oaf03_show = val[0].gec04;
             this.change_SB(this.rowIndex)
           break;
           case "KJKM":
@@ -1897,13 +1845,6 @@ export default {
           case "WBS":
             this.tableData.oac[this.rowIndex].oac05 = val[0].pjb02;
             break;
-          case "GDZCSQD":
-            this.tableData.oaa17 = val[0].id;
-            this.tableData.oaa17_show = val[0].title;
-          break;
-          case "ZCKP":
-            this.tableData.oac[this.rowIndex].oac08 = val[0].faj02;
-          break;
           case "WQX":
             val.forEach(item =>{
               this.$set(item,'oad01',item.id)
@@ -1990,7 +1931,7 @@ export default {
           this.$router.push({
             path: url,
             query: {
-              url_type: 'fixedPay',
+              url_type: 'r0102',
               workid: this.workid,
               workName: this.workName,
               oaa01: this.tableData.oaa01,

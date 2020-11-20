@@ -121,11 +121,6 @@
                 <div class="titlebox">说明</div>
                 <div class="infobox longbox" style="width: 100%">{{tableData.oaa18}}</div>
               </div>
-              <!-- 5 -->
-              <div class="form_line last_line">
-                <div class="titlebox">验收信息</div>
-                <div class="infobox last_row longbox" style="width: 100%">{{tableData.oaa19}}</div>
-              </div>
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
               <div class="form_line">
@@ -304,9 +299,9 @@
                   >
                   </el-table-column>
                   <el-table-column
-                    prop="oac08"
-                    label="资产卡片"
-                    min-width="150px"
+                    prop="oac09"
+                    label="金额（不含税）"
+                    min-width="180px"
                     align="center"
                   >
                   </el-table-column>
@@ -599,6 +594,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 4374
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -610,6 +606,7 @@ export default {
         let sum =  this.tableData.oaf.reduce((prev, cur) => {
           return prev + Number(cur.oaf07);
         }, 0);
+        this.tableData.oaa17 = sum.toFixed(2)
         return sum.toFixed(2)
       }
     },
