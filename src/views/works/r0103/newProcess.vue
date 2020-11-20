@@ -709,7 +709,7 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid;
-    // this.addParams.tplid = 8949;
+    this.addParams.tplid = 8949;
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -801,7 +801,7 @@ export default {
     // *******************************************
     // ****************其他操作*******************
     // 新增（暂存）表单
-    addNewFlow() {
+    addNewFlow(type) {
       this.tableData = { ...this.tableData, ...this.oaz };
       this.addParams.from_data = this.tableData;
       if (this.workid == "") {
