@@ -1249,8 +1249,8 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.tableData.oac.splice(val, 1);
-        if (this.tableData.oac.length == 0) {
+        this.tableData.oaf.splice(val, 1);
+        if (this.tableData.oaf.length == 0) {
           this.addRow2();
         }
       });
