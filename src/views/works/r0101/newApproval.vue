@@ -208,6 +208,59 @@
                   />
                 </div>
               </div>
+              <!-- 财务信息 -->
+              <div v-if="workclass_personnel.perid.flownum!==1 &&  oazShow == 1">
+                <div class="title_line">
+                  财务信息
+                  <el-button
+                    type="primary"
+                    size="small"
+                    style="position: absolute; right: 4px; top: 4px"
+                    @click="generate()"
+                    >生成凭证</el-button
+                  >
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">银行</div>
+                  <div class="infobox selectbox">
+                    <div class="selector" @click="selectDialog('bank')">
+                      {{ financialData.bank_show }}
+                    </div>
+                  </div>
+                  <div class="titlebox">异动码</div>
+                  <div class="infobox selectbox">
+                    <div class="selector" @click="selectDialog('YDM')">
+                      {{ financialData.num_show }}
+                    </div>
+                  </div>
+                  <div class="titlebox">记账日期</div>
+                  <div class="infobox middlebox datebox last_row">
+                    <el-date-picker
+                      v-model="oaz.oaz03"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
+                    >
+                    </el-date-picker>
+                  </div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">账款类型</div>
+                  <div class="infobox selectbox">
+                    <div class="selector" @click="selectDialog('ZKLX')">
+                      {{ financialData.oaz04_show }}
+                    </div>
+                  </div>
+                  <div class="titlebox">凭证编号</div>
+                  <div class="infobox selectbox editNot">
+                    {{ oaz.oaz06 }}
+                  </div>
+                  <div class="titlebox">支付方式</div>
+                  <div class="infobox middlebox selectbox last_row">
+                    {{ financialData.oaz05_show }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </el-tab-pane>
@@ -319,7 +372,13 @@
 import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow ,transfer,addFlow,} from "@/api/process_new.js"
-import { azisList, pmasList  } from "@/api/basic";
+import { 
+  gensList,
+  azisList,
+  pmasList,
+  pjbsList,
+  aagsList,
+  pjasList,  } from "@/api/basic";
 import { dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
 
 export default {
@@ -442,13 +501,10 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4353
+    // this.workid = 4383
     this.getworkflows()
-    this.getGens()
     this.getAzis()
     this.getPmas()
-    this.getPjas()
-    this.getPjbs()
   },
   methods: {
     handleClick() {
@@ -475,14 +531,14 @@ export default {
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码
             oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : dateFmt(new Date()), //记账日期
             oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
-            oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa12, //支付方式
+            oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa16, //支付方式
             oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
           }
           this.financialData ={
             bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
             num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
             oaz04_show:res.data.workclass_info.from_data.oaz04_show,//账款类型回显数据
-            oaz05_show: res.data.workclass_info.from_data.oaz05_show ? res.data.workclass_info.from_data.oaz05_show : res.data.workclass_info.from_data.oaa12_show, //支付方式回显数据
+            oaz05_show: res.data.workclass_info.from_data.oaz05_show ? res.data.workclass_info.from_data.oaz05_show : res.data.workclass_info.from_data.oaa16_show, //支付方式回显数据
           }
           if (res.data.file !== null) {
             res.data.file.forEach( item => {

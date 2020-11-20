@@ -216,7 +216,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oaf01"
+                    prop="oaf01_show"
                     label="付款方式"
                     min-width="180px"
                     align="center"
@@ -817,7 +817,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r103',
+                    url_type: 'r0103',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -842,7 +842,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r103',
+                    url_type: 'r0103',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,

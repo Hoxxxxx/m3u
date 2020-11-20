@@ -120,7 +120,7 @@
               <div class="form_line">
                 <div class="titlebox">收款方式</div>
                 <div class="infobox selectbox">
-                  {{tableData.oaa16}}
+                  {{tableData.oaa16_show}}
                 </div>
                 <div class="titlebox">收款人</div>
                 <div class="infobox  selectbox">
@@ -158,7 +158,7 @@
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="oaf01"
+                    prop="oaf01_show"
                     label="付款方式"
                     min-width="180px"
                     align="center"
@@ -193,7 +193,7 @@
                   >
                   </el-table-column>
                   <el-table-column
-                    prop="oaf05"
+                    prop="oaf05_show"
                     label="币种"
                     min-width="150px"
                     align="center"
@@ -393,6 +393,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 4390
     this.getworkflows()
   },
   computed: {
