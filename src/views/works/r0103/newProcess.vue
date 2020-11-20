@@ -709,7 +709,7 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid;
-    this.addParams.tplid = 8949;
+    // this.addParams.tplid = 8949;
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
