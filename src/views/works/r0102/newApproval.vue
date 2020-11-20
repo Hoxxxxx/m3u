@@ -1182,7 +1182,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产卡片",//流程名
+      workName:"付款申请单",//流程名
       tableData: {
         // 表格部分
         oaf: [], // 发票明细

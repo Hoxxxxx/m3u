@@ -276,7 +276,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: '',
-      workName:"预付款申请",//流程名
+      workName:"预付款申请单",//流程名
       tableData: {
         oaa01: '',
         oaa02: '',

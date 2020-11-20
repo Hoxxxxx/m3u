@@ -549,7 +549,7 @@ export default {
   components: { SelectData },
   data() {
     return {
-      workname: "付款冲账申请",
+      workname: "付款冲账申请单",
       activeTab: "firTab",
       workid: "",
       workName: "付款冲账申请单（华录新媒）", //流程名

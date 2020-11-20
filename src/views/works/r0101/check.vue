@@ -216,7 +216,7 @@ export default {
     return {
       overloading: '', //加载定时器
       workid: '',
-      workname: '预付款申请',
+      workname: '预付款申请单',
       activeTab: "firTab",
       tableData: {},
       // 汇率数据

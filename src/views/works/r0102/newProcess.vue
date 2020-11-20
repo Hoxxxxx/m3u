@@ -798,7 +798,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: "",
-      workName: "固定资产付款", //流程名
+      workName: "付款申请单", //流程名
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
