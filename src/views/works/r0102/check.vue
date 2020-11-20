@@ -110,12 +110,7 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.expenseMoneyF }}
                 </div>
-              </div> -->
-              <!-- 4 -->
-              <div class="form_line">
-                <div class="titlebox">固定资产申请单</div>
-                <div class="infobox longbox selectbox">{{tableData.oaa17_show}}</div>
-              </div>
+              </div> --> 
               <!-- 5 -->
               <div class="form_line">
                 <div class="titlebox">说明</div>

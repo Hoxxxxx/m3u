@@ -885,7 +885,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oad04"
+                    prop="oad04_show"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -962,7 +962,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oad04"
+                    prop="oad04_show"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -970,7 +970,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.oad04"
+                          v-model="scope.row.oad04_show"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -1027,7 +1027,7 @@
                 </el-table>
               </div>
               <!-- 财务信息 -->
-              <div v-if="oazShow == 1">
+              <div v-if="workclass_personnel.perid.flownum!==1 && oazShow == 1">
                 <div class="title_line">
                   财务信息
                   <el-button
@@ -1352,7 +1352,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4376
+    this.workid = 4376
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1851,6 +1851,7 @@ export default {
               this.$set(item,'oad02','')
               this.$set(item,'oad03',item.date)
               this.$set(item,'oad04',item.rid)
+              this.$set(item,'oad04_show',item.rname)
               this.$set(item,'oad05',item.original_amount)
               this.$set(item,'oad06',item.voucher_code)
             })
