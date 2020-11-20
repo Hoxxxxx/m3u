@@ -42,15 +42,15 @@
               <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
                 <div class="infobox selectbox">
-                    {{ showData.oaa04_show }}
+                    {{ tableData.oaa04_show }}
                 </div>
                 <div class="titlebox">员工编号</div>
                 <div class="infobox ">
-                  {{ showData.oaa04_gen01 }}
+                  {{ tableData.oaa04_gen01 }}
                 </div>
                 <div class="titlebox">所属部门</div>
                 <div class="infobox  last_row">
-                  {{ showData.oaa04_gen04 }}
+                  {{ tableData.oaa04_gen04 }}
                 </div>
               </div>
               <!-- 付款信息 -->
@@ -58,75 +58,61 @@
               <div class="form_line">
                 <div class="titlebox">付款申请单</div>
                 <div class="infobox longbox selectbox">
-                  
-                    {{ showData.oaa10_show }}
+                    {{ tableData.oaa10_show }}
                 </div>
               </div>
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">付款编号</div>
                 <div class="infobox ">
-                  {{ showData.oaa10_oaa01 }}
+                  {{ tableData.oaa10_oaa01 }}
                 </div>
                 <div class="titlebox">预付厂商</div>
                 <div class="infobox ">
-                  {{ showData.oaa10_oaa11 }}
+                  {{ tableData.oaa10_oaa11 }}
                 </div>
                 <div class="titlebox">厂商简称</div>
                 <div class="infobox  last_row">
-                  {{ showData.oaa10_oaa11_show }}
+                  {{ tableData.oaa10_oaa11_show }}
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">币种</div>
                 <div class="infobox  selectbox">
-                  {{showData.oaa10_oaa13}}
+                  {{tableData.oaa10_oaa13}}
                 </div>
                 <div class="titlebox">汇率</div>
                 <div class="infobox  selectbox">
-                  {{showData.oaa10_oaa14}}
+                  {{tableData.oaa10_oaa14}}
                 </div>
                 <div class="titlebox">发票金额</div>
                 <div class="infobox last_row  last_row">
-                  {{ showData.oaa10_oaa17 }}
+                  {{ tableData.oaa10_oaa17 }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">折合汇率金额</div>
                 <div class="infobox ">
-                  {{ showData.oaa10_ZHHLJE }}
+                  {{ oaa10_ZHHLJE }}
                 </div>
                 <div class="titlebox">折合汇率金额大写</div>
                 <div class="infobox ">
-                  {{ showData.oaa10_ZHHLJEDX }}
+                  {{ oaa10_ZHHLJEDX }}
                 </div>
                 <div class="titlebox">本次支付金额</div>
                 <div class="infobox selectbox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa10_oaa09"
-                    placeholder="请输入本次支付金额"
-                  />
+                  {{tableData.oaa09}}
                 </div>
               </div>
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">说明</div>
                 <div
-                  class="infobox last_row longbox areabox"
+                  class="infobox last_row longbox "
                   style="width: 100%"
                 >
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa18"
-                    placeholder="请输入说明"
-                    maxlength="80"
-                    disabled
-                    show-word-limit
-                  >
-                  </el-input>
+                  {{tableData.oaa18}}
                 </div>
               </div>
               <!-- 收款信息 -->
@@ -242,7 +228,7 @@
               </div>
               <div>
                 <el-table
-                  :data="tableData.oad"
+                  :data="tableData.oae"
                   v-loading="false"
                   element-loading-background="rgba(0, 0, 0, 0.5)"
                   element-loading-text="数据正在加载中"
@@ -368,7 +354,7 @@ export default {
   data() {
     return {
       workid: '',
-      workname: '其他费用报销单',
+      workname: '付款冲账申请单',
       activeTab: "firTab",
       tableData: {
         // 基本信息
@@ -410,23 +396,31 @@ export default {
   },
   computed: {
     // 报销金额（不含税）
-    expenseMoney(){
-      let sum =  this.tableData.oac.reduce((prev, cur) => {
-        return prev + Number(cur.oac07);
-      }, 0);
-      this.tableData.expenseMoneyF = number_chinese(sum)
-      return sum
+    oaa10_ZHHLJE() {
+      let sum =
+        Number(this.tableData.oaa10_oaa17) * Number(this.tableData.oaa10_oaa14);
+      this.oaa10_ZHHLJEDX = number_chinese(sum);
+      return sum;
     },
-    // 支付金额
-    payMoney(){
-      // 还款金额总和
-      let sum = this.tableData.oad.reduce((prev, cur) => {
-        return prev + Number(cur.oad02);
-      }, 0);
-      // 支付金额
-      let res = this.expenseMoney - sum
-      return res
-    }
+  },
+  watch: {
+    "tableData.oaf": {
+      handler(newval, oldval) {
+        this.tableData.oaf.forEach((item) => {
+          item.oaf07_local = (item.oaf07 * item.oaf06).toFixed(2);
+        });
+      },
+      deep: true,
+    },
+    "tableData.oae": {
+      handler(newval, oldval) {
+        this.tableData.oae.forEach((item) => {
+          item.oae05 = (item.oae02 * this.tableData.oaa10_oaa14).toFixed(2);
+          console.log(newval);
+        });
+      },
+      deep: true,
+    },
   },
   methods: {
     handleClick() {

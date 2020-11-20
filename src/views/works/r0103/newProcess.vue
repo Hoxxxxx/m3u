@@ -70,72 +70,54 @@
                     style="padding-right: 0; background-position: right center"
                     @click="selectDialog('FKSQD')"
                   >
-                    {{ showData.oaa10_show }}
+                    {{ tableData.oaa10_show }}
                   </div>
                 </div>
               </div>
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">付款编号</div>
-                <div class="infobox disabledbox">
-                  {{ showData.oaa10_oaa01 }}
+                <div class="infobox disabledbox editNot">
+                  {{ tableData.oaa10_oaa01 }}
                 </div>
                 <div class="titlebox">预付厂商</div>
-                <div class="infobox disabledbox">
-                  {{ showData.oaa10_oaa11 }}
+                <div class="infobox disabledbox editNot">
+                  {{ tableData.oaa10_oaa11 }}
                 </div>
                 <div class="titlebox">厂商简称</div>
-                <div class="infobox disabledbox last_row">
-                  {{ showData.oaa10_oaa11_show }}
+                <div class="infobox disabledbox last_row editNot">
+                  {{ tableData.oaa10_oaa11_show }}
                 </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">币种</div>
-                <div class="infobox disabledbox selectbox">
-                  {{ showData.oaa10_oaa13 }}
-                  <!-- <el-select
-                    v-model="tableData.oaa06"
-                    class="select"
-                    placeholder="请选择币种"
-                  >
-                    <el-option
-                      v-for="(item, index) in fixedData.cointypes"
-                      :key="index"
-                      :label="item.azi02"
-                      :value="item.azi01"
-                    >
-                    </el-option>
-                  </el-select> -->
+                <div class="infobox disabledbox selectbox editNot">
+                  {{ tableData.oaa10_oaa13_show }}
                 </div>
                 <div class="titlebox">汇率</div>
-                <div class="infobox disabledbox selectbox">
-                  {{ showData.oaa10_oaa14 }}
-                  <!-- <input
-                    class="abstracInput"
-                    v-model="tableData.oaa08"
-                    placeholder="请输入汇率"
-                  /> -->
+                <div class="infobox disabledbox selectbox editNot">
+                  {{ tableData.oaa10_oaa14 }}
                 </div>
                 <div class="titlebox">发票金额</div>
                 <div class="infobox last_row editNot last_row">
-                  {{ showData.oaa10_oaa17 }}
+                  {{ tableData.oaa10_oaa17 }}
                 </div>
               </div>
               <!-- 2 -->
               <div class="form_line">
                 <div class="titlebox">折合汇率金额</div>
                 <div class="infobox editNot">
-                  {{ showData.oaa10_ZHHLJE }}
+                  {{ oaa10_ZHHLJE }}
                 </div>
                 <div class="titlebox">折合汇率金额大写</div>
                 <div class="infobox editNot">
-                  {{ showData.oaa10_ZHHLJEDX }}
+                  {{ oaa10_ZHHLJEDX }}
                 </div>
                 <div class="titlebox">本次支付金额</div>
                 <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
-                    v-model="tableData.oaa10_oaa09"
+                    v-model="tableData.oaa09"
                     placeholder="请输入本次支付金额"
                   />
                 </div>
@@ -381,14 +363,17 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oaf07"
+                    prop="oaf07_local"
                     label="本次支付金额（本币）"
                     min-width="150px"
                     align="center"
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-input v-model="scope.row.oaf07" disabled></el-input>
+                        <el-input
+                          v-model="scope.row.oaf07_local"
+                          disabled
+                        ></el-input>
                       </div>
                     </template>
                   </el-table-column>
@@ -407,7 +392,7 @@
               </div>
               <div>
                 <el-table
-                  :data="tableData.oad"
+                  :data="tableData.oae"
                   v-loading="false"
                   element-loading-background="rgba(0, 0, 0, 0.5)"
                   element-loading-text="数据正在加载中"
@@ -464,7 +449,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.oad02"
+                          v-model="scope.row.oae02"
                           placeholder="请输入还款金额"
                         ></el-input>
                       </div>
@@ -562,10 +547,7 @@
 import SelectData from "@/components/selectData";
 import { dateFmt, number_chinese } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
-import {
-  azisList,
-  pmasList,
-} from "@/api/basic.js";
+import { azisList, pmasList } from "@/api/basic.js";
 
 export default {
   components: { SelectData },
@@ -589,6 +571,14 @@ export default {
         oaa05: "", //联系电话
         // 付款信息
         oaa10: "", //付款申请单
+        oaa10_oaa01: "",
+        oaa10_oaa11: "",
+        oaa10_oaa11_show: "",
+        oaa10_oaa13: "",
+        oaa10_oaa13_show: "", //
+        oaa10_oaa14: "",
+        oaa10_oaa17: "",
+        oaa09:"",//本次支付金额
         oaa18: "", //说明
         // 收款信息
         oaa16: "", //收款方式
@@ -679,33 +669,51 @@ export default {
         head_FKSQD: [
           { name: "id", title: "id" },
           { name: "title", title: "流程名称" },
+          { name: "oaa10_oaa01", title: "付款编号" },
+          { name: "oaa10_oaa11", title: "厂商编号" },
+          { name: "oaa10_oaa11_show", title: "厂商简称" },
+          { name: "oaa10_oaa13", title: "币种编号" },
+          { name: "oaa10_oaa13_show", title: "币种名称" },
+          { name: "oaa10_oaa14", title: "汇率" },
+          { name: "oaa10_oaa17", title: "发票金额" },
+          { name: "oaa10_oaa21", title: "收款人" },
+          { name: "oaa10_oaa22", title: "开户行" },
+          { name: "oaa10_oaa23", title: "收款账号" },
         ],
       },
     };
   },
-  // computed: {
-  //   // 报销金额（不含税）
-  //   expenseMoney() {
-  //     let sum = this.tableData.oac.reduce((prev, cur) => {
-  //       return prev + Number(cur.oac07);
-  //     }, 0);
-  //     this.showData.expenseMoneyF = number_chinese(sum);
-  //     return sum;
-  //   },
-  //   // 支付金额
-  //   payMoney() {
-  //     // 还款金额总和
-  //     let sum = this.tableData.oad.reduce((prev, cur) => {
-  //       return prev + Number(cur.oad02);
-  //     }, 0);
-  //     // 支付金额
-  //     let res = this.expenseMoney - sum;
-  //     return res;
-  //   },
-  // },
+  computed: {
+    // 报销金额（不含税）
+    oaa10_ZHHLJE() {
+      let sum =
+        Number(this.tableData.oaa10_oaa17) * Number(this.tableData.oaa10_oaa14);
+      this.oaa10_ZHHLJEDX = number_chinese(sum);
+      return sum;
+    },
+  },
+  watch: {
+    "tableData.oaf": {
+      handler(newval, oldval) {
+        this.tableData.oaf.forEach((item) => {
+          item.oaf07_local = (item.oaf07 * item.oaf06).toFixed(2);
+        });
+      },
+      deep: true,
+    },
+    "tableData.oae": {
+      handler(newval, oldval) {
+        this.tableData.oae.forEach((item) => {
+          item.oae05 = (item.oae02 * this.tableData.oaa10_oaa14).toFixed(2);
+          console.log(newval);
+        });
+      },
+      deep: true,
+    },
+  },
   created() {
     this.addParams.tplid = this.$route.query.tplid;
-    this.addParams.tplid = 8949;
+    // this.addParams.tplid = 8949;
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -793,6 +801,7 @@ export default {
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
+    //
     // *******************************************
     // ****************其他操作*******************
     // 新增（暂存）表单
@@ -953,13 +962,13 @@ export default {
           break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
-          if (this.tableData.oaa04 == "") {
-            this.$message.warning("请先选择申请人！");
+          if (this.tableData.oaa10 == "") {
+            this.$message.warning("请先选择付款申请单！");
           } else {
             this.dataSelect.dialogVisible = true;
             let params = {
               type: 1,
-              number: this.tableData.oaa04,
+              number: this.tableData.oaa10_oaa11,
             };
             this.dataSelect.editType = "search";
             this.dataSelect.searchParams = params;
@@ -993,6 +1002,20 @@ export default {
             this.showData.oaa04_gen01 = val[0].gen01;
             this.showData.oaa04_gen04 = val[0].gen04;
             break;
+          case "FKSQD":
+            this.tableData.oaa10 = val[0].id;
+            this.tableData.oaa10_show = val[0].title;
+            this.tableData.oaa10_oaa01 = val[0].oaa10_oaa01;
+            this.tableData.oaa10_oaa11 = val[0].oaa10_oaa11;
+            this.tableData.oaa10_oaa11_show = val[0].oaa10_oaa11_show;
+            this.tableData.oaa10_oaa13 = val[0].oaa10_oaa13;
+            this.tableData.oaa10_oaa13_show = val[0].oaa10_oaa13_show;
+            this.tableData.oaa10_oaa14 = val[0].oaa10_oaa14;
+            this.tableData.oaa10_oaa17 = val[0].oaa10_oaa17;
+            this.tableData.oaa21 = val[0].oaa10_oaa21;
+            this.tableData.oaa22 = val[0].oaa10_oaa22;
+            this.tableData.oaa23 = val[0].oaa10_oaa23;
+            break;
           case "YHBH":
             this.tableData.oaf[this.rowIndex].oaf02 = val[0].nma01;
             break;
@@ -1004,15 +1027,18 @@ export default {
             this.tableData.oaf[this.rowIndex].oaf03_show = val[0].aag02;
             break;
           case "WQX":
+            let temp = [];
             val.forEach((item) => {
-              this.$set(item, "oad01", item.id);
-              this.$set(item, "oad02", "");
-              this.$set(item, "oad03", item.date);
-              this.$set(item, "oad04", item.rid);
-              this.$set(item, "oad05", item.original_amount);
-              this.$set(item, "oad06", item.voucher_code);
+              let obj = {
+                oae01: item.id,
+                oae02: "",
+                oae03: item.original_amount,
+                oae04: item.amount,
+                oae05: "",
+              };
+              temp.push(obj);
             });
-            this.tableData.oad = val;
+            this.tableData.oae = temp;
             break;
           default:
             return;

@@ -2037,6 +2037,8 @@ export default {
           let filter_bank = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_bank;
           this.dataSelect.searchApi = "meta/nmas";
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.headList = this.tableHead.head_bank;
           this.dataSelect.dialogTitle = "银行";
           break;
@@ -2044,6 +2046,8 @@ export default {
           let filter_YDM = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_YDM;
           this.dataSelect.searchApi = "meta/nmcs";
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.headList = this.tableHead.head_YDM;
           this.dataSelect.dialogTitle = "异动码";
           break;
@@ -2051,6 +2055,8 @@ export default {
           let filter_ZKLX = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_ZKLX;
           this.dataSelect.searchApi = "meta/aprs";
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "entry"
           this.dataSelect.headList = this.tableHead.head_ZKLX;
           this.dataSelect.dialogTitle = "账款类型";
           break;
