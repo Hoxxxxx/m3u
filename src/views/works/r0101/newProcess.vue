@@ -65,7 +65,7 @@
                   <div class="selector" @click="selectDialog('YFCS')">{{tableData.oaa11}}</div>
                 </div>
                 <div class="titlebox">厂商简称</div>
-                <div class="infobox disabledbox">{{showData.oaa11_pmc03}}</div>
+                <div class="infobox disabledbox">{{showData.oaa11_show}}</div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox">
                   <el-select
@@ -74,7 +74,7 @@
                     placeholder="请选择支付方式"
                   >
                     <el-option
-                      v-for="(item, index) in fixedData.payTypes"
+                      v-for="(item, index) in fixedData.pmasList"
                       :key="index"
                       :label="item.pma02"
                       :value="item.pma01"
@@ -267,7 +267,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { gensList, azisList, pmasList, pjasList, pjbsList  } from "@/api/basic";
+import { azisList, pmasList,  } from "@/api/basic";
 import { addFlow, editFlow, } from "@/api/process_new";
 
 export default {
@@ -276,7 +276,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: '',
-      workName:"预付款申请",//流程名
+      workName:"预付款申请单",//流程名
       tableData: {
         oaa01: '',
         oaa02: '',
@@ -309,7 +309,7 @@ export default {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
         oaa04_gen04: "", //部门编号
-        oaa11_pmc03: "", //厂商简称
+        oaa11_show: "", //厂商简称
         oaa27_show: "", //项目名
         oaa28_show: "", //WBS名
       },
@@ -319,19 +319,10 @@ export default {
       unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       // 表单数据
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
-        //支付方式
-        payTypes: [],
         // 币种列表
         azisList: [],
         // 付款方式列表
         pmasList: [],
-        // 项目列表
-        pjasList: [],
-        // WBS列表
-        pjbsList: [],
       },
       fileList: [],
       addParams: {
@@ -396,33 +387,20 @@ export default {
     };
   },
   created() {
-    // this.addParams.tplid = this.$route.query.tplid
-    this.getGens()
+    this.addParams.tplid = this.$route.query.tplid
     this.getAzis()
     this.getPmas()
-    this.getPjas()
-    this.getPjbs()
   },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
     },
     // ***********获取下拉列表信息************
-    getGens () {
-      gensList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.genList = result.data;
-        } else {
-          this.$message.error("获取员工列表失败：" + result.error.message);
-        }
-      })
-    },
     // 支付方式列表
     getPmas() {
       pmasList().then((res) => {
         if (res.status == 200) {
-          this.fixedData.payTypes = res.data;
+          this.fixedData.pmasList = res.data;
         } else {
           this.$message.error("获取支付方式列表失败：" + result.error.message);
         }
@@ -435,26 +413,6 @@ export default {
           this.fixedData.azisList = result.data;
         } else {
           this.$message.error("获取币种列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjas () {
-      pjasList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjasList = result.data;
-        } else {
-          this.$message.error("获取项目列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPjbs () {
-      pjbsList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.pjbsList = result.data;
-        } else {
-          this.$message.error("获取WBS列表失败：" + result.error.message);
         }
       })
     },
@@ -591,7 +549,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r101',
+                    url_type: 'r0101',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -616,7 +574,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r101',
+                    url_type: 'r0101',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -709,7 +667,7 @@ export default {
           break;
           case "YFCS":
           this.tableData.oaa11 = val[0].pmc01;
-          this.showData.oaa11_pmc03 = val[0].pmc03;
+          this.showData.oaa11_show = val[0].pmc03;
           this.tableData.oaa21 = val[0].pmc03;
           this.tableData.oaa22 = val[0].pmcud01;
           this.tableData.oaa23 = val[0].pmc56;

@@ -885,7 +885,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oad04"
+                    prop="oad04_show"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -962,7 +962,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oad04"
+                    prop="oad04_show"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -970,7 +970,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.oad04"
+                          v-model="scope.row.oad04_show"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -1027,7 +1027,7 @@
                 </el-table>
               </div>
               <!-- 财务信息 -->
-              <div v-if="oazShow == 1">
+              <div v-if="workclass_personnel.perid.flownum!==1 && oazShow == 1">
                 <div class="title_line">
                   财务信息
                   <el-button
@@ -1182,7 +1182,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产卡片",//流程名
+      workName:"付款申请单",//流程名
       tableData: {
         // 表格部分
         oaf: [], // 发票明细
@@ -1851,6 +1851,7 @@ export default {
               this.$set(item,'oad02','')
               this.$set(item,'oad03',item.date)
               this.$set(item,'oad04',item.rid)
+              this.$set(item,'oad04_show',item.rname)
               this.$set(item,'oad05',item.original_amount)
               this.$set(item,'oad06',item.voucher_code)
             })

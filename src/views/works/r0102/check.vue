@@ -110,12 +110,7 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.expenseMoneyF }}
                 </div>
-              </div> -->
-              <!-- 4 -->
-              <div class="form_line">
-                <div class="titlebox">固定资产申请单</div>
-                <div class="infobox longbox selectbox">{{tableData.oaa17_show}}</div>
-              </div>
+              </div> --> 
               <!-- 5 -->
               <div class="form_line">
                 <div class="titlebox">说明</div>
@@ -565,7 +560,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产卡片",//流程名
+      workName:"付款申请单",//流程名
       tableData: {
         // 表格部分
         oaf: [], // 发票明细

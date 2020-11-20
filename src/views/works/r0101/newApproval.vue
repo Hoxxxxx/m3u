@@ -79,7 +79,7 @@
                     :disabled="!table_able.includes('oaa16')"
                   >
                     <el-option
-                      v-for="(item, index) in fixedData.payTypes"
+                      v-for="(item, index) in fixedData.pmasList"
                       :key="index"
                       :label="item.pma02"
                       :value="item.pma01"
@@ -387,7 +387,7 @@ export default {
     return {
       overloading: '', //加载定时器
       workid: '',
-      workName: '预付款申请',
+      workName: '预付款申请单',
       activeTab: "firTab",
       tableData: {},
       // 汇率数据
@@ -403,7 +403,7 @@ export default {
       },
       fixedData: {
         //支付方式
-        payTypes: [],
+        pmasList: [],
         // 币种列表
         azisList: [],
       },
@@ -501,7 +501,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4383
+    // this.workid = 4393
     this.getworkflows()
     this.getAzis()
     this.getPmas()
@@ -573,7 +573,7 @@ export default {
       pmasList()
       .then( result => {
         if (result.status == 200) {
-          this.fixedData.payTypes = result.data;
+          this.fixedData.pmasList = result.data;
         } else {
           this.$message.error("获取付款方式列表失败：" + result.error.message);
         }
@@ -787,7 +787,7 @@ export default {
             this.$router.push({
               path: url,
               query: {
-                url_type: 'borrow',
+                url_type: 'r0101',
                 workid: this.workid,
                 workName: this.workName,
                 oaa01: this.tableData.oaa01,
@@ -932,12 +932,12 @@ export default {
           this.tableData.oaa23 = val[0].pmc56;
           break;
           case "XM":
-            this.tableData.oaa14 = val[0].pja01;
-            this.tableData.oaa14_show = val[0].pja02;
+            this.tableData.oaa27 = val[0].pja01;
+            this.tableData.oaa27_show = val[0].pja02;
           break;
           case "WBS":
-            this.tableData.oaa15 = val[0].pjb02;
-            this.tableData.oaa15_show = val[0].pjb03;
+            this.tableData.oaa28 = val[0].pjb02;
+            this.tableData.oaa28_show = val[0].pjb03;
           break;
           case "CCSQD":
             this.tableData.oaa17 = val[0].id;
