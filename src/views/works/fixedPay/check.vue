@@ -599,6 +599,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 4317
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -677,8 +678,8 @@ export default {
       this.tableData.oaf[rowIndex].hsjeBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf07).toFixed(2)
     },
     change_HSJE(rowIndex) {
-      this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / 1.06).toFixed(2)
-      this.tableData.oaf[rowIndex].oaf06 = (this.tableData.oaf[rowIndex].oaf07 / 1.06 * 0.06).toFixed(2)
+      this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / (1 + this.tableData.oaf[rowIndex].oaf03_show / 100)).toFixed(2)
+      this.tableData.oaf[rowIndex].oaf06 = (this.tableData.oaf[rowIndex].oaf07 / (1 + this.tableData.oaf[rowIndex].oaf03_show / 100) * (this.tableData.oaf[rowIndex].oaf03_show / 100)).toFixed(2)
       this.change_SB(rowIndex)
     },
     getworkflows(){
