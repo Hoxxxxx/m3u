@@ -1352,7 +1352,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4376
+    this.workid = 4376
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1855,6 +1855,7 @@ export default {
               this.$set(item,'oad05',item.original_amount)
               this.$set(item,'oad06',item.voucher_code)
             })
+            console.log(this.tableData.oad)
             this.tableData.oad = val
           break;
           case "bank":

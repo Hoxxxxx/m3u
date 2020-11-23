@@ -414,7 +414,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oad04"
+                    prop="oad04_show"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -422,7 +422,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.oad04"
+                          v-model="scope.row.oad04_show"
                           placeholder=""
                           disabled
                         ></el-input>
@@ -1012,6 +1012,7 @@ export default {
               this.$set(item,'oad02','')
               this.$set(item,'oad03',item.date)
               this.$set(item,'oad04',item.rid)
+              this.$set(item,'oad04_show',item.rname)
               this.$set(item,'oad05',item.original_amount)
               this.$set(item,'oad06',item.voucher_code)
             })
