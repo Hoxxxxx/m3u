@@ -1027,7 +1027,7 @@
                 </el-table>
               </div>
               <!-- 财务信息 -->
-              <div v-if="workclass_personnel.perid.flownum!==1 && oazShow == 1">
+              <div v-if="workclass_personnel.perid.flownum==3 && oazShow == 1">
                 <div class="title_line">
                   财务信息
                   <el-button

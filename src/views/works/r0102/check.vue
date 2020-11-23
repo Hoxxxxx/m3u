@@ -409,7 +409,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oad04"
+                    prop="oad04_show"
                     label="借款人"
                     min-width="110px"
                     align="center"
@@ -417,7 +417,7 @@
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.oad04"
+                          v-model="scope.row.oad04_show"
                           placeholder=""
                           disabled
                         ></el-input>
