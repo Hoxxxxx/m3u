@@ -1864,7 +1864,7 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (url == "/agree" && this.oazShow == 1) {
+      if (url == "/agree" && this.oazShow == 1 && this.workclass_personnel.perid.flownum == 3) {
         if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
         } else {
