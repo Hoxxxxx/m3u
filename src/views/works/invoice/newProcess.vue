@@ -3,16 +3,8 @@
     <!-- 表单区域 -->
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
-        <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button>
-        <el-button v-if="workclass_personnel.perid.flownum==1" type="primary" class="next" @click="nextStep('/apply')">下一步</el-button>
-        <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
-        <!-- <el-button class="normal">挂起</el-button> -->
-        <!-- <el-button class="normal">增加会签人</el-button> -->
-        <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
-        <el-button v-if="workclass_personnel.perid.flownum!==1" type="primary" class="agree" @click="nextStep('/agree')">同意</el-button>
-        <el-button v-if="workclass_personnel.perid.flownum!==1" type="primary"  class="reject" @click="nextStep('/reject')">拒绝</el-button>
-        <el-button v-if="workclass_personnel.perid.flownum!==1" type="primary" class="back" @click="nextStep('/back')">退回</el-button>
+        <el-button type="primary" class="save" @click="addNewFlow('add')">保存</el-button>
+        <el-button type="primary" class="next" @click="addNewFlow('next')">下一步</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -26,7 +18,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workname}}</div>
+            <div class="title">{{ workname }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -36,10 +28,11 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.oaa03 }}
+                </div>
                 <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox middlebox last_row" v-if="!table_able.includes('oaa05')">{{ tableData.oaa05 }}</div>
-                <div class="infobox selectbox middlebox last_row" v-if="table_able.includes('oaa05')">
+                <div class="infobox selectbox middlebox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
@@ -47,25 +40,28 @@
                   />
                 </div>
               </div>
-              <div class="form_line">
+              <div class="form_line lastline">
                 <div class="titlebox">申请人</div>
-                <div class="infobox selectbox" v-if="!table_able.includes('oaa04')">{{ tableData.oaa04_show }}</div>
-                <div class="infobox selectbox" v-if="table_able.includes('oaa04')">
+                <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
-                    {{ tableData.oaa04_show }}
+                    {{ showData.oaa04_show }}
                   </div>
                 </div>
                 <div class="titlebox">员工编号</div>
-                <div class="infobox editNot">{{ tableData.oaa04_gen01 }}</div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen01 }}
+                </div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen04 }}
+                </div>
               </div>
               <div class="form_line">
                 <div class="titlebox">费用类别</div>
                 <div class="infobox longbox">
                   <el-radio-group class="radioGroup" v-model="tableData.oaa18">
-                    <el-radio :label="1" :disabled="table_able.includes('oaa18') ? false : true">行政费用</el-radio>
-                    <el-radio :label="2" :disabled="table_able.includes('oaa18') ? false : true">工会费用</el-radio>
+                    <el-radio :label="1">行政费用</el-radio>
+                    <el-radio :label="2">工会费用</el-radio>
                   </el-radio-group>
                 </div>
               </div>
@@ -74,11 +70,10 @@
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">币种</div>
-                <div class="infobox selectbox " :class="table_able.includes('oaa06')? '' : 'disabledbox'">
+                <div class="infobox selectbox">
                   <el-select
                     v-model="tableData.oaa06"
                     class="select"
-                    :disabled="table_able.includes('oaa06')?false:true"
                     placeholder="请选择币种"
                   >
                     <el-option
@@ -91,10 +86,7 @@
                   </el-select>
                 </div>
                 <div class="titlebox">汇率</div>
-                <div class="infobox" v-if="!table_able.includes('oaa08')">
-                  {{ tableData.oaa08 }}
-                </div>
-                <div class="infobox selectbox" v-if="table_able.includes('oaa08')">
+                <div class="infobox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa08"
@@ -114,14 +106,13 @@
                 </div>
                 <div class="titlebox">报销金额大写</div>
                 <div class="infobox editNot">
-                  {{ tableData.expenseMoneyF }}
+                  {{ showData.expenseMoneyF }}
                 </div>
                 <div class="titlebox">支付方式</div>
-                <div class="infobox last_row selectbox" :class="table_able.includes('oaa12')? '' : 'disabledbox'">
+                <div class="infobox last_row selectbox">
                   <el-select
                     v-model="tableData.oaa12"
                     class="select"
-                    :disabled="table_able.includes('oaa12')?false:true"
                     placeholder="请选择支付方式"
                   >
                     <el-option
@@ -137,10 +128,7 @@
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox">说明</div>
-                <div class="infobox last_row longbox" style="width: 100%" v-if="!table_able.includes('oaa16')">
-                  {{ tableData.oaa16 }}
-                </div>
-                <div class="infobox areabox last_row longbox" style="width: 100%" v-if="table_able.includes('oaa16')">
+                <div class="infobox last_row longbox areabox" style="width: 100%">
                   <el-input
                     type="textarea"
                     :rows="4"
@@ -156,10 +144,7 @@
               <div class="title_line">收款信息</div>
               <div class="form_line">
                 <div class="titlebox">收款人</div>
-                <div class="infobox" v-if="!table_able.includes('oaa09')">
-                  {{ tableData.oaa09 }}
-                </div>
-                <div class="infobox selectbox" v-if="table_able.includes('oaa09')">
+                <div class="infobox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa09"
@@ -167,10 +152,7 @@
                   />
                 </div>
                 <div class="titlebox">开户行</div>
-                <div class="infobox" v-if="!table_able.includes('oaa10')">
-                  {{ tableData.oaa10 }}
-                </div>
-                <div class="infobox selectbox" v-if="table_able.includes('oaa10')">
+                <div class="infobox selectbox">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa10"
@@ -178,10 +160,7 @@
                   />
                 </div>
                 <div class="titlebox">收款账号</div>
-                <div class="infobox last_row" v-if="!table_able.includes('oaa11')">
-                  {{ tableData.oaa11 }}
-                </div>
-                <div class="infobox selectbox last_row" v-if="table_able.includes('oaa11')">
+                <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa11"
@@ -191,10 +170,7 @@
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">支票号</div>
-                <div class="infobox last_row longbox" style="width: 100%" v-if="!table_able.includes('oaa17')">
-                  {{ tableData.oaa17 }}
-                </div>
-                <div class="infobox last_row longbox selectbox" style="width: 100%" v-if="table_able.includes('oaa17')">
+                <div class="infobox last_row longbox selectbox" style="width: 100%">
                   <input
                     class="abstracInput"
                     type="textarea"
@@ -206,75 +182,7 @@
               </div>
               <!-- 费用明细行项目 -->
               <div class="title_line">费用明细行项目</div>
-              <div v-if="!table_able.includes('oac')">
-                <el-table
-                  :data="tableData.oac"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
-                >
-                  <el-table-column
-                    prop="oac01_show"
-                    label="会计科目"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac04_show"
-                    label="项目"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac05_show"
-                    label="项目WBS"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac06"
-                    label="摘要"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac07"
-                    label="金额（不含税）"
-                    min-width="180px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="apb25"
-                    label="折合后金额"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac11"
-                    label="核算项一"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac12"
-                    label="核算项二"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                </el-table>
-              </div>
-              <div v-if="table_able.includes('oac')">
+              <div>
                 <el-table
                   :data="tableData.oac"
                   v-loading="false"
@@ -453,82 +361,12 @@
                   </el-table-column>
                 </el-table>
               </div>
-              <!-- 冲销信息不可编辑 -->
-              <div class="title_line" v-if="!table_able.includes('oad')">冲销信息</div>
-              <div v-if="!table_able.includes('oad')">
-                <el-table
-                  :data="tableData.oad"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#FCFDFF', color: '#666666' }"
-                >
-                  <el-table-column
-                    prop="oad01"
-                    label="待抵单号"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oad03"
-                    label="借款日期"
-                    min-width="130px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oad03"
-                          style="width: 100%"
-                          disabled
-                          type="date"
-                          placeholder="选择借款日期"
-                          format="yyyy/MM/dd"
-                          value-format="yyyy/MM/dd"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oad04_show"
-                    label="借款人"
-                    min-width="110px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oad05"
-                    label="借款总金额"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oad02"
-                    label="还款金额"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oad06"
-                    label="凭证号"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                </el-table>
-              </div>
-              <!-- 冲销信息可编辑 -->
-              <div class="title_line" v-if="table_able.includes('oad')">
-                <el-button type="primary" size="small" style="position:absolute;left:4px;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
+              <!-- 冲销信息 -->
+              <div class="title_line">
+                <el-button type="primary" size="small" style="position:absolute;left:0;top:4px;" @click="selectDialog('WQX')">选择未清项</el-button>
                 冲销信息
               </div>
-              <div v-if="table_able.includes('oad')">
+              <div>
                 <el-table
                   :data="tableData.oad"
                   v-loading="false"
@@ -566,10 +404,10 @@
                           v-model="scope.row.oad03"
                           style="width: 100%"
                           type="date"
-                          disabled
-                          placeholder=""
                           format="yyyy/MM/dd"
                           value-format="yyyy/MM/dd"
+                          disabled
+                          placeholder=""
                         >
                         </el-date-picker>
                       </div>
@@ -640,78 +478,6 @@
                   </el-table-column>
                 </el-table>
               </div>
-              <!-- 财务信息 -->
-              <div v-if="workclass_personnel.perid.flownum==3 && oazShow == 1">
-                <div class="title_line">
-                  财务信息
-                  <el-button
-                    type="primary"
-                    size="small"
-                    style="position: absolute; right: 4px; top: 4px"
-                    @click="generate()"
-                    >生成凭证</el-button
-                  >
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">银行</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('bank')">
-                      {{ financialData.bank_show }}
-                    </div>
-                  </div>
-                  <div class="titlebox">异动码</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('YDM')">
-                      {{ financialData.num_show }}
-                    </div>
-                  </div>
-                  <div class="titlebox">记账日期</div>
-                  <div class="infobox middlebox datebox last_row">
-                    <el-date-picker
-                      v-model="oaz.oaz03"
-                      type="date"
-                      format="yyyy/MM/dd"
-                      value-format="yyyy/MM/dd"
-                    >
-                    </el-date-picker>
-                  </div>
-                </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">账款类型</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('ZKLX')">
-                      {{ financialData.oaz04_show }}
-                    </div>
-                  </div>
-                  <div class="titlebox">凭证编号</div>
-                  <div class="infobox selectbox editNot">
-                    {{ oaz.oaz06 }}
-                  </div>
-                  <div class="titlebox">支付方式</div>
-                  <div class="infobox middlebox selectbox last_row">
-                    {{ financialData.oaz05_show }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-
-        <el-tab-pane label="流程进度" name="secTab">
-          <!-- tab标签 -->
-          <div slot="label" class="potBox">
-            <span
-              class="pot"
-              :class="activeTab == 'secTab' ? 'potActive' : ''"
-            ></span>
-            <span> 流程进度</span>
-          </div>
-          <!-- 内容 -->
-          <div class="tabContent">
-            <div class="title">{{workname}}</div>
-            <div class="table_Info">
-              <span class="code">业务日期：{{ tableData.oaa02 }}</span>
-              <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
             </div>
           </div>
         </el-tab-pane>
@@ -723,18 +489,6 @@
       <!-- 内容 -->
       <div class="tabContent">
         <div class="title">附件内容</div>
-        <!-- 已有文件部分 -->
-        <div class="saveList">
-          <div class="saveItem" v-for="(item,index) in fileList_user" :key="index">
-            <i class="el-icon-document" style="margin-right: 7px"></i>
-            <a style="cursor: pointer;" @click="download(item.id, item.name)"><span>{{item.name}}</span></a>
-            <div class="btnBox">
-              <!-- <el-button type="text">预览</el-button> -->
-              <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
-            </div>
-          </div>
-        </div>
-        <!-- 上传部分 -->
         <el-upload
           class="upload_annex"
           :action="$store.state.upload_url"
@@ -756,27 +510,22 @@
     <el-card class="secContentCard" v-if="activeTab == 'secTab'">
       <div class="tabContent">
         <div class="title">流程办理进度</div>
-          <el-timeline class="timeline">
-            <el-timeline-item 
-              v-for="(item, index) in workclass_perflow"
-              :key="index"
-              :timestamp="item.date" 
-              placement="top">
-              <el-card>
-                <p class="step">第{{index+1}}步：{{item.title}}</p>
-                <p class="result">
-                  <template>
-                    <p v-if="item.pertype == '99'">通过</p>
-                    <p v-if="item.pertype == '0'" class="handling">审批中</p>
-                    <p v-if="item.pertype == '2'">拒绝</p>
-                    <p v-if="item.pertype == '3'">退回</p>
-                    <p v-if="item.pertype == '5'">审批结束</p>
-                  </template>
-                </p>
-                <p class="admin">{{item.name}}  {{item.date}}</p>
-              </el-card>
-            </el-timeline-item>
-          </el-timeline>
+        <el-timeline class="timeline">
+          <el-timeline-item timestamp="2018/4/12" placement="top">
+            <el-card>
+              <p class="step">第一步：申请人提交申请</p>
+              <p class="result">通过</p>
+              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
+            </el-card>
+          </el-timeline-item>
+          <el-timeline-item timestamp="2018/4/3" placement="top">
+            <el-card>
+              <p class="step">第二步：部门主管审批 (主办：部门主管)</p>
+              <p class="result handling">流程办理中</p>
+              <p class="admin">分公司(2)系统管理员 2020-11-02 13:37:42</p>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
       </div>
     </el-card>
     <!-- 数据选择弹出框 -->
@@ -801,8 +550,8 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { workflowsList, transfer,editFlow,addFlow,} from "@/api/process_new.js"
-import { number_chinese, dateFmt, OpenLoading } from "@/utils/utils.js";
+import { dateFmt,number_chinese } from "@/utils/utils.js";
+import { addFlow,editFlow,workflows,openitems } from "@/api/process_new";
 import {
   gensList,
   azisList,
@@ -813,37 +562,49 @@ import {
 } from "@/api/basic.js";
 
 export default {
-  components: {SelectData},
+  components: { SelectData },
   data() {
     return {
-      overloading: '', //加载定时器
-      workid: '',
-      workname: '其他费用报销单',
+      workname: "其他费用报销单",
       activeTab: "firTab",
+      workid: "",
+      workName: "其他费用报销单（华录新媒）", //流程名
+      showData: {
+        oaa04_show: "", //申请人
+        expenseMoneyF: "", //报销金额大写
+      },
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
         oaa01: "", //申请单编号
         oaa03: "", //经办人
-        oaa04: "", //申请人
+        oaa04: "", //申请人id
         oaa05: "", //联系电话
         oaa18:"",//费用类别
+        oaa18:"",
         //报销信息
-        oaa06: "", //币种
-        oaa08: "", //汇率
-        oaa12: "", //支付方式
+        oaa06: "RMB", //币种
+        oaa08: "1", //汇率
+        oaa12: "TT", //支付方式
         oaa16: "", //说明
-        payMoney: "", //支付金额
-        expenseMoneyF: "", //报销金额大写
+        
         // 收款信息
         oaa09: "", //收款人
         oaa10: "", //开户行
         oaa11: "", //收款账号
         oaa17: "", //支票号
         // 表格部分
-        oab: [], // 差旅明细
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
+      },
+      //财务信息
+      oaz: {
+        oaz01: "", //银行
+        oaz02: "", //异动码
+        oaz03: '', //记账日期
+        oaz04: "", //账款类型
+        oaz05: "", //支付方式
+        oaz06: "", //凭证编号
       },
       fixedData: {
         // 币种列表
@@ -880,34 +641,14 @@ export default {
           },
         ],
       },
-      table_able:[],//表格可编辑项
-      financialData: {
-        bank_show: "", //银行回显数据
-        num_show: "", //异动码回显数据
-        oaz05_show: "", //支付方式回显数据
-        oaz04_show:"",//账款类型回显数据
-      },
-      //财务信息
-      oaz: {
-        oaz01: "", //银行
-        oaz02: "", //异动码
-        oaz03: dateFmt(new Date()), //记账日期
-        oaz04: "", //账款类型
-        oaz05: "", //支付方式
-        oaz06: "", //凭证编号
-      },
-      oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
-      workclass_personnel: {
-        perid: {flownum: ''}
-      }, //流程详情
-      workclass_perflow: [], //已流转流程进度
-      fileList_user: [],
       fileList: [],
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8945
+        tplid: 8945,
       },
+
+      rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
         editType: "entry",
@@ -962,32 +703,9 @@ export default {
           { name: "rid", title: "借款人编号" },
           { name: "rname", title: "借款人名称" },
           { name: "voucher_code", title: "凭证编号" },
-        ],
-        head_bank: [
-          { name: "nma01", title: "银行编号" },
-          { name: "nma02", title: "银行名称" },
-          { name: "nma28", title: "1.支存 2.活存 3.其他" },
-          { name: "nma04", title: "银行账号" },
-          { name: "nma09", title: "存款类别" },
-          { name: "nma10", title: "存款币别" },
-        ],
-        head_YDM: [
-          { name: "nmc01", title: "银行异动码编号" },
-          { name: "nmc02", title: "核算项名称" },
-          { name: "nmc03", title: "存提款" },
-        ],
-        head_ZKLX: [
-          { name: "apr01", title: "账款类型编号" },
-          { name: "apr02", title: "账款类型名称" },
-        ],
+        ]
       },
     };
-  },
-  created() {
-    this.workid = this.$route.query.workid
-    this.getworkflows()
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
   },
   computed: {
     // 报销金额（不含税）
@@ -995,7 +713,7 @@ export default {
       let sum =  this.tableData.oac.reduce((prev, cur) => {
         return prev + Number(cur.oac07);
       }, 0);
-      this.tableData.expenseMoneyF = number_chinese(sum)
+      this.showData.expenseMoneyF = number_chinese(sum)
       return sum
     },
     // 支付金额
@@ -1009,58 +727,17 @@ export default {
       return res
     }
   },
+  created() {
+    this.addParams.tplid = this.$route.query.tplid
+    this.addRow2();
+    this.getAzi(); //币种列表
+    this.getPma(); //支付方式
+  },
   methods: {
     handleClick() {
       // console.log(this.activeTab);
     },
-    // ***********获取流程信息************
-    getworkflows(){
-      const loading = OpenLoading(this, 1)
-      const params = {
-        workid: this.workid
-      }
-      workflowsList(params).then(res=>{
-        if(res.status == 200){
-          loading.close()
-          clearTimeout(this.overloading)
-          this.tableData = res.data.workclass_info.from_data
-          this.workname = res.data.workclass_info.title
-          this.workclass_personnel = res.data.workclass_personnel;
-          this.perflow = res.data.workclass_perflow
-          this.table_able = res.data.workclass_info.form_able
-          this.oazShow = res.data.workclass_flow.erp_turn
-          this.oaz = {
-            oaz01: res.data.workclass_info.from_data.oaz01, //银行
-            oaz02: res.data.workclass_info.from_data.oaz02, //异动码
-            oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : dateFmt(new Date()), //记账日期
-            oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
-            oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa12, //支付方式
-            oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
-          }
-          this.financialData ={
-            bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
-            num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
-            oaz04_show:res.data.workclass_info.from_data.oaz04_show,//账款类型回显数据
-            oaz05_show: res.data.workclass_info.from_data.oaz05_show ? res.data.workclass_info.from_data.oaz05_show : res.data.workclass_info.from_data.oaa12_show, //支付方式回显数据
-          }
-          if (res.data.file !== null) {
-            res.data.file.forEach( item => {
-              this.fileList_user.push({
-                id: item.id,
-                name: item.filename,
-                url: item.fileaddr
-              })
-            })
-          }
-        }else{
-          loading.close()
-          clearTimeout(this.overloading)
-          this.$message.error('获取流程信息失败：' + res.error.message);
-        }
-      })
-    },
-    // *******************************************
-    // ***************附件上传******************
+    // ****************附件上传*****************
     // 限制格式
     beforeAvatarUpload(file) {
       const isDoc = file.type === "application/msword";
@@ -1093,167 +770,92 @@ export default {
       this.addParams.annexurlid.push({
         id: response.data.id,
         filename: response.data.filename,
-        fileaddr: response.data.path
-      })
+        fileaddr: response.data.path,
+      });
     },
     // 移除上传项
     handleRemove(file, fileList) {
-      this.addParams.annexurlid.forEach( (item, index) => {
+      this.addParams.annexurlid.forEach((item, index) => {
         if (item.filename == file.name) {
-          this.addParams.annexurlid.splice( index, 1 )
+          this.addParams.annexurlid.splice(index, 1);
         }
-      })
+      });
     },
-    // 点击上传项回调
     handlePreview(file) {
       console.log(file);
     },
-    // 超出上传限制回调
     handleExceed(files, fileList) {
-      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
+      );
     },
-    // 移除前回调
     beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
-    },
-    // 下载文件流
-    async download(id, filename) {
-      const { data: res } = await this.axios({
-          method: 'get',
-          url: `files/download/${id}`,
-          responseType: "blob",
-      })
-      let fileName = filename;
-      let fileType = {
-        doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        xls: 'application/vnd.ms-excel',
-        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        ppt: 'application/vnd.ms-powerpoint',
-        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
-        txt: 'text/plain',
-        png: 'image/png',
-        jpg: 'image/jpeg',
-        jpeg: 'image/jpeg',
-        zip: 'application/zip',
-        rar: 'application/x-rar',
-      }
-      let type=fileName.split('.')[1];//获取文件后缀名
-      let blob = new Blob([res],{
-        type:fileType.type
-      });
-      let url = window.URL.createObjectURL(blob);
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    },
-    // ******************************************
-    // ****************其他操作*******************
-    // 保存
-    editNewFlow() {
-      this.tableData = {...this.tableData,...this.oaz}
-      this.addParams.from_data = this.tableData;
-      this.addParams.workid = this.workid;
-      if(this.fileList_user.length > 0){
-        this.fileList_user.forEach((item) => {
-        this.addParams.annexurlid.push({
-          id: item.id,
-          filename: item.name,
-          fileaddr: item.url,
-        });
-      });
-      }
-      editFlow(this.addParams).then((result) => {
-        if (result.status == 200) {
-          this.$message.success("编辑成功！");
-        } else {
-          this.$message.error("编辑失败：" + result.error.message);
-        }
-      });
-    },
-    // 下一步
-    nextStep(url) {
-      if (url == "/agree" && this.oazShow == 1 && this.workclass_personnel.perid.flownum == 3) {
-        console.log(this.oaz,this.oazShow)
-        if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
-          this.$message.error("请先生成凭证！");
-        } else {
-          this.nextFuns(url);
-        }
-      } else {
-        this.nextFuns(url);
-      }
-    },
-    nextFuns(url) {
-        this.tableData = {...this.tableData,...this.oaz}
-        this.addParams.from_data = this.tableData;
-        this.addParams.workid = this.workid;
-        if(this.fileList_user.length > 0){
-          this.fileList_user.forEach((item) => {
-          this.addParams.annexurlid.push({
-            id: item.id,
-            filename: item.name,
-            fileaddr: item.url,
-          });
-        });
-        }
-        editFlow(this.addParams).then((result) => {
-          if (result.status == 200) {
-            this.$message.success("编辑成功！");
-            this.$router.push({
-              path: url,
-              query: {
-                url_type: 'otherFees',
-                workid: this.workid,
-                workName: this.workName,
-                oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02,
-              },
-            });
-          } else {
-            this.$message.error("编辑失败：" + result.error.message);
-          }
-        });
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
     // *******************************************
-    // 生成凭证
-    generate() {
-      const loading = OpenLoading(this, 2)
-
-      this.addParams.from_data = {...this.tableData,...this.oaz};
-      this.addParams.workid = this.workid;
-      editFlow(this.addParams).then((res) => {
-        if (res.status == 200) {
-          let params = {
-            workid: this.workid,
-          };
-          transfer(params).then((res) => {
-            if (res.status == 200) {
-              loading.close();
-              clearTimeout(this.overloading)
-              this.$message.success("抛转成功！");
-              this.oaz.oaz03 = res.data.oaz03;
-              this.oaz.oaz06 = res.data.oaz06;
-            } else {
-              loading.close();
-              clearTimeout(this.overloading)
-              this.$message.error("抛转失败:" + res.error.message);
+    // ****************其他操作*******************
+    // 新增（暂存）表单
+    addNewFlow(type) {
+      this.tableData = {...this.tableData,...this.oaz}
+      this.addParams.from_data = this.tableData
+      if (this.workid == '') {
+        addFlow(this.addParams)
+        .then( result => {
+          if (result.status == 200) {
+            this.workid = result.data.workid
+            this.tableData.oaa01 = result.data.oaa01
+            this.tableData.oaa02 = result.data.oaa02
+            if (type == 'add') {
+              this.$message.success("保存成功！");
+            } else if (type == 'next') {
+              this.$router.push(
+                {
+                  path:'/apply',
+                  query: {
+                    url_type: 'otherFees',
+                    workName:this.workName,
+                    workid: this.workid,
+                    workName: this.workName,
+                    oaa01: this.tableData.oaa01,
+                    oaa02: this.tableData.oaa02
+                  }
+                }
+              )
             }
-          });
-        } else {
-          loading.close();
-          clearTimeout(this.overloading)
-          this.$message.error("抛转失败:" + res.error.message);
-        }
-      });
+          } else {
+            this.$message.error("保存失败：" + result.error.message);
+          }
+        })
+      } else {
+        this.addParams.workid = this.workid;
+        editFlow(this.addParams).then((result) => {
+          if (result.status == 200) {
+            if (type == 'add') {
+              this.$message.success("保存成功！");
+            } else if (type == 'next') {
+              this.$router.push(
+                {
+                  path:'/apply',
+                  query: {
+                    url_type: 'otherFees',
+                    workName:this.workName,
+                    workid: this.workid,
+                    workName: this.workName,
+                    oaa01: this.tableData.oaa01,
+                    oaa02: this.tableData.oaa02
+                  }
+                }
+              )
+            }
+          } else {
+            this.$message.error("保存失败：" + result.error.message);
+          }
+        });
+      }
     },
-    // 
+    // *******************************************
     // 表格部分
     // 费用明细行项目表格
     addRow2() {
@@ -1303,6 +905,13 @@ export default {
       });
     },
     // ******************
+    selectWQX(){
+      if(!this.tableData.oaa04){
+        this.$message.warning('请先选择申请人！')
+      }else{
+        this.selectDialog('WQX')
+      }
+    },
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
@@ -1366,27 +975,6 @@ export default {
             this.dataSelect.dialogTitle = "未清项列表";
           }
           break;
-        case "bank":
-          let filter_bank = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_bank;
-          this.dataSelect.searchApi = "meta/nmas";
-          this.dataSelect.headList = this.tableHead.head_bank;
-          this.dataSelect.dialogTitle = "银行";
-          break;
-        case "YDM":
-          let filter_YDM = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_YDM;
-          this.dataSelect.searchApi = "meta/nmcs";
-          this.dataSelect.headList = this.tableHead.head_YDM;
-          this.dataSelect.dialogTitle = "异动码";
-          break;
-        case "ZKLX":
-          let filter_ZKLX = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_ZKLX;
-          this.dataSelect.searchApi = "meta/aprs";
-          this.dataSelect.headList = this.tableHead.head_ZKLX;
-          this.dataSelect.dialogTitle = "账款类型";
-          break;
         default:
           return;
           break;
@@ -1405,9 +993,9 @@ export default {
         switch (this.dataSelect.cur_input) {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
-            this.tableData.oaa04_gen01 = val[0].gen01
-            this.tableData.oaa04_show = val[0].gen02;
-            this.tableData.oaa04_gen04 = val[0].gen04;
+            this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen04 = val[0].gen04;
             break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
@@ -1430,18 +1018,6 @@ export default {
             })
             this.tableData.oad = val
             break;
-          case "bank":
-            this.oaz.oaz01 = val[0].nma01;
-            this.financialData.bank_show = val[0].nma02;
-            break;
-          case "YDM":
-            this.oaz.oaz02 = val[0].nmc01;
-            this.financialData.num_show = val[0].nmc02;
-            break;
-          case "ZKLX":
-            this.oaz.oaz04 = val[0].apr01;
-            this.financialData.oaz04_show = val[0].apr02;
-            break;
           default:
             return;
             break;
@@ -1457,6 +1033,8 @@ export default {
 .summry {
   display: flex;
   flex-direction: row;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
   .summryUl {
     width: 100%;
     display: flex;
@@ -1470,19 +1048,25 @@ export default {
       flex: 1 1 auto;
       border-right: 1px solid #cccccc;
       .summryName {
+        background: #FCFDFF;
         width: 80px;
         height: 40px;
         line-height: 40px;
         text-align: center;
+        box-sizing: border-box;
         border-right: 1px solid #cccccc;
       }
       .summryCont {
-        flex: 1 1 auto;
+        width: 73px;
+        // flex: 1 1 auto;
         line-height: 40px;
         text-align: center;
       }
       &:last-child {
         border-right: none;
+        .summryCont{
+          flex: 1 1 auto;
+        }
       }
     }
   }

@@ -1352,7 +1352,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4376
+    this.workid = 4405
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1901,7 +1901,7 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (url == "/agree" && this.oazShow == 1) {
+      if (url == "/agree" && this.oazShow == 1 && this.workclass_personnel.perid.flownum == 3) {
         console.log(this.oaz, this.oazShow);
         if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
@@ -1911,7 +1911,6 @@ export default {
       } else {
         this.nextFuns(url);
       }
-      
     },
     nextFuns(url) {
       this.tableData = {...this.tableData,...this.oaz}
