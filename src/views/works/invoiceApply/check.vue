@@ -53,10 +53,8 @@
               <div class="title_line">发货单</div>
               <div class="form_line">
                 <div class="titlebox">选择发货单</div>
-                <div class="infobox selectbox longbox selector">
-                  <div class="selector" @click="selectDialog('FHD')">
+                <div class="infobox selectbox longbox">
                     {{ tableData.oaa16_show }}
-                  </div>
                 </div>
               </div>
               <!-- 开票信息 -->
