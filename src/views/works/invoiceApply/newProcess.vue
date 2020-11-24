@@ -60,261 +60,19 @@
                   {{ showData.oaa04_gen04 }}
                 </div>
               </div>
-              <!-- 发货信息 -->
-              <div class="title_line">发货信息</div>
-              <!-- 1 -->
+              <!-- 发货单 -->
+              <div class="title_line">发货单</div>
               <div class="form_line">
-                <div class="titlebox">客户名称</div>
-                <div class="infobox selectbox middlebox">
-                  <div class="selector" @click="selectDialog('KH')">
-                    {{ tableData.oaa11_show }}
-                  </div>
-                </div>
-                <div class="titlebox">总金额</div>
-                <div class="infobox last_row middlebox">
-                  <input v-model="tableData.oaa12" placeholder="请输入总金额" />
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">税别</div>
-                <div class="infobox selectbox middlebox">
-                  <div class="selector" @click="selectDialog('SB')">
-                    {{ tableData.oaa13_show }}
-                  </div>
-                </div>
-                <div class="titlebox">税额</div>
-                <div class="infobox last_row middlebox">
-                  <input v-model="tableData.oaa14" placeholder="请输入税额" />
-                </div>
-              </div>
-              <div class="form_line last_line">
-                <div class="titlebox">备注</div>
-                <div
-                  class="infobox last_row longbox areabox"
-                  style="width: 100%"
-                >
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa15"
-                    placeholder="请输入说明"
-                    maxlength="80"
-                    show-word-limit
-                  >
-                  </el-input>
-                </div>
-              </div>
-              <!-- 应收明细 -->
-              <div class="title_line">应收明细</div>
-              <div>
-                <el-table
-                  :data="tableData.oab"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#fff', color: '#666666' }"
-                >
-                  <el-table-column
-                    prop="id"
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oab.length - 1"
-                            @click="addRow2()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow2(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab01_show"
-                    label="会计科目"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('KJKM', scope.$index)"
-                        >
-                          {{ scope.row.oab01_show }}
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab02_show"
-                    label="项目"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('XM', scope.$index)"
-                        >
-                          {{ scope.row.oab02_show }}
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab03_show"
-                    label="项目WBS"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('WBS', scope.$index)"
-                        >
-                          {{ scope.row.oab03_show }}
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab04"
-                    label="摘要"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab04"
-                          placeholder="摘要"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab05"
-                    label="金额"
-                    min-width="180px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab05"
-                          placeholder="金额"
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab06"
-                    label="数量"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab06"
-                          placeholder="数量"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab07"
-                    label="单价"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab07"
-                          placeholder="单价"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab11"
-                    label="核算项一"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oab11"
-                          placeholder="请选择核算项一"
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_04"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab12"
-                    label="核算项二"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oab12"
-                          placeholder="请选择核算项二"
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_05"
-                            :key="index.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
-                  </el-table-column>
-                </el-table>
-                <div class="form_line last_line">
-                  <div class="titlebox">是否开票</div>
-                  <div class="infobox longbox">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa16"
-                    >
-                      <el-radio :label="1">是</el-radio>
-                      <el-radio :label="2">否</el-radio>
-                    </el-radio-group>
+                <div class="titlebox">选择发货单</div>
+                <div class="infobox selectbox longbox selector">
+                  <div class="selector" @click="selectDialog('FHD')">
+                    {{ tableData.oaa16_show }}
                   </div>
                 </div>
               </div>
+
               <!-- 开票信息 -->
-              <div v-if="tableData.oaa16 == 1">
+              <div>
                 <div class="title_line">开票信息</div>
                 <div class="form_line">
                   <div class="titlebox">名称</div>
@@ -691,10 +449,10 @@ export default {
   components: { SelectData },
   data() {
     return {
-      workname: "发货单",
+      workname: "开票申请",
       activeTab: "firTab",
       workid: "",
-      workName: "发货单", //流程名
+      workName: "开票申请", //流程名
       showData: {
         oaa04_show: "", //申请人
         expenseMoneyF: "", //报销金额大写
@@ -707,16 +465,8 @@ export default {
         oaa03: "", //经办人
         oaa04: "", //申请人id
         oaa05: "", //联系电话
-
-        //发货信息
-        oaa11: "", //客户名称
-        oaa12: "", //总金额
-        oaa13: "", //税别
-        oaa14: "", //税额
-        oaa15: "", //备注
-        // 表格部分
-        oab: [], //应收明细
-        oaa16: 1, //是否开票
+        oaa16: "", //发货单
+        oaa16_show: "", //发货单
         // 开票信息
         oaa21: "", //名称
         oaa22: "", //纳税人识别号
@@ -743,46 +493,11 @@ export default {
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
       },
-      fixedData: {
-        // 币种列表
-        cointypes: [],
-        //支付方式
-        payTypes: [],
-        // 表格部分
-        // 会计科目
-        options_01: [],
-        //项目
-        options_02: [],
-        //项目WBS
-        options_03: [],
-        // 核算项一
-        options_04: [
-          {
-            value: "0",
-            label: "核算项1",
-          },
-          {
-            value: "1",
-            label: "核算项2",
-          },
-        ],
-        // 核算项二
-        options_05: [
-          {
-            value: "0",
-            label: "核算项1",
-          },
-          {
-            value: "1",
-            label: "核算项2",
-          },
-        ],
-      },
       fileList: [],
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8952,
+        tplid: 8953,
       },
 
       rowIndex: "", //当前点击的行数
@@ -811,80 +526,18 @@ export default {
           { name: "gen03", title: "所属部门编号" },
           { name: "gen04", title: "所属部门" },
         ],
-        head_KJKM: [
-          { name: "aag01", title: "科目编号" },
-          { name: "aag02", title: "科目名称" },
-          { name: "aag03", title: "科目性质" },
-          { name: "aag04", title: "资产损益别" },
-          { name: "aag07", title: "统制明细别" },
-          { name: "aag13", title: "额外名称" },
-          { name: "aag24", title: "科目层级" },
-        ],
-        head_XM: [
-          { name: "pja01", title: "项目编号" },
-          { name: "pja02", title: "项目名称" },
-          { name: "pja08", title: "项目负责人" },
-          { name: "pja09", title: "负责部门" },
-          { name: "pja13", title: "项目预计总额" },
-        ],
-        head_WBS: [
-          { name: "pjb02", title: "WBS编号" },
-          { name: "pjb03", title: "WBS名称" },
-          { name: "pjb01", title: "项目编号" },
-          { name: "pja02", title: "项目名称" },
-        ],
-        head_WQX: [
-          { name: "id", title: "待抵账款编号" },
-          { name: "original_amount", title: "本币未冲金额" },
-          { name: "date", title: "日期" },
-          { name: "rid", title: "借款人编号" },
-          { name: "rname", title: "借款人名称" },
-          { name: "voucher_code", title: "凭证编号" },
-        ],
-        head_KH: [
-          { name: "occ01", title: "客户编号" },
-          { name: "occ02", title: "客户名称" },
-        ],
-        head_SB: [
-          { name: "gec01", title: "税别编号" },
-          { name: "gec02", title: "税别名称" },
-          { name: "gec011", title: "进/销项" },
-          { name: "gec03", title: "会计科目编号" },
-          { name: "gec04", title: "税率" },
-          { name: "gec06", title: "1.應稅 2.零稅率 3.免稅" },
-          { name: "gec07", title: "單價含稅否" },
-          { name: "gec08", title: "媒體申報格式" },
-        ],
         head_SPMC: [
           { name: "id", title: "商品编号" },
           { name: "name", title: "商品名称" },
         ],
+        head_FHD:[
+          { name: "id", title: "id" },
+          { name: "title", title: "流程名称" },
+        ]
       },
     };
   },
   watch: {
-    // 税别
-    "tableData.oaa13": {
-      handler(newval, oldval) {
-        this.tableData.oaa14 = ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)) * this.showData.oaa13_rate/100).toFixed(2);
-      },
-      deep: true,
-    },
-    // 总金额
-    "tableData.oaa12": {
-      handler(newval, oldval) {
-        this.tableData.oaa14 = ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)) * this.showData.oaa13_rate/100).toFixed(2);
-      },
-      deep: true,
-    },
-    "tableData.oab": {
-      handler(newval, oldval) {
-        this.tableData.oab.forEach((item) => {
-          item.oab05 = Number(item.oab06) * Number(item.oab07);
-        });
-      },
-      deep: true,
-    },
     "tableData.oac": {
       handler(newval, oldval) {
         this.tableData.oac.forEach((item) => {
@@ -896,11 +549,8 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid;
-    // this.addParams.tplid = 8952;
-    this.addRow2();
+    // this.addParams.tplid = 8953;
     this.addRow1();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
   },
   methods: {
     handleClick() {
@@ -992,37 +642,30 @@ export default {
       this.tableData = { ...this.tableData, ...this.oaz };
       this.addParams.from_data = this.tableData;
       if (this.workid == "") {
-        let sum = this.tableData.oab.reduce((prev, cur) => {
-          return prev + Number(cur.oab05);
-        }, 0);
-        if (Number(this.tableData.oaa12) != (sum*(1 + this.showData.oaa13_rate/100))) {
-          this.$message.warning("总金额有错误，请重新填写！");
-        } else {
-          addFlow(this.addParams).then((result) => {
-            if (result.status == 200) {
-              this.workid = result.data.workid;
-              this.tableData.oaa01 = result.data.oaa01;
-              this.tableData.oaa02 = result.data.oaa02;
-              if (type == "add") {
-                this.$message.success("保存成功！");
-              } else if (type == "next") {
-                this.$router.push({
-                  path: "/apply",
-                  query: {
-                    url_type: "invoice",
-                    workName: this.workName,
-                    workid: this.workid,
-                    workName: this.workName,
-                    oaa01: this.tableData.oaa01,
-                    oaa02: this.tableData.oaa02,
-                  },
-                });
-              }
-            } else {
-              this.$message.error("保存失败：" + result.error.message);
+        addFlow(this.addParams).then((result) => {
+          if (result.status == 200) {
+            this.workid = result.data.workid;
+            this.tableData.oaa01 = result.data.oaa01;
+            this.tableData.oaa02 = result.data.oaa02;
+            if (type == "add") {
+              this.$message.success("保存成功！");
+            } else if (type == "next") {
+              this.$router.push({
+                path: "/apply",
+                query: {
+                  url_type: "invoiceApply",
+                  workName: this.workName,
+                  workid: this.workid,
+                  workName: this.workName,
+                  oaa01: this.tableData.oaa01,
+                  oaa02: this.tableData.oaa02,
+                },
+              });
             }
-          });
-        }
+          } else {
+            this.$message.error("保存失败：" + result.error.message);
+          }
+        });
       } else {
         this.addParams.workid = this.workid;
         editFlow(this.addParams).then((result) => {
@@ -1033,7 +676,7 @@ export default {
               this.$router.push({
                 path: "/apply",
                 query: {
-                  url_type: "invoice",
+                  url_type: "invoiceApply",
                   workName: this.workName,
                   workid: this.workid,
                   workName: this.workName,
@@ -1075,54 +718,6 @@ export default {
         }
       });
     },
-    addRow2() {
-      let data = {
-        oab01: "", //会计科目
-        oab02: "", //项目
-        oab03: "", //项目wbs
-        oab04: "", //摘要
-        oab05: "", //金额
-        oab06: 1, //数量
-        oab07: "", //单价
-        oab11: "", //核算项1
-        oab12: "", //核算项2
-      };
-      this.tableData.oab.push(data);
-    },
-    // 删除当前行
-    deleteRow2(val) {
-      this.$confirm("确认删除本条数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.tableData.oab.splice(val, 1);
-        if (this.tableData.oab.length == 0) {
-          this.addRow2();
-        }
-      });
-    },
-    // 获取基础数据*******
-    // 币种列表
-    getAzi() {
-      azisList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.cointypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
-    // 支付方式列表
-    getPma() {
-      pmasList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.payTypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
     // ******************
     // 数据选择
     selectDialog(type, rowIndex) {
@@ -1140,50 +735,14 @@ export default {
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
           break;
-        case "KJKM":
-          let filter_KJKM = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_KJKM;
-          this.dataSelect.searchType = "single";
-          this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/aags";
-          this.dataSelect.headList = this.tableHead.head_KJKM;
-          this.dataSelect.dialogTitle = "会计科目";
-          break;
-        case "XM":
-          let filter_XM = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_XM;
-          this.dataSelect.searchType = "single";
-          this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/pjas";
-          this.dataSelect.headList = this.tableHead.head_XM;
-          this.dataSelect.dialogTitle = "项目";
-          break;
-        case "WBS":
-          let filter_WBS = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_WBS;
-          this.dataSelect.searchType = "single";
-          this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/pjbs";
-          this.dataSelect.headList = this.tableHead.head_WBS;
-          this.dataSelect.dialogTitle = "WBS列表";
-          break;
-        case "KH":
-          let filter_KH = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_KH;
-          this.dataSelect.searchType = "single";
-          this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/occs";
-          this.dataSelect.headList = this.tableHead.head_KH;
-          this.dataSelect.dialogTitle = "客户列表";
-          break;
-        case "SB":
-          let filter_SB = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_SB;
-          this.dataSelect.searchType = "single";
-          this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/gecs";
-          this.dataSelect.headList = this.tableHead.head_SB;
-          this.dataSelect.dialogTitle = "税别列表";
+        case "FHD":
+          let filter_FHD = [{ label: "", model_key_search: "title" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8952, hide:true }];
+          this.dataSelect.filter = filter_FHD;
+          this.dataSelect.searchType = "mixed"
+          this.dataSelect.editType = "entry"
+          this.dataSelect.searchApi = "oa/workflows";
+          this.dataSelect.headList = this.tableHead.head_FHD;
+          this.dataSelect.dialogTitle = "发货单列表";
           break;
         case "SPMC":
           let filter_SPMC = [{ label: "", model_key_search: "keyword" }];
@@ -1216,29 +775,12 @@ export default {
             this.showData.oaa04_gen01 = val[0].gen01;
             this.showData.oaa04_gen04 = val[0].gen04;
             break;
-          case "KJKM":
-            this.tableData.oab[this.rowIndex].oab01 = val[0].aag01;
-            this.tableData.oab[this.rowIndex].oab01_show = val[0].aag02;
-            break;
-          case "XM":
-            this.tableData.oab[this.rowIndex].oab02 = val[0].pja01;
-            this.tableData.oab[this.rowIndex].oab02_show = val[0].pja02;
-            break;
-          case "WBS":
-            this.tableData.oab[this.rowIndex].oab03 = val[0].pjb02;
-            this.tableData.oab[this.rowIndex].oab03_show = val[0].pjb03;
-            break;
-          case "KH":
-            this.tableData.oaa11 = val[0].occ01;
-            this.tableData.oaa11_show = val[0].occ02;
-            break;
-          case "SB":
-            this.tableData.oaa13 = val[0].gec01;
-            this.tableData.oaa13_show = val[0].gec02;
-            this.showData.oaa13_rate = val[0].gec04;
-            break;
           case "SPMC":
             this.tableData.oac[this.rowIndex].oac02 = val[0].id;
+            break;
+          case "FHD":
+            this.tableData.oaa16 = val[0].id;
+            this.tableData.oaa16_show = val[0].title;
             break;
           default:
             return;
