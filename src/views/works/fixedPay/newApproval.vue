@@ -467,14 +467,14 @@
                     </template>
                   </el-table-column>
                    <el-table-column
-                    prop="oaf03_gec04"
+                    prop="oaf03_show"
                     label="税率"
                     min-width="130px"
                     align="center"
                   >
                   <div slot-scope="scope">
                     <el-input
-                      v-model="scope.row.oaf03_gec04"
+                      v-model="scope.row.oaf03_show"
                       placeholder="税率"
                       disabled
                     ></el-input>
@@ -1523,7 +1523,7 @@ export default {
         oaf01: "", //发票号码
         oaf02: "", //发票日期
         oaf03: "", //税别
-        oaf03_gec04: "1", //税率
+        oaf03_show: "1", //税率
         oaf05: "0.00", //税前金额（原币）
         oaf06: "0.00", //税额（原币）
         oaf07: "0.00", //含税金额（原币）
@@ -1579,8 +1579,8 @@ export default {
       this.tableData.oaf[rowIndex].hsjeBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf07).toFixed(2)
     },
     change_HSJE(rowIndex) {
-      this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / 1.06).toFixed(2)
-      this.tableData.oaf[rowIndex].oaf06 = (this.tableData.oaf[rowIndex].oaf07 / 1.06 * 0.06).toFixed(2)
+      this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / (1 + this.tableData.oaf[rowIndex].oaf03_show / 100)).toFixed(2)
+      this.tableData.oaf[rowIndex].oaf06 = (this.tableData.oaf[rowIndex].oaf07 / (1 + this.tableData.oaf[rowIndex].oaf03_show / 100) * (this.tableData.oaf[rowIndex].oaf03_show / 100)).toFixed(2)
       this.change_SB(rowIndex)
     },
     // 冲销信息表格
@@ -1892,8 +1892,8 @@ export default {
           break;
           case "FPSB":
             this.tableData.oaf[this.rowIndex].oaf03 = val[0].gec01;
-            this.tableData.oaf[this.rowIndex].oaf03_gec04 = val[0].gec04;
-            this.change_SB(this.rowIndex)
+            this.tableData.oaf[this.rowIndex].oaf03_show = val[0].gec04;
+            this.change_HSJE(this.rowIndex)
           break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
