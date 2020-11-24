@@ -1270,7 +1270,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    // this.workid = 4434
+    this.workid = 4435
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1337,6 +1337,7 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able;
           this.oazShow = res.data.workclass_flow.erp_turn;
+          this.showData.oaa13_rate = res.data.workclass_info.from_data.oaa13_show
           this.oaz = {
             oaz01: res.data.workclass_info.from_data.oaz01, //银行
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码
