@@ -49,138 +49,16 @@
                   {{ tableData.oaa04_gen04 }}
                 </div>
               </div>
-              <!-- 发货信息 -->
-              <div class="title_line">发货信息</div>
-              <!-- 1 -->
+              <!-- 发货单 -->
+              <div class="title_line">发货单</div>
               <div class="form_line">
-                <div class="titlebox">客户名称</div>
-                <div class="infobox selectbox middlebox">
-                    {{ tableData.oaa11_show }}
-                </div>
-                <div class="titlebox">总金额</div>
-                <div class="infobox last_row middlebox">
-                    {{tableData.oaa12}}
-                </div>
-              </div>
-              <div class="form_line">
-                <div class="titlebox">税别</div>
-                <div class="infobox selectbox middlebox">
-                    {{ tableData.oaa13 }}
-                </div>
-                <div class="titlebox">税额</div>
-                <div class="infobox last_row middlebox">
-                  {{tableData.oaa14 }}
-                </div>
-              </div>
-              <div class="form_line last_line">
-                <div class="titlebox">备注</div>
-                <div
-                  class="infobox last_row longbox areabox"
-                  style="width: 100%"
-                >
-                  <el-input
-                    type="textarea"
-                    :rows="4"
-                    v-model="tableData.oaa15"
-                    placeholder="请输入说明"
-                    maxlength="80"
-                    disabled
-                    show-word-limit
-                  >
-                  </el-input>
-                </div>
-              </div>
-              <!-- 应收明细 -->
-              <div class="title_line">应收明细</div>
-              <div>
-                <el-table
-                  :data="tableData.oab"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#fff', color: '#666666' }"
-                >
-                  <el-table-column
-                    prop="oab01_show"
-                    label="会计科目"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab02_show"
-                    label="项目"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab03_show"
-                    label="项目WBS"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab04"
-                    label="摘要"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab05"
-                    label="金额"
-                    min-width="180px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab06"
-                    label="数量"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab07"
-                    label="单价"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab11"
-                    label="核算项一"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab12"
-                    label="核算项二"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                </el-table>
-                <div class="form_line last_line">
-                  <div class="titlebox">是否开票</div>
-                  <div class="infobox longbox">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa16"
-                    >
-                      <el-radio :label="1" disabled>是</el-radio>
-                      <el-radio :label="2" disabled>否</el-radio>
-                    </el-radio-group>
-                  </div>
+                <div class="titlebox">选择发货单</div>
+                <div class="infobox selectbox longbox">
+                    {{ tableData.oaa16_show }}
                 </div>
               </div>
               <!-- 开票信息 -->
-              <div v-if="tableData.oaa16 == 1">
+              <div>
                 <div class="title_line">开票信息</div>
                 <div class="form_line">
                   <div class="titlebox">名称</div>
@@ -448,11 +326,6 @@ export default {
       workid: '',
       workname: '发货单',
       activeTab: "firTab",
-      showData: {
-        oaa04_show: "", //申请人
-        expenseMoneyF: "", //报销金额大写
-        oaa13_rate:0,//税率
-      },
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
@@ -460,38 +333,30 @@ export default {
         oaa03: "", //经办人
         oaa04: "", //申请人id
         oaa05: "", //联系电话
-
-        //发货信息
-        oaa11: "", //客户名称
-        oaa12: "", //总金额
-        oaa13: "", //税别
-        oaa14: "", //税额
-        oaa15: "", //备注
-        // 表格部分
-        oab: [], //应收明细
-        oaa16:1,//是否开票
+        oaa16: "", //发货单
+        oaa16_show: "", //发货单
         // 开票信息
-        oaa21:"",//名称
-        oaa22:"",//纳税人识别号
-        oaa23:"",//地址
-        oaa24:"",//银行账号
-        oaa25:"",//开户行
-        oaa26:"",//电话
-        oaa27:"",//开票种类
-        oaa28:"",//开票金额
+        oaa21: "", //名称
+        oaa22: "", //纳税人识别号
+        oaa23: "", //地址
+        oaa24: "", //银行账号
+        oaa25: "", //开户行
+        oaa26: "", //电话
+        oaa27: "", //开票种类
+        oaa28: "", //开票金额
         oac: [], // 发票明细
-        oaa31:"",//货款回收情况
-        oaa32:"",//回款日期
-        oaa33:"",//回款方式
-        oaa34:"",//发货时间
-        oaa35:"",//是否签订合同
-        oaa36:"",//发票号码
+        oaa31: "", //货款回收情况
+        oaa32: "", //回款日期
+        oaa33: "", //回款方式
+        oaa34: "", //发货时间
+        oaa35: "", //是否签订合同
+        oaa36: "", //发票号码
       },
       fileList_user: [],
       addParams: {
         from_data: {},
         annexurlid: [],
-        tplid: 8952
+        tplid: 8953
       },
       // 当前流程列表
       workclass_perflow: [],
@@ -499,7 +364,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4435
+    // this.workid = 4417
     this.getworkflows()
   },
   methods: {

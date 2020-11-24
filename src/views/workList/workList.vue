@@ -149,6 +149,30 @@ export default {
           name: "付款申请——查看",
           path: "/r0102/check",
         },
+        {
+          name: "发货单——申请",
+          path: "/invoice",
+        },
+        {
+          name: "发货单——审核",
+          path: "/invoice/approval",
+        },
+        {
+          name: "发货单——查看",
+          path: "/invoice/check",
+        },
+        {
+          name: "开票申请——申请",
+          path: "/invoiceApply",
+        },
+        {
+          name: "开票申请——审核",
+          path: "/invoiceApply/approval",
+        },
+        {
+          name: "开票申请——查看",
+          path: "/invoiceApply/check",
+        },
       ]
     };
   },

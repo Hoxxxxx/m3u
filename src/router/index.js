@@ -241,6 +241,39 @@ const routes = [{
     component: () => import('@/views/works/r0102/newApproval')
   },
 
+  // 发货单
+  {
+    path: '/invoice',
+    name: 'invoice',
+    component: () => import('@/views/works/invoice/newProcess')
+  },
+  {
+    path: '/invoice/check',
+    name: 'invoice_check',
+    component: () => import('@/views/works/invoice/check')
+  },
+  {
+    path: '/invoice/approval',
+    name: 'invoice_approval',
+    component: () => import('@/views/works/invoice/newApproval')
+  },
+  // 发货单
+  {
+    path: '/invoiceApply',
+    name: 'invoiceApply',
+    component: () => import('@/views/works/invoiceApply/newProcess')
+  },
+  {
+    path: '/invoiceApply/check',
+    name: 'invoiceApply_check',
+    component: () => import('@/views/works/invoiceApply/check')
+  },
+  {
+    path: '/invoiceApply/approval',
+    name: 'invoiceApply_approval',
+    component: () => import('@/views/works/invoiceApply/newApproval')
+  },
+
 ]
 
 const router = new VueRouter({
