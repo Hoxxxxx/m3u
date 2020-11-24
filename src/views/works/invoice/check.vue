@@ -65,7 +65,7 @@
               <div class="form_line">
                 <div class="titlebox">税别</div>
                 <div class="infobox selectbox middlebox">
-                    {{ tableData.oaa13_show }}
+                    {{ tableData.oaa13 }}
                 </div>
                 <div class="titlebox">税额</div>
                 <div class="infobox last_row middlebox">
@@ -499,7 +499,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4426
+    // this.workid = 4435
     this.getworkflows()
   },
   methods: {
