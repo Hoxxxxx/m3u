@@ -102,7 +102,7 @@ export default {
           path: "/fixedCard/check",
         },
         {
-          name: "固定资产付款——申请",
+          name: "固定资产付款——申请 has",
           path: "/fixedPay",
         },
         {
@@ -138,7 +138,7 @@ export default {
           path: "/r0101/check",
         },
         {
-          name: "付款申请——申请",
+          name: "付款申请——申请 has",
           path: "/r0102",
         },
         {
@@ -150,7 +150,7 @@ export default {
           path: "/r0102/check",
         },
         {
-          name: "发货单——申请",
+          name: "发货单——申请 has",
           path: "/invoice",
         },
         {

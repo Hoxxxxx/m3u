@@ -826,46 +826,44 @@
                   <el-table-column
                     prop="oac11"
                     label="核算项一"
-                    min-width="150px"
+                    min-width="180px"
                     align="center"
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-select
-                          v-model="scope.row.oac11"
-                          placeholder="请选择核算项一"
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_04"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
+                        <div class="mixInput">
+                          <input
+                            type="text"
+                            placeholder="请输入核算项一"
+                            v-model="scope.row.oac11"
+                          />
+                          <i
+                            class="el-icon-search"
+                            @click="selectOac11(scope.$index)"
+                          ></i>
+                        </div>
                       </div>
                     </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac12"
                     label="核算项二"
-                    min-width="150px"
+                    min-width="180px"
                     align="center"
                   >
                     <template slot-scope="scope">
                       <div>
-                        <el-select
-                          v-model="scope.row.oac12"
-                          placeholder="请选择核算项二"
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_05"
-                            :key="index.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
+                        <div class="mixInput">
+                          <input
+                            type="text"
+                            placeholder="请输入核算项二"
+                            v-model="scope.row.oac12"
+                          />
+                          <i
+                            class="el-icon-search"
+                            @click="selectOac12(scope.$index)"
+                          ></i>
+                        </div>
                       </div>
                     </template>
                   </el-table-column>
@@ -1219,6 +1217,7 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
+      oacType: "", //核算项类型
       table_able: [],
       // 表单数据
       fixedData: {
@@ -1226,35 +1225,6 @@ export default {
         cointypes: [],
         //支付方式
         payTypes: [],
-        // 表格部分
-        // 会计科目
-        options_01: [],
-        //项目
-        options_02: [],
-        //项目WBS
-        options_03: [],
-        // 核算项一
-        options_04: [
-          {
-            value: "0",
-            label: "核算项1",
-          },
-          {
-            value: "1",
-            label: "核算项2",
-          },
-        ],
-        // 核算项二
-        options_05: [
-          {
-            value: "0",
-            label: "核算项1",
-          },
-          {
-            value: "1",
-            label: "核算项2",
-          },
-        ],
       },
       financialData: {
         bank_show: "", //银行回显数据
@@ -1387,6 +1357,40 @@ export default {
         head_ZKLX: [
           { name: "apr01", title: "账款类型编号" },
           { name: "apr02", title: "账款类型名称" },
+        ],
+        head_pmcs: [
+          { name: "pmc01", title: "供应厂商编号" },
+          { name: "pmc02", title: "厂商分类" },
+          { name: "pmc03", title: "厂商简称" },
+          { name: "pmc04", title: "付款厂商编号" },
+          { name: "pmc30", title: "厂商性质" },
+          { name: "pmc47", title: "税别" },
+        ],
+        head_occs: [
+          { name: "occ01", title: "客户编号" },
+          { name: "occ02", title: "客户名称" },
+        ],
+        head_nmas: [
+          { name: "nma01", title: "银行编号" },
+          { name: "nma02", title: "银行名称" },
+          { name: "nma28", title: "1.支存 2.活存 3.其他" },
+          { name: "nma04", title: "银行账号" },
+          { name: "nma09", title: "存款类别" },
+          { name: "nma10", title: "存款币别" },
+        ],
+        head_gecs: [
+          { name: "gec01", title: "税别编号" },
+          { name: "gec02", title: "税别名称" },
+          { name: "gec03", title: "会计科目编号" },
+          { name: "gec04", title: "税率" },
+          { name: "gec06", title: "税种" },
+          { name: "gec07", title: "单价含税否" },
+          { name: "gec08", title: "媒体申报格式" },
+          { name: "gec11", title: "进 / 销项" },
+        ],
+        head_pjas: [
+          { name: "gja01", title: "项目编号" },
+          { name: "gja02", title: "项目名称" },
         ],
       },
     };
@@ -1764,10 +1768,20 @@ export default {
           this.dataSelect.dialogTitle = "税别列表";
         break;
         case "KJKM":
-          let filter_KJKM = [{ label: "", model_key_search: "keyword" }];
+          let filter_KJKM = [
+            { label: "科目名称", model_key_search: "aag02" },
+            { label: "科目编号", model_key_search: "aag01" },
+            {
+              label: "",
+              model_key_search: "aag00",
+              disabled: true,
+              value: "01",
+              hide: true,
+            },
+          ];
           this.dataSelect.filter = filter_KJKM;
-          this.dataSelect.searchType = "single"
-          this.dataSelect.editType = "entry"
+          this.dataSelect.searchType = "mixed";
+          this.dataSelect.editType = "entry";
           this.dataSelect.searchApi = "meta/aags";
           this.dataSelect.headList = this.tableHead.head_KJKM;
           this.dataSelect.dialogTitle = "会计科目";
@@ -1791,7 +1805,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "title" }];
+          let filter_GDZCSQD = [{ label: "", model_key_search: "title" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"
@@ -1810,15 +1824,13 @@ export default {
         break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
-          if (this.tableData.oaa04 == '') {
-            this.$message.warning("请先选择申请人！" );
-          } else if (this.tableData.oaa11 == '') {
+          if (this.tableData.oaa11 == '') {
             this.$message.warning("请先选择厂商信息！" );
           } else {
             this.dataSelect.dialogVisible = true;
             let params = {
               type:1,
-              number:this.tableData.oaa04
+              number:this.tableData.oaa11
             }
             this.dataSelect.editType = "search"
             this.dataSelect.searchParams = params
@@ -1857,6 +1869,69 @@ export default {
           this.dataSelect.headList = this.tableHead.head_ZKLX;
           this.dataSelect.dialogTitle = "账款类型";
           break;
+        case "getpmcsList":
+          let filter_pmcs = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_pmcs;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/pmcs";
+          this.dataSelect.headList = this.tableHead.head_pmcs;
+          this.dataSelect.dialogTitle = "供应商列表";
+          break;
+        case "getgensList":
+          let filter_gens = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_gens;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
+        case "getoccsList":
+          let filter_occs = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_occs;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/occs";
+          this.dataSelect.headList = this.tableHead.head_occs;
+          this.dataSelect.dialogTitle = "客户列表";
+          break;
+        case "getnmasList":
+          let filter_nmas = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_nmas;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/nmas";
+          this.dataSelect.headList = this.tableHead.head_nmas;
+          this.dataSelect.dialogTitle = "银行列表";
+          break;
+        case "getgecsList":
+          let filter_gecs = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_gecs;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/gecs";
+          this.dataSelect.headList = this.tableHead.head_gecs;
+          this.dataSelect.dialogTitle = "税别列表";
+          break;
+        case "getpjasList":
+          let filter_pjas = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_pjas;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/pjas_1606283358062";
+          this.dataSelect.headList = this.tableHead.head_pjas;
+          this.dataSelect.dialogTitle = "项目列表";
+          break;
+        case "getpjbsList":
+          let filter_pjbs = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_pjbs;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/pjbs";
+          this.dataSelect.headList = this.tableHead.head_WBS;
+          this.dataSelect.dialogTitle = "WBS列表";
+          break;
         default:
         return;
         break;
@@ -1875,20 +1950,20 @@ export default {
         switch (this.dataSelect.cur_input) {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
-            this.tableData.oaa04_show = val[0].gen02;
-            this.tableData.oaa04_gen01 = val[0].gen01;
-            this.tableData.oaa04_gen04 = val[0].gen04;
+            this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen04 = val[0].gen04;
           break;
           case "YFCS":
           this.tableData.oaa11 = val[0].pmc01;
-          this.tableData.oaa11_show = val[0].pmc03;
+          this.showData.oaa11_pmc03 = val[0].pmc03;
           this.tableData.oaa21 = val[0].pmc03;
           this.tableData.oaa22 = val[0].pmcud01;
           this.tableData.oaa23 = val[0].pmc56;
           break;
           case "SB":
           this.tableData.oaa15 = val[0].gec01;
-          this.tableData.oaa15_show = val[0].gec04;
+          this.showData.oaa15_gec04 = val[0].gec04;
           break;
           case "FPSB":
             this.tableData.oaf[this.rowIndex].oaf03 = val[0].gec01;
@@ -1897,6 +1972,10 @@ export default {
           break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
+            this.tableData.oac[this.rowIndex].oac15 = val[0].aag15;
+            this.tableData.oac[this.rowIndex].oac151 = val[0].aag151;
+            this.tableData.oac[this.rowIndex].oac16 = val[0].aag16;
+            this.tableData.oac[this.rowIndex].oac161 = val[0].aag161;
             break;
           case "XM":
             this.tableData.oac[this.rowIndex].oac04 = val[0].pja01;
@@ -1906,7 +1985,7 @@ export default {
             break;
           case "GDZCSQD":
             this.tableData.oaa17 = val[0].id;
-            this.tableData.oaa17_show = val[0].title;
+            this.showData.oaa17_show = val[0].title;
           break;
           case "ZCKP":
             this.tableData.oac[this.rowIndex].oac08 = val[0].faj02;
@@ -1935,9 +2014,141 @@ export default {
             this.oaz.oaz04 = val[0].apr01;
             this.financialData.oaz04_show = val[0].apr02;
             break;
+          case "getpmcsList":
+            console.log(this.oacType);
+            console.log(val)
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].pmc01;
+            }else{
+              console.log(this.oacType)
+              this.tableData.oac[this.rowIndex].oac12 = val[0].pmc01;
+            }
+            break;
+          case "getgensList":
+            
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].gen01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].gen01;
+            }
+            break;
+          case "getoccsList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].occ01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].occ01;
+            }
+            break;
+          case "getnmasList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].nma01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].nma01;
+            }
+            break;
+          case "getgecsList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].gec01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].gec01;
+            }
+            break;
+          case "getpjasList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].gja01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].gja01;
+            }
+            break;
+          case "getpjbsList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].pjb02;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].pjb02;
+            }
+            break;
           default:
           return;
           break;
+        }
+      }
+    },
+    // 
+    selectOac11(val) {
+      let row = this.tableData.oac[val];
+      this.oacType = "oac11";
+      if (!this.tableData.oac[val].oac01) {
+        this.$message.warning("请先选择会计科目！");
+      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac15){
+        this.$message.warning("此科目无核算项一，请手动输入！");
+      } 
+      else {
+        switch (row.oac15) {
+          case "003" || "N01":
+            this.selectDialog("getpmcsList", val);
+            break;
+          case "N02":
+            this.selectDialog("getgensList", val);
+            break;
+          case "N03":
+            this.selectDialog("getoccsList", val);
+            break;
+          case "N04":
+            this.selectDialog("getnmasList", val);
+            break;
+          case "N20":
+            this.selectDialog("getgecsList", val);
+            break;
+          case "N23":
+            this.selectDialog("getpjasList", val);
+            break;
+          case "N24":
+            this.selectDialog("getpjbsList", val);
+            break;
+          default:
+            break;
+        }
+      }
+    },
+    selectOac12(val) {
+      let row = this.tableData.oac[val];
+      this.oacType = "oac12";
+      if (!this.tableData.oac[val].oac01) {
+        this.$message.warning("请先选择会计科目！");
+      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac16){
+        this.$message.warning("此科目无核算项二，请手动输入！");
+      } 
+      else {
+        switch (row.oac16) {
+          case "003" || "N01":
+            this.selectDialog("getpmcsList", val);
+            break;
+          case "N02":
+            this.selectDialog("getgensList", val);
+            break;
+          case "N03":
+            this.selectDialog("getoccsList", val);
+            break;
+          case "N04":
+            this.selectDialog("getnmasList", val);
+            break;
+          case "N20":
+            this.selectDialog("getgecsList", val);
+            break;
+          case "N23":
+            this.selectDialog("getpjasList", val);
+            break;
+          case "N24":
+            this.selectDialog("getpjbsList", val);
+            break;
+          default:
+            break;
         }
       }
     },
