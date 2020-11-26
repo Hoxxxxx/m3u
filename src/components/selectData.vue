@@ -242,6 +242,9 @@ export default {
           if (res.status == 200) {
             this.showLoading = false;
             this.tableData = res.data;
+          }else{
+            this.showLoading = false;
+            this.$message.error('服务器错误！')
           }
         });
       } else {
@@ -251,6 +254,9 @@ export default {
           if (res.status == 200 || res.code == 0) {
             this.showLoading = false;
             this.tableData = res.data;
+          }else{
+            this.showLoading = false;
+            this.$message.error('服务器错误！')
           }
         });
       }

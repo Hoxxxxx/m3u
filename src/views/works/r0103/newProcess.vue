@@ -346,7 +346,7 @@
                   <el-table-column
                     prop="oaf07"
                     label="本次支付金额（原币）"
-                    min-width="150px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -361,7 +361,7 @@
                   <el-table-column
                     prop="oaf07_local"
                     label="本次支付金额（本币）"
-                    min-width="150px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">

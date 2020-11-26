@@ -259,14 +259,14 @@
                   <el-table-column
                     prop="oaf07"
                     label="本次支付金额（原币）"
-                    min-width="150px"
+                    min-width="200px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oaf07_local"
                     label="本次支付金额（本币）"
-                    min-width="150px"
+                    min-width="200px"
                     align="center"
                   >
                   </el-table-column>
@@ -438,7 +438,7 @@
                   <el-table-column
                     prop="oaf07"
                     label="本次支付金额（原币）"
-                    min-width="150px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -453,7 +453,7 @@
                   <el-table-column
                     prop="oaf07_local"
                     label="本次支付金额（本币）"
-                    min-width="150px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -491,28 +491,28 @@
                   <el-table-column
                     prop="oae03"
                     label="账款未付金额（原币）"
-                    min-width="110px"
+                    min-width="200px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oae04"
                     label="账款未付金额（本币）"
-                    min-width="130px"
+                    min-width="200px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oae02"
                     label="本次支付金额（原币）"
-                    min-width="130px"
+                    min-width="200px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oae05"
                     label="本次支付金额（本币）"
-                    min-width="130px"
+                    min-width="200px"
                     align="center"
                   >
                   </el-table-column>
@@ -554,7 +554,7 @@
                   <el-table-column
                     prop="oae03"
                     label="账款未付金额（原币）"
-                    min-width="110px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -566,7 +566,7 @@
                   <el-table-column
                     prop="oae04"
                     label="账款未付金额（本币）"
-                    min-width="130px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -582,7 +582,7 @@
                   <el-table-column
                     prop="oae02"
                     label="本次支付金额（原币）"
-                    min-width="130px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -597,7 +597,7 @@
                   <el-table-column
                     prop="oae05"
                     label="本次支付金额（本币）"
-                    min-width="130px"
+                    min-width="200px"
                     align="center"
                   >
                     <template slot-scope="scope">

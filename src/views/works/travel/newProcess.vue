@@ -1729,45 +1729,5 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
-.summry {
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  border-bottom: 1px solid #cccccc;
-  .summryUl {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: #666;
-    .summryLi {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex: 1 1 auto;
-      border-right: 1px solid #cccccc;
-      .summryName {
-        background: #fcfdff;
-        width: 80px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        box-sizing: border-box;
-        border-right: 1px solid #cccccc;
-      }
-      .summryCont {
-        width: 73px;
-        // flex: 1 1 auto;
-        line-height: 40px;
-        text-align: center;
-      }
-      &:last-child {
-        border-right: none;
-        .summryCont {
-          flex: 1 1 auto;
-        }
-      }
-    }
-  }
-}
+
 </style>

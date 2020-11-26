@@ -152,7 +152,7 @@
         .form_line {
           width: 100%;
           min-height: 40px;
-          border-bottom: 1px solid #CCCCCC;
+          border-bottom: 1px solid #F0F3F7;
           display: flex;
           color: #666666;
           font-size: 12px;
@@ -207,7 +207,7 @@
           }
           // 禁用格
           .disabledbox {
-            background: #F5F7FA;
+            background: #FCFDFF;
           }
           // 选择格
           .selectbox {
@@ -265,7 +265,7 @@
 
   .editNot {
     cursor: not-allowed;
-    background: #F5F7FA;
+    background: #FCFDFF;
   }
 
   .selectBorder{
@@ -425,6 +425,48 @@
 
           .el-input__suffix {
             width: 56px;
+          }
+        }
+      }
+    }
+  }
+
+  .summry {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    .summryUl {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color: #666;
+      .summryLi {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1 1 auto;
+        border-right: 1px solid #cccccc;
+        .summryName {
+          background: #FCFDFF;
+          width: 80px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          box-sizing: border-box;
+          border-right: 1px solid #cccccc;
+        }
+        .summryCont {
+          width: 73px;
+          // flex: 1 1 auto;
+          line-height: 40px;
+          text-align: center;
+        }
+        &:last-child {
+          border-right: none;
+          .summryCont {
+            flex: 1 1 auto;
           }
         }
       }

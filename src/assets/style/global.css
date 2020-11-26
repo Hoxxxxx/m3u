@@ -67,3 +67,9 @@ dt {
     color: #999999;
     font-size: 15px;
 }
+.el-textarea__inner{
+    border: 1px solid #fff;
+}
+.el-input.is-disabled .el-input__inner{
+    background: #FCFDFF;
+}

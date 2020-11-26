@@ -271,7 +271,7 @@
                   <el-table-column
                     prop="oaf02"
                     label="发票日期"
-                    min-width="130px"
+                    min-width="160px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -306,42 +306,42 @@
                   <el-table-column
                     prop="oaf05"
                     label="税前金额（原币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oaf06"
                     label="税额（原币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oaf07"
                     label="含税金额（原币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="sqjeBB"
                     label="税前金额（本币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="seBB"
                     label="税额（本币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="hsjeBB"
                     label="含税金额（本币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                   </el-table-column>
@@ -432,7 +432,7 @@
                   <el-table-column
                     prop="oaf02"
                     label="发票日期"
-                    min-width="130px"
+                    min-width="160px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -469,7 +469,7 @@
                    <el-table-column
                     prop="oaf03_show"
                     label="税率"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                   <div slot-scope="scope">
@@ -483,7 +483,7 @@
                   <el-table-column
                     prop="oaf05"
                     label="税前金额（原币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -498,7 +498,7 @@
                   <el-table-column
                     prop="oaf06"
                     label="税额（原币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -513,7 +513,7 @@
                   <el-table-column
                     prop="oaf07"
                     label="含税金额（原币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -529,7 +529,7 @@
                   <el-table-column
                     prop="sqjeBB"
                     label="税前金额（本币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -545,7 +545,7 @@
                   <el-table-column
                     prop="seBB"
                     label="税额（本币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -561,7 +561,7 @@
                   <el-table-column
                     prop="hsjeBB"
                     label="含税金额（本币）"
-                    min-width="130px"
+                    min-width="170px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -2285,7 +2285,7 @@ export default {
       border-right: 1px solid #cccccc;
       .summryName {
         background: #FCFDFF;
-        width: 150px;
+        width: 150px!important;
         height: 40px;
         line-height: 40px;
         padding: 0 5px 0 5px;
