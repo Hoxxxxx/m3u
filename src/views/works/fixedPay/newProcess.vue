@@ -909,12 +909,12 @@ export default {
         head_SB: [
           { name: "gec01", title: "税别编号" },
           { name: "gec02", title: "税别名称" },
+          { name: "gec011", title: "进/销项" },
           { name: "gec03", title: "会计科目编号" },
           { name: "gec04", title: "税率" },
-          { name: "gec06", title: "税种" },
-          { name: "gec07", title: "单价含税否" },
-          { name: "gec08", title: "媒体申报格式" },
-          { name: "gec11", title: "进 / 销项" },
+          { name: "gec06", title: "1.應稅 2.零稅率 3.免稅" },
+          { name: "gec07", title: "單價含稅否" },
+          { name: "gec08", title: "媒體申報格式" },
         ],
         head_KJKM: [
           { name: "aag01", title: "科目编号" },
@@ -1312,18 +1312,34 @@ export default {
           this.dataSelect.dialogTitle = "应付厂商列表";
         break;
         case "SB":
-          let filter_SB = [{ label: "", model_key_search: "keyword" }];
+          let filter_SB = [{ label: "编号", model_key_search: "gec01" },
+          { label: "名称", model_key_search: "gec02" },
+          {
+              label: "",
+              model_key_search: "gec011",
+              disabled: true,
+              value: "1",
+              hide: true,
+            },];
           this.dataSelect.filter = filter_SB;
-          this.dataSelect.searchType = "single"
+          this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/gecs";
           this.dataSelect.headList = this.tableHead.head_SB;
           this.dataSelect.dialogTitle = "税别列表";
         break;
         case "FPSB":
-          let filter_FPSB = [{ label: "", model_key_search: "keyword" }];
+          let filter_FPSB = [{ label: "编号", model_key_search: "gec01" },
+          { label: "名称", model_key_search: "gec02" },
+          {
+              label: "",
+              model_key_search: "gec011",
+              disabled: true,
+              value: "1",
+              hide: true,
+            },];
           this.dataSelect.filter = filter_FPSB;
-          this.dataSelect.searchType = "single"
+          this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"
           this.dataSelect.searchApi = "meta/gecs";
           this.dataSelect.headList = this.tableHead.head_SB;

@@ -1191,9 +1191,17 @@ export default {
           this.dataSelect.dialogTitle = "客户列表";
           break;
         case "SB":
-          let filter_SB = [{ label: "", model_key_search: "keyword" }];
+          let filter_SB = [{ label: "编号", model_key_search: "gec01" },
+          { label: "名称", model_key_search: "gec02" },
+          {
+              label: "",
+              model_key_search: "gec011",
+              disabled: true,
+              value: "2",
+              hide: true,
+            },];
           this.dataSelect.filter = filter_SB;
-          this.dataSelect.searchType = "single";
+          this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
           this.dataSelect.searchApi = "meta/gecs";
           this.dataSelect.headList = this.tableHead.head_SB;
