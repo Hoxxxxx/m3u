@@ -1349,7 +1349,7 @@ export default {
       workid: "",
       workname: "外地差旅报销单",
       activeTab: "firTab",
-      more:"http://localhost:8080/workList?code=asd",//查看更多
+      more:"",//查看更多
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
