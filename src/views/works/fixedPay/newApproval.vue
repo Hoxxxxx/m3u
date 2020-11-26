@@ -1757,8 +1757,7 @@ export default {
           this.dataSelect.dialogTitle = "应付厂商列表";
         break;
         case "SB":
-          let filter_SB = [{ label: "编号", model_key_search: "gec01" },
-          { label: "名称", model_key_search: "gec02" },
+          let filter_SB = [{ label: "", model_key_search: "keyword" },
           {
               label: "",
               model_key_search: "gec011",
@@ -1774,8 +1773,7 @@ export default {
           this.dataSelect.dialogTitle = "税别列表";
         break;
         case "FPSB":
-          let filter_FPSB = [{ label: "编号", model_key_search: "gec01" },
-          { label: "名称", model_key_search: "gec02" },
+          let filter_FPSB = [{ label: "", model_key_search: "keyword" },
           {
               label: "",
               model_key_search: "gec011",

@@ -1777,8 +1777,7 @@ export default {
           this.dataSelect.dialogTitle = "客户列表";
           break;
         case "SB":
-          let filter_SB = [{ label: "编号", model_key_search: "gec01" },
-          { label: "名称", model_key_search: "gec02" },
+          let filter_SB = [{ label: "", model_key_search: "keyword" },
           {
               label: "",
               model_key_search: "gec011",

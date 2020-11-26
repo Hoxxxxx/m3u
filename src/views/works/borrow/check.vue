@@ -83,6 +83,53 @@
                 <div class="titlebox">借款事由</div>
                 <div class="infobox longbox">{{tableData.oaa13}}</div>
               </div>
+              <!-- 财务信息 -->
+              <div v-if="oazShow == 1">
+                <div class="title_line">
+                  财务信息
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">银行</div>
+                  <div class="infobox selectbox editNot">
+                    <div class="" >
+                      {{ tableData.oaz01 }}
+                    </div>
+                  </div>
+                  <div class="titlebox">异动码</div>
+                  <div class="infobox selectbox editNot">
+                    <div class="" >
+                      {{ tableData.oaz02 }}
+                    </div>
+                  </div>
+                  <div class="titlebox">记账日期</div>
+                  <div class="infobox middlebox datebox last_row">
+                    <el-date-picker
+                      v-model="tableData.oaz03"
+                      type="date"
+                      format="yyyy-MM-dd"
+                      value-format="yyyy-MM-dd"
+                      disabled
+                    >
+                    </el-date-picker>
+                  </div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">账款类型</div>
+                  <div class="infobox selectbox editNot">
+                    <div class="editNot" >
+                      {{ tableData.oaz04 }}
+                    </div>
+                  </div>
+                  <div class="titlebox">凭证编号</div>
+                  <div class="infobox selectbox editNot">
+                    {{ tableData.oaz06 }}
+                  </div>
+                  <div class="titlebox">支付方式</div>
+                  <div class="infobox middlebox selectbox last_row editNot">
+                    {{ tableData.oaz05 }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </el-tab-pane>
@@ -182,6 +229,7 @@ export default {
         // 付款方式列表
         pmasList: [],
       },
+      oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
       fileList_user: [],
       addParams: {
         from_data: {},
@@ -216,6 +264,7 @@ export default {
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
+          this.oazShow = res.data.workclass_flow.erp_turn
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({
