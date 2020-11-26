@@ -16,7 +16,7 @@
           >
             <el-input
               v-if="!item.hide"
-              @clear="search_all"
+              @clear="search_single"
               :clearable="true"
               v-model="filter_key[item.model_key_search]"
               :placeholder="`请输入${item.label == '' ? '关键词' : item.label}`"
@@ -260,19 +260,6 @@ export default {
           }
         });
       }
-    },
-    // 清空时重新搜索所有值
-    search_all() {
-      this.showLoading = true;
-      request.get(this.searchApi, {}, {}).then((res) => {
-        if (res.status == 200) {
-          this.showLoading = false;
-          this.tableData = res.data;
-        }else{
-          this.showLoading = false;
-          this.$message.error('服务器错误！')
-        }
-      });
     },
     // 表格行点击
     rowClick(row) {
