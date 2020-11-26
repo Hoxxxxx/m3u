@@ -895,8 +895,9 @@
               </div>
               <!-- 财务信息 -->
               <div
-                v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1"
+                
               >
+              <!-- v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1" -->
                 <div class="title_line">
                   财务信息
                   <el-button
@@ -907,7 +908,7 @@
                     >生成凭证</el-button
                   >
                 </div>
-                <div class="form_line">
+                <!-- <div class="form_line">
                   <div class="titlebox">银行</div>
                   <div class="infobox selectbox">
                     <div class="selector" @click="selectDialog('bank')">
@@ -930,22 +931,32 @@
                     >
                     </el-date-picker>
                   </div>
-                </div>
+                </div> -->
                 <div class="form_line last_line">
-                  <div class="titlebox">账款类型</div>
+                  <!-- <div class="titlebox">账款类型</div>
                   <div class="infobox selectbox">
                     <div class="selector" @click="selectDialog('ZKLX')">
                       {{ financialData.oaz04_show }}
                     </div>
+                  </div> -->
+                  <div class="titlebox">记账日期</div>
+                  <div class="infobox middlebox datebox ">
+                    <el-date-picker
+                      v-model="oaz.oaz03"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
+                    >
+                    </el-date-picker>
                   </div>
                   <div class="titlebox">凭证编号</div>
-                  <div class="infobox selectbox editNot">
+                  <div class="infobox middlebox selectbox editNot last_row">
                     {{ oaz.oaz06 }}
                   </div>
-                  <div class="titlebox">支付方式</div>
+                  <!-- <div class="titlebox">支付方式</div>
                   <div class="infobox middlebox selectbox last_row">
                     {{ financialData.oaz05_show }}
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -1140,16 +1151,16 @@ export default {
       financialData: {
         bank_show: "", //银行回显数据
         num_show: "", //异动码回显数据
-        oaz05_show: "", //支付方式回显数据
-        oaz04_show: "", //账款类型回显数据
+        // oaz05_show: "", //支付方式回显数据
+        // oaz04_show: "", //账款类型回显数据
       },
       //财务信息
       oaz: {
-        oaz01: "", //银行
-        oaz02: "", //异动码
+        // oaz01: "", //银行
+        // oaz02: "", //异动码
         oaz03: dateFmt(new Date()), //记账日期
-        oaz04: "", //账款类型
-        oaz05: "", //支付方式
+        // oaz04: "", //账款类型
+        // oaz05: "", //支付方式
         oaz06: "", //凭证编号
       },
       oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
@@ -1350,25 +1361,25 @@ export default {
           this.more = res.data.workclass_info.more
           this.showData.oaa13_rate = res.data.workclass_info.from_data.oaa13_show
           this.oaz = {
-            oaz01: res.data.workclass_info.from_data.oaz01, //银行
-            oaz02: res.data.workclass_info.from_data.oaz02, //异动码
+            // oaz01: res.data.workclass_info.from_data.oaz01, //银行
+            // oaz02: res.data.workclass_info.from_data.oaz02, //异动码
             oaz03: res.data.workclass_info.from_data.oaz03
               ? res.data.workclass_info.from_data.oaz03
               : dateFmt(new Date()), //记账日期
-            oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
-            oaz05: res.data.workclass_info.from_data.oaz05
-              ? res.data.workclass_info.from_data.oaz05
-              : res.data.workclass_info.from_data.oaa12, //支付方式
+            // oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
+            // oaz05: res.data.workclass_info.from_data.oaz05
+            //   ? res.data.workclass_info.from_data.oaz05
+            //   : res.data.workclass_info.from_data.oaa12, //支付方式
             oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
           };
-          this.financialData = {
-            bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
-            num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
-            oaz04_show: res.data.workclass_info.from_data.oaz04_show, //账款类型回显数据
-            oaz05_show: res.data.workclass_info.from_data.oaz05_show
-              ? res.data.workclass_info.from_data.oaz05_show
-              : res.data.workclass_info.from_data.oaa12_show, //支付方式回显数据
-          };
+          // this.financialData = {
+          //   bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
+          //   num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
+          //   oaz04_show: res.data.workclass_info.from_data.oaz04_show, //账款类型回显数据
+          //   oaz05_show: res.data.workclass_info.from_data.oaz05_show
+          //     ? res.data.workclass_info.from_data.oaz05_show
+          //     : res.data.workclass_info.from_data.oaa12_show, //支付方式回显数据
+          // };
           if (res.data.file !== null) {
             res.data.file.forEach((item) => {
               this.fileList_user.push({
