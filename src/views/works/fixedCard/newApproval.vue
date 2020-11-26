@@ -4,6 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
+        <el-button  v-if="more != null" type="primary" class="save" @click="seeMore()">查看更多</el-button>
         <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button>
         <el-button v-if="workclass_personnel.perid.flownum==1" type="primary" class="next" @click="nextStep('/apply')">下一步</el-button>
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
@@ -451,6 +452,7 @@ export default {
       activeTab: "firTab",
       workid: '',
       workName:"固定资产卡片",//流程名
+      more:"",//查看更多
       tableData: {},
       table_able: [],
       // 表单数据
@@ -560,6 +562,10 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
+    // 查看更多
+    seeMore(){
+      window.open(this.more, '_blank');
+    },
     // ***********获取流程信息************
     getworkflows(){
       const loading = OpenLoading(this, 1)
@@ -575,6 +581,7 @@ export default {
           this.workName = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
           this.workclass_perflow = res.data.workclass_perflow
+          this.more = res.data.workclass_info.more
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({

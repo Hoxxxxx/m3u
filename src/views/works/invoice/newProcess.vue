@@ -1296,10 +1296,10 @@ export default {
           case "KJKM":
             this.tableData.oab[this.rowIndex].oab01 = val[0].aag01;
             this.tableData.oab[this.rowIndex].oab01_show = val[0].aag02;
-            this.tableData.oab[this.rowIndex].oab15 = val[0].aag15;
-            this.tableData.oab[this.rowIndex].oab151 = val[0].aag151;
-            this.tableData.oab[this.rowIndex].oab16 = val[0].aag16;
-            this.tableData.oab[this.rowIndex].oab161 = val[0].aag161;
+            this.tableData.oab[this.rowIndex].oab01_aag15 = val[0].aag15;
+            this.tableData.oab[this.rowIndex].oab01_aag151 = val[0].aag151;
+            this.tableData.oab[this.rowIndex].oab01_aag16 = val[0].aag16;
+            this.tableData.oab[this.rowIndex].oab01_aag161 = val[0].aag161;
             break;
           case "XM":
             this.tableData.oab[this.rowIndex].oab02 = val[0].pja01;
@@ -1392,11 +1392,11 @@ export default {
       this.oabType = "oab11";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab15){
+      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag15){
         this.$message.warning("此科目无核算项一，请手动输入！");
       } 
       else {
-        switch (row.oab15) {
+        switch (row.oab01_aag15) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;
@@ -1428,11 +1428,11 @@ export default {
       this.oabType = "obc12";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab16){
+      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag16){
         this.$message.warning("此科目无核算项二，请手动输入！");
       } 
       else {
-        switch (row.oab16) {
+        switch (row.oab01_aag16) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;

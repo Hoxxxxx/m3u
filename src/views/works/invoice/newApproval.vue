@@ -4,6 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
+        <el-button  v-if="more != null" type="primary" class="save" @click="seeMore()">查看更多</el-button>
         <el-button type="primary" class="save" @click="editNewFlow()"
           >保存</el-button
         >
@@ -1088,6 +1089,7 @@ export default {
       workid: "",
       workname: "发货单",
       activeTab: "firTab",
+      more:"",//查看更多
       showData: {
         oaa04_show: "", //申请人
         expenseMoneyF: "", //报销金额大写
@@ -1274,7 +1276,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    // this.workid = 4435
+    // this.workid = 4511
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1325,6 +1327,10 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
+    // 查看更多
+    seeMore(){
+      window.open(this.more, '_blank');
+    },
     // ***********获取流程信息************
     getworkflows() {
       const loading = OpenLoading(this, 1);
@@ -1341,6 +1347,7 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able;
           this.oazShow = res.data.workclass_flow.erp_turn;
+          this.more = res.data.workclass_info.more
           this.showData.oaa13_rate = res.data.workclass_info.from_data.oaa13_show
           this.oaz = {
             oaz01: res.data.workclass_info.from_data.oaz01, //银行
@@ -1649,15 +1656,17 @@ export default {
     },
     addRow2() {
       let data = {
-        oac01: "", //会计科目
-        oac04: "", //项目、
-        oac05: "", //项目wbs
-        oac06: "", //摘要
-        oac07: "", //金额不含税
-        oac11: "", //核算项1
-        oac12: "", //核算项2
+        oab01: "", //会计科目
+        oab02: "", //项目
+        oab03: "", //项目wbs
+        oab04: "", //摘要
+        oab05: "", //金额
+        oab06: 1, //数量
+        oab07: "", //单价
+        oab11: "", //核算项1
+        oab12: "", //核算项2
       };
-      this.tableData.oac.push(data);
+      this.tableData.oab.push(data);
     },
     // 删除当前行
     deleteRow2(val) {
@@ -1666,8 +1675,8 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        this.tableData.oac.splice(val, 1);
-        if (this.tableData.oac.length == 0) {
+        this.tableData.oab.splice(val, 1);
+        if (this.tableData.oab.length == 0) {
           this.addRow2();
         }
       });
@@ -1862,10 +1871,10 @@ export default {
           case "KJKM":
             this.tableData.oab[this.rowIndex].oab01 = val[0].aag01;
             this.tableData.oab[this.rowIndex].oab01_show = val[0].aag02;
-            this.tableData.oab[this.rowIndex].oab15 = val[0].aag15;
-            this.tableData.oab[this.rowIndex].oab151 = val[0].aag151;
-            this.tableData.oab[this.rowIndex].oab16 = val[0].aag16;
-            this.tableData.oab[this.rowIndex].oab161 = val[0].aag161;
+            this.tableData.oab[this.rowIndex].oab01_aag15 = val[0].aag15;
+            this.tableData.oab[this.rowIndex].oab01_aag151 = val[0].aag151;
+            this.tableData.oab[this.rowIndex].oab01_aag16 = val[0].aag16;
+            this.tableData.oab[this.rowIndex].oab01_aag161 = val[0].aag161;
             break;
           case "XM":
             this.tableData.oab[this.rowIndex].oab02 = val[0].pja01;
@@ -1958,11 +1967,11 @@ export default {
       this.oabType = "oab11";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab15){
+      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag15){
         this.$message.warning("此科目无核算项一，请手动输入！");
       } 
       else {
-        switch (row.oab15) {
+        switch (row.oab01_aag15) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;
@@ -1994,11 +2003,11 @@ export default {
       this.oabType = "obc12";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab16){
+      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag16){
         this.$message.warning("此科目无核算项二，请手动输入！");
       } 
       else {
-        switch (row.oab16) {
+        switch (row.oab01_aag16) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;

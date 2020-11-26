@@ -4,6 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
+        <el-button  v-if="more != null" type="primary" class="save" @click="seeMore()">查看更多</el-button>
         <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button>
         <el-button v-if="workclass_personnel.perid.flownum==1" type="primary" class="next" @click="nextStep('/apply')">下一步</el-button>
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
@@ -1147,6 +1148,7 @@ export default {
       activeTab: "firTab",
       workid: '',
       workName:"付款申请单",//流程名
+      more:"",//查看更多
       tableData: {
         // 表格部分
         oaf: [], // 发票明细
@@ -1399,6 +1401,10 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
+    // 查看更多
+    seeMore(){
+      window.open(this.more, '_blank');
+    },
     // ***********获取流程信息************
     getworkflows(){
       const loading = OpenLoading(this, 1)
@@ -1417,7 +1423,8 @@ export default {
           this.workName = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
           this.workclass_perflow = res.data.workclass_perflow
-          this.oazShow = 1
+          this.oazShow = res.data.workclass_flow.erp_turn
+          this.more = res.data.workclass_info.more
           this.oaz = {
             oaz01: res.data.workclass_info.from_data.oaz01, //银行
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码
@@ -1894,10 +1901,10 @@ export default {
           break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
-            this.tableData.oac[this.rowIndex].oac15 = val[0].aag15;
-            this.tableData.oac[this.rowIndex].oac151 = val[0].aag151;
-            this.tableData.oac[this.rowIndex].oac16 = val[0].aag16;
-            this.tableData.oac[this.rowIndex].oac161 = val[0].aag161;
+            this.tableData.oac[this.rowIndex].oac01_aag15 = val[0].aag15;
+            this.tableData.oac[this.rowIndex].oac01_aag151 = val[0].aag151;
+            this.tableData.oac[this.rowIndex].oac01_aag16 = val[0].aag16;
+            this.tableData.oac[this.rowIndex].oac01_aag161 = val[0].aag161;
             break;
           case "XM":
             this.tableData.oac[this.rowIndex].oac04 = val[0].pja01;
@@ -2005,11 +2012,11 @@ export default {
       this.oacType = "oac11";
       if (!this.tableData.oac[val].oac01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac15){
+      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac01_aag15){
         this.$message.warning("此科目无核算项一，请手动输入！");
       } 
       else {
-        switch (row.oac15) {
+        switch (row.oac01_aag15) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;
@@ -2041,11 +2048,11 @@ export default {
       this.oacType = "oac12";
       if (!this.tableData.oac[val].oac01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac16){
+      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac01_aag16){
         this.$message.warning("此科目无核算项二，请手动输入！");
       } 
       else {
-        switch (row.oac16) {
+        switch (row.oac01_aag16) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;

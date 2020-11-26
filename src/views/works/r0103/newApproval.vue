@@ -4,6 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
+        <el-button  v-if="more != null" type="primary" class="save" @click="seeMore()">查看更多</el-button>
         <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button>
         <el-button v-if="workclass_personnel.perid.flownum==1" type="primary" class="next" @click="nextStep('/apply')">下一步</el-button>
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
@@ -796,6 +797,7 @@ export default {
       workid: '',
       workname: '付款冲账申请单',
       activeTab: "firTab",
+      more:"",//查看更多
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
@@ -992,6 +994,10 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
+    // 查看更多
+    seeMore(){
+      window.open(this.more, '_blank');
+    },
     // ***********获取流程信息************
     getworkflows(){
       const loading = OpenLoading(this, 1)
@@ -1008,6 +1014,7 @@ export default {
           this.perflow = res.data.workclass_perflow
           this.table_able = res.data.workclass_info.form_able
           this.oazShow = res.data.workclass_flow.erp_turn
+          this.more = res.data.workclass_info.more
           this.oaz = {
             oaz01: res.data.workclass_info.from_data.oaz01, //银行
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码

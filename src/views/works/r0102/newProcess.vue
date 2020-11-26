@@ -1477,10 +1477,10 @@ export default {
           break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
-            this.tableData.oac[this.rowIndex].oac15 = val[0].aag15;
-            this.tableData.oac[this.rowIndex].oac151 = val[0].aag151;
-            this.tableData.oac[this.rowIndex].oac16 = val[0].aag16;
-            this.tableData.oac[this.rowIndex].oac161 = val[0].aag161;
+            this.tableData.oac[this.rowIndex].oac01_aag15 = val[0].aag15;
+            this.tableData.oac[this.rowIndex].oac01_aag151 = val[0].aag151;
+            this.tableData.oac[this.rowIndex].oac01_aag16 = val[0].aag16;
+            this.tableData.oac[this.rowIndex].oac01_aag161 = val[0].aag161;
             break;
           case "XM":
             this.tableData.oac[this.rowIndex].oac04 = val[0].pja01;
@@ -1575,11 +1575,11 @@ export default {
       this.oacType = "oac11";
       if (!this.tableData.oac[val].oac01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac15){
+      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac01_aag15){
         this.$message.warning("此科目无核算项一，请手动输入！");
       } 
       else {
-        switch (row.oac15) {
+        switch (row.oac01_aag15) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;
@@ -1611,11 +1611,11 @@ export default {
       this.oacType = "oac12";
       if (!this.tableData.oac[val].oac01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac16){
+      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac01_aag16){
         this.$message.warning("此科目无核算项二，请手动输入！");
       } 
       else {
-        switch (row.oac16) {
+        switch (row.oac01_aag16) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
             break;
