@@ -1790,8 +1790,7 @@ export default {
         break;
         case "KJKM":
           let filter_KJKM = [
-            { label: "科目名称", model_key_search: "aag02" },
-            { label: "科目编号", model_key_search: "aag01" },
+            { label: "", model_key_search: "keyword" },
             {
               label: "",
               model_key_search: "aag00",
