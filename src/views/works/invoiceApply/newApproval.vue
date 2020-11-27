@@ -123,6 +123,31 @@
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
                   <el-table-column
+                  prop="id"
+                  label="删除"
+                  fixed="left"
+                  width="100px"
+                  align="center"
+                >
+                  <template slot-scope="scope">
+                    <div>
+                      <div style="font-size: 24px; width: 100%; height: 100%">
+                        <!-- <i
+                            v-if="scope.$index == tableData.oac.length - 1"
+                            @click="addRow2()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i> -->
+                        <i
+                          @click="deleteRow2(scope.$index)"
+                          class="el-icon-remove"
+                          style="color: #f56c6c; width: 30px; cursor: pointer"
+                        ></i>
+                      </div>
+                    </div>
+                  </template>
+                </el-table-column>
+                  <el-table-column
                     prop="oaf01"
                     label="发货单号"
                     min-width="130px"
@@ -992,6 +1017,15 @@ export default {
         if (this.tableData.oac.length == 0) {
           this.addRow1();
         }
+      });
+    },
+    deleteRow2(val) {
+      this.$confirm("确认删除本条数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        this.tableData.oaf.splice(val, 1);
       });
     },
     // ******************
