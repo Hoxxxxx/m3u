@@ -50,13 +50,60 @@
                 </div>
               </div>
               <!-- 发货单 -->
-              <div class="title_line">发货单</div>
+              <div class="title_line">发货单信息
+              </div>
+              <el-table
+                  :data="tableData.oaf"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                >
+                  <el-table-column
+                    prop="oaf01"
+                    label="发货单号"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf02"
+                    label="客户名称"
+                    min-width="200px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf03"
+                    label="发货单日期"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf04"
+                    label="未开票金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf05"
+                    label="本次开票金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+              </el-table>
+              <!-- <div class="title_line">发货单</div>
               <div class="form_line">
                 <div class="titlebox">选择发货单</div>
                 <div class="infobox selectbox longbox">
                     {{ tableData.oaa16_show }}
                 </div>
-              </div>
+              </div> -->
               <!-- 开票信息 -->
               <div>
                 <div class="title_line">开票信息</div>
@@ -335,6 +382,7 @@ export default {
         oaa05: "", //联系电话
         oaa16: "", //发货单
         oaa16_show: "", //发货单
+        oaf:[],//发货单信息
         // 开票信息
         oaa21: "", //名称
         oaa22: "", //纳税人识别号
@@ -364,7 +412,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4417
+    // this.workid = 4515
     this.getworkflows()
   },
   methods: {

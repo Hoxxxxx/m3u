@@ -61,16 +61,95 @@
                 </div>
               </div>
               <!-- 发货单 -->
-              <div class="title_line">发货单</div>
-              <div class="form_line">
+              <div class="title_line">发货单信息
+                <el-button type="primary" size="small" style="position:absolute;left:4px;top:4px;" @click="selectDialog('FHD')">选择发货单</el-button>
+              </div>
+              <el-table
+                  :data="tableData.oaf"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                >
+                  <!-- <el-table-column
+                    prop="id"
+                    label="增 / 删"
+                    fixed="left"
+                    width="100px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div style="font-size: 24px; width: 100%; height: 100%">
+                          <i
+                            v-if="scope.$index == tableData.oac.length - 1"
+                            @click="addRow2()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i>
+                          <i
+                            @click="deleteRow2(scope.$index)"
+                            class="el-icon-remove"
+                            style="color: #f56c6c; width: 30px; cursor: pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column> -->
+                  <el-table-column
+                    prop="oaf01"
+                    label="发货单号"
+                    min-width="130px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf02"
+                    label="客户名称"
+                    min-width="200px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf03"
+                    label="发货单日期"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf04"
+                    label="未开票金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oaf05"
+                    label="本次开票金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oaf05"
+                          placeholder="本次开票金额"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+              </el-table>
+              <!-- <div class="form_line">
                 <div class="titlebox">选择发货单</div>
                 <div class="infobox selectbox longbox selector">
                   <div class="selector" @click="selectDialog('FHD')">
                     {{ tableData.oaa16_show }}
                   </div>
                 </div>
-              </div>
-
+              </div> -->
               <!-- 开票信息 -->
               <div>
                 <div class="title_line">开票信息</div>
@@ -467,6 +546,7 @@ export default {
         oaa05: "", //联系电话
         oaa16: "", //发货单
         oaa16_show: "", //发货单
+        oaf:[],//发货单信息
         // 开票信息
         oaa21: "", //名称
         oaa22: "", //纳税人识别号
@@ -531,8 +611,10 @@ export default {
           { name: "name", title: "商品名称" },
         ],
         head_FHD:[
-          { name: "id", title: "id" },
-          { name: "title", title: "流程名称" },
+          { name: "fhd00", title: "发货单号" },
+          { name: "fhd05", title: "客户名称" },
+          { name: "fhd02", title: "发货单日期" },
+          { name: "fhd11", title: "未开票金额" },
         ]
       },
     };
@@ -736,11 +818,11 @@ export default {
           this.dataSelect.dialogTitle = "员工列表";
           break;
         case "FHD":
-          let filter_FHD = [{ label: "", model_key_search: "title" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8952, hide:true }];
+          let filter_FHD = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_FHD;
-          this.dataSelect.searchType = "mixed"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "oa/workflows";
+          this.dataSelect.searchType = "single"
+          this.dataSelect.editType = "search"
+          this.dataSelect.searchApi = "finance/receivables/uncovered";
           this.dataSelect.headList = this.tableHead.head_FHD;
           this.dataSelect.dialogTitle = "发货单列表";
           break;
@@ -779,8 +861,20 @@ export default {
             this.tableData.oac[this.rowIndex].oac02 = val[0].id;
             break;
           case "FHD":
-            this.tableData.oaa16 = val[0].id;
-            this.tableData.oaa16_show = val[0].title;
+            // this.tableData.oaa16 = val[0].id;
+            // this.tableData.oaa16_show = val[0].title;
+            let data = [];
+            val.forEach(item=>{
+              let obj = {
+                oaf01:item.fhd00,
+                oaf02:item.fhd05,
+                oaf03:item.fhd02,
+                oaf04:item.fhd11,
+                oaf05:item.fhd11,
+              }
+              data.push(obj)
+            })
+            this.tableData.oaf = data
             break;
           default:
             return;
