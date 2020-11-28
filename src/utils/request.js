@@ -13,6 +13,12 @@ axios.interceptors.request.use(
 	config => {
 		// let roleId = sessionStorage.getItem('roleId')
 		// config.headers['Org-Id'] = 2
+		let token = sessionStorage.getItem('token')
+    let orgid = sessionStorage.getItem('OrgId')
+        if (token) {
+            config.headers.Authorization = 'Bearer ' + token,
+            config.headers['Org-Id'] = orgid
+        }
 		// 配置公共请求头Authorization
 		return config;
 	},
