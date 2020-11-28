@@ -291,6 +291,9 @@ VueRouter.prototype.push = function push(location) {
 import {
   getToken
 } from '@/api/basic'
+import jwtDecode from 'jwt-decode'
+import Axios from 'axios'
+	
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem("token")
@@ -313,6 +316,9 @@ router.beforeEach((to, from, next) => {
       getToken(params).then(res => {
         if (res.status == 200) {
           let token = res.data.token
+          const code = jwtDecode(token)
+          console.log(code)
+          Axios.defaults.headers['Org-Id'] = code.orgid
           sessionStorage.setItem('token', token)
           next({
             path: to.path,
