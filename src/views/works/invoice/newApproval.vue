@@ -897,8 +897,8 @@
               <div
                 
               >
-              <!-- v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1" -->
-                <div class="title_line">
+              <!--  -->
+                <div class="title_line" v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1">
                   财务信息
                   <el-button
                     type="primary"
@@ -1287,7 +1287,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    // this.workid = 4511
+    this.workid = 4527
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
