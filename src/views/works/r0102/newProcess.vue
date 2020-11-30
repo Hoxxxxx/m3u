@@ -974,7 +974,7 @@ export default {
   created() {
     this.addParams.tplid = this.$route.query.tplid
     let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
-    this.tableData.oaa03 = oauserinfo.oauserid
+    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
     this.tableData.oaa03_show = oauserinfo.oaname
     this.addRow1();
     this.addRow2();
