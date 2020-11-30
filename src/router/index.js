@@ -322,6 +322,11 @@ router.beforeEach((to, from, next) => {
         if (res.status == 200) {
           let token = res.data.token
           const code = jwtDecode(token)
+          let oauserinfo = {
+            oauserid:code.oauserid,
+            oaname:code.oaname
+          }
+          sessionStorage.setItem('oauserinfo',JSON.stringify(oauserinfo))
           sessionStorage.setItem('OrgId', code.orgid)
           sessionStorage.setItem('token', token)
           next({
