@@ -1440,7 +1440,7 @@ export default {
           this.dataSelect.filter = filter_pjas;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/gja";
+          this.dataSelect.searchApi = "meta/gjas";
           this.dataSelect.headList = this.tableHead.head_pjas;
           this.dataSelect.dialogTitle = "项目列表";
           break;

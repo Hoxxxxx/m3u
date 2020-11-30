@@ -368,7 +368,7 @@ export default {
         if(res.status == 200){
           this.fixedData.is_last = res.data.workclass_personnel.perid.is_last // 是否最终步
           this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
-          this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 下一步骤
+          this.fixedData.next_workFlows = res.data.workclass_personnel.pre_perid // 下一步骤
           if (this.fixedData.next_workFlows.length == 1) {
             this.uploadData.next_flowid = this.fixedData.next_workFlows[0].fid
             this.checkNextFlow()
