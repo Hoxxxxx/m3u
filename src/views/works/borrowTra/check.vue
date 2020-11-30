@@ -29,7 +29,7 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox editNot">{{ tableData.oaa03 }}</div>
+                <div class="infobox middlebox editNot">{{ tableData.oaa03_show }}</div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox selectbox middlebox last_row">{{ tableData.oaa05 }}</div>
               </div>

@@ -64,7 +64,7 @@
               <div class="form_line">
                 <div class="titlebox">经办人</div>
                 <div class="infobox middlebox editNot">
-                  {{ tableData.oaa03 }}
+                  {{ tableData.oaa03_show }}
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div
