@@ -1356,8 +1356,9 @@ export default {
           } else {
             this.dataSelect.dialogVisible = true;
             let params = {
-              type: 1,
+              type: 2,
               number: this.tableData.oaa10_oaa11,
+              currency:this.tableData.oaa10_oaa13
             };
             this.dataSelect.editType = "search";
             this.dataSelect.searchParams = params;
