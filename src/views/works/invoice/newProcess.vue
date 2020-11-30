@@ -444,7 +444,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oac02"
+                    prop="oac02_show"
                     label="商品名称"
                     min-width="200px"
                     align="center"
@@ -455,7 +455,7 @@
                           class="selector selectBorder"
                           @click="selectDialog('SPMC', scope.$index)"
                         >
-                          {{ scope.row.oac02 }}
+                          {{ scope.row.oac02_show }}
                         </div>
                       </div>
                     </template>
@@ -1061,7 +1061,8 @@ export default {
     addRow1() {
       let data = {
         oac01: "", //序号
-        oac02: "", //商品名称
+        oac02: "", //商品id
+        oac02_show: "", //商品名称
         oac03: "", //规格
         oac04: "", //数量
         oac05: "", //含税单价
@@ -1329,6 +1330,7 @@ export default {
             break;
           case "SPMC":
             this.tableData.oac[this.rowIndex].oac02 = val[0].id;
+            this.tableData.oac[this.rowIndex].oac02_show = val[0].name;
             break;
           case "getpmcsList":
             console.log(this.oabType);
