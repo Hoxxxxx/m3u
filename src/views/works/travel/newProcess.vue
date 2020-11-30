@@ -920,6 +920,7 @@ export default {
       },
       tableData: {
         // 基本信息
+        oaa03:"",//
         oaa02: "", //业务日期
         oaa01: "", //申请单编号
         oaa03: "", //经办人

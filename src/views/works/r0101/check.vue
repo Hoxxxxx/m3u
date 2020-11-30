@@ -289,7 +289,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this,this.workid = 4353
+    // this.workid = 4546
     this.getPmas()
     this.getAzis()
     this.getworkflows()
