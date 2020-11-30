@@ -297,10 +297,17 @@ import jwtDecode from 'jwt-decode'
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem("token")
   if (token) {
-    next()
+    const code = jwtDecode(token)
+    let now = Math.round(new Date() / 1000)
+    let exp = code.exp
+    if (now < exp) {
+      next()
+    } else {
+      window.sessionStorage.clear()
+      next('/error')
+    }
   } else {
     if (window.location.href.includes('code')) {
-      // let urlParams = window.location.href.split('code')[1].split('&')[0].split('=')[1]
       let urlParams = window.location.href.split('?')[1].split('&')
       let allParams = {}
       urlParams.forEach(item => {
@@ -308,7 +315,6 @@ router.beforeEach((to, from, next) => {
         let val = item.split('=')[1]
         allParams[key] = val
       })
-      console.log(allParams)
       let params = {
         code: allParams.code
       }
