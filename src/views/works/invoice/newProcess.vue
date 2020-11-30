@@ -33,7 +33,7 @@
               <div class="form_line">
                 <div class="titlebox">经办人</div>
                 <div class="infobox middlebox editNot">
-                  {{ tableData.oaa03 }}
+                  {{ tableData.oaa03_show }}
                 </div>
                 <div class="titlebox">联系电话</div>
                 <div class="infobox selectbox middlebox last_row">
@@ -900,6 +900,9 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid;
+    let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
+    this.tableData.oaa03 = oauserinfo.oauserid
+    this.tableData.oaa03_show = oauserinfo.oaname
     // this.addParams.tplid = 8952;
     this.addRow2();
     this.addRow1();
