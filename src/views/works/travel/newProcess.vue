@@ -1445,7 +1445,6 @@ export default {
               hide: true,
             },
           ];
-          console.log(filter_CCSQD);
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
