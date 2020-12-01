@@ -155,6 +155,20 @@
                   </el-input>
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">备注</div>
+                <div class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa99"
+                    placeholder="请输入备注"
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
               <div class="form_line">
@@ -827,6 +841,7 @@ export default {
         oaa22: "", //开户行
         oaa23: "", //收款账号
         oaa24: "", //支票号
+        oaa99:"",//备注
         // 表格部分
         oaf: [], // 发票明细
         oac: [], // 费用明细行项目

@@ -153,7 +153,7 @@
                 </div>
               </div>
               <!-- 5 -->
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">说明</div>
                 <div v-if="!table_able.includes('oaa18')" class="infobox longbox editNot" style="width: 100%">
                   {{tableData.oaa18}}
@@ -164,6 +164,23 @@
                     :rows="4"
                     v-model="tableData.oaa18"
                     placeholder="请输入说明"
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">备注</div>
+                <div v-if="!table_able.includes('oaa99')" class="infobox longbox editNot" style="width: 100%">
+                  {{tableData.oaa99}}
+                </div>
+                <div v-if="table_able.includes('oaa99')" class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa99"
+                    placeholder="请输入备注"
                     maxlength="80"
                     show-word-limit
                   >

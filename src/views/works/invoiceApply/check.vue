@@ -97,6 +97,10 @@
                   >
                   </el-table-column>
               </el-table>
+              <div class="form_line">
+                <div class="titlebox">备注</div>
+                <div class="infobox longbox" style="width: 100%">{{tableData.oaa99}}</div>
+              </div>
               <!-- <div class="title_line">发货单</div>
               <div class="form_line">
                 <div class="titlebox">选择发货单</div>

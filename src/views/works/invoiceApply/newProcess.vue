@@ -149,6 +149,20 @@
                   </template>
                 </el-table-column>
               </el-table>
+              <div class="form_line">
+                <div class="titlebox">备注</div>
+                <div class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa99"
+                    placeholder="请输入备注"
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
               <!-- <div class="form_line">
                 <div class="titlebox">选择发货单</div>
                 <div class="infobox selectbox longbox selector">

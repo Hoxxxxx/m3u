@@ -13,13 +13,27 @@ axios.interceptors.request.use(
 	config => {
 		// let roleId = sessionStorage.getItem('roleId')
 		// config.headers['Org-Id'] = 2
+		// let token = sessionStorage.getItem('token')
+    // let orgid = sessionStorage.getItem('OrgId')
+    //     if (token) {
+    //         config.headers.Authorization = 'Bearer ' + token,
+    //         config.headers['Org-Id'] = orgid
+    //     }
+		// 配置公共请求头Authorization
+
 		let token = sessionStorage.getItem('token')
     let orgid = sessionStorage.getItem('OrgId')
-        if (token) {
-            config.headers.Authorization = 'Bearer ' + token,
-            config.headers['Org-Id'] = orgid
-        }
-		// 配置公共请求头Authorization
+    if (token) {
+      let exp = sessionStorage.getItem('exp')
+      let now = Math.round(new Date() / 1000)
+      if (now > exp) {
+          sessionStorage.clear()
+          window.location = '/error'
+      }else{
+          config.headers.Authorization = 'Bearer ' + token,
+          config.headers['Org-Id'] = orgid
+      }
+    }
 		return config;
 	},
 	error => {

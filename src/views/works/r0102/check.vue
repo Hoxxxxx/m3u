@@ -116,6 +116,10 @@
                 <div class="titlebox">说明</div>
                 <div class="infobox longbox" style="width: 100%">{{tableData.oaa18}}</div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">备注</div>
+                <div class="infobox longbox" style="width: 100%">{{tableData.oaa99}}</div>
+              </div>
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
               <div class="form_line">

@@ -326,6 +326,7 @@ router.beforeEach((to, from, next) => {
             oauserid:code.oauserid,
             oaname:code.oaname
           }
+          sessionStorage.setItem('exp',code.exp)
           sessionStorage.setItem('oauserinfo',JSON.stringify(oauserinfo))
           sessionStorage.setItem('OrgId', code.orgid)
           sessionStorage.setItem('token', token)
