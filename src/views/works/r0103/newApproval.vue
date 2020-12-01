@@ -974,7 +974,7 @@ export default {
   created() {
     this.workid = this.$route.query.workid
     // this.workid = 4371
-    // this.workid = 4390
+    this.workid = 4593
     this.getworkflows()
     this.getAzi(); //币种列表
     this.getPma(); //支付方式

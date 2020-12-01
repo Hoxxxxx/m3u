@@ -2247,7 +2247,7 @@ export default {
     generate() {
       const loading = this.$loading({
         lock: true,
-        text: "抛转中...",
+        text: "loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)",
       });

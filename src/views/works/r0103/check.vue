@@ -282,7 +282,7 @@
                 <div class="title_line">
                   财务信息
                 </div>
-                <div class="form_line">
+                <!-- <div class="form_line">
                   <div class="titlebox">银行</div>
                   <div class="infobox selectbox editNot">
                     <div class="" >
@@ -321,6 +321,34 @@
                   <div class="titlebox">支付方式</div>
                   <div class="infobox middlebox selectbox last_row editNot">
                     {{ tableData.oaz05 }}
+                  </div>
+                </div> -->
+                <div class="form_line">
+                  <!-- <div class="titlebox">银行</div>
+                  <div class="infobox selectbox">
+                    <div class="selector" @click="selectDialog('bank')">
+                      {{ financialData.bank_show }}
+                    </div>
+                  </div>
+                  <div class="titlebox">异动码</div>
+                  <div class="infobox selectbox">
+                    <div class="selector" @click="selectDialog('YDM_CW')">
+                      {{ financialData.num_show }}
+                    </div>
+                  </div> -->
+                  <div class="titlebox">凭证编号</div>
+                  <div class="infobox selectbox middlebox editNot">
+                    {{ oaz.oaz06 }}
+                  </div>
+                  <div class="titlebox">记账日期</div>
+                  <div class="infobox middlebox datebox last_row">
+                    <el-date-picker
+                      v-model="oaz.oaz03"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
+                    >
+                    </el-date-picker>
                   </div>
                 </div>
               </div>
