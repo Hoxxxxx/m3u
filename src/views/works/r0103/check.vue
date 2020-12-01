@@ -338,12 +338,12 @@
                   </div> -->
                   <div class="titlebox">凭证编号</div>
                   <div class="infobox selectbox middlebox editNot">
-                    {{ oaz.oaz06 }}
+                    {{ tableData.oaz06 }}
                   </div>
                   <div class="titlebox">记账日期</div>
                   <div class="infobox middlebox datebox last_row">
                     <el-date-picker
-                      v-model="oaz.oaz03"
+                      v-model="tableData.oaz03"
                       type="date"
                       format="yyyy/MM/dd"
                       value-format="yyyy/MM/dd"
@@ -473,7 +473,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4390
+    // this.workid = 4593
     this.getworkflows()
   },
   computed: {
