@@ -813,13 +813,19 @@ export default {
         break;
         case "SQD":
           let filter_SQD = [
-            { label: "模板类型", model_key_search: "typeid" },
-            { label: "流程模板id", model_key_search: "tplid" },
-            { label: "流程流水号", model_key_search: "number" },
-            { label: "流程名称", model_key_search: "title" },
-            { label: "流程建立时间段（开始时间）", model_key_search: "startdate" },
-            { label: "流程建立时间段（结束时间）", model_key_search: "enddate" },
-            { label: "经办人", model_key_search: "uid" },
+            { label: "", model_key_search: "keyword" },
+            // { label: "流程流水号", model_key_search: "number" },
+            // { label: "流程名称", model_key_search: "title" },
+            // { label: "流程建立时间段（开始时间）", model_key_search: "startdate" },
+            // { label: "流程建立时间段（结束时间）", model_key_search: "enddate" },
+            // { label: "经办人", model_key_search: "uid" },
+            {
+              label: "",
+              model_key_search: "tplid",
+              disabled: true,
+              value: 8946,
+              hide: true,
+            },
           ];
           this.dataSelect.filter = filter_SQD;
           this.dataSelect.searchType = "mixed"
