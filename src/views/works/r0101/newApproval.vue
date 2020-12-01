@@ -896,7 +896,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "title" }];
+          let filter_CCSQD = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

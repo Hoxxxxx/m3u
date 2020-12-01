@@ -2026,7 +2026,7 @@ export default {
           break;
         case "CCSQD":
           let filter_CCSQD = [
-            { label: "", model_key_search: "title" },
+            { label: "", model_key_search: "keyword" },
             {
               label: "tplid",
               model_key_search: "tplid",

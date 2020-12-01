@@ -1377,7 +1377,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "title" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
+          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

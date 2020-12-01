@@ -650,10 +650,10 @@ export default {
         head_WQX: [
           { name: "id", title: "待抵账款编号" },
           { name: "original_amount", title: "本币未冲金额" },
-          { name: "date", title: "日期" },
-          { name: "rid", title: "借款人编号" },
-          { name: "rname", title: "借款人名称" },
-          { name: "voucher_code", title: "凭证编号" },
+          // { name: "date", title: "日期" },
+          // { name: "rid", title: "借款人编号" },
+          // { name: "rname", title: "借款人名称" },
+          // { name: "voucher_code", title: "凭证编号" },
         ],
         head_bank: [
           { name: "nma01", title: "银行编号" },
@@ -935,7 +935,7 @@ export default {
       switch (type) {
         case "FKSQD":
           let filter_FKSQD = [
-            { label: "", model_key_search: "title" },
+            { label: "", model_key_search: "keyword" },
             {
               label: "tplid",
               model_key_search: "tplid",
