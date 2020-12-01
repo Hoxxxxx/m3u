@@ -119,7 +119,7 @@
                 </div>
               </div>
               <!-- 5 -->
-              <div class="form_line last_line">
+              <div class="form_line ">
                 <div class="titlebox">说明</div>
                 <div
                   class="infobox last_row longbox areabox"
@@ -130,6 +130,20 @@
                     :rows="4"
                     v-model="tableData.oaa18"
                     placeholder="请输入说明"
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">备注</div>
+                <div class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa99"
+                    placeholder="请输入备注"
                     maxlength="80"
                     show-word-limit
                   >
@@ -576,6 +590,7 @@ export default {
         oaa10_oaa17: "",
         oaa09:"",//本次支付金额
         oaa18: "", //说明
+        oaa99:"",//备注
         // 收款信息
         oaa16: "", //收款方式
         oaa21: "", //收款人

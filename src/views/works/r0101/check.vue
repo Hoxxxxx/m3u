@@ -101,13 +101,28 @@
                 <div class="titlebox">项目WBS</div>
                 <div class="infobox middlebox selectbox last_row  ">{{ tableData.oaa28_show }}</div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">说明</div>
                 <div class="infobox areabox longbox" style="width: 100%">
                   <el-input
                     type="textarea"
                     :rows="4"
                     v-model="tableData.oaa18"
+                    placeholder="请输入说明"
+                    maxlength="80"
+                    show-word-limit
+                    disabled
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">说明</div>
+                <div class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa99"
                     placeholder="请输入说明"
                     maxlength="80"
                     show-word-limit
