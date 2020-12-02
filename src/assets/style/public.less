@@ -181,18 +181,22 @@
             align-items: center;
             flex-shrink: 0;
             flex-grow: 0;
-          }
-          .required{
-            position: relative;
-            background: #ffe9d5;
-            &::before{
-              content: '*';
-              position: absolute;
-              display: block;
-              left: 40px;
-              top: 12px;
-              font-size: 16px;
-              color: red;
+            &.required{
+              background: #ffe9d5;
+            }
+            .redPot{
+              position: relative;
+              background: #ffe9d5;
+              &::before{
+                content: '*';
+                width: 10px;
+                position: absolute;
+                display: block;
+                left: -10px;
+                top: 0px;
+                font-size: 16px;
+                color: red;
+              }
             }
           }
 
