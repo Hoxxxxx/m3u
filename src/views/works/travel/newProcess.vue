@@ -100,7 +100,7 @@
                 <div class="infobox editNot">
                   {{ expenseMoney }}
                 </div>
-                <div class="titlebox required"><span class="redPot">报销金额大写</span></div>
+                <div class="titlebox">报销金额大写</div>
                 <div class="infobox editNot">
                   {{ tableData.expenseMoneyF }}
                 </div>

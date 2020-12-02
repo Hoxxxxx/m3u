@@ -35,7 +35,7 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
                 </div>
-                <div class="titlebox">联系电话</div>
+                <div class="titlebox required"><span class="redPot">联系电话</span></div>
                 <div class="infobox selectbox middlebox last_row">
                   <input
                     class="abstracInput"
@@ -45,7 +45,7 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">申请人</div>
+                <div class="titlebox required"><span class="redPot">申请人</span></div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
@@ -175,7 +175,7 @@
               <div>
                 <div class="title_line">开票信息</div>
                 <div class="form_line">
-                  <div class="titlebox">名称</div>
+                  <div class="titlebox required"><span class="redPot">名称</span></div>
                   <div class="infobox selectbox">
                     <input
                       class="abstracInput"
@@ -183,7 +183,7 @@
                       placeholder="请输入名称"
                     />
                   </div>
-                  <div class="titlebox">纳税人识别号</div>
+                  <div class="titlebox required"><span class="redPot">纳税人识别号</span></div>
                   <div class="infobox selectbox">
                     <input
                       class="abstracInput"
@@ -191,7 +191,7 @@
                       placeholder="请输入纳税人识别号"
                     />
                   </div>
-                  <div class="titlebox">地址</div>
+                  <div class="titlebox required"><span class="redPot">地址</span></div>
                   <div class="infobox selectbox last_row">
                     <input
                       class="abstracInput"
@@ -201,7 +201,7 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox">银行账号</div>
+                  <div class="titlebox required"><span class="redPot">银行账号</span></div>
                   <div class="infobox selectbox">
                     <input
                       class="abstracInput"
@@ -209,7 +209,7 @@
                       placeholder="请输入银行账号"
                     />
                   </div>
-                  <div class="titlebox">开户行</div>
+                  <div class="titlebox required"><span class="redPot">开户行</span></div>
                   <div class="infobox selectbox">
                     <input
                       class="abstracInput"
@@ -217,7 +217,7 @@
                       placeholder="请输入开户行"
                     />
                   </div>
-                  <div class="titlebox">电话</div>
+                  <div class="titlebox required"><span class="redPot">电话</span></div>
                   <div class="infobox selectbox last_row">
                     <input
                       class="abstracInput"
@@ -227,7 +227,7 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox">开票种类</div>
+                  <div class="titlebox required"><span class="redPot">开票种类</span></div>
                   <div class="infobox longbox selectbox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -383,7 +383,7 @@
                   </el-table-column>
                 </el-table>
                 <div class="form_line">
-                  <div class="titlebox">货款回收情况</div>
+                  <div class="titlebox required"><span class="redPot">货款回收情况</span></div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -393,7 +393,7 @@
                       <el-radio :label="2">尚未回款</el-radio>
                     </el-radio-group>
                   </div>
-                  <div class="titlebox">回款日期</div>
+                  <div class="titlebox required"><span class="redPot">回款日期</span></div>
                   <div
                     class="infobox last_row middlebox selectbox"
                     style="width: 100%"
@@ -410,7 +410,7 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox">回款方式</div>
+                  <div class="titlebox required"><span class="redPot">回款方式</span></div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -422,7 +422,7 @@
                       <el-radio :label="4">汇票</el-radio>
                     </el-radio-group>
                   </div>
-                  <div class="titlebox">发货时间</div>
+                  <div class="titlebox required"><span class="redPot">发货时间</span></div>
                   <div
                     class="infobox last_row middlebox selectbox"
                     style="width: 100%"
@@ -439,7 +439,7 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox">是否签订合同</div>
+                  <div class="titlebox required"><span class="redPot">是否签订合同</span></div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"

@@ -28,7 +28,7 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox">经办人</div>
+                <div class="titlebox required"><span class="redPot">经办人</span></div>
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
                 </div>
@@ -42,13 +42,13 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">申请人</div>
+                <div class="titlebox required"><span class="redPot">申请人</span></div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox">员工编号</div>
+                <div class="titlebox required"><span class="redPot">员工编号</span></div>
                 <div class="infobox editNot">
                   {{ showData.oaa04_gen01 }}
                 </div>
@@ -104,7 +104,7 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">供应商编号</div>
+                <div class="titlebox required"><span class="redPot">供应商编号</span></div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('GYS')">{{tableData.oaa17}}</div>
                 </div>
