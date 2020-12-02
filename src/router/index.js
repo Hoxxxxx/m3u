@@ -330,7 +330,7 @@ router.beforeEach((to, from, next) => {
           sessionStorage.setItem('oauserinfo',JSON.stringify(oauserinfo))
           sessionStorage.setItem('OrgId', code.orgid)
           sessionStorage.setItem('token', token)
-          delete allParams.code
+          delete allParams.code 
           next({
             path: to.path,
             query: allParams
