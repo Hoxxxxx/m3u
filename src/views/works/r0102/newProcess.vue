@@ -28,7 +28,7 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox">经办人</div>
+                <div class="titlebox required"><span class="redPot">经办人</span></div>
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
                 </div>
@@ -42,13 +42,13 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">申请人</div>
+                <div class="titlebox required"><span class="redPot">申请人</span></div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox">员工编号</div>
+                <div class="titlebox required"><span class="redPot">员工编号</span></div>
                 <div class="infobox editNot">
                   {{ showData.oaa04_gen01 }}
                 </div>
@@ -61,7 +61,7 @@
               <div class="title_line">付款信息</div>
               <!-- 1 -->
               <div class="form_line">
-                <div class="titlebox">预付厂商</div>
+                <div class="titlebox required"><span class="redPot">预付厂商</span></div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('YFCS')">{{tableData.oaa11}}</div>
                 </div>
@@ -78,7 +78,7 @@
               </div>
               <!-- 2 -->
               <div class="form_line">
-                <div class="titlebox">币种</div>
+                <div class="titlebox required"><span class="redPot">币种</span></div>
                 <div class="infobox selectbox">
                   <el-select
                     v-model="tableData.oaa13"
@@ -94,7 +94,7 @@
                     </el-option>
                   </el-select>
                 </div>
-                <div class="titlebox">汇率</div>
+                <div class="titlebox required"><span class="redPot">汇率</span></div>
                 <div class="infobox selectbox">
                   <input
                     class="abstracInput"
@@ -107,11 +107,11 @@
               </div>
               <!-- 3 -->
               <div class="form_line">
-                <div class="titlebox">税别</div>
+                <div class="titlebox required"><span class="redPot">税别</span></div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SB')">{{tableData.oaa15}}</div>
                 </div>
-                <div class="titlebox">税率</div>
+                <div class="titlebox required"><span class="redPot">税率</span></div>
                 <div class="infobox editNot">{{showData.oaa15_show}}</div>
                 <div class="titlebox">支付方式</div>
                 <div class="infobox last_row selectbox">
@@ -142,7 +142,7 @@
               </div>
               <!-- 5 -->
               <div class="form_line">
-                <div class="titlebox">说明</div>
+                <div class="titlebox required"><span class="redPot">说明</span></div>
                 <div class="infobox areabox longbox" style="width: 100%">
                   <el-input
                     type="textarea"
