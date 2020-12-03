@@ -307,7 +307,7 @@ router.beforeEach((to, from, next) => {
     } else {
       window.sessionStorage.clear()
       // next('/error')
-      window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
+      window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}` 
     }
   } else {
     if (window.location.href.includes('code')) {
