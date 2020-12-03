@@ -296,6 +296,8 @@ import jwtDecode from 'jwt-decode'
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem("token")
+  console.log(window.location.href)
+  let curUrl = window.location.href
   if (token) {
     const code = jwtDecode(token)
     let now = Math.round(new Date() / 1000)
@@ -304,7 +306,8 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       window.sessionStorage.clear()
-      next('/error')
+      // next('/error')
+      window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
     }
   } else {
     if (window.location.href.includes('code')) {
@@ -341,12 +344,13 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       window.sessionStorage.clear()
+      window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
       // 通过判断path防止出现死循环
-      if (to.path === '/error') {
-        next()
-      } else {
-        next('/error')
-      }
+      // if (to.path === '/error') {
+      //   next()
+      // } else {
+      //   next('/error')
+      // }
     }
   }
 })
