@@ -296,7 +296,6 @@ import jwtDecode from 'jwt-decode'
 // 挂载路由导航守卫
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem("token")
-  console.log(window.location.href)
   let curUrl = window.location.href
   if (token) {
     const code = jwtDecode(token)
@@ -340,6 +339,14 @@ router.beforeEach((to, from, next) => {
           })
         } else {
           console.log('token获取失败！')
+          delete allParams.code
+          let paraStr = ''
+          for(let key in allParams){
+            paraStr += `&${key}=${allParams[key]}`
+          }
+          let urlStr = window.location.href.split('?')[0]
+          let curUrl = `${urlStr}?${paraStr.substring(1)}`
+          window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
         }
       })
     } else {
