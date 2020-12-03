@@ -80,3 +80,23 @@ export function number_chinese(str) {
   return strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, "零元")
 
 }
+
+// 保留小数点后  // num为传入的值，n为保留的小数位
+export function fomatFloat(num,n){   
+  var f = parseFloat(num);
+  if(isNaN(f)){
+      return false;
+  }   
+  f = Math.round(num*Math.pow(10, n))/Math.pow(10, n); // n 幂   
+  var s = f.toString();
+  var rs = s.indexOf('.');
+  //判定如果是整数，增加小数点再补0
+  if(rs < 0){
+      rs = s.length;
+      s += '.'; 
+  }
+  while(s.length <= rs + n){
+      s += '0';
+  }
+  return s;
+}

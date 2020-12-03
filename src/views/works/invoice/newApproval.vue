@@ -894,11 +894,8 @@
                 </div>
               </div>
               <!-- 财务信息 -->
-              <div
-                
-              >
-              <!--  -->
-                <div class="title_line" v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1">
+              <div v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1">
+                <div class="title_line" >
                   财务信息
                   <el-button
                     type="primary"
@@ -908,37 +905,7 @@
                     >生成凭证</el-button
                   >
                 </div>
-                <!-- <div class="form_line">
-                  <div class="titlebox">银行</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('bank')">
-                      {{ financialData.bank_show }}
-                    </div>
-                  </div>
-                  <div class="titlebox">异动码</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('YDM')">
-                      {{ financialData.num_show }}
-                    </div>
-                  </div>
-                  <div class="titlebox">记账日期</div>
-                  <div class="infobox middlebox datebox last_row">
-                    <el-date-picker
-                      v-model="oaz.oaz03"
-                      type="date"
-                      format="yyyy/MM/dd"
-                      value-format="yyyy/MM/dd"
-                    >
-                    </el-date-picker>
-                  </div>
-                </div> -->
                 <div class="form_line last_line">
-                  <!-- <div class="titlebox">账款类型</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('ZKLX')">
-                      {{ financialData.oaz04_show }}
-                    </div>
-                  </div> -->
                   <div class="titlebox">记账日期</div>
                   <div class="infobox middlebox datebox ">
                     <el-date-picker
@@ -953,10 +920,6 @@
                   <div class="infobox middlebox selectbox editNot last_row">
                     {{ oaz.oaz06 }}
                   </div>
-                  <!-- <div class="titlebox">支付方式</div>
-                  <div class="infobox middlebox selectbox last_row">
-                    {{ financialData.oaz05_show }}
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -1082,7 +1045,7 @@ import {
   editFlow,
   addFlow,
 } from "@/api/process_new.js";
-import { number_chinese, dateFmt, OpenLoading } from "@/utils/utils.js";
+import { number_chinese, dateFmt, OpenLoading,fomatFloat } from "@/utils/utils.js";
 import {
   gensList,
   azisList,
@@ -1287,7 +1250,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    // this.workid = 4527
+    // this.workid = 4596
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1534,10 +1497,8 @@ export default {
       let sum = this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab05);
       }, 0);
-      if (
-        Number(this.tableData.oaa12) !=
-        sum * (1 + this.showData.oaa13_rate / 100)
-      ) {
+      let sums = fomatFloat((sum*(1 + this.showData.oaa13_rate/100).toFixed(2)),2)
+      if (Number(this.tableData.oaa12) != sums) {
         this.$message.warning("总金额有错误，请重新填写！");
       } else {
         editFlow(this.addParams).then((result) => {

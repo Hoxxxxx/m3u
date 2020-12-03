@@ -674,7 +674,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese } from "@/utils/utils.js";
+import { dateFmt, number_chinese,fomatFloat } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {
   gensList,
@@ -1002,7 +1002,8 @@ export default {
         let sum = this.tableData.oab.reduce((prev, cur) => {
           return prev + Number(cur.oab05);
         }, 0);
-        if (Number(this.tableData.oaa12) != (sum*(1 + this.showData.oaa13_rate/100))) {
+        let sums = fomatFloat((sum*(1 + this.showData.oaa13_rate/100).toFixed(2)),2)
+        if (Number(this.tableData.oaa12) != sums) {
           this.$message.warning("总金额有错误，请重新填写！");
         } else {
           addFlow(this.addParams).then((result) => {

@@ -32,7 +32,9 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox required"><span class="redPot">经办人</span></div>
+                <div class="titlebox required">
+                  <span class="redPot">经办人</span>
+                </div>
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
                 </div>
@@ -46,13 +48,17 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox required"><span class="redPot">申请人</span></div>
+                <div class="titlebox required">
+                  <span class="redPot">申请人</span>
+                </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox required"><span class="redPot">员工编号</span></div>
+                <div class="titlebox required">
+                  <span class="redPot">员工编号</span>
+                </div>
                 <div class="infobox editNot">
                   {{ showData.oaa04_gen01 }}
                 </div>
@@ -920,7 +926,7 @@ export default {
       },
       tableData: {
         // 基本信息
-        oaa03:"",//
+        oaa03: "", //
         oaa02: "", //业务日期
         oaa01: "", //申请单编号
         oaa03: "", //经办人
@@ -1149,9 +1155,9 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid;
-    let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
-    this.tableData.oaa03 = oauserinfo.oauserid  ? oauserinfo.oauserid : ''
-    this.tableData.oaa03_show = oauserinfo.oaname
+    let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
+    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
+    this.tableData.oaa03_show = oauserinfo.oaname;
     // this.addParams.tplid = 8943
     this.addRow1();
     this.addRow2();
@@ -1588,64 +1594,63 @@ export default {
             break;
           case "getpmcsList":
             console.log(this.oacType);
-            console.log(val)
-            if(this.oacType == 'oac11'){
+            console.log(val);
+            if (this.oacType == "oac11") {
               this.tableData.oac[this.rowIndex].oac11 = val[0].pmc01;
-            }else{
-              console.log(this.oacType)
+            } else {
+              console.log(this.oacType);
               this.tableData.oac[this.rowIndex].oac12 = val[0].pmc01;
             }
             break;
           case "getgensList":
-            
             console.log(this.oacType);
-            if(this.oacType == 'oac11'){
+            if (this.oacType == "oac11") {
               this.tableData.oac[this.rowIndex].oac11 = val[0].gen01;
-            }else{
+            } else {
               this.tableData.oac[this.rowIndex].oac12 = val[0].gen01;
             }
             break;
           case "getoccsList":
             console.log(this.oacType);
-            if(this.oacType == 'oac11'){
+            if (this.oacType == "oac11") {
               this.tableData.oac[this.rowIndex].oac11 = val[0].occ01;
-            }else{
+            } else {
               this.tableData.oac[this.rowIndex].oac12 = val[0].occ01;
             }
             break;
           case "getnmasList":
             console.log(this.oacType);
-            if(this.oacType == 'oac11'){
+            if (this.oacType == "oac11") {
               this.tableData.oac[this.rowIndex].oac11 = val[0].nma01;
-            }else{
+            } else {
               this.tableData.oac[this.rowIndex].oac12 = val[0].nma01;
             }
             break;
           case "getgecsList":
             console.log(this.oacType);
-            if(this.oacType == 'oac11'){
+            if (this.oacType == "oac11") {
               this.tableData.oac[this.rowIndex].oac11 = val[0].gec01;
-            }else{
+            } else {
               this.tableData.oac[this.rowIndex].oac12 = val[0].gec01;
             }
             break;
           case "getpjasList":
             console.log(this.oacType);
-            if(this.oacType == 'oac11'){
+            if (this.oacType == "oac11") {
               this.tableData.oac[this.rowIndex].oac11 = val[0].gja01;
-            }else{
+            } else {
               this.tableData.oac[this.rowIndex].oac12 = val[0].gja01;
             }
             break;
           case "getpjbsList":
             console.log(this.oacType);
-            if(this.oacType == 'oac11'){
+            if (this.oacType == "oac11") {
               this.tableData.oac[this.rowIndex].oac11 = val[0].pjb02;
-            }else{
+            } else {
               this.tableData.oac[this.rowIndex].oac12 = val[0].pjb02;
             }
             break;
-          
+
           default:
             return;
             break;
@@ -1658,10 +1663,12 @@ export default {
       this.oacType = "oac11";
       if (!this.tableData.oac[val].oac01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac01_aag15){
+      } else if (
+        this.tableData.oac[val].oac01 &&
+        !this.tableData.oac[val].oac01_aag15
+      ) {
         this.$message.warning("此科目无核算项一，请手动输入！");
-      } 
-      else {
+      } else {
         switch (row.oac01_aag15) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
@@ -1694,10 +1701,12 @@ export default {
       this.oacType = "oac12";
       if (!this.tableData.oac[val].oac01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oac[val].oac01 && !this.tableData.oac[val].oac01_aag16){
+      } else if (
+        this.tableData.oac[val].oac01 &&
+        !this.tableData.oac[val].oac01_aag16
+      ) {
         this.$message.warning("此科目无核算项二，请手动输入！");
-      } 
-      else {
+      } else {
         switch (row.oac01_aag16) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
@@ -1731,5 +1740,15 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
-
+// .workSpace {
+//   /deep/.el-table td,
+//   .el-table th {
+//     padding: 0 !important;
+//   }
+//   /deep/.el-table__body-wrapper {
+//     .el-input__inner {
+//       border: none;
+//     }
+//   }
+// }
 </style>
