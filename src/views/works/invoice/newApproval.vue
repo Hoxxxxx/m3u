@@ -1250,7 +1250,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    // this.workid = 4596
+    this.workid = 4596
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1543,10 +1543,8 @@ export default {
       let sum = this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab05);
       }, 0);
-      if (
-        Number(this.tableData.oaa12) !=
-        sum * (1 + this.showData.oaa13_rate / 100)
-      ) {
+      let sums = fomatFloat((sum*(1 + this.showData.oaa13_rate/100).toFixed(2)),2)
+      if (Number(this.tableData.oaa12) != sums) {
         this.$message.warning("总金额有错误，请重新填写！");
       } else {
         editFlow(this.addParams).then((result) => {
