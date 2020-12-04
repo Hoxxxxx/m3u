@@ -20,7 +20,7 @@ axios.interceptors.request.use(
     //         config.headers['Org-Id'] = orgid
     //     }
 		// 配置公共请求头Authorization
-
+		let curUrl = window.location.href
 		let token = sessionStorage.getItem('token')
     let orgid = sessionStorage.getItem('OrgId')
     if (token) {
@@ -28,7 +28,8 @@ axios.interceptors.request.use(
       let now = Math.round(new Date() / 1000)
       if (now > exp) {
           sessionStorage.clear()
-          window.location = '/error'
+					// window.location = '/error'
+					window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
       }else{
           config.headers.Authorization = 'Bearer ' + token,
           config.headers['Org-Id'] = orgid
