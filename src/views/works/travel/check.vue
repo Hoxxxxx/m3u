@@ -600,7 +600,6 @@
           </el-timeline>
       </div>
     </el-card>
-
     
   </div>
 </template>
