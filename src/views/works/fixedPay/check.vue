@@ -579,7 +579,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4587
+    this.workid = 4587
     this.getAzi()
     this.getPma()
     this.getworkflows()
