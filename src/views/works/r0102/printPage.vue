@@ -62,18 +62,13 @@
           </div>
           <!-- 4 -->
           <div class="form_line">
-            <div class="titlebox">固定资产申请单</div>
-            <div class="infobox longbox selectbox">{{tableData.oaa17_show}}</div>
-          </div>
-          <!-- 5 -->
-          <div class="form_line">
             <div class="titlebox">说明</div>
             <div class="infobox longbox" style="width: 100%">{{tableData.oaa18}}</div>
           </div>
           <!-- 5 -->
           <div class="form_line">
-            <div class="titlebox">验收信息</div>
-            <div class="infobox last_row longbox" style="width: 100%">{{tableData.oaa19}}</div>
+            <div class="titlebox">备注</div>
+            <div class="infobox longbox selectbox">{{tableData.oaa99}}</div>
           </div>
           <!-- 收款信息 -->
           <div class="title_line">收款信息</div>
@@ -105,7 +100,7 @@
             </div>
           </div>
 
-          <div class="title_line">合计</div>
+          <div class="title_line">发票明细行合计</div>
           <div class="summry">
             <ul class="summryUl">
               <li class="summryLi">
@@ -180,7 +175,7 @@
               <div class="titlebox">银行</div>
               <div class="infobox selectbox editNot">
                 <div class="" >
-                  {{ tableData.oaz01 }}
+                  {{ tableData.oaz01_show }}
                 </div>
               </div>
               <div class="titlebox">异动码</div>
@@ -253,6 +248,10 @@ export default {
     return {
       timeNow: timeFmt(),
       // 指定表格（发票明细行）
+      overloading: '', //加载定时器
+      activeTab: "firTab",
+      workid: '',
+      workName:"付款申请单",//流程名
       tableBox_invoice: [
         // 表格一
         {
@@ -280,26 +279,9 @@ export default {
             {
               label: '税额（原币）',
               value: 'oaf06'
-            },
-          ],
-          tData: [
-            {
-              oaf01: '111',
-              oaf02: '111',
-              oaf03: '111',
-              oaf03_show: '111',
-              oaf05: '111',
-              oaf06: '111',
-            },
-            {
-              oaf01: '222',
-              oaf02: '222',
-              oaf03: '222',
-              oaf03_show: '222',
-              oaf05: '222',
-              oaf06: '222',
             }
-          ]
+          ],
+          tData: []
         },
         // 表格二
         {
@@ -321,20 +303,7 @@ export default {
               value: 'hsjeBB'
             },
           ],
-          tData: [
-            {
-              oaf07: '333',
-              sqjeBB: '333',
-              seBB: '333',
-              hsjeBB: '333',
-            },
-            {
-              oaf07: '444',
-              sqjeBB: '444',
-              seBB: '444',
-              hsjeBB: '444',
-            }
-          ]
+          tData: []
         },
       ],
       // 费用明细
@@ -344,19 +313,19 @@ export default {
           theadList: [
             {
               label: '会计科目',
-              value: 'oac01'
+              value: 'oac01_show'
             },
             {
               label: '项目',
-              value: 'oac04'
+              value: 'oac04_show'
             },
             {
               label: '项目WBS',
-              value: 'oac05'
+              value: 'oac05_show'
             },
             {
-              label: '资产卡片',
-              value: 'oac08'
+              label: '摘要',
+              value: 'oac09'
             },
             {
               label: '金额（不含税）',
@@ -365,26 +334,9 @@ export default {
             {
               label: '核算项一',
               value: 'oac11'
-            },
-          ],
-          tData: [
-            {
-              oaf01: '111',
-              oaf02: '111',
-              oaf03: '111',
-              oaf03_show: '111',
-              oaf05: '111',
-              oaf06: '111',
-            },
-            {
-              oaf01: '222',
-              oaf02: '222',
-              oaf03: '222',
-              oaf03_show: '222',
-              oaf05: '222',
-              oaf06: '222',
             }
-          ]
+          ],
+          tData: []
         },
         // 表格二
         {
@@ -394,14 +346,7 @@ export default {
               value: 'oac12'
             },
           ],
-          tData: [
-            {
-              oaf07: '333',
-            },
-            {
-              oaf07: '444',
-            }
-          ]
+          tData: []
         },
       ],
       // 冲销信息
@@ -419,7 +364,7 @@ export default {
             },
             {
               label: '借款人',
-              value: 'oad04'
+              value: 'oad04_show'
             },
             {
               label: '借款总金额',
@@ -434,16 +379,7 @@ export default {
               value: 'oad06'
             },
           ],
-          tData: [
-            {
-              oaf01: '111',
-              oaf02: '111',
-              oaf03: '111',
-              oaf03_show: '111',
-              oaf05: '111',
-              oaf06: '111',
-            }
-          ]
+          tData: []
         },
       ],
       
@@ -480,7 +416,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4587
+    // this.workid = 4374
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -492,6 +428,7 @@ export default {
         let sum =  this.tableData.oaf.reduce((prev, cur) => {
           return prev + Number(cur.oaf07);
         }, 0);
+        this.tableData.oaa17 = sum.toFixed(2)
         return sum.toFixed(2)
       }
     },
@@ -549,6 +486,15 @@ export default {
     },
   },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+        query: {
+          workid: this.workid
+        }
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -588,10 +534,6 @@ export default {
               })
             })
           }
-          setTimeout(() => {
-            // 打印
-            window.print()
-          },500)
         }else{
           loading.close()
           clearTimeout(this.overloading)
@@ -606,16 +548,6 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.azisList = result.data;
-          if (this.fixedData.azisList !== null && this.fixedData.azisList !== []){
-            this.fixedData.azisList.forEach( item => {
-              if (item.azi01 == this.tableData.oaa13) {
-                this.tableData.oaa13_show = item.azi02
-              }
-              if (item.azi01 == this.tableData.oaz05) {
-                this.tableData.oaz05_show = item.azi02
-              }
-            })
-          }
         } else {
           this.$message.error("获取币种列表失败：" + result.error.message);
         }
@@ -625,23 +557,53 @@ export default {
       pmasList().then((res) => {
         if (res.status == 200) {
           this.fixedData.payTypes = res.data;
-          if (this.fixedData.payTypes !== null && this.fixedData.payTypes !== []){
-            this.fixedData.payTypes.forEach( item => {
-              if (item.pma01 == this.tableData.oaa16) {
-                this.tableData.oaa16_show = item.pma02
-              }
-            })
-          }
         } else {
           this.$message.error("获取支付方式列表失败：" + result.error.message);
         }
       });
     },
     // *******************************************
+    // 下载文件流
+    async download(id, filename) {
+      const { data: res } = await this.axios({
+          method: 'get',
+          url: `files/download/${id}`,
+          responseType: "blob",
+      })
+      let fileName = filename;
+      let fileType = {
+        doc: 'application/msword',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        xls: 'application/vnd.ms-excel',
+        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ppt: 'application/vnd.ms-powerpoint',
+        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        pdf: 'application/pdf',
+        txt: 'text/plain',
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        zip: 'application/zip',
+        rar: 'application/x-rar',
+      }
+      let type=fileName.split('.')[1];//获取文件后缀名
+      let blob = new Blob([res],{
+        type:fileType.type
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    },
+    // ******************************************
   },
 };
 </script>
-
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
 </style>

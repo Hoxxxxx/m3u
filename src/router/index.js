@@ -199,6 +199,11 @@ const routes = [{
     name: 'fixedCard_approval',
     component: () => import('@/views/works/fixedCard/newApproval')
   },
+  {
+    path: '/fixedCard/printPage',
+    name: 'fixedCard_printPage',
+    component: () => import('@/views/works/fixedCard/printPage')
+  },
 
   // 固定资产付款
   {
@@ -216,11 +221,11 @@ const routes = [{
     name: 'fixedPay_approval',
     component: () => import('@/views/works/fixedPay/newApproval')
   },
-  {
-    path: '/fixedPay/printPage',
-    name: 'fixedPay_printPage',
-    component: () => import('@/views/works/fixedPay/printPage')
-  },
+  // {
+  //   path: '/fixedPay/printPage',
+  //   name: 'fixedPay_printPage',
+  //   component: () => import('@/views/works/fixedPay/printPage')
+  // },
   // 付款冲账申请
   {
     path: '/r0103',
@@ -236,6 +241,11 @@ const routes = [{
     path: '/r0103/approval',
     name: 'r0103_approval',
     component: () => import('@/views/works/r0103/newApproval')
+  },
+  {
+    path: '/r0103/printPage',
+    name: 'r0103_printPage',
+    component: () => import('@/views/works/r0103/printPage')
   },
 
   // 预付款申请
@@ -254,6 +264,11 @@ const routes = [{
     name: 'r0101_approval',
     component: () => import('@/views/works/r0101/newApproval')
   },
+  {
+    path: '/r0101/printPage',
+    name: 'r0101_printPage',
+    component: () => import('@/views/works/r0101/printPage')
+  },
 
   // 付款申请
   {
@@ -270,6 +285,11 @@ const routes = [{
     path: '/r0102/approval',
     name: 'r0102_approval',
     component: () => import('@/views/works/r0102/newApproval')
+  },
+  {
+    path: '/r0102/printPage',
+    name: 'r0102_printPage',
+    component: () => import('@/views/works/r0102/printPage')
   },
 
   // 发货单
@@ -288,6 +308,11 @@ const routes = [{
     name: 'invoice_approval',
     component: () => import('@/views/works/invoice/newApproval')
   },
+  {
+    path: '/invoice/printPage',
+    name: 'invoice_printPage',
+    component: () => import('@/views/works/invoice/printPage')
+  },
   // 发货单
   {
     path: '/invoiceApply',
@@ -303,6 +328,11 @@ const routes = [{
     path: '/invoiceApply/approval',
     name: 'invoiceApply_approval',
     component: () => import('@/views/works/invoiceApply/newApproval')
+  },
+  {
+    path: '/invoiceApply/printPage',
+    name: 'invoiceApply_printPage',
+    component: () => import('@/views/works/invoiceApply/printPage')
   },
 
 ]
