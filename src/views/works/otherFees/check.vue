@@ -4,6 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
+        <el-button type="primary" @click="goPrint">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -76,7 +77,7 @@
                   {{ tableData.expenseMoneyF }}
                 </div>
                 <div class="titlebox">支付方式</div>
-                <div class="infobox last_row selectbox ">
+                <div class="infobox last_row">
                   {{ tableData.oaa12_show }}
                 </div>
               </div>
@@ -197,15 +198,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oad01"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad03"
@@ -213,20 +205,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oad03"
-                          style="width: 100%"
-                          type="date"
-                          disabled
-                          placeholder=""
-                          format="yyyy/MM/dd"
-                          value-format="yyyy/MM/dd"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad04"
@@ -234,15 +212,6 @@
                     min-width="110px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oad04"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad05"
@@ -250,15 +219,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oad05"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad02"
@@ -266,14 +226,6 @@
                     min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oad02"
-                          placeholder="请输入还款金额"
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oad06"
@@ -281,18 +233,11 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oad06"
-                          placeholder=""
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
                   </el-table-column>
                 </el-table>
               </div>
+
+
               <!-- 财务信息 -->
               <div v-if="oazShow == 1">
                 <div class="title_line">
@@ -460,6 +405,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 4608
     this.getworkflows()
   },
   computed: {
@@ -483,6 +429,15 @@ export default {
     }
   },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+        query: {
+          workid: this.workid
+        }
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },

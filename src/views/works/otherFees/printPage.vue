@@ -23,7 +23,7 @@
             <div class="titlebox">联系电话</div>
             <div class="infobox middlebox last_row">{{ tableData.oaa05 }}</div>
           </div>
-          <div class="form_line lastline">
+          <div class="form_line">
             <div class="titlebox">申请人</div>
             <div class="infobox">{{ tableData.oaa04_show }}</div>
             <div class="titlebox">员工编号</div>
@@ -31,107 +31,50 @@
             <div class="titlebox">所属部门</div>
             <div class="infobox last_row">{{ tableData.oaa04_gen04 }}</div>
           </div>
-          <!-- 付款信息 -->
-          <div class="title_line">付款信息</div>
-          <!-- 1 -->
           <div class="form_line">
-            <div class="titlebox">预付厂商</div>
-            <div class="infobox">{{tableData.oaa11}}</div>
-            <div class="titlebox">厂商简称</div>
-            <div class="infobox">{{tableData.oaa11_show}}</div>
-            <div class="titlebox">本次支付金额</div>
-            <div class="infobox last_row">{{tableData.oaa12}}</div>
+            <div class="titlebox">费用类别</div>
+            <div class="infobox longbox">
+              <span class="radioItem" v-if="tableData.oaa18==1">行政费用</span>
+              <span class="radioItem" v-if="tableData.oaa18==2">工会费用</span>
+            </div>
           </div>
-          <!-- 2 -->
+
+          <!-- 报销信息 -->
+          <div class="title_line">报销信息</div>
           <div class="form_line">
             <div class="titlebox">币种</div>
-            <div class="infobox">{{tableData.oaa13_show}}</div>
+            <div class="infobox">{{ tableData.oaa06_show }}</div>
             <div class="titlebox">汇率</div>
-            <div class="infobox selectbox">{{tableData.oaa14}}</div>
-            <div class="titlebox">应付金额</div>
-            <div class="infobox last_row">{{com_YFJE}}</div>
+            <div class="infobox">{{ tableData.oaa08 }}</div>
+            <div class="titlebox">支付金额</div>
+            <div class="infobox last_row">{{ payMoney }}</div>
           </div>
-          <!-- 3 -->
           <div class="form_line">
-            <div class="titlebox">税别</div>
-            <div class="infobox">{{tableData.oaa15}}</div>
-            <div class="titlebox">税率</div>
-            <div class="infobox editNot">{{tableData.oaa15_show}}</div>
+            <div class="titlebox">报销金额</div>
+            <div class="infobox">{{ expenseMoney }}</div>
+            <div class="titlebox">报销金额大写</div>
+            <div class="infobox">{{ tableData.expenseMoneyF }}</div>
             <div class="titlebox">支付方式</div>
-            <div class="infobox last_row">{{tableData.oaa16_show}}</div>
+            <div class="infobox last_row">{{ tableData.oaa12_show }}</div>
           </div>
-          <!-- 4 -->
           <div class="form_line">
             <div class="titlebox">说明</div>
-            <div class="infobox longbox" style="width: 100%">{{tableData.oaa18}}</div>
+            <div class="infobox last_row longbox">{{ tableData.oaa16 }}</div>
           </div>
-          <!-- 5 -->
-          <div class="form_line">
-            <div class="titlebox">备注</div>
-            <div class="infobox longbox selectbox">{{tableData.oaa99}}</div>
-          </div>
+
           <!-- 收款信息 -->
           <div class="title_line">收款信息</div>
           <div class="form_line">
             <div class="titlebox">收款人</div>
-            <div class="infobox selectbox">{{tableData.oaa21}}</div>
+            <div class="infobox">{{ tableData.oaa09 }}</div>
             <div class="titlebox">开户行</div>
-            <div class="infobox selectbox">{{tableData.oaa22}}</div>
+            <div class="infobox">{{ tableData.oaa10 }}</div>
             <div class="titlebox">收款账号</div>
-            <div class="infobox selectbox last_row">{{tableData.oaa23}}</div>
+            <div class="infobox last_row">{{ tableData.oaa11 }}</div>
           </div>
           <div class="form_line">
             <div class="titlebox">支票号</div>
-            <div class="infobox last_row longbox selectbox" style="width: 100%">{{tableData.oaa24}}</div>
-          </div>
-          <!-- 发票明细行 -->
-          <div class="title_line">发票明细行</div>
-
-          <!-- 拆分成几组表格 -->
-          <div class="inner_Table" v-for="(F_item, F_index) in tableBox_invoice" :key="F_index">
-            <!-- 有几个表头 -->
-            <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
-              <div class="thead">{{S_item.label}}</div>
-              <!-- 有几组内容 -->
-              <div class="tdata" v-if="tableData.oaf.length == 0"></div>
-              <div class="tdata" v-for="(content_item, content_index) in tableData.oaf" :key="content_index">
-                {{content_item[S_item.value]}}
-              </div>
-            </div>
-          </div>
-
-          <div class="title_line">发票明细行合计</div>
-          <div class="summry">
-            <ul class="summryUl">
-              <li class="summryLi">
-                <div class="summryName">税前金额（原币）</div>
-                <div class="summryCont">{{ com_SQJEyb }}</div>
-              </li>
-              <li class="summryLi">
-                <div class="summryName">税额（原币）</div>
-                <div class="summryCont">{{ com_SEyb }}</div>
-              </li>
-              <li class="summryLi">
-                <div class="summryName">含税合计（原币）</div>
-                <div class="summryCont">{{ com_HSHJyb }}</div>
-              </li>
-            </ul>
-          </div>
-          <div class="summry">
-            <ul class="summryUl">
-              <li class="summryLi">
-                <div class="summryName ">税前金额（本币）</div>
-                <div class="summryCont editNot">{{ com_SQJEbb }}</div>
-              </li>
-              <li class="summryLi">
-                <div class="summryName">税额（本币）</div>
-                <div class="summryCont editNot">{{ com_SEbb }}</div>
-              </li>
-              <li class="summryLi">
-                <div class="summryName">含税合计（本币）</div>
-                <div class="summryCont editNot">{{ com_HSHJbb }}</div>
-              </li>
-            </ul>
+            <div class="infobox last_row longbox">{{ tableData.oaa17 }}</div>
           </div>
 
           <!-- 费用明细行项目 -->
@@ -175,7 +118,7 @@
               <div class="titlebox">银行</div>
               <div class="infobox selectbox editNot">
                 <div class="" >
-                  {{ tableData.oaz01_show }}
+                  {{ tableData.oaz01 }}
                 </div>
               </div>
               <div class="titlebox">异动码</div>
@@ -237,73 +180,12 @@
 </template>
 
 <script>
-import { OpenLoading } from "@/utils/utils.js";
-// api
-import { workflowsList, editFlow  } from "@/api/process_new";
-import { azisList, pmasList, } from "@/api/basic";
+import { workflowsList, } from "@/api/process_new.js"
+import { number_chinese, OpenLoading } from "@/utils/utils.js";
 
 export default {
-  components: {},
   data() {
     return {
-      overloading: '', //加载定时器
-      activeTab: "firTab",
-      workid: '',
-      workName:"付款申请单",//流程名
-      tableBox_invoice: [
-        // 表格一
-        {
-          theadList: [
-            {
-              label: '发票号码',
-              value: 'oaf01'
-            },
-            {
-              label: '发票日期',
-              value: 'oaf02'
-            },
-            {
-              label: '税别',
-              value: 'oaf03'
-            },
-            {
-              label: '税率',
-              value: 'oaf03_show'
-            },
-            {
-              label: '税前金额（原币）',
-              value: 'oaf05'
-            },
-            {
-              label: '税额（原币）',
-              value: 'oaf06'
-            }
-          ],
-          tData: []
-        },
-        // 表格二
-        {
-          theadList: [
-            {
-              label: '含税金额（原币）',
-              value: 'oaf07'
-            },
-            {
-              label: '税前金额（本币）',
-              value: 'sqjeBB'
-            },
-            {
-              label: '税额（本币）',
-              value: 'seBB'
-            },
-            {
-              label: '含税金额（本币）',
-              value: 'hsjeBB'
-            },
-          ],
-          tData: []
-        },
-      ],
       // 费用明细
       tableBox_oac: [
         // 表格一
@@ -323,28 +205,30 @@ export default {
             },
             {
               label: '摘要',
-              value: 'oac09'
+              value: 'oac06'
             },
             {
               label: '金额（不含税）',
               value: 'oac07'
             },
             {
-              label: '核算项一',
-              value: 'oac11'
-            }
+              label: '折合后金额',
+              value: 'apb25'
+            },
           ],
-          tData: []
         },
         // 表格二
         {
           theadList: [
             {
+              label: '核算项一',
+              value: 'oac11'
+            },
+            {
               label: '核算项二',
               value: 'oac12'
             },
           ],
-          tData: []
         },
       ],
       // 冲销信息
@@ -362,7 +246,7 @@ export default {
             },
             {
               label: '借款人',
-              value: 'oad04_show'
+              value: 'oad04'
             },
             {
               label: '借款总金额',
@@ -377,111 +261,70 @@ export default {
               value: 'oad06'
             },
           ],
-          tData: []
         },
       ],
-      
+
       overloading: '', //加载定时器
-      activeTab: "firTab",
       workid: '',
-      workname:"固定资产付款",//流程名
+      workname: '其他费用报销单',
+      activeTab: "firTab",
       tableData: {
+        // 基本信息
+        oaa02: "", //业务日期
+        oaa01: "", //申请单编号
+        oaa03: "", //经办人
+        oaa04: "", //申请人
+        oaa05: "", //联系电话
+        //报销信息
+        oaa06: "", //币种
+        oaa08: "", //汇率
+        oaa12: "", //支付方式
+        oaa16: "", //说明
+        payMoney: "", //支付金额
+        expenseMoneyF: "", //报销金额大写
+        // 收款信息
+        oaa09: "", //收款人
+        oaa10: "", //开户行
+        oaa11: "", //收款账号
+        oaa17: "", //支票号
         // 表格部分
-        oaf: [], // 发票明细
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
-      // 表单数据
-      fixedData: {
-        // 币种列表
-        azisList: [],
-        // 分摊列表
-        shareList: [
-          {
-            id: 1,
-            label: '单一部门分摊'
-          },{
-            id: 2,
-            label: '多部门分摊'
-          }
-        ],
-      },
       oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
       fileList_user: [],
+      addParams: {
+        from_data: {},
+        annexurlid: [],
+        tplid: 8936
+      },
       // 当前流程列表
       workclass_perflow: [],
     };
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4374
-    this.getAzi()
-    this.getPma()
     this.getworkflows()
   },
   computed: {
-    // 应付金额
-    com_YFJE(){
-      if (this.tableData.oaf) {
-        let sum =  this.tableData.oaf.reduce((prev, cur) => {
-          return prev + Number(cur.oaf07);
-        }, 0);
-        this.tableData.oaa17 = sum.toFixed(2)
-        return sum.toFixed(2)
-      }
-    },
-    // 税前金额（原币）
-    com_SQJEyb(){
-      if (this.tableData.oaf) {
-        let sum =  this.tableData.oaf.reduce((prev, cur) => {
-          return prev + Number(cur.oaf05);
-        }, 0);
-        return sum.toFixed(2)
-      }
-    },
-    // 税额（原币）
-    com_SEyb(){
-      if (this.tableData.oaf) {
-        let sum =  this.tableData.oaf.reduce((prev, cur) => {
-          return prev + Number(cur.oaf06);
-        }, 0);
-        return sum.toFixed(2)
-      }
-    },
-    // 含税合计（原币）
-    com_HSHJyb(){
-      if (this.tableData.oaf) {
-        let sum =  this.tableData.oaf.reduce((prev, cur) => {
-          return prev + Number(cur.oaf07);
-        }, 0);
-        return sum.toFixed(2)
-      }
-    },
-     // 税前金额（本币）
-    com_SQJEbb(){
-      let sum =  this.tableData.oaf.reduce((prev, cur) => {
-        return prev + Number(cur.sqjeBB);
+    // 报销金额（不含税）
+    expenseMoney(){
+      let sum =  this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac07);
       }, 0);
-      return sum.toFixed(2)
+      this.tableData.expenseMoneyF = number_chinese(sum)
+      return sum
     },
-    // 税额（本币）
-    com_SEbb(){
-      if (this.tableData.oaf) {
-        let sum =  this.tableData.oaf.reduce((prev, cur) => {
-          return prev + Number(cur.seBB);
-        }, 0);
-        return sum.toFixed(2)
-      }
-    },
-    // 含税合计（本币）
-    com_HSHJbb(){
-      if (this.tableData.oaf) {
-        let sum =  this.tableData.oaf.reduce((prev, cur) => {
-          return prev + Number(cur.hsjeBB);
-        }, 0);
-        return sum.toFixed(2)
-      }
-    },
+    // 支付金额
+    payMoney(){
+      // 还款金额总和
+      let sum = this.tableData.oad.reduce((prev, cur) => {
+        return prev + Number(cur.oad02);
+      }, 0);
+      // 支付金额
+      let res = this.expenseMoney - sum
+      return res
+    }
   },
   methods: {
     goPrint() {
@@ -497,16 +340,6 @@ export default {
       // console.log(this.activeTab);
     },
     // ***********获取流程信息************
-    change_SB(rowIndex) {
-      this.tableData.oaf[rowIndex].sqjeBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf05).toFixed(2)
-      this.tableData.oaf[rowIndex].seBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf06).toFixed(2)
-      this.tableData.oaf[rowIndex].hsjeBB = (this.tableData.oaa14 * this.tableData.oaf[rowIndex].oaf07).toFixed(2)
-    },
-    change_HSJE(rowIndex) {
-      this.tableData.oaf[rowIndex].oaf05 = (this.tableData.oaf[rowIndex].oaf07 / (1 + this.tableData.oaf[rowIndex].oaf03_show / 100)).toFixed(2)
-      this.tableData.oaf[rowIndex].oaf06 = (this.tableData.oaf[rowIndex].oaf07 / (1 + this.tableData.oaf[rowIndex].oaf03_show / 100) * (this.tableData.oaf[rowIndex].oaf03_show / 100)).toFixed(2)
-      this.change_SB(rowIndex)
-    },
     getworkflows(){
       const loading = OpenLoading(this, 1)
       const params = {
@@ -517,9 +350,6 @@ export default {
           loading.close()
           clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
-          this.tableData.oaf.forEach((item, index) => {
-            this.change_HSJE(index)
-          })
           this.workname = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           this.oazShow = res.data.workclass_flow.erp_turn
@@ -532,6 +362,10 @@ export default {
               })
             })
           }
+          setTimeout(() => {
+            // 打印
+            window.print()
+          },500)
         }else{
           loading.close()
           clearTimeout(this.overloading)
@@ -540,27 +374,34 @@ export default {
       })
     },
     // *******************************************
-    // ***********获取下拉列表信息************
-    getAzi () {
-      azisList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.azisList = result.data;
-        } else {
-          this.$message.error("获取币种列表失败：" + result.error.message);
+    // ***************附件上传******************
+    // 上传成功
+    handleSuccess(response, file, fileList) {
+      this.addParams.annexurlid.push({
+        filename: response.data.filename,
+        fileaddr: response.data.path
+      })
+    },
+    // 移除上传项
+    handleRemove(file, fileList) {
+      this.addParams.annexurlid.forEach( (item, index) => {
+        if (item.filename == file.name) {
+          this.addParams.annexurlid.splice( index, 1 )
         }
       })
     },
-    getPma() {
-      pmasList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.payTypes = res.data;
-        } else {
-          this.$message.error("获取支付方式列表失败：" + result.error.message);
-        }
-      });
+    // 点击上传项回调
+    handlePreview(file) {
+      console.log(file);
     },
-    // *******************************************
+    // 超出上传限制回调
+    handleExceed(files, fileList) {
+      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    },
+    // 移除前回调
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${ file.name }？`);
+    },
     // 下载文件流
     async download(id, filename) {
       const { data: res } = await this.axios({
@@ -571,12 +412,12 @@ export default {
       let fileName = filename;
       let fileType = {
         doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         xls: 'application/vnd.ms-excel',
         xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ppt: 'application/vnd.ms-powerpoint',
         pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
+        pdf: 'application/pdf',
         txt: 'text/plain',
         png: 'image/png',
         jpg: 'image/jpeg',
@@ -599,9 +440,12 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
+
+
   },
 };
 </script>
+
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
 </style>

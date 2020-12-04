@@ -5,7 +5,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary">打印</el-button>
+        <el-button type="primary" @click="goPrint">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -45,49 +45,13 @@
               <div class="title_line">出差信息</div>
               <div class="form_line">
                 <div class="titlebox">预计开始时间</div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa31"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
+                <div class="infobox middlebox">{{tableData.oaa31}}</div>
                 <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa32"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
+                <div class="infobox middlebox">{{tableData.oaa32}}</div>
                 <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa33"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
+                <div class="infobox middlebox">{{tableData.oaa33}}</div>
                 <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox datebox last_row">
-                  <el-date-picker
-                    v-model="tableData.oaa34"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
+                <div class="infobox middlebox last_row">{{tableData.oaa34}}</div>
               </div>
               <div class="form_line">
                 <div class="titlebox">出差目的</div>
@@ -131,12 +95,12 @@
               <div v-if="tableData.oaa39 == 1">
                 <div class="title_line">借款信息</div>
                 <div class="form_line">
-                  <div class="form_line">
-                    <div class="titlebox">项目</div>
-                    <div class="infobox middlebox selectbox">{{tableData.oaa14_show}}</div>
-                    <div class="titlebox">项目WBS</div>
-                    <div class="infobox middlebox selectbox last_row">{{tableData.oaa15_show}}</div>
-                  </div>
+                  <div class="titlebox">项目</div>
+                  <div class="infobox middlebox">{{tableData.oaa14_show}}</div>
+                  <div class="titlebox">项目WBS</div>
+                  <div class="infobox middlebox last_row">{{tableData.oaa15_show}}</div>
+                </div>
+                <div class="form_line">
                   <div class="titlebox">币种</div>
                   <div class="infobox selectbox">{{tableData.oaa06_show}}</div>
                   <div class="titlebox">借款金额</div>
@@ -154,7 +118,7 @@
                 </div>
                 <div class="form_line">
                   <div class="titlebox">支付方式</div>
-                  <div class="infobox longbox  selectbox">{{tableData.oaa12_show}}</div>
+                  <div class="infobox longbox">{{tableData.oaa12_show}}</div>
                 </div>
                 <div class="form_line">
                   <div class="titlebox">折合汇率金额</div>
@@ -173,16 +137,7 @@
                 <div class="titlebox">支出项目</div>
                 <div class="infobox middlebox">{{tableData.oaa20}}</div>
                 <div class="titlebox">实施时间</div>
-                <div class="infobox middlebox datebox last_row">
-                  <el-date-picker
-                    v-model="tableData.oaa21"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
+                <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
               </div>
               <div class="form_line">
                 <div class="titlebox">我方参加部门</div>
@@ -343,6 +298,7 @@ export default {
       // 汇率数据
       exchange: '', //折合汇率
       exchange_Cap: '', //折合汇率大写
+      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       fixedData: {
         selectLoading: true,
         // 申请人列表
@@ -365,9 +321,19 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 4606
     this.getworkflows()
   },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+        query: {
+          workid: this.workid
+        }
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },

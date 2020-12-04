@@ -4,7 +4,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary">打印</el-button>
+        <el-button type="primary" @click="goPrint">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -133,20 +133,6 @@
                     min-width="160px"
                     align="center"
                   >
-                  <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oab01"
-                          style="width: 100%"
-                          disabled
-                          type="date"
-                          placeholder="开始日期"
-                          format="yyyy/MM/dd"
-                          value-format="yyyy/MM/dd"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab02"
@@ -154,20 +140,6 @@
                     min-width="160px"
                     align="center"
                   >
-                  <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oab02"
-                          style="width: 100%"
-                          disabled
-                          type="date"
-                          placeholder="结束日期"
-                          format="yyyy/MM/dd"
-                          value-format="yyyy/MM/dd"
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oab03"
@@ -653,6 +625,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
+    // this.workid = 4605
     this.getworkflows()
   },
   computed: {
@@ -734,6 +707,15 @@ export default {
     }
   },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+        query: {
+          workid: this.workid
+        }
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
