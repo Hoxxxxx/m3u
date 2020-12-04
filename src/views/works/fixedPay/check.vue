@@ -578,8 +578,8 @@ export default {
     };
   },
   created() {
-    // this.workid = this.$route.query.workid
-    this.workid = 4587
+    this.workid = this.$route.query.workid
+    // this.workid = 4587
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -651,6 +651,9 @@ export default {
     goPrint() {
       let routeUrl = this.$router.resolve({
         path: "printPage",
+        query: {
+          workid: this.workid
+        }
       });
       window.open(routeUrl.href, '_blank');
     },
