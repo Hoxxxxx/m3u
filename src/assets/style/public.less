@@ -595,10 +595,9 @@
 
   // 附件卡片
   .secContentCard {
-    width: 1280px;
+    width: 1075px;
     margin: 0 auto;
-    margin-top: 4px;
-    border-radius: 0 0 10px 10px;
+    margin-top: 15px;
 
     // 内容区域
     .tabContent {
@@ -744,5 +743,221 @@
   .el-icon-search{
     font-size: 20px;
     cursor: pointer;
+  }
+}
+
+
+// 打印页样式
+.printSpace {
+  // padding: 35px;
+  width: 1075px;
+  // margin: 0 auto;
+ // 页眉
+ .pageHead {
+    width: 1075px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 35px;
+    .company{
+      float: left;
+    }
+    .Date {
+      float: right;
+    }
+  }
+  // 内容区域
+  .printContent {
+    width: 1075px;
+    position: relative;
+    margin-bottom: 35px;
+    // 内容区域
+    .tabContent {
+      .title {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 35px;
+        font-weight: bold;
+        color: #333333;
+        text-align: center;
+        margin-bottom: 35px;
+      }
+      // 表单信息
+      .table_Info {
+        height: 20px;
+        font-size: 20px;
+        line-height: 20px;
+        color: #333333;
+        margin-bottom: 20px;
+        .code {
+          float: left;
+        }
+        .name {
+          float: right;
+        }
+      }
+      .tableBox {
+        width: 1075px;
+        box-sizing: border-box;
+        border: 1px solid #333333;
+        // 标题行
+        .title_line {
+          position: relative;
+          width: 100%;
+          height: 40px;
+          border-bottom: 1px solid #333333;
+          text-align: center;
+          line-height: 40px;
+          font-size: 20px;
+          font-weight: bold;
+          color: #333333;
+        }
+        // 表格行
+        .form_line {
+          width: 100%;
+          min-height: 40px;
+          border-bottom: 1px solid #333333;
+          display: flex;
+          color: #333333;
+          font-size: 20px;
+          .titlebox {
+            width: 133px;
+            min-height: 40px;
+            text-align: center;
+            border-right: 1px solid #333333;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            flex-shrink: 0;
+            flex-grow: 0;
+          }
+          .infobox {
+            width: 282px;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            border-right: 1px solid #333333;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .el-date-editor.el-input {
+              width: 100%;
+            }
+            /deep/ .el-input__inner {
+              border: none !important;
+            }
+          }
+          .middlebox {
+            flex: 1 1 auto;
+          }
+          .longbox {
+            border-right: none;
+            flex: 1 1 auto;
+            .radioGroup {
+              padding-right: 20px;
+              margin-right: 20px;
+              flex-shrink: 0;
+              flex-grow: 0;
+            }
+          }
+          // 长文本输入格
+          .areabox {
+            padding: 0;
+          }
+          .last_row {
+            border: none;
+          }
+        }
+        // 最末行
+        .last_line {
+          border: none;
+        }
+        // 内联表格样式
+        .inner_Table {
+          width: 100%;
+          border-bottom: 1px solid #333333;
+          display: flex;
+          box-sizing: border-box;
+          overflow: hidden;
+          color: #333333;
+          font-size: 20px;
+          .tDataBox {
+            width: 179px;
+            flex-shrink: 0;
+            flex-grow: 0;
+            border-right: 1px solid #333333;
+            box-sizing: border-box;
+            .thead {
+              width: 100%;
+              min-height: 40px;
+              line-height: 40px;
+              word-break: break-all;
+              text-align: center;
+              border-bottom: 1px solid #333333;
+            }
+            .tdata{
+              width: 100%;
+              min-height: 40px;
+              line-height: 40px;
+              word-break: break-all;
+              text-align: center;
+              border-bottom: 1px solid #333333;
+            }
+          }
+          .tDataBox div:last-child {
+            border: none;
+          }
+        }
+        .summry {
+          width: 100%;
+          height: 40px;
+          border-bottom: 1px solid #333333;
+          display: flex;
+          box-sizing: border-box;
+          overflow: hidden;
+          color: #333333;
+          font-size: 20px;
+          .summryUl {
+            display: flex;
+            .summryLi {
+              display: flex;
+              .summryName,
+              .summryCont {
+                width: 179px;
+                height: 40px;
+                flex-shrink: 0;
+                flex-grow: 0;
+                border-right: 1px solid #333333;
+                box-sizing: border-box;
+                line-height: 40px;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+  // 流程区域
+  .tabContent {
+    .title{
+      height: 20px;
+      font-size: 20px;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+    .timeline /deep/ .el-timeline-item__timestamp.is-top {
+      font-size: 20px;
+    }
+    .timeline {
+      .step,
+      .result,
+      .admin {
+        font-size: 20px;
+      }
+    }
   }
 }

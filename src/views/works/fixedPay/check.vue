@@ -5,7 +5,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary">打印</el-button>
+        <el-button type="primary" @click="$router.push('printPage')">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -18,7 +18,7 @@
             <span>表单</span>
           </div>
           <!-- 内容 -->
-          <div class="tabContent">
+          <div class="tabContent" id="tabContent">
             <div class="title">{{ workName }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
@@ -63,7 +63,7 @@
                     disabled
                   >
                     <el-option
-                      v-for="(item, index) in fixedData.cointypes"
+                      v-for="(item, index) in fixedData.azisList"
                       :key="index"
                       :label="item.azi02"
                       :value="item.azi01"
@@ -100,17 +100,6 @@
                   </el-select>
                 </div>
               </div>
-              <!-- 4 -->
-              <!-- <div class="form_line">
-                <div class="titlebox">报销金额</div>
-                <div class="infobox middlebox editNot">
-                  {{ expenseMoney }}
-                </div>
-                <div class="titlebox">报销金额大写</div>
-                <div class="infobox middlebox editNot">
-                  {{ tableData.expenseMoneyF }}
-                </div>
-              </div> -->
               <!-- 4 -->
               <div class="form_line">
                 <div class="titlebox">固定资产申请单</div>
@@ -165,20 +154,6 @@
                     min-width="160px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-date-picker
-                          v-model="scope.row.oaf02"
-                          style="width: 100%"
-                          type="date"
-                          placeholder="发票日期"
-                          format="yyyy/MM/dd"
-                          value-format="yyyy/MM/dd"
-                          disabled
-                        >
-                        </el-date-picker>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oaf03"
@@ -468,16 +443,7 @@
                     </div>
                   </div>
                   <div class="titlebox">记账日期</div>
-                  <div class="infobox middlebox datebox last_row">
-                    <el-date-picker
-                      v-model="tableData.oaz03"
-                      type="date"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
-                      disabled
-                    >
-                    </el-date-picker>
-                  </div>
+                  <div class="infobox middlebox last_row">{{tableData.oaz03}}</div>
                 </div>
                 <div class="form_line last_line">
                   <div class="titlebox">账款类型</div>
@@ -612,8 +578,8 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    // this.workid = 4317
+    // this.workid = this.$route.query.workid
+    this.workid = 4587
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -788,6 +754,7 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
+
   },
 };
 </script>
