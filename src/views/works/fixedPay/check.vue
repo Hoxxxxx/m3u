@@ -5,7 +5,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary" @click="$router.push('printPage')">打印</el-button>
+        <el-button type="primary" @click="goPrint">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -682,6 +682,12 @@ export default {
     },
   },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },

@@ -587,7 +587,7 @@ export default {
           }
           setTimeout(() => {
             // 打印
-            window.print()
+            // window.print()
           },1000)
         }else{
           loading.close()
