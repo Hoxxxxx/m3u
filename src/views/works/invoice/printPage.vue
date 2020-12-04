@@ -427,6 +427,10 @@ export default {
               })
             })
           }
+          setTimeout(() => {
+            // 打印
+            window.print()
+          },500)
         }else{
           loading.close()
           clearTimeout(this.overloading)

@@ -3,13 +3,13 @@
     <!-- 页眉 -->
     <div class="pageHead">
       <span class="company">华录新媒</span>
-      <span class="Date">{{timeNow}}</span>
+      <span class="Date">2020-12-03 13:28</span>
     </div>
     <!-- 表单区域 -->
     <div class="printContent">
       <!-- 内容 -->
       <div class="tabContent" id="tabContent">
-        <div class="title">{{ workname }}</div>
+        <div class="title">{{ workName }}</div>
         <div class="table_Info">
           <span class="code">业务日期：{{ tableData.oaa02 }}</span>
           <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -62,13 +62,18 @@
           </div>
           <!-- 4 -->
           <div class="form_line">
+            <div class="titlebox">固定资产申请单</div>
+            <div class="infobox longbox selectbox">{{tableData.oaa17_show}}</div>
+          </div>
+          <!-- 5 -->
+          <div class="form_line">
             <div class="titlebox">说明</div>
             <div class="infobox longbox" style="width: 100%">{{tableData.oaa18}}</div>
           </div>
           <!-- 5 -->
           <div class="form_line">
-            <div class="titlebox">备注</div>
-            <div class="infobox longbox selectbox">{{tableData.oaa99}}</div>
+            <div class="titlebox">验收信息</div>
+            <div class="infobox last_row longbox" style="width: 100%">{{tableData.oaa19}}</div>
           </div>
           <!-- 收款信息 -->
           <div class="title_line">收款信息</div>
@@ -93,14 +98,13 @@
             <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
               <div class="thead">{{S_item.label}}</div>
               <!-- 有几组内容 -->
-              <div class="tdata" v-if="tableData.oaf.length == 0"></div>
               <div class="tdata" v-for="(content_item, content_index) in tableData.oaf" :key="content_index">
                 {{content_item[S_item.value]}}
               </div>
             </div>
           </div>
 
-          <div class="title_line">发票明细行合计</div>
+          <div class="title_line">合计</div>
           <div class="summry">
             <ul class="summryUl">
               <li class="summryLi">
@@ -143,7 +147,6 @@
             <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_item+S_index">
               <div class="thead">{{S_item.label}}</div>
               <!-- 有几组内容 -->
-              <div class="tdata" v-if="tableData.oac.length == 0"></div>
               <div class="tdata" v-for="(content_item, content_index) in tableData.oac" :key="content_item+content_index">
                 {{content_item[S_item.value]}}
               </div>
@@ -159,10 +162,10 @@
             <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_item+S_index">
               <div class="thead">{{S_item.label}}</div>
               <!-- 有几组内容 -->
-              <div class="tdata" v-if="tableData.oad.length == 0"></div>
-              <div class="tdata" v-else v-for="(content_item, content_index) in tableData.oad" :key="content_item+content_index">
+              <div class="tdata"></div>
+              <!-- <div class="tdata" v-else v-for="(content_item, content_index) in tableData.oad" :key="content_item+content_index">
                 {{content_item[S_item.value]}}
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -175,7 +178,7 @@
               <div class="titlebox">银行</div>
               <div class="infobox selectbox editNot">
                 <div class="" >
-                  {{ tableData.oaz01_show }}
+                  {{ tableData.oaz01 }}
                 </div>
               </div>
               <div class="titlebox">异动码</div>
@@ -237,7 +240,7 @@
 </template>
 
 <script>
-import { timeFmt, OpenLoading } from "@/utils/utils.js";
+import { OpenLoading } from "@/utils/utils.js";
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
@@ -246,12 +249,7 @@ export default {
   components: {},
   data() {
     return {
-      timeNow: timeFmt(),
       // 指定表格（发票明细行）
-      overloading: '', //加载定时器
-      activeTab: "firTab",
-      workid: '',
-      workName:"付款申请单",//流程名
       tableBox_invoice: [
         // 表格一
         {
@@ -279,9 +277,26 @@ export default {
             {
               label: '税额（原币）',
               value: 'oaf06'
-            }
+            },
           ],
-          tData: []
+          tData: [
+            {
+              oaf01: '111',
+              oaf02: '111',
+              oaf03: '111',
+              oaf03_show: '111',
+              oaf05: '111',
+              oaf06: '111',
+            },
+            {
+              oaf01: '222',
+              oaf02: '222',
+              oaf03: '222',
+              oaf03_show: '222',
+              oaf05: '222',
+              oaf06: '222',
+            }
+          ]
         },
         // 表格二
         {
@@ -303,7 +318,20 @@ export default {
               value: 'hsjeBB'
             },
           ],
-          tData: []
+          tData: [
+            {
+              oaf07: '333',
+              sqjeBB: '333',
+              seBB: '333',
+              hsjeBB: '333',
+            },
+            {
+              oaf07: '444',
+              sqjeBB: '444',
+              seBB: '444',
+              hsjeBB: '444',
+            }
+          ]
         },
       ],
       // 费用明细
@@ -313,19 +341,19 @@ export default {
           theadList: [
             {
               label: '会计科目',
-              value: 'oac01_show'
+              value: 'oac01'
             },
             {
               label: '项目',
-              value: 'oac04_show'
+              value: 'oac04'
             },
             {
               label: '项目WBS',
-              value: 'oac05_show'
+              value: 'oac05'
             },
             {
-              label: '摘要',
-              value: 'oac09'
+              label: '资产卡片',
+              value: 'oac08'
             },
             {
               label: '金额（不含税）',
@@ -334,9 +362,26 @@ export default {
             {
               label: '核算项一',
               value: 'oac11'
-            }
+            },
           ],
-          tData: []
+          tData: [
+            {
+              oaf01: '111',
+              oaf02: '111',
+              oaf03: '111',
+              oaf03_show: '111',
+              oaf05: '111',
+              oaf06: '111',
+            },
+            {
+              oaf01: '222',
+              oaf02: '222',
+              oaf03: '222',
+              oaf03_show: '222',
+              oaf05: '222',
+              oaf06: '222',
+            }
+          ]
         },
         // 表格二
         {
@@ -346,7 +391,14 @@ export default {
               value: 'oac12'
             },
           ],
-          tData: []
+          tData: [
+            {
+              oaf07: '333',
+            },
+            {
+              oaf07: '444',
+            }
+          ]
         },
       ],
       // 冲销信息
@@ -364,7 +416,7 @@ export default {
             },
             {
               label: '借款人',
-              value: 'oad04_show'
+              value: 'oad04'
             },
             {
               label: '借款总金额',
@@ -379,14 +431,23 @@ export default {
               value: 'oad06'
             },
           ],
-          tData: []
+          tData: [
+            {
+              oaf01: '111',
+              oaf02: '111',
+              oaf03: '111',
+              oaf03_show: '111',
+              oaf05: '111',
+              oaf06: '111',
+            }
+          ]
         },
       ],
       
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workname:"固定资产付款",//流程名
+      workName:"固定资产付款",//流程名
       tableData: {
         // 表格部分
         oaf: [], // 发票明细
@@ -416,7 +477,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 4374
+    // this.workid = 4587
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -428,7 +489,6 @@ export default {
         let sum =  this.tableData.oaf.reduce((prev, cur) => {
           return prev + Number(cur.oaf07);
         }, 0);
-        this.tableData.oaa17 = sum.toFixed(2)
         return sum.toFixed(2)
       }
     },
@@ -486,15 +546,6 @@ export default {
     },
   },
   methods: {
-    goPrint() {
-      let routeUrl = this.$router.resolve({
-        path: "printPage",
-        query: {
-          workid: this.workid
-        }
-      });
-      window.open(routeUrl.href, '_blank');
-    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -522,7 +573,7 @@ export default {
           this.tableData.oaf.forEach((item, index) => {
             this.change_HSJE(index)
           })
-          this.workname = res.data.workclass_info.title
+          this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           this.oazShow = res.data.workclass_flow.erp_turn
           if (res.data.file !== null) {
@@ -552,6 +603,16 @@ export default {
       .then( result => {
         if (result.status == 200) {
           this.fixedData.azisList = result.data;
+          if (this.fixedData.azisList !== null && this.fixedData.azisList !== []){
+            this.fixedData.azisList.forEach( item => {
+              if (item.azi01 == this.tableData.oaa13) {
+                this.tableData.oaa13_show = item.azi02
+              }
+              if (item.azi01 == this.tableData.oaz05) {
+                this.tableData.oaz05_show = item.azi02
+              }
+            })
+          }
         } else {
           this.$message.error("获取币种列表失败：" + result.error.message);
         }
@@ -561,53 +622,23 @@ export default {
       pmasList().then((res) => {
         if (res.status == 200) {
           this.fixedData.payTypes = res.data;
+          if (this.fixedData.payTypes !== null && this.fixedData.payTypes !== []){
+            this.fixedData.payTypes.forEach( item => {
+              if (item.pma01 == this.tableData.oaa16) {
+                this.tableData.oaa16_show = item.pma02
+              }
+            })
+          }
         } else {
           this.$message.error("获取支付方式列表失败：" + result.error.message);
         }
       });
     },
     // *******************************************
-    // 下载文件流
-    async download(id, filename) {
-      const { data: res } = await this.axios({
-          method: 'get',
-          url: `files/download/${id}`,
-          responseType: "blob",
-      })
-      let fileName = filename;
-      let fileType = {
-        doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        xls: 'application/vnd.ms-excel',
-        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        ppt: 'application/vnd.ms-powerpoint',
-        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
-        txt: 'text/plain',
-        png: 'image/png',
-        jpg: 'image/jpeg',
-        jpeg: 'image/jpeg',
-        zip: 'application/zip',
-        rar: 'application/x-rar',
-      }
-      let type=fileName.split('.')[1];//获取文件后缀名
-      let blob = new Blob([res],{
-        type:fileType.type
-      });
-      let url = window.URL.createObjectURL(blob);
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    },
-    // ******************************************
   },
 };
 </script>
+
 <style lang="less" scoped>
 @import "../../../assets/style/public.less";
 </style>
