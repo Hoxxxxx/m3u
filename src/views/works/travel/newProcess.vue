@@ -23,7 +23,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{ workName }}</div>
+            <div class="title">{{ workname }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -917,7 +917,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: "",
-      workName: "外地差旅报销单", //流程名
+      workname: "外地差旅报销单", //流程名
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
@@ -1266,9 +1266,8 @@ export default {
                 path: "/apply",
                 query: {
                   url_type: "travel",
-                  workName: this.workName,
+                  workname: this.workname,
                   workid: this.workid,
-                  workName: this.workName,
                   oaa01: this.tableData.oaa01,
                   oaa02: this.tableData.oaa02,
                 },
@@ -1289,9 +1288,8 @@ export default {
                 path: "/apply",
                 query: {
                   url_type: "travel",
-                  workName: this.workName,
+                  workname: this.workname,
                   workid: this.workid,
-                  workName: this.workName,
                   oaa01: this.tableData.oaa01,
                   oaa02: this.tableData.oaa02,
                 },

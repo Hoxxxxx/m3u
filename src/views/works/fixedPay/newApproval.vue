@@ -27,7 +27,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{ workName }}</div>
+            <div class="title">{{ workname }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -1211,7 +1211,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产付款",//流程名
+      workname:"固定资产付款",//流程名
       more:"",//查看更多
       tableData: {
         // 表格部分
@@ -1490,7 +1490,7 @@ export default {
           this.tableData.oaf.forEach((item, index) => {
             this.change_HSJE(index)
           })
-          this.workName = res.data.workclass_info.title
+          this.workname = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
           this.workclass_perflow = res.data.workclass_perflow
           this.more = res.data.workclass_info.more
@@ -2231,7 +2231,7 @@ export default {
             query: {
               url_type: 'fixedPay',
               workid: this.workid,
-              workName: this.workName,
+              workname: this.workname,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02,
             },

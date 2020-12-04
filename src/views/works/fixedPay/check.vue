@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent" id="tabContent">
-            <div class="title">{{ workName }}</div>
+            <div class="title">{{ workname }}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{ tableData.oaa02 }}</span>
               <span class="name">申请单编号：{{ tableData.oaa01 }}</span>
@@ -477,7 +477,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workName}}</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -549,7 +549,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产付款",//流程名
+      workname:"固定资产付款",//流程名
       tableData: {
         // 表格部分
         oaf: [], // 发票明细
@@ -684,7 +684,7 @@ export default {
           this.tableData.oaf.forEach((item, index) => {
             this.change_HSJE(index)
           })
-          this.workName = res.data.workclass_info.title
+          this.workname = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           this.oazShow = res.data.workclass_flow.erp_turn
           if (res.data.file !== null) {

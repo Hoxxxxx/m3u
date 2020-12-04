@@ -1903,7 +1903,7 @@ export default {
             query: {
               url_type: 'travel',
               workid: this.workid,
-              workName: this.workName,
+              workname: this.workname,
               oaa01: this.tableData.oaa01,
               oaa02: this.tableData.oaa02,
             },

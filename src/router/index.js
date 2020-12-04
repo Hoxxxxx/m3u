@@ -105,6 +105,11 @@ const routes = [{
     name: 'travel_approval',
     component: () => import('@/views/works/travel/newApproval')
   },
+  {
+    path: '/travel/printPage',
+    name: 'travel_printPage',
+    component: () => import('@/views/works/travel/printPage')
+  },
 
   // 其他费用报销
   {
