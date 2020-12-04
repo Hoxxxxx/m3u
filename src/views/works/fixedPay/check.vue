@@ -323,23 +323,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oac11"
-                          placeholder="请选择核算项一"
-                          disabled
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_04"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                   <el-table-column
                     prop="oac12"
@@ -347,23 +330,6 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-select
-                          v-model="scope.row.oac12"
-                          placeholder="请选择核算项二"
-                          disabled
-                        >
-                          <el-option
-                            v-for="(item, index) in fixedData.options_05"
-                            :key="index.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                          </el-option>
-                        </el-select>
-                      </div>
-                    </template>
                   </el-table-column>
                 </el-table>
               </div>
