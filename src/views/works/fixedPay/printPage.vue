@@ -3,7 +3,7 @@
     <!-- 页眉 -->
     <div class="pageHead">
       <span class="company">华录新媒</span>
-      <span class="Date">2020-12-03 13:28</span>
+      <span class="Date">{{timeNow}}</span>
     </div>
     <!-- 表单区域 -->
     <div class="printContent">
@@ -242,7 +242,7 @@
 </template>
 
 <script>
-import { OpenLoading } from "@/utils/utils.js";
+import { timeFmt, OpenLoading } from "@/utils/utils.js";
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
@@ -251,6 +251,7 @@ export default {
   components: {},
   data() {
     return {
+      timeNow: timeFmt(),
       // 指定表格（发票明细行）
       tableBox_invoice: [
         // 表格一

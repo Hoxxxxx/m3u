@@ -36,6 +36,26 @@ export function dateFmt(value) {
   }
 }
 
+// 格式化时间
+export function timeFmt() {
+  function zeroFill(i) {
+    if (i >= 0 && i <= 9) {
+      return "0" + i;
+    } else {
+      return i;
+    }
+  }
+  var date = new Date();//当前时间
+  var month = zeroFill(date.getMonth() + 1);//月
+  var day = zeroFill(date.getDate());//日
+  var hour = zeroFill(date.getHours());//时
+  var minute = zeroFill(date.getMinutes());//分
+  var second = zeroFill(date.getSeconds());//秒
+  //当前时间
+  var curTime = date.getFullYear() + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+  return curTime;
+}
+
 // 对象数据置空
 export function reset(obj) {
   Object.keys(obj).forEach(key => {

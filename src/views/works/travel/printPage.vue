@@ -3,7 +3,7 @@
     <!-- 页眉 -->
     <div class="pageHead">
       <span class="company">华录新媒</span>
-      <span class="Date">2020-12-03 13:28</span>
+      <span class="Date">{{timeNow}}</span>
     </div>
     <!-- 表单区域 -->
     <div class="printContent">
@@ -246,11 +246,12 @@
 
 <script>
 import { workflowsList, } from "@/api/process_new.js"
-import { dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
+import { timeFmt, dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
 
 export default {
   data() {
     return {
+      timeNow: timeFmt(),
       // 差旅明细
       tableBox_oab: [
         // 表格一
@@ -567,10 +568,10 @@ export default {
               })
             })
           }
-          setTimeout(() => {
-            // 打印
-            window.print()
-          },500)
+          // setTimeout(() => {
+          //   // 打印
+          //   window.print()
+          // },500)
         }else{
           loading.close()
           clearTimeout(this.overloading)
