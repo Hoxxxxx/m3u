@@ -98,8 +98,8 @@
             <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
               <div class="thead">{{S_item.label}}</div>
               <!-- 有几组内容 -->
-              <div class="tdata" v-if="tableData.oad.length == 0"></div>
-              <div class="tdata" v-else v-for="(content_item, content_index) in tableData.oaf" :key="content_index">
+              <div class="tdata" v-if="tableData.oaf.length == 0"></div>
+              <div class="tdata" v-for="(content_item, content_index) in tableData.oaf" :key="content_index">
                 {{content_item[S_item.value]}}
               </div>
             </div>
@@ -148,8 +148,8 @@
             <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_item+S_index">
               <div class="thead">{{S_item.label}}</div>
               <!-- 有几组内容 -->
-              <div class="tdata" v-if="tableData.oad.length == 0"></div>
-              <div class="tdata" v-else v-for="(content_item, content_index) in tableData.oac" :key="content_item+content_index">
+              <div class="tdata" v-if="tableData.oac.length == 0"></div>
+              <div class="tdata" v-for="(content_item, content_index) in tableData.oac" :key="content_item+content_index">
                 {{content_item[S_item.value]}}
               </div>
             </div>
@@ -478,8 +478,8 @@ export default {
     };
   },
   created() {
-    // this.workid = this.$route.query.workid
-    this.workid = 4587
+    this.workid = this.$route.query.workid
+    // this.workid = 4587
     this.getAzi()
     this.getPma()
     this.getworkflows()
@@ -589,8 +589,8 @@ export default {
           }
           setTimeout(() => {
             // 打印
-            // window.print()
-          },1000)
+            window.print()
+          },500)
         }else{
           loading.close()
           clearTimeout(this.overloading)
