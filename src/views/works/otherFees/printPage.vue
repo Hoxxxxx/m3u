@@ -31,122 +31,81 @@
             <div class="titlebox">所属部门</div>
             <div class="infobox last_row">{{ tableData.oaa04_gen04 }}</div>
           </div>
-          <!-- 付款信息 -->
-          <div class="title_line">出差信息</div>
-          <!-- 1 -->
           <div class="form_line">
-            <div class="titlebox">预计开始时间</div>
-            <div class="infobox middlebox">{{ tableData.oaa31 }}</div>
-            <div class="titlebox">预计结束时间</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa32 }}</div>
-          </div>
-          <!-- 2 -->
-          <div class="form_line">
-            <div class="titlebox">实际开始时间</div>
-            <div class="infobox middlebox">{{ tableData.oaa33 }}</div>
-            <div class="titlebox">实际结束时间</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa34 }}</div>
-          </div>
-          <!-- 3 -->
-          <div class="form_line">
-            <div class="titlebox">出差目的</div>
-            <div class="infobox longbox" style="width: 100%">{{tableData.oaa30}}</div>
-          </div>
-          <!-- 4 -->
-          <div class="form_line">
-            <div class="titlebox">出差地点</div>
+            <div class="titlebox">费用类别</div>
             <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa35==1">一般地区</span>
-              <span class="radioItem" v-if="tableData.oaa35==2">特殊地区</span>
-              {{tableData.oaa36}}
-            </div>
-          </div>
-          <!-- 5 -->
-          <div class="form_line">
-            <div class="titlebox">交通工具</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa37==1">飞机</span>
-              <span class="radioItem" v-if="tableData.oaa37==2">火车</span>
-              <span class="radioItem" v-if="tableData.oaa37==3">汽车</span>
-              <span class="radioItem" v-if="tableData.oaa37==4">其它</span>
-            </div>
-          </div>
-          <!-- 5 -->
-          <div class="form_line">
-            <div class="titlebox">是否需要借款</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa35==1">是</span>
-              <span class="radioItem" v-if="tableData.oaa35==2">否</span>
-            </div>
-          </div>
-          <!-- 借款信息 -->
-          <div v-if="tableData.oaa35==1">
-            <div  class="title_line">借款信息</div>
-            <div class="form_line">
-              <div class="titlebox">项目</div>
-              <div class="infobox middlebox">{{ tableData.oaa14_show }}</div>
-              <div class="titlebox">项目WBS</div>
-              <div class="infobox middlebox last_row">{{ tableData.oaa15_show }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">币种</div>
-              <div class="infobox">{{ tableData.oaa06_show }}</div>
-              <div class="titlebox">借款金额</div>
-              <div class="infobox">{{ tableData.oaa07 }}</div>
-              <div class="titlebox">汇率</div>
-              <div class="infobox last_row">{{ tableData.oaa08 }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">收款人</div>
-              <div class="infobox">{{ tableData.oaa09 }}</div>
-              <div class="titlebox">账号</div>
-              <div class="infobox">{{ tableData.oaa10 }}</div>
-              <div class="titlebox">开户行</div>
-              <div class="infobox last_row">{{ tableData.oaa11 }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">支付方式</div>
-              <div class="infobox longbox">{{tableData.oaa12_show}}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">折合汇率金额</div>
-              <div class="infobox middlebox">{{ exchange }}</div>
-              <div class="titlebox">折合汇率金额大写</div>
-              <div class="infobox middlebox last_row">{{ exchange_Cap }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">借款事由</div>
-              <div class="infobox longbox">{{tableData.oaa13}}</div>
+              <span class="radioItem" v-if="tableData.oaa18==1">行政费用</span>
+              <span class="radioItem" v-if="tableData.oaa18==2">工会费用</span>
             </div>
           </div>
 
-          <!-- 交际信息 -->
-          <div  class="title_line">交际信息</div>
+          <!-- 报销信息 -->
+          <div class="title_line">报销信息</div>
           <div class="form_line">
-            <div class="titlebox">支出项目</div>
-            <div class="infobox middlebox">{{ tableData.oaa20 }}</div>
-            <div class="titlebox">实施时间</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa21 }}</div>
+            <div class="titlebox">币种</div>
+            <div class="infobox">{{ tableData.oaa06_show }}</div>
+            <div class="titlebox">汇率</div>
+            <div class="infobox">{{ tableData.oaa08 }}</div>
+            <div class="titlebox">支付金额</div>
+            <div class="infobox last_row">{{ payMoney }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">我方参加部门</div>
-            <div class="infobox middlebox">{{ tableData.oaa22 }}</div>
-            <div class="titlebox">对方参加部门</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa23 }}</div>
+            <div class="titlebox">报销金额</div>
+            <div class="infobox">{{ expenseMoney }}</div>
+            <div class="titlebox">报销金额大写</div>
+            <div class="infobox">{{ tableData.expenseMoneyF }}</div>
+            <div class="titlebox">支付方式</div>
+            <div class="infobox last_row">{{ tableData.oaa12_show }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">我方参加人员</div>
-            <div class="infobox middlebox">{{ tableData.oaa24 }}</div>
-            <div class="titlebox">对方参加人员</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa25 }}</div>
+            <div class="titlebox">说明</div>
+            <div class="infobox last_row longbox">{{ tableData.oaa16 }}</div>
+          </div>
+
+          <!-- 收款信息 -->
+          <div class="title_line">收款信息</div>
+          <div class="form_line">
+            <div class="titlebox">收款人</div>
+            <div class="infobox">{{ tableData.oaa09 }}</div>
+            <div class="titlebox">开户行</div>
+            <div class="infobox">{{ tableData.oaa10 }}</div>
+            <div class="titlebox">收款账号</div>
+            <div class="infobox last_row">{{ tableData.oaa11 }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">付款预算金额</div>
-            <div class="infobox middlebox">{{ tableData.oaa26 }}</div>
-            <div class="titlebox">区分</div>
-            <div class="infobox middlebox last_row">
-              <span class="radioItem" v-if="tableData.oaa27==1">交际费</span>
-              <span class="radioItem" v-if="tableData.oaa27==2">会议费</span>
+            <div class="titlebox">支票号</div>
+            <div class="infobox last_row longbox">{{ tableData.oaa17 }}</div>
+          </div>
+
+          <!-- 费用明细行项目 -->
+          <div class="title_line">费用明细行项目</div>
+
+          <!-- 拆分成几组表格 -->
+          <div class="inner_Table" v-for="(F_item, F_index) in tableBox_oac" :key="'oac'+F_index">
+            <!-- 有几个表头 -->
+            <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_item+S_index">
+              <div class="thead">{{S_item.label}}</div>
+              <!-- 有几组内容 -->
+              <div class="tdata" v-if="tableData.oac.length == 0"></div>
+              <div class="tdata" v-for="(content_item, content_index) in tableData.oac" :key="content_item+content_index">
+                {{content_item[S_item.value]}}
+              </div>
+            </div>
+          </div>
+
+          <!-- 冲销信息 -->
+          <div class="title_line">冲销信息</div>
+
+          <!-- 拆分成几组表格 -->
+          <div class="inner_Table" v-for="(F_item, F_index) in tableBox_oad" :key="'oad'+F_index">
+            <!-- 有几个表头 -->
+            <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_item+S_index">
+              <div class="thead">{{S_item.label}}</div>
+              <!-- 有几组内容 -->
+              <div class="tdata" v-if="tableData.oad.length == 0"></div>
+              <div class="tdata" v-else v-for="(content_item, content_index) in tableData.oad" :key="content_item+content_index">
+                {{content_item[S_item.value]}}
+              </div>
             </div>
           </div>
 
@@ -221,31 +180,116 @@
 </template>
 
 <script>
-import { OpenLoading } from "@/utils/utils.js";
-// api
 import { workflowsList, } from "@/api/process_new.js"
+import { number_chinese, OpenLoading } from "@/utils/utils.js";
 
 export default {
-  components: {},
   data() {
     return {
+      // 费用明细
+      tableBox_oac: [
+        // 表格一
+        {
+          theadList: [
+            {
+              label: '会计科目',
+              value: 'oac01_show'
+            },
+            {
+              label: '项目',
+              value: 'oac04_show'
+            },
+            {
+              label: '项目WBS',
+              value: 'oac05_show'
+            },
+            {
+              label: '摘要',
+              value: 'oac06'
+            },
+            {
+              label: '金额（不含税）',
+              value: 'oac07'
+            },
+            {
+              label: '折合后金额',
+              value: 'apb25'
+            },
+          ],
+        },
+        // 表格二
+        {
+          theadList: [
+            {
+              label: '核算项一',
+              value: 'oac11'
+            },
+            {
+              label: '核算项二',
+              value: 'oac12'
+            },
+          ],
+        },
+      ],
+      // 冲销信息
+      tableBox_oad: [
+        // 表格一
+        {
+          theadList: [
+            {
+              label: '待抵单号',
+              value: 'oad01'
+            },
+            {
+              label: '借款日期',
+              value: 'oad03'
+            },
+            {
+              label: '借款人',
+              value: 'oad04'
+            },
+            {
+              label: '借款总金额',
+              value: 'oad05'
+            },
+            {
+              label: '还款金额',
+              value: 'oad02'
+            },
+            {
+              label: '凭证号',
+              value: 'oad06'
+            },
+          ],
+        },
+      ],
+
       overloading: '', //加载定时器
       workid: '',
-      workname: '出差借款申请',
+      workname: '其他费用报销单',
       activeTab: "firTab",
-      tableData: {},
-      // 汇率数据
-      exchange: '', //折合汇率
-      exchange_Cap: '', //折合汇率大写
-      unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
-      fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
-        // 币种列表
-        azisList: [],
-        // 付款方式列表
-        pmasList: [],
+      tableData: {
+        // 基本信息
+        oaa02: "", //业务日期
+        oaa01: "", //申请单编号
+        oaa03: "", //经办人
+        oaa04: "", //申请人
+        oaa05: "", //联系电话
+        //报销信息
+        oaa06: "", //币种
+        oaa08: "", //汇率
+        oaa12: "", //支付方式
+        oaa16: "", //说明
+        payMoney: "", //支付金额
+        expenseMoneyF: "", //报销金额大写
+        // 收款信息
+        oaa09: "", //收款人
+        oaa10: "", //开户行
+        oaa11: "", //收款账号
+        oaa17: "", //支票号
+        // 表格部分
+        oac: [], // 费用明细行项目
+        oad: [], // 冲销信息
       },
       oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
       fileList_user: [],
@@ -262,7 +306,36 @@ export default {
     this.workid = this.$route.query.workid
     this.getworkflows()
   },
+  computed: {
+    // 报销金额（不含税）
+    expenseMoney(){
+      let sum =  this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac07);
+      }, 0);
+      this.tableData.expenseMoneyF = number_chinese(sum)
+      return sum
+    },
+    // 支付金额
+    payMoney(){
+      // 还款金额总和
+      let sum = this.tableData.oad.reduce((prev, cur) => {
+        return prev + Number(cur.oad02);
+      }, 0);
+      // 支付金额
+      let res = this.expenseMoney - sum
+      return res
+    }
+  },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+        query: {
+          workid: this.workid
+        }
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -289,7 +362,6 @@ export default {
               })
             })
           }
-          this.getExchangeRate()
           setTimeout(() => {
             // 打印
             window.print()
@@ -300,65 +372,6 @@ export default {
           this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
-    },
-    // 计算折合汇率
-    getExchangeRate() {
-      this.exchange = Number(this.tableData.oaa07) * Number(this.tableData.oaa08)
-      this.exchange = this.exchange.toFixed(2)
-      this.NumberToChinese(this.exchange)
-    },
-    //阿拉伯数字转换函数
-    toDx(n) {
-      switch (n) {
-          case "0":
-              return "零";
-          case "1":
-              return "壹";
-          case "2":
-              return "贰";
-          case "3":
-              return "叁";
-          case "4":
-              return "肆";
-          case "5":
-              return "伍";
-          case "6":
-              return "陆";
-          case "7":
-              return "柒";
-          case "8":
-              return "捌";
-          case "9":
-              return "玖";
-      }
-    },
-    // 转大写
-    NumberToChinese(m){
-      m *= 100;
-      m += "";
-      var length = m.length;
-
-      var result = "";
-      for (var i = 0; i < length; i++) {
-          if (i == 2) {
-            result = "元" + result;
-          } else if (i == 6) {
-            result = "万" + result;
-          } else if (i == 10) {
-            result = "亿" + result;
-          }
-          if (m.charAt(length - i - 1) == 0) {
-              if (i != 0 && i != 1) {
-                  if (result.charAt(0) != '零' && result.charAt(0) != '元' && result.charAt(0) != '万') {
-                      result = "零" + result;
-                  }
-              }
-              continue;
-          }
-          result = this.toDx(m.charAt(length - i - 1)) + this.unit[this.unit.length - i - 1] + result;
-      }
-      result += result.charAt(result.length - 1) == '元' ? "整" : "";
-      this.exchange_Cap = result;
     },
     // *******************************************
     // ***************附件上传******************
@@ -427,6 +440,8 @@ export default {
       window.URL.revokeObjectURL(url);
     },
     // ******************************************
+
+
   },
 };
 </script>

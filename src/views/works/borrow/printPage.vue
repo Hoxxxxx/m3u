@@ -31,123 +31,47 @@
             <div class="titlebox">所属部门</div>
             <div class="infobox last_row">{{ tableData.oaa04_gen04 }}</div>
           </div>
-          <!-- 付款信息 -->
-          <div class="title_line">出差信息</div>
-          <!-- 1 -->
-          <div class="form_line">
-            <div class="titlebox">预计开始时间</div>
-            <div class="infobox middlebox">{{ tableData.oaa31 }}</div>
-            <div class="titlebox">预计结束时间</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa32 }}</div>
-          </div>
-          <!-- 2 -->
-          <div class="form_line">
-            <div class="titlebox">实际开始时间</div>
-            <div class="infobox middlebox">{{ tableData.oaa33 }}</div>
-            <div class="titlebox">实际结束时间</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa34 }}</div>
-          </div>
-          <!-- 3 -->
-          <div class="form_line">
-            <div class="titlebox">出差目的</div>
-            <div class="infobox longbox" style="width: 100%">{{tableData.oaa30}}</div>
-          </div>
-          <!-- 4 -->
-          <div class="form_line">
-            <div class="titlebox">出差地点</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa35==1">一般地区</span>
-              <span class="radioItem" v-if="tableData.oaa35==2">特殊地区</span>
-              {{tableData.oaa36}}
-            </div>
-          </div>
-          <!-- 5 -->
-          <div class="form_line">
-            <div class="titlebox">交通工具</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa37==1">飞机</span>
-              <span class="radioItem" v-if="tableData.oaa37==2">火车</span>
-              <span class="radioItem" v-if="tableData.oaa37==3">汽车</span>
-              <span class="radioItem" v-if="tableData.oaa37==4">其它</span>
-            </div>
-          </div>
-          <!-- 5 -->
-          <div class="form_line">
-            <div class="titlebox">是否需要借款</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa35==1">是</span>
-              <span class="radioItem" v-if="tableData.oaa35==2">否</span>
-            </div>
-          </div>
           <!-- 借款信息 -->
-          <div v-if="tableData.oaa35==1">
-            <div  class="title_line">借款信息</div>
-            <div class="form_line">
-              <div class="titlebox">项目</div>
-              <div class="infobox middlebox">{{ tableData.oaa14_show }}</div>
-              <div class="titlebox">项目WBS</div>
-              <div class="infobox middlebox last_row">{{ tableData.oaa15_show }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">币种</div>
-              <div class="infobox">{{ tableData.oaa06_show }}</div>
-              <div class="titlebox">借款金额</div>
-              <div class="infobox">{{ tableData.oaa07 }}</div>
-              <div class="titlebox">汇率</div>
-              <div class="infobox last_row">{{ tableData.oaa08 }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">收款人</div>
-              <div class="infobox">{{ tableData.oaa09 }}</div>
-              <div class="titlebox">账号</div>
-              <div class="infobox">{{ tableData.oaa10 }}</div>
-              <div class="titlebox">开户行</div>
-              <div class="infobox last_row">{{ tableData.oaa11 }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">支付方式</div>
-              <div class="infobox longbox">{{tableData.oaa12_show}}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">折合汇率金额</div>
-              <div class="infobox middlebox">{{ exchange }}</div>
-              <div class="titlebox">折合汇率金额大写</div>
-              <div class="infobox middlebox last_row">{{ exchange_Cap }}</div>
-            </div>
-            <div class="form_line">
-              <div class="titlebox">借款事由</div>
-              <div class="infobox longbox">{{tableData.oaa13}}</div>
-            </div>
-          </div>
-
-          <!-- 交际信息 -->
-          <div  class="title_line">交际信息</div>
+          <div class="title_line">借款信息</div>
           <div class="form_line">
-            <div class="titlebox">支出项目</div>
-            <div class="infobox middlebox">{{ tableData.oaa20 }}</div>
-            <div class="titlebox">实施时间</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa21 }}</div>
+            <div class="titlebox">项目</div>
+            <div class="infobox middlebox">{{ tableData.oaa14_show }}</div>
+            <div class="titlebox">项目WBS</div>
+            <div class="infobox middlebox last_row">{{ tableData.oaa15_show }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">我方参加部门</div>
-            <div class="infobox middlebox">{{ tableData.oaa22 }}</div>
-            <div class="titlebox">对方参加部门</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa23 }}</div>
+            <div class="titlebox">币种</div>
+            <div class="infobox">{{ tableData.oaa06_show }}</div>
+            <div class="titlebox">借款金额</div>
+            <div class="infobox">{{ tableData.oaa07 }}</div>
+            <div class="titlebox">汇率</div>
+            <div class="infobox last_row">{{ tableData.oaa08 }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">我方参加人员</div>
-            <div class="infobox middlebox">{{ tableData.oaa24 }}</div>
-            <div class="titlebox">对方参加人员</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa25 }}</div>
+            <div class="titlebox">收款人</div>
+            <div class="infobox">{{ tableData.oaa09 }}</div>
+            <div class="titlebox">账号</div>
+            <div class="infobox">{{ tableData.oaa10 }}</div>
+            <div class="titlebox">开户行</div>
+            <div class="infobox last_row">{{ tableData.oaa11 }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">付款预算金额</div>
-            <div class="infobox middlebox">{{ tableData.oaa26 }}</div>
-            <div class="titlebox">区分</div>
-            <div class="infobox middlebox last_row">
-              <span class="radioItem" v-if="tableData.oaa27==1">交际费</span>
-              <span class="radioItem" v-if="tableData.oaa27==2">会议费</span>
-            </div>
+            <div class="titlebox">支付方式</div>
+            <div class="infobox longbox">{{tableData.oaa12_show}}</div>
+          </div>
+          <div class="form_line">
+            <div class="titlebox">折合汇率金额</div>
+            <div class="infobox middlebox">{{ exchange }}</div>
+            <div class="titlebox">折合汇率金额大写</div>
+            <div class="infobox middlebox last_row">{{ exchange_Cap }}</div>
+          </div>
+          <div class="form_line">
+            <div class="titlebox">出差单</div>
+            <div class="infobox longbox">{{tableData.oaa17_show}}</div>
+          </div>
+          <div class="form_line">
+            <div class="titlebox">借款事由</div>
+            <div class="infobox longbox">{{tableData.oaa13}}</div>
           </div>
 
           <!-- 财务信息 -->
@@ -223,6 +147,7 @@
 <script>
 import { OpenLoading } from "@/utils/utils.js";
 // api
+import { azisList, pmasList,  } from "@/api/basic";
 import { workflowsList, } from "@/api/process_new.js"
 
 export default {
@@ -231,7 +156,7 @@ export default {
     return {
       overloading: '', //加载定时器
       workid: '',
-      workname: '出差借款申请',
+      workname: '借款申请',
       activeTab: "firTab",
       tableData: {},
       // 汇率数据
@@ -239,9 +164,6 @@ export default {
       exchange_Cap: '', //折合汇率大写
       unit: new Array("仟", "佰", "拾", "", "仟", "佰", "拾", "", "仟", "佰", "拾", "", "角", "分"),
       fixedData: {
-        selectLoading: true,
-        // 申请人列表
-        genList: [],
         // 币种列表
         azisList: [],
         // 付款方式列表
@@ -261,8 +183,19 @@ export default {
   created() {
     this.workid = this.$route.query.workid
     this.getworkflows()
+    this.getAzis()
+    this.getPmas()
   },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+        query: {
+          workid: this.workid
+        }
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -298,6 +231,27 @@ export default {
           loading.close()
           clearTimeout(this.overloading)
           this.$message.error('获取流程信息失败：', res.error.message);
+        }
+      })
+    },
+    // ***********获取下拉列表信息************
+    getAzis () {
+      azisList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.azisList = result.data;
+        } else {
+          this.$message.error("获取币种列表失败：" + result.error.message);
+        }
+      })
+    },
+    getPmas () {
+      pmasList()
+      .then( result => {
+        if (result.status == 200) {
+          this.fixedData.pmasList = result.data;
+        } else {
+          this.$message.error("获取付款方式列表失败：" + result.error.message);
         }
       })
     },
@@ -399,12 +353,12 @@ export default {
       let fileName = filename;
       let fileType = {
         doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         xls: 'application/vnd.ms-excel',
         xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ppt: 'application/vnd.ms-powerpoint',
         pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
+        pdf: 'application/pdf',
         txt: 'text/plain',
         png: 'image/png',
         jpg: 'image/jpeg',
@@ -426,6 +380,7 @@ export default {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     },
+    // ******************************************
     // ******************************************
   },
 };

@@ -72,7 +72,7 @@ const routes = [{
     name: 'check',
     component: check
   },
-  // 借款申请
+  // 出差借款申请
   {
     path: '/borrowTra',
     name: 'borrowTra',
@@ -87,6 +87,11 @@ const routes = [{
     path: '/borrowTra/approval',
     name: 'borrowTra_approval',
     component: () => import('@/views/works/borrowTra/newApproval')
+  },
+  {
+    path: '/borrowTra/printPage',
+    name: 'borrowTra_printPage',
+    component: () => import('@/views/works/borrowTra/printPage')
   },
 
   // 外地差旅报销单
@@ -127,6 +132,12 @@ const routes = [{
     name: 'otherFees_approval',
     component: () => import('@/views/works/otherFees/newApproval')
   },
+  {
+    path: '/otherFees/printPage',
+    name: 'otherFees_printPage',
+    component: () => import('@/views/works/otherFees/printPage')
+  },
+
 
   // 借款申请
   {
@@ -144,6 +155,11 @@ const routes = [{
     name: 'borrow_approval',
     component: () => import('@/views/works/borrow/newApproval')
   },
+  {
+    path: '/borrow/printPage',
+    name: 'borrow_printPage',
+    component: () => import('@/views/works/borrow/printPage')
+  },
 
   // 固定资产申请
   {
@@ -160,6 +176,11 @@ const routes = [{
     path: '/fixedApp/approval',
     name: 'fixedApp_approval',
     component: () => import('@/views/works/fixedApp/newApproval')
+  },
+  {
+    path: '/fixedApp/printPage',
+    name: 'fixedApp_printPage',
+    component: () => import('@/views/works/fixedApp/printPage')
   },
 
   // 固定资产卡片

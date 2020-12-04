@@ -5,7 +5,7 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button type="primary">打印</el-button>
+        <el-button type="primary" @click="goPrint">打印</el-button>
       </div>
       <el-tabs v-model="activeTab" @tab-click="handleClick">
         <el-tab-pane name="firTab">
@@ -19,7 +19,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workName}}</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -81,16 +81,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">构建时间</div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa18"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    disabled
-                  >
-                  </el-date-picker>
-                </div>
+                <div class="infobox middlebox">{{tableData.oaa18}}</div>
                 <div class="titlebox">使用部门</div>
                 <div class="infobox middlebox last_row">{{tableData.oaa19}}</div>
               </div>
@@ -123,7 +114,7 @@
           </div>
           <!-- 内容 -->
           <div class="tabContent">
-            <div class="title">{{workName}}</div>
+            <div class="title">{{workname}}</div>
             <div class="table_Info">
               <span class="code">业务日期：{{tableData.oaa02}}</span>
               <span class="name">申请单编号：{{tableData.oaa01}}</span>
@@ -194,7 +185,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"固定资产申请",//流程名
+      workname:"固定资产申请",//流程名
       tableData: {},
       showData: {
         oaa04_show: "", //申请人
@@ -221,10 +212,19 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid
-    // this.workid = 3963
+    // this.workid = 4609
     this.getworkflows()
   },
   methods: {
+    goPrint() {
+      let routeUrl = this.$router.resolve({
+        path: "printPage",
+        query: {
+          workid: this.workid
+        }
+      });
+      window.open(routeUrl.href, '_blank');
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -239,7 +239,7 @@ export default {
           loading.close()
           clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
-          this.workName = res.data.workclass_info.title
+          this.workname = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
