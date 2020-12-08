@@ -1499,14 +1499,14 @@ export default {
             oaz01: res.data.workclass_info.from_data.oaz01, //银行
             oaz02: res.data.workclass_info.from_data.oaz02, //异动码
             oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : dateFmt(new Date()), //记账日期
-            oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
+            oaz04: 4001, //账款类型
             oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa16, //支付方式
             oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
           }
           this.financialData ={
             bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
             num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
-            oaz04_show:res.data.workclass_info.from_data.oaz04_show,//账款类型回显数据
+            oaz04_show: "固定资产请款",//账款类型回显数据
             oaz05_show: res.data.workclass_info.from_data.oaz05_show ? res.data.workclass_info.from_data.oaz05_show : res.data.workclass_info.from_data.oaa16_show , //支付方式回显数据
           }
           if (res.data.file !== null) {
