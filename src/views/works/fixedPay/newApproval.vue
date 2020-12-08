@@ -2245,12 +2245,7 @@ export default {
 
     // 生成凭证
     generate() {
-      const loading = this.$loading({
-        lock: true,
-        text: "loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = OpenLoading(this, 2)
       this.addParams.from_data = {...this.tableData,...this.oaz};
       this.addParams.workid = this.workid;
       editFlow(this.addParams).then((res) => {
