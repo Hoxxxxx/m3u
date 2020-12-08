@@ -365,7 +365,7 @@ export default {
             },
           });
         }else{
-          this.$message.error('出错了！');
+          this.$message.error('提交失败：'+res.error.message);
         }
       })
     },
