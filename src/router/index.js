@@ -221,11 +221,11 @@ const routes = [{
     name: 'fixedPay_approval',
     component: () => import('@/views/works/fixedPay/newApproval')
   },
-  // {
-  //   path: '/fixedPay/printPage',
-  //   name: 'fixedPay_printPage',
-  //   component: () => import('@/views/works/fixedPay/printPage')
-  // },
+  {
+    path: '/fixedPay/printPage',
+    name: 'fixedPay_printPage',
+    component: () => import('@/views/works/fixedPay/printPage')
+  },
   // 付款冲账申请
   {
     path: '/r0103',

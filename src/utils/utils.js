@@ -120,3 +120,29 @@ export function fomatFloat(num,n){
   }
   return s;
 }
+
+export function format(obj,head){
+        let res = [];//返回结果
+        let rows = 6;//每一行的数量
+        if(obj.length == 0){
+          return
+        }else{
+          let lines = Math.ceil(head.length/rows);//每一行rows个，计算一共需要多少行
+          for(let i = 0; i < lines; i++){
+            let tempItem = {}
+            let tempData = []
+            let tempHead = head.slice(i*rows,(i+1)*rows)
+            obj.forEach(item=>{
+              let temp = {}
+              tempHead.forEach(ele=>{
+                temp[ele] = item[ele]
+              })
+              tempData.push(temp)
+            })
+            tempItem.tHead = tempHead
+            tempItem.tData = tempData
+            res.push(tempItem)
+          }
+        }
+        return res
+      }
