@@ -2,9 +2,9 @@
 export function OpenLoading(val,type) {     // type=1：普通请求； type=2：抛转请求
   const loading = val.$loading({
     lock: true,
-    text: "Loading",
+    text: "加载中",
     spinner: "el-icon-loading",
-    background: "rgba(0, 0, 0, 0.7)",
+    background: "rgba(0, 0, 0, 0.2)",
   });
   val.overloading = setTimeout(function () {                  // 设定定时器，超时5S后自动关闭遮罩层，避免请求失败时，遮罩层一直存在的问题
     loading.close();                        // 关闭遮罩层
