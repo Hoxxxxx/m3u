@@ -1529,6 +1529,7 @@ export default {
       let sum = this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab05);
       }, 0);
+      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
       // let sums = fomatFloat(
       //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
       //   2
@@ -1537,7 +1538,7 @@ export default {
         if (this.tableData.oaa28 != this.tableData.oaa12) {
           this.$message.warning("开票金额与总金额不相等，请重新填写！");
         } else {
-          if (Number(this.tableData.oaa12) != (Number(this.tableData.oaa14) + Number(sum))) {
+          if (Number(this.tableData.oaa12) != sums) {
             this.$message.warning("总金额有错误，请重新填写！");
           } else {
             editFlow(this.addParams).then((result) => {
@@ -1550,7 +1551,7 @@ export default {
           }
         }
       } else {
-        if (Number(this.tableData.oaa12) != (Number(this.tableData.oaa14) + Number(sum))) {
+        if (Number(this.tableData.oaa12) != sums) {
           this.$message.warning("总金额有错误，请重新填写！");
         } else {
           editFlow(this.addParams).then((result) => {
@@ -1596,6 +1597,7 @@ export default {
       let sum = this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab05);
       }, 0);
+      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
       // let sums = fomatFloat(
       //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
       //   2
@@ -1604,7 +1606,7 @@ export default {
         if (this.tableData.oaa28 != this.tableData.oaa12) {
           this.$message.warning("开票金额与总金额不相等，请重新填写！");
         } else {
-          if (Number(this.tableData.oaa12) != (Number(this.tableData.oaa14) + Number(sum))) {
+          if (Number(this.tableData.oaa12) != sums) {
             this.$message.warning("总金额有错误，请重新填写！");
           } else {
             editFlow(this.addParams).then((result) => {
@@ -1627,7 +1629,7 @@ export default {
           }
         }
       } else {
-        if (Number(this.tableData.oaa12) != (Number(this.tableData.oaa14) + Number(sum))) {
+        if (Number(this.tableData.oaa12) != sums) {
           this.$message.warning("总金额有错误，请重新填写！");
         } else {
           editFlow(this.addParams).then((result) => {
