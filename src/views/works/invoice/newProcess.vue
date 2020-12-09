@@ -674,7 +674,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese,fomatFloat } from "@/utils/utils.js";
+import { dateFmt, number_chinese, fomatFloat } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {
   gensList,
@@ -870,14 +870,24 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)) * this.showData.oaa13_rate/100).toFixed(2);
+        this.tableData.oaa14 = (
+          ((Number(this.tableData.oaa12) /
+            (1 + this.showData.oaa13_rate / 100)) *
+            this.showData.oaa13_rate) /
+          100
+        ).toFixed(2);
       },
       deep: true,
     },
     // 总金额
     "tableData.oaa12": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)) * this.showData.oaa13_rate/100).toFixed(2);
+        this.tableData.oaa14 = (
+          ((Number(this.tableData.oaa12) /
+            (1 + this.showData.oaa13_rate / 100)) *
+            this.showData.oaa13_rate) /
+          100
+        ).toFixed(2);
       },
       deep: true,
     },
@@ -900,9 +910,9 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid;
-    let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
-    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
-    this.tableData.oaa03_show = oauserinfo.oaname
+    let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
+    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
+    this.tableData.oaa03_show = oauserinfo.oaname;
     // this.addParams.tplid = 8952;
     this.addRow2();
     this.addRow1();
@@ -1002,34 +1012,73 @@ export default {
         let sum = this.tableData.oab.reduce((prev, cur) => {
           return prev + Number(cur.oab05);
         }, 0);
-        let sums = fomatFloat((sum*(1 + this.showData.oaa13_rate/100).toFixed(2)),2)
-        if (Number(this.tableData.oaa12) != (sums+sum)) {
-          this.$message.warning("总金额有错误，请重新填写！");
-        } else {
-          addFlow(this.addParams).then((result) => {
-            if (result.status == 200) {
-              this.workid = result.data.workid;
-              this.tableData.oaa01 = result.data.oaa01;
-              this.tableData.oaa02 = result.data.oaa02;
-              if (type == "add") {
-                this.$message.success("保存成功！");
-              } else if (type == "next") {
-                this.$router.push({
-                  path: "/apply",
-                  query: {
-                    url_type: "invoice",
-                    workName: this.workName,
-                    workid: this.workid,
-                    workName: this.workName,
-                    oaa01: this.tableData.oaa01,
-                    oaa02: this.tableData.oaa02,
-                  },
-                });
-              }
+        // let sums = fomatFloat(
+        //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
+        //   2
+        // );
+        
+        if (this.tableData.oaa16 == 1) {
+          if (this.tableData.oaa28 != this.tableData.oaa12) {
+            this.$message.warning("开票金额与总金额不相等，请重新填写！");
+          } else {
+            if (Number(this.tableData.oaa12) != (Number(this.tableData.oaa14) + Number(sum))) {
+              this.$message.warning("总金额有错误，请重新填写！");
             } else {
-              this.$message.error("保存失败：" + result.error.message);
+              addFlow(this.addParams).then((result) => {
+                if (result.status == 200) {
+                  this.workid = result.data.workid;
+                  this.tableData.oaa01 = result.data.oaa01;
+                  this.tableData.oaa02 = result.data.oaa02;
+                  if (type == "add") {
+                    this.$message.success("保存成功！");
+                  } else if (type == "next") {
+                    this.$router.push({
+                      path: "/apply",
+                      query: {
+                        url_type: "invoice",
+                        workName: this.workName,
+                        workid: this.workid,
+                        workName: this.workName,
+                        oaa01: this.tableData.oaa01,
+                        oaa02: this.tableData.oaa02,
+                      },
+                    });
+                  }
+                } else {
+                  this.$message.error("保存失败：" + result.error.message);
+                }
+              });
             }
-          });
+          }
+        } else {
+          if (Number(this.tableData.oaa12) != (Number(this.tableData.oaa14) + Number(sum))) {
+            this.$message.warning("总金额有错误，请重新填写！");
+          } else {
+            addFlow(this.addParams).then((result) => {
+              if (result.status == 200) {
+                this.workid = result.data.workid;
+                this.tableData.oaa01 = result.data.oaa01;
+                this.tableData.oaa02 = result.data.oaa02;
+                if (type == "add") {
+                  this.$message.success("保存成功！");
+                } else if (type == "next") {
+                  this.$router.push({
+                    path: "/apply",
+                    query: {
+                      url_type: "invoice",
+                      workName: this.workName,
+                      workid: this.workid,
+                      workName: this.workName,
+                      oaa01: this.tableData.oaa01,
+                      oaa02: this.tableData.oaa02,
+                    },
+                  });
+                }
+              } else {
+                this.$message.error("保存失败：" + result.error.message);
+              }
+            });
+          }
         }
       } else {
         this.addParams.workid = this.workid;
@@ -1195,14 +1244,16 @@ export default {
           this.dataSelect.dialogTitle = "客户列表";
           break;
         case "SB":
-          let filter_SB = [{ label: "", model_key_search: "keyword" },
-          {
+          let filter_SB = [
+            { label: "", model_key_search: "keyword" },
+            {
               label: "",
               model_key_search: "gec011",
               disabled: true,
               value: "2",
               hide: true,
-            },];
+            },
+          ];
           this.dataSelect.filter = filter_SB;
           this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
@@ -1335,60 +1386,59 @@ export default {
             break;
           case "getpmcsList":
             console.log(this.oabType);
-            console.log(val)
-            if(this.oabType == 'oab11'){
+            console.log(val);
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].pmc01;
-            }else{
-              console.log(this.oabType)
+            } else {
+              console.log(this.oabType);
               this.tableData.oab[this.rowIndex].oab12 = val[0].pmc01;
             }
             break;
           case "getgensList":
-            
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].gen01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].gen01;
             }
             break;
           case "getoccsList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].occ01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].occ01;
             }
             break;
           case "getnmasList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].nma01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].nma01;
             }
             break;
           case "getgecsList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].gec01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].gec01;
             }
             break;
           case "getpjasList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].gja01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].gja01;
             }
             break;
           case "getpjbsList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].pjb02;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].pjb02;
             }
             break;
@@ -1398,16 +1448,18 @@ export default {
         }
       }
     },
-    // 
+    //
     selectObc11(val) {
       let row = this.tableData.oab[val];
       this.oabType = "oab11";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag15){
+      } else if (
+        this.tableData.oab[val].oab01 &&
+        !this.tableData.oab[val].oab01_aag15
+      ) {
         this.$message.warning("此科目无核算项一，请手动输入！");
-      } 
-      else {
+      } else {
         switch (row.oab01_aag15) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
@@ -1440,10 +1492,12 @@ export default {
       this.oabType = "obc12";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag16){
+      } else if (
+        this.tableData.oab[val].oab01 &&
+        !this.tableData.oab[val].oab01_aag16
+      ) {
         this.$message.warning("此科目无核算项二，请手动输入！");
-      } 
-      else {
+      } else {
         switch (row.oab01_aag16) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
