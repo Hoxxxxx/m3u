@@ -689,7 +689,7 @@ export default {
   components: { SelectData },
   data() {
     return {
-      workname: "发货单",
+      workname: "发票申请单",
       activeTab: "firTab",
       workid: "",
       workName: "发货单", //流程名
@@ -1086,7 +1086,8 @@ export default {
     },
     addRow2() {
       let data = {
-        oab01: "", //会计科目
+        oab01: 600101, //会计科目
+        oab01_show: "主营业务收入-内销收入[NEW]", //会计科目
         oab02: "", //项目
         oab03: "", //项目wbs
         oab04: "", //摘要

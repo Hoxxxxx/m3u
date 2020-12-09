@@ -1061,7 +1061,7 @@ export default {
     return {
       overloading: "", //加载定时器
       workid: "",
-      workname: "发货单",
+      workname: "发票申请单",
       activeTab: "firTab",
       more:"",//查看更多
       showData: {
