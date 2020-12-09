@@ -375,7 +375,7 @@ export default {
         if(res.status == 200){
           this.fixedData.members = res.data
         }else{
-          this.$message.error("获取用户列表失败：" + result.error.message);
+          this.$message.error("获取用户列表失败：" + res.error.message);
         }
       })
     },

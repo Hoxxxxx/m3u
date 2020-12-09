@@ -181,7 +181,7 @@
                   >
                   </el-table-column>
                   <el-table-column
-                    prop="oac02"
+                    prop="oac02_show"
                     label="商品名称"
                     min-width="200px"
                     align="center"
