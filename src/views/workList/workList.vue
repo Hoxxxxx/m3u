@@ -150,15 +150,15 @@ export default {
           path: "/r0102/check",
         },
         {
-          name: "发货单——申请 has",
+          name: "发票申请单——申请 has",
           path: "/invoice",
         },
         {
-          name: "发货单——审核",
+          name: "发票申请单——审核",
           path: "/invoice/approval",
         },
         {
-          name: "发货单——查看",
+          name: "发票申请单——查看",
           path: "/invoice/check",
         },
         {

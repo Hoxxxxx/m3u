@@ -250,7 +250,7 @@ export default {
             },
             {
               label: '商品名称',
-              value: 'oac02'
+              value: 'oac02_show'
             },
             {
               label: '规格',
