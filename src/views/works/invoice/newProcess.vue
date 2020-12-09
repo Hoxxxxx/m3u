@@ -1003,7 +1003,7 @@ export default {
           return prev + Number(cur.oab05);
         }, 0);
         let sums = fomatFloat((sum*(1 + this.showData.oaa13_rate/100).toFixed(2)),2)
-        if (Number(this.tableData.oaa12) != sums) {
+        if (Number(this.tableData.oaa12) != (sums+sum)) {
           this.$message.warning("总金额有错误，请重新填写！");
         } else {
           addFlow(this.addParams).then((result) => {
