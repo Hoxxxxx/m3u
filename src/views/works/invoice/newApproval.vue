@@ -4,7 +4,13 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button  v-if="more != null" type="primary" class="save" @click="seeMore()">查看更多</el-button>
+        <el-button
+          v-if="more != null"
+          type="primary"
+          class="save"
+          @click="seeMore()"
+          >查看更多</el-button
+        >
         <el-button type="primary" class="save" @click="editNewFlow()"
           >保存</el-button
         >
@@ -509,7 +515,10 @@
                     />
                   </div>
                   <div class="titlebox">地址</div>
-                  <div class="infobox selectbox last_row" :class="table_able.includes('oaa23')?'':'disabledbox'">
+                  <div
+                    class="infobox selectbox last_row"
+                    :class="table_able.includes('oaa23') ? '' : 'disabledbox'"
+                  >
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa23"
@@ -538,7 +547,10 @@
                     />
                   </div>
                   <div class="titlebox">电话</div>
-                  <div class="infobox selectbox last_row" :class="table_able.includes('oaa26')?'':'disabledbox'">
+                  <div
+                    class="infobox selectbox last_row"
+                    :class="table_able.includes('oaa26') ? '' : 'disabledbox'"
+                  >
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa26"
@@ -582,7 +594,7 @@
                   <div
                     class="infobox last_row longbox selectbox"
                     style="width: 100%"
-                    :class="table_able.includes('oaa28')?'':'disabledbox'"
+                    :class="table_able.includes('oaa28') ? '' : 'disabledbox'"
                   >
                     <input
                       class="abstracInput"
@@ -798,7 +810,7 @@
                   <div
                     class="infobox last_row middlebox selectbox"
                     style="width: 100%"
-                    :class="table_able.includes('oaa32')?'':'disabledbox'"
+                    :class="table_able.includes('oaa32') ? '' : 'disabledbox'"
                   >
                     <el-date-picker
                       v-model="tableData.oaa32"
@@ -845,7 +857,7 @@
                   <div
                     class="infobox last_row middlebox selectbox"
                     style="width: 100%"
-                    :class="table_able.includes('oaa34')?'':'disabledbox'"
+                    :class="table_able.includes('oaa34') ? '' : 'disabledbox'"
                   >
                     <el-date-picker
                       v-model="tableData.oaa34"
@@ -882,7 +894,7 @@
                   <div
                     class="infobox last_row middlebox selectbox"
                     style="width: 100%"
-                    :class="table_able.includes('oaa36')?'':'disabledbox'"
+                    :class="table_able.includes('oaa36') ? '' : 'disabledbox'"
                   >
                     <input
                       class="abstracInput"
@@ -894,8 +906,10 @@
                 </div>
               </div>
               <!-- 财务信息 -->
-              <div v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1">
-                <div class="title_line" >
+              <div
+                v-if="workclass_personnel.perid.flownum == 3 && oazShow == 1"
+              >
+                <div class="title_line">
                   财务信息
                   <el-button
                     type="primary"
@@ -907,7 +921,7 @@
                 </div>
                 <div class="form_line last_line">
                   <div class="titlebox">记账日期</div>
-                  <div class="infobox middlebox datebox ">
+                  <div class="infobox middlebox datebox">
                     <el-date-picker
                       v-model="oaz.oaz03"
                       type="date"
@@ -1045,7 +1059,12 @@ import {
   editFlow,
   addFlow,
 } from "@/api/process_new.js";
-import { number_chinese, dateFmt, OpenLoading,fomatFloat } from "@/utils/utils.js";
+import {
+  number_chinese,
+  dateFmt,
+  OpenLoading,
+  fomatFloat,
+} from "@/utils/utils.js";
 import {
   gensList,
   azisList,
@@ -1063,7 +1082,7 @@ export default {
       workid: "",
       workname: "发票申请单",
       activeTab: "firTab",
-      more:"",//查看更多
+      more: "", //查看更多
       showData: {
         oaa04_show: "", //申请人
         expenseMoneyF: "", //报销金额大写
@@ -1302,8 +1321,8 @@ export default {
       // console.log(this.activeTab);
     },
     // 查看更多
-    seeMore(){
-      window.open(this.more, '_blank');
+    seeMore() {
+      window.open(this.more, "_blank");
     },
     // ***********获取流程信息************
     getworkflows() {
@@ -1321,8 +1340,9 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able;
           this.oazShow = res.data.workclass_flow.erp_turn;
-          this.more = res.data.workclass_info.more
-          this.showData.oaa13_rate = res.data.workclass_info.from_data.oaa13_show
+          this.more = res.data.workclass_info.more;
+          this.showData.oaa13_rate =
+            res.data.workclass_info.from_data.oaa13_show;
           this.oaz = {
             // oaz01: res.data.workclass_info.from_data.oaz01, //银行
             // oaz02: res.data.workclass_info.from_data.oaz02, //异动码
@@ -1497,17 +1517,39 @@ export default {
       let sum = this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab05);
       }, 0);
-      let sums = fomatFloat((sum*(1 + this.showData.oaa13_rate/100).toFixed(2)),2)
-      if (Number(this.tableData.oaa12) != (sums+sum)) {
-        this.$message.warning("总金额有错误，请重新填写！");
-      } else {
-        editFlow(this.addParams).then((result) => {
-          if (result.status == 200) {
-            this.$message.success("编辑成功！");
+      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
+      // let sums = fomatFloat(
+      //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
+      //   2
+      // );
+      if (this.tableData.oaa16 == 1) {
+        if (this.tableData.oaa28 != this.tableData.oaa12) {
+          this.$message.warning("开票金额与总金额不相等，请重新填写！");
+        } else {
+          if (Number(this.tableData.oaa12) != sums) {
+            this.$message.warning("总金额有错误，请重新填写！");
           } else {
-            this.$message.error("编辑失败：" + result.error.message);
+            editFlow(this.addParams).then((result) => {
+              if (result.status == 200) {
+                this.$message.success("编辑成功！");
+              } else {
+                this.$message.error("编辑失败：" + result.error.message);
+              }
+            });
           }
-        });
+        }
+      } else {
+        if (Number(this.tableData.oaa12) != sums) {
+          this.$message.warning("总金额有错误，请重新填写！");
+        } else {
+          editFlow(this.addParams).then((result) => {
+            if (result.status == 200) {
+              this.$message.success("编辑成功！");
+            } else {
+              this.$message.error("编辑失败：" + result.error.message);
+            }
+          });
+        }
       }
     },
     // 下一步
@@ -1543,27 +1585,59 @@ export default {
       let sum = this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab05);
       }, 0);
-      let sums = fomatFloat((sum*(1 + this.showData.oaa13_rate/100).toFixed(2)),2)
-      if (Number(this.tableData.oaa12) != (sums+sum)) {
-        this.$message.warning("总金额有错误，请重新填写！");
-      } else {
-        editFlow(this.addParams).then((result) => {
-          if (result.status == 200) {
-            this.$message.success("编辑成功！");
-            this.$router.push({
-              path: url,
-              query: {
-                url_type: "invoice",
-                workid: this.workid,
-                workName: this.workName,
-                oaa01: this.tableData.oaa01,
-                oaa02: this.tableData.oaa02,
-              },
-            });
+      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
+      // let sums = fomatFloat(
+      //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
+      //   2
+      // );
+      if (this.tableData.oaa16 == 1) {
+        if (this.tableData.oaa28 != this.tableData.oaa12) {
+          this.$message.warning("开票金额与总金额不相等，请重新填写！");
+        } else {
+          if (Number(this.tableData.oaa12) != sums) {
+            this.$message.warning("总金额有错误，请重新填写！");
           } else {
-            this.$message.error("编辑失败：" + result.error.message);
+            editFlow(this.addParams).then((result) => {
+              if (result.status == 200) {
+                this.$message.success("编辑成功！");
+                this.$router.push({
+                  path: url,
+                  query: {
+                    url_type: "invoice",
+                    workid: this.workid,
+                    workName: this.workName,
+                    oaa01: this.tableData.oaa01,
+                    oaa02: this.tableData.oaa02,
+                  },
+                });
+              } else {
+                this.$message.error("编辑失败：" + result.error.message);
+              }
+            });
           }
-        });
+        }
+      } else {
+        if (Number(this.tableData.oaa12) != sums) {
+          this.$message.warning("总金额有错误，请重新填写！");
+        } else {
+          editFlow(this.addParams).then((result) => {
+            if (result.status == 200) {
+              this.$message.success("编辑成功！");
+              this.$router.push({
+                path: url,
+                query: {
+                  url_type: "invoice",
+                  workid: this.workid,
+                  workName: this.workName,
+                  oaa01: this.tableData.oaa01,
+                  oaa02: this.tableData.oaa02,
+                },
+              });
+            } else {
+              this.$message.error("编辑失败：" + result.error.message);
+            }
+          });
+        }
       }
     },
     // *******************************************
@@ -1736,14 +1810,16 @@ export default {
           this.dataSelect.dialogTitle = "客户列表";
           break;
         case "SB":
-          let filter_SB = [{ label: "", model_key_search: "keyword" },
-          {
+          let filter_SB = [
+            { label: "", model_key_search: "keyword" },
+            {
               label: "",
               model_key_search: "gec011",
               disabled: true,
               value: "2",
               hide: true,
-            },];
+            },
+          ];
           this.dataSelect.filter = filter_SB;
           this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
@@ -1876,60 +1952,59 @@ export default {
             break;
           case "getpmcsList":
             console.log(this.oabType);
-            console.log(val)
-            if(this.oabType == 'oab11'){
+            console.log(val);
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].pmc01;
-            }else{
-              console.log(this.oabType)
+            } else {
+              console.log(this.oabType);
               this.tableData.oab[this.rowIndex].oab12 = val[0].pmc01;
             }
             break;
           case "getgensList":
-            
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].gen01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].gen01;
             }
             break;
           case "getoccsList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].occ01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].occ01;
             }
             break;
           case "getnmasList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].nma01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].nma01;
             }
             break;
           case "getgecsList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].gec01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].gec01;
             }
             break;
           case "getpjasList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].gja01;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].gja01;
             }
             break;
           case "getpjbsList":
             console.log(this.oabType);
-            if(this.oabType == 'oab11'){
+            if (this.oabType == "oab11") {
               this.tableData.oab[this.rowIndex].oab11 = val[0].pjb02;
-            }else{
+            } else {
               this.tableData.oab[this.rowIndex].oab12 = val[0].pjb02;
             }
             break;
@@ -1939,16 +2014,18 @@ export default {
         }
       }
     },
-    // 
+    //
     selectObc11(val) {
       let row = this.tableData.oab[val];
       this.oabType = "oab11";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag15){
+      } else if (
+        this.tableData.oab[val].oab01 &&
+        !this.tableData.oab[val].oab01_aag15
+      ) {
         this.$message.warning("此科目无核算项一，请手动输入！");
-      } 
-      else {
+      } else {
         switch (row.oab01_aag15) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
@@ -1981,10 +2058,12 @@ export default {
       this.oabType = "obc12";
       if (!this.tableData.oab[val].oab01) {
         this.$message.warning("请先选择会计科目！");
-      } else if(this.tableData.oab[val].oab01 && !this.tableData.oab[val].oab01_aag16){
+      } else if (
+        this.tableData.oab[val].oab01 &&
+        !this.tableData.oab[val].oab01_aag16
+      ) {
         this.$message.warning("此科目无核算项二，请手动输入！");
-      } 
-      else {
+      } else {
         switch (row.oab01_aag16) {
           case "003" || "N01":
             this.selectDialog("getpmcsList", val);
