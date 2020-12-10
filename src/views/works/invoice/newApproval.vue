@@ -66,7 +66,7 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
                 </div>
-                <div class="titlebox">联系电话</div>
+                <div class="titlebox"><span class="redPot">联系电话</span></div>
                 <div
                   class="infobox selectbox middlebox last_row"
                   v-if="!table_able.includes('oaa05')"
@@ -85,7 +85,7 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">申请人</div>
+                <div class="titlebox"><span class="redPot">申请人</span></div>
                 <div
                   class="infobox selectbox"
                   v-if="!table_able.includes('oaa04')"
@@ -111,7 +111,7 @@
               <div class="title_line">发货信息</div>
               <!-- 1 -->
               <div class="form_line">
-                <div class="titlebox">客户名称</div>
+                <div class="titlebox"><span class="redPot">客户名称</span></div>
                 <div
                   class="infobox selectbox middlebox editNot"
                   v-if="!table_able.includes('oaa11')"
@@ -126,7 +126,7 @@
                     {{ tableData.oaa11_show }}
                   </div>
                 </div>
-                <div class="titlebox">总金额</div>
+                <div class="titlebox"><span class="redPot">总金额</span></div>
                 <div
                   class="infobox middlebox editNot"
                   v-if="!table_able.includes('oaa12')"
@@ -145,7 +145,7 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">税别</div>
+                <div class="titlebox"><span class="redPot">税别</span></div>
                 <div
                   class="infobox selectbox middlebox editNot"
                   v-if="!table_able.includes('oaa13')"
@@ -160,7 +160,7 @@
                     {{ tableData.oaa13 }}
                   </div>
                 </div>
-                <div class="titlebox">税额</div>
+                <div class="titlebox"><span class="redPot">税额</span></div>
                 <div
                   class="infobox last_row middlebox editNot"
                   v-if="!table_able.includes('oaa14')"
@@ -175,7 +175,7 @@
                 </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">备注</div>
+                <div class="titlebox"><span class="redPot">备注</span></div>
                 <div
                   class="infobox last_row longbox areabox"
                   style="width: 100%"
@@ -206,49 +206,49 @@
                 >
                   <el-table-column
                     prop="oab01_show"
-                    label="会计科目"
+                    label="* 会计科目"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab02_show"
-                    label="项目"
+                    label="* 项目"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab03_show"
-                    label="项目WBS"
+                    label="* 项目WBS"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab04"
-                    label="摘要"
+                    label="* 摘要"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab05"
-                    label="金额"
+                    label="* 金额"
                     min-width="180px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab06"
-                    label="数量"
+                    label="* 数量"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab07"
-                    label="单价"
+                    label="* 单价"
                     min-width="150px"
                     align="center"
                   >
@@ -269,7 +269,7 @@
                   </el-table-column>
                 </el-table>
                 <div class="form_line last_line">
-                  <div class="titlebox">是否开票</div>
+                  <div class="titlebox"><span class="redPot">是否开票</span></div>
                   <div class="infobox longbox">
                     <el-radio-group
                       class="radioGroup"
@@ -474,7 +474,7 @@
                   </el-table-column>
                 </el-table>
                 <div class="form_line last_line">
-                  <div class="titlebox">是否开票</div>
+                  <div class="titlebox"><span class="redPot">是否开票</span></div>
                   <div class="infobox longbox">
                     <el-radio-group
                       class="radioGroup"
@@ -490,7 +490,7 @@
               <div v-if="tableData.oaa16 == 1">
                 <div class="title_line">开票信息</div>
                 <div class="form_line">
-                  <div class="titlebox">名称</div>
+                  <div class="titlebox"><span class="redPot">名称</span></div>
                   <div class="infobox selectbox" :class="table_able.includes('oaa21')?'':'disabledbox'">
                     <input
                       class="abstracInput"
@@ -499,7 +499,7 @@
                       :disabled="table_able.includes('oaa21') ? false : true"
                     />
                   </div>
-                  <div class="titlebox">纳税人识别号</div>
+                  <div class="titlebox"><span class="redPot">纳税人识别号</span></div>
                   <div class="infobox selectbox" :class="table_able.includes('oaa22')?'':'disabledbox'">
                     <input
                       class="abstracInput"
@@ -519,7 +519,7 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox">银行账号</div>
+                  <div class="titlebox"><span class="redPot">银行账号</span></div>
                   <div class="infobox selectbox" :class="table_able.includes('oaa24')?'':'disabledbox'">
                     <input
                       class="abstracInput"
@@ -528,7 +528,7 @@
                       :disabled="table_able.includes('oaa24') ? false : true"
                     />
                   </div>
-                  <div class="titlebox">开户行</div>
+                  <div class="titlebox"><span class="redPot">开户行</span></div>
                   <div class="infobox selectbox" :class="table_able.includes('oaa25')?'':'disabledbox'">
                     <input
                       class="abstracInput"
@@ -548,7 +548,7 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox">开票种类</div>
+                  <div class="titlebox"><span class="redPot">开票种类</span></div>
                   <div class="infobox longbox selectbox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -578,7 +578,7 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox">开票金额</div>
+                  <div class="titlebox"><span class="redPot">开票金额</span></div>
                   <div
                     class="infobox last_row longbox selectbox"
                     style="width: 100%"
@@ -605,42 +605,42 @@
                 >
                   <el-table-column
                     prop="oac01"
-                    label="序号"
+                    label="* 序号"
                     min-width="130px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac02_show"
-                    label="商品名称"
+                    label="* 商品名称"
                     min-width="200px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac03"
-                    label="规格"
+                    label="* 规格"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac04"
-                    label="数量"
+                    label="* 数量"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac05"
-                    label="含税单价"
+                    label="* 含税单价"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac06"
-                    label="金额"
+                    label="* 金额"
                     min-width="150px"
                     align="center"
                   >
@@ -683,7 +683,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac01"
-                    label="序号"
+                    label="* 序号"
                     min-width="130px"
                     align="center"
                   >
@@ -698,7 +698,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac02_show"
-                    label="商品名称"
+                    label="* 商品名称"
                     min-width="200px"
                     align="center"
                   >
@@ -715,7 +715,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac03"
-                    label="规格"
+                    label="* 规格"
                     min-width="150px"
                     align="center"
                   >
@@ -730,7 +730,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac04"
-                    label="数量"
+                    label="* 数量"
                     min-width="150px"
                     align="center"
                   >
@@ -745,7 +745,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac05"
-                    label="含税单价"
+                    label="* 含税单价"
                     min-width="150px"
                     align="center"
                   >
@@ -760,7 +760,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac06"
-                    label="金额"
+                    label="* 金额"
                     min-width="150px"
                     align="center"
                   >
@@ -776,7 +776,7 @@
                   </el-table-column>
                 </el-table>
                 <div class="form_line">
-                  <div class="titlebox">货款回收情况</div>
+                  <div class="titlebox"><span class="redPot">货款回收情况</span></div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -813,7 +813,7 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox">回款方式</div>
+                  <div class="titlebox"><span class="redPot">回款方式</span></div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -860,7 +860,7 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox">是否签订合同</div>
+                  <div class="titlebox"><span class="redPot">是否签订合同</span></div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
