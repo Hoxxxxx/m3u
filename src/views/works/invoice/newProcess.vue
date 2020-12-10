@@ -1146,6 +1146,10 @@ export default {
         oab07: "", //单价
         oab11: "", //核算项1
         oab12: "", //核算项2
+        oab01_aag15 : 'N23',
+        oab01_aag151: '3',
+        oab01_aag16 :'N24',
+        oab01_aag161: '3',
       };
       this.tableData.oab.push(data);
     },
