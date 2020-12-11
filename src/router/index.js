@@ -72,6 +72,12 @@ const routes = [{
     name: 'check',
     component: check
   },
+  // 通用搭建
+  {
+    path: '/usual',
+    name: 'usual',
+    component: () => import('@/views/usualPage/usual')
+  },
   // 出差借款申请
   {
     path: '/borrowTra',

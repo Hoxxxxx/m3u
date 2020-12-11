@@ -30,6 +30,10 @@ export default {
     return {
       workList: [
         {
+          name: "通用表单搭建",
+          path: "/usual",
+        },
+        {
           name: "外地差旅报销单——申请",
           path: "/travel",
         },
