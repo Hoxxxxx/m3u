@@ -142,4 +142,12 @@ export const usersList = (params) => {
     params
   })
 }
+// 合同类型列表
+export const htList = (params) => {
+  return request.get('oa/contracttypes',
+  {},
+  {
+    params
+  })
+}
 

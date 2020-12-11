@@ -173,6 +173,18 @@ export default {
           name: "开票申请——查看",
           path: "/invoiceApply/check",
         },
+        {
+          name: "合同审批——申请",
+          path: "/contract",
+        },
+        {
+          name: "合同审批——审核",
+          path: "/contract/approval",
+        },
+        {
+          name: "合同审批——查看",
+          path: "/contract/check",
+        },
       ]
     };
   },

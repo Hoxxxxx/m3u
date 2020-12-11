@@ -334,6 +334,27 @@ const routes = [{
     name: 'invoiceApply_printPage',
     component: () => import('@/views/works/invoiceApply/printPage')
   },
+  // 合同审批
+  {
+    path: '/contract',
+    name: 'contract',
+    component: () => import('@/views/works/contract/newProcess')
+  },
+  {
+    path: '/contract/check',
+    name: 'contract_check',
+    component: () => import('@/views/works/contract/check')
+  },
+  {
+    path: '/contract/approval',
+    name: 'contract_approval',
+    component: () => import('@/views/works/contract/newApproval')
+  },
+  {
+    path: '/contract/printPage',
+    name: 'contract_printPage',
+    component: () => import('@/views/works/contract/printPage')
+  },
 
 ]
 
