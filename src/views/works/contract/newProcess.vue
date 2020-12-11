@@ -364,7 +364,7 @@ export default {
     this.tableData.oaa04 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
     this.showData.oaa04_show = oauserinfo.oaname;
     this.getHT();
-    this.addParams.tplid = 8954;
+    // this.addParams.tplid = 8954;
   },
   methods: {
     handleClick() {
