@@ -66,7 +66,7 @@
                 </div>
               </div>
               <!-- 合同信息 -->
-              <div class="title_line">借款信息</div>
+              <div class="title_line">合同信息</div>
               <div class="form_line">
                 <div class="titlebox">合同编号</div>
                 <div class="infobox selectbox">
@@ -697,7 +697,7 @@ export default {
     position: absolute;
     height: 40px;
     width: 1px;
-    left: 277px;
+    left: 278px;
     background: #cccccc;
   }
 }

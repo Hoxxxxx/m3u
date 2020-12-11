@@ -133,8 +133,8 @@
                   />
                 </div>
               </div>
-              <!-- 借款信息 -->
-              <div class="title_line">借款信息</div>
+              <!-- 合同信息 -->
+              <div class="title_line">合同信息</div>
               <div class="form_line">
                 <div class="titlebox">合同编号</div>
                 <div class="infobox selectbox editNot">
@@ -210,7 +210,6 @@
                   >
                     {{ showData.oaa14_show }}
                   </div>
-                  
                 </div>
               </div>
               <div class="form_line">
@@ -219,7 +218,7 @@
                   class="infobox selectbox"
                   v-if="!table_able.includes('oaa15')"
                 >
-                  {{tableData.oaa15_show}}
+                  {{ tableData.oaa15_show }}
                 </div>
                 <div
                   class="infobox selectbox"
@@ -270,15 +269,30 @@
                 <div class="titlebox required">
                   <span class="redPot">合同文件</span>
                 </div>
-                <div class="infobox longbox selectbox" style="padding:10px 20px;">
+                <div
+                  class="infobox longbox selectbox"
+                  style="padding: 10px 20px"
+                >
                   <!-- 已有文件部分 -->
                   <div class="saveList">
-                    <div class="saveItem" v-for="(item,index) in fileList_down" :key="index">
+                    <div
+                      class="saveItem"
+                      v-for="(item, index) in fileList_down"
+                      :key="index"
+                    >
                       <i class="el-icon-document" style="margin-right: 7px"></i>
-                      <a style="cursor: pointer;" @click="download(item.id, item.name)"><span>{{item.name}}</span></a>
-                      <div class="btnBox">
+                      <a
+                        style="cursor: pointer"
+                        @click="download(item.id, item.name)"
+                        ><span>{{ item.name }}</span></a
+                      >
+                      <div class="">
                         <!-- <el-button type="text">预览</el-button> -->
-                        <el-button type="text" @click="download(item.id, item.name)">下载</el-button>
+                        <el-button
+                          type="text"
+                          @click="download(item.id, item.name)"
+                          >下载</el-button
+                        >
                       </div>
                     </div>
                   </div>
@@ -302,10 +316,16 @@
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">备注</div>
-                <div class="infobox longbox selectbox" v-if="!table_able.includes('oaa20')">
-                  {{tableData.oaa20}}
+                <div
+                  class="infobox longbox selectbox"
+                  v-if="!table_able.includes('oaa20')"
+                >
+                  {{ tableData.oaa20 }}
                 </div>
-                <div class="infobox longbox selectbox" v-if="table_able.includes('oaa20')">
+                <div
+                  class="infobox longbox selectbox"
+                  v-if="table_able.includes('oaa20')"
+                >
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa20"
@@ -419,7 +439,7 @@ import {
   addFlow,
 } from "@/api/process_new.js";
 import { htList } from "@/api/basic";
-import {  OpenLoading } from "@/utils/utils.js";
+import { OpenLoading } from "@/utils/utils.js";
 
 export default {
   components: { SelectData },
@@ -437,7 +457,7 @@ export default {
         oaa04_gen04: "", //部门编号
         oaa03_show: "", //经办人
         oaa06_show: "", //部门
-        oaa14_show:"",
+        oaa14_show: "",
       },
       table_able: [], //表格可编辑项
       fixedData: {
@@ -446,9 +466,9 @@ export default {
       },
       fileList_user: [],
       fileList: [],
-      file_HT:[],
-      fileList_sec: [],//附件文件
-      fileList_down:[],//合同文件下载
+      file_HT: [],
+      fileList_sec: [], //附件文件
+      fileList_down: [], //合同文件下载
       addParams: {
         from_data: {},
         annexurlid: [],
@@ -490,7 +510,7 @@ export default {
         ],
         head_BM: [
           { name: "name", title: "部门名称" },
-          { name: "id", title: "ID" }
+          { name: "id", title: "ID" },
         ],
         head_GYS: [
           { name: "pmc01", title: "供应厂商编号" },
@@ -509,7 +529,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    this.workid = 4772
+    this.workid = 4775;
     this.getworkflows();
     this.getHT();
   },
@@ -629,11 +649,11 @@ export default {
         filename: response.data.filename,
         fileaddr: response.data.path,
       });
-      let temp = []
-      this.file_HT.forEach(item=>{
-        temp.push(item.id)
-      })
-      this.tableData.oaa19 = temp.join(',')
+      let temp = [];
+      this.file_HT.forEach((item) => {
+        temp.push(item.id);
+      });
+      this.tableData.oaa19 = temp.join(",");
     },
     // 移除上传项
     handleRemove(file, fileList) {
@@ -642,11 +662,11 @@ export default {
           this.file_HT.splice(index, 1);
         }
       });
-      let temp = []
-      this.file_HT.forEach(item=>{
-        temp.push(item.id)
-      })
-      this.tableData.oaa19 = temp.join(',')
+      let temp = [];
+      this.file_HT.forEach((item) => {
+        temp.push(item.id);
+      });
+      this.tableData.oaa19 = temp.join(",");
     },
     handlePreview(file) {
       // console.log(file);
@@ -666,11 +686,17 @@ export default {
     // 限制格式
     beforeAvatarUpload_sec(file) {
       const isDoc = file.type === "application/msword";
-      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+      const isDocx =
+        file.type ===
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
       const isXls = file.type === "application/vnd.ms-excel";
-      const isXlsx = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      const isXlsx =
+        file.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
       const isPPT = file.type === "application/vnd.ms-powerpoint";
-      const isPPTX = file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+      const isPPTX =
+        file.type ===
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation";
       const isPDF = file.type === "application/pdf";
       const isTXT = file.type === "text/plain";
       const isPNG = file.type === "image/png";
@@ -678,11 +704,27 @@ export default {
       const isJPEG = file.type === "image/jpeg";
       const isZIP = file.type === "application/zip";
       const isRAR = file.type === "application/x-rar";
-      const isNull = file.type === '';
+      const isNull = file.type === "";
       const isLt200M = file.size / 1024 / 1024 < 200;
 
-      if (!isDoc && !isDocx && !isXls && !isXlsx && !isPPT && !isPPTX && !isPDF && !isTXT && !isPNG && !isJPG && !isJPEG && !isZIP && !isRAR ) {
-        this.$message.warning("上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!");
+      if (
+        !isDoc &&
+        !isDocx &&
+        !isXls &&
+        !isXlsx &&
+        !isPPT &&
+        !isPPTX &&
+        !isPDF &&
+        !isTXT &&
+        !isPNG &&
+        !isJPG &&
+        !isJPEG &&
+        !isZIP &&
+        !isRAR
+      ) {
+        this.$message.warning(
+          "上传文件仅限 doc / docx / xls / xlsx / ppt / pptx / pdf / txt / png / jpg / jpeg / zip / rar 格式!"
+        );
         return false;
       }
       if (!isLt200M) {
@@ -695,25 +737,29 @@ export default {
       this.addParams.annexurlid.push({
         id: response.data.id,
         filename: response.data.filename,
-        fileaddr: response.data.path
-      })
+        fileaddr: response.data.path,
+      });
     },
     // 移除上传项
     handleRemove_sec(file, fileList) {
-      this.addParams.annexurlid.forEach( (item, index) => {
+      this.addParams.annexurlid.forEach((item, index) => {
         if (item.filename == file.name) {
-          this.addParams.annexurlid.splice( index, 1 )
+          this.addParams.annexurlid.splice(index, 1);
         }
-      })
+      });
     },
     handlePreview_sec(file) {
       console.log(file);
     },
     handleExceed_sec(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files_sec.length} 个文件，共选择了 ${files_sec.length + fileList_sec.length} 个文件`);
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${
+          files_sec.length
+        } 个文件，共选择了 ${files_sec.length + fileList_sec.length} 个文件`
+      );
     },
     beforeRemove_sec(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
     // 下载文件流
     async download(id, filename) {
@@ -786,7 +832,7 @@ export default {
         this.oazShow == 1 &&
         this.workclass_personnel.perid.flownum == 3
       ) {
-          this.nextFuns(url);
+        this.nextFuns(url);
       } else {
         this.nextFuns(url);
       }
@@ -860,8 +906,8 @@ export default {
         case "GYS":
           let filter_GYS = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_GYS;
-          this.dataSelect.searchType = "single"
-          this.dataSelect.editType = "entry"
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
           this.dataSelect.searchApi = "meta/pmcs";
           this.dataSelect.headList = this.tableHead.head_GYS;
           this.dataSelect.dialogTitle = "供应商列表";
@@ -908,11 +954,11 @@ export default {
           case "GYS":
             this.tableData.oaa14 = val[0].pmc01;
             this.showData.oaa14_show = val[0].pmc03;
-            break
+            break;
           case "KH":
             this.tableData.oaa14 = val[0].occ01;
             this.showData.oaa14_show = val[0].occ02;
-            break
+            break;
           default:
             return;
             break;
@@ -920,15 +966,15 @@ export default {
       }
     },
     // 签约方
-    selectType(){
-      let type = this.tableData.oaa13
-      if(!type ){
-        this.$message.warning('请先选择签约方类型！')
-      }else{
-        let selectType = type == 1 ? 'GYS' : 'KH'
-        this.selectDialog(selectType)
+    selectType() {
+      let type = this.tableData.oaa13;
+      if (!type) {
+        this.$message.warning("请先选择签约方类型！");
+      } else {
+        let selectType = type == 1 ? "GYS" : "KH";
+        this.selectDialog(selectType);
       }
-    }
+    },
   },
 };
 </script>
@@ -941,12 +987,21 @@ export default {
     position: absolute;
     height: 40px;
     width: 1px;
-    left: 277px;
+    left: 278px;
     background: #cccccc;
   }
 }
-.saveItem{
-  display: flex;
-  align-items: center;
+.saveList {
+  color: #606266;
+  .saveItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 25px;
+    line-height: 25px;
+    div{
+      margin-left: 10px;
+    }
+  }
 }
 </style>
