@@ -255,7 +255,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab11"
-                    label="核算项一"
+                    label="* 核算项一"
                     min-width="180px"
                     align="center"
                   >
@@ -277,7 +277,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab12"
-                    label="核算项二"
+                    label="* 核算项二"
                     min-width="180px"
                     align="center"
                   >
