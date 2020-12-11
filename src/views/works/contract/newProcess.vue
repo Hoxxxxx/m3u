@@ -49,10 +49,8 @@
                   </div>
                 </div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox selectbox last_row">
-                  <div class="selector" @click="selectDialog('BM')">
+                <div class="infobox  last_row">
                     {{ showData.oaa06_show }}
-                  </div>
                 </div>
               </div>
               <div class="form_line lastline">
@@ -72,7 +70,9 @@
                 <div class="infobox selectbox">
                   {{ tableData.oaa16 }}
                 </div>
-                <div class="titlebox">合同名称</div>
+                <div class="titlebox required">
+                  <span class="redPot">合同名称</span>
+                </div>
                 <div class="infobox selectbox">
                   <input
                     class="abstracInput"
@@ -80,7 +80,9 @@
                     placeholder="请输入合同名称"
                   />
                 </div>
-                <div class="titlebox">合同金额</div>
+                <div class="titlebox required">
+                  <span class="redPot">合同金额</span>
+                </div>
                 <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -652,6 +654,8 @@ export default {
             this.showData.oaa04_show = val[0].gen02;
             this.showData.oaa04_gen01 = val[0].gen01;
             this.showData.oaa04_gen04 = val[0].gen04;
+            this.tableData.oaa06 = val[0].gen03;
+            this.showData.oaa06_show = val[0].gen04;
             break;
           case "JBR":
             this.tableData.oaa03 = val[0].gen01;

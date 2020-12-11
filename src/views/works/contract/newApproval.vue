@@ -101,17 +101,8 @@
                 <div class="titlebox">所属部门</div>
                 <div
                   class="infobox selectbox editNot last_row"
-                  v-if="!table_able.includes('oaa06')"
                 >
-                  {{ tableData.oaa06_show }}
-                </div>
-                <div
-                  class="infobox selectbox last_row"
-                  v-if="table_able.includes('oaa06')"
-                >
-                  <div class="selector" @click="selectDialog('BM')">
-                    {{ showData.oaa06_show }}
-                  </div>
+                  {{ showData.oaa06_show }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -140,7 +131,9 @@
                 <div class="infobox selectbox editNot">
                   {{ tableData.oaa16 }}
                 </div>
-                <div class="titlebox">合同名称</div>
+                <div class="titlebox required">
+                  <span class="redPot">合同名称</span>
+                </div>
                 <div
                   class="infobox selectbox editNot"
                   v-if="!table_able.includes('oaa11')"
@@ -157,7 +150,9 @@
                     placeholder="请输入合同名称"
                   />
                 </div>
-                <div class="titlebox">合同金额</div>
+                <div class="titlebox required">
+                  <span class="redPot">合同金额</span>
+                </div>
                 <div
                   class="infobox selectbox last_row editNot"
                   v-if="!table_able.includes('oaa12')"
@@ -942,6 +937,8 @@ export default {
             this.showData.oaa04_show = val[0].gen02;
             this.showData.oaa04_gen01 = val[0].gen01;
             this.showData.oaa04_gen04 = val[0].gen04;
+            this.tableData.oaa06 = val[0].gen03;
+            this.showData.oaa06_show = val[0].gen04;
             break;
           case "JBR":
             this.tableData.oaa03 = val[0].gen01;
