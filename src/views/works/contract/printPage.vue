@@ -19,99 +19,48 @@
           <div class="title_line">基本信息</div>
           <div class="form_line">
             <div class="titlebox">经办人</div>
-            <div class="infobox middlebox">{{ tableData.oaa03_show }}</div>
-            <div class="titlebox">联系电话</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa05 }}</div>
-          </div>
-          <div class="form_line">
+            <div class="infobox">{{ tableData.oaa03_show }}</div>
             <div class="titlebox">申请人</div>
             <div class="infobox">{{ tableData.oaa04_show }}</div>
-            <div class="titlebox">员工编号</div>
-            <div class="infobox">{{ tableData.oaa04 }}</div>
             <div class="titlebox">所属部门</div>
             <div class="infobox last_row">{{ tableData.oaa04_gen04 }}</div>
           </div>
-          <!-- 借款信息 -->
-          <div class="title_line">借款信息</div>
           <div class="form_line">
-            <div class="titlebox">项目</div>
-            <div class="infobox middlebox">{{ tableData.oaa14_show }}</div>
-            <div class="titlebox">项目WBS</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa15_show }}</div>
+            <div class="titlebox">联系电话</div>
+            <div class="infobox longbox">{{ tableData.oaa05 }}</div>
           </div>
+          <!-- 借款信息 -->
+          <div class="title_line">合同信息</div>
           <div class="form_line">
-            <div class="titlebox">币种</div>
+            <div class="titlebox">合同编号</div>
             <div class="infobox">{{ tableData.oaa06_show }}</div>
-            <div class="titlebox">借款金额</div>
+            <div class="titlebox">合同名称</div>
             <div class="infobox">{{ tableData.oaa07 }}</div>
-            <div class="titlebox">汇率</div>
+            <div class="titlebox">合同金额</div>
             <div class="infobox last_row">{{ tableData.oaa08 }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">收款人</div>
-            <div class="infobox">{{ tableData.oaa09 }}</div>
-            <div class="titlebox">账号</div>
-            <div class="infobox">{{ tableData.oaa10 }}</div>
-            <div class="titlebox">开户行</div>
-            <div class="infobox last_row">{{ tableData.oaa11 }}</div>
+            <div class="titlebox">签约方</div>
+            <div class="infobox">{{ tableData.oaa14_show }}</div>
+            <div class="infobox last_row">{{ tableData.oaa15_show }}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">支付方式</div>
+            <div class="titlebox">合同类型</div>
+            <div class="infobox">{{ tableData.oaa06_show }}</div>
+            <div class="titlebox">合同开始日期</div>
+            <div class="infobox">{{ tableData.oaa07 }}</div>
+            <div class="titlebox">合同结束日期</div>
+            <div class="infobox last_row">{{ tableData.oaa08 }}</div>
+          </div>
+          <div class="form_line">
+            <div class="titlebox">合同文件</div>
             <div class="infobox longbox">{{tableData.oaa12_show}}</div>
           </div>
           <div class="form_line">
-            <div class="titlebox">折合汇率金额</div>
-            <div class="infobox middlebox">{{ exchange }}</div>
-            <div class="titlebox">折合汇率金额大写</div>
-            <div class="infobox middlebox last_row">{{ exchange_Cap }}</div>
-          </div>
-          <div class="form_line">
-            <div class="titlebox">出差单</div>
-            <div class="infobox longbox">{{tableData.oaa17_show}}</div>
-          </div>
-          <div class="form_line">
-            <div class="titlebox">借款事由</div>
-            <div class="infobox longbox">{{tableData.oaa13}}</div>
+            <div class="titlebox">备注</div>
+            <div class="infobox longbox">{{tableData.oaa12_show}}</div>
           </div>
 
-          <!-- 财务信息 -->
-          <div v-if="oazShow == 1">
-            <div class="title_line">
-              财务信息
-            </div>
-            <div class="form_line">
-              <div class="titlebox">银行</div>
-              <div class="infobox selectbox editNot">
-                <div class="" >
-                  {{ tableData.oaz01 }}
-                </div>
-              </div>
-              <div class="titlebox">异动码</div>
-              <div class="infobox selectbox editNot">
-                <div class="" >
-                  {{ tableData.oaz02 }}
-                </div>
-              </div>
-              <div class="titlebox">记账日期</div>
-              <div class="infobox middlebox last_row">{{tableData.oaz03}}</div>
-            </div>
-            <div class="form_line last_line">
-              <div class="titlebox">账款类型</div>
-              <div class="infobox selectbox editNot">
-                <div class="editNot" >
-                  {{ tableData.oaz04 }}
-                </div>
-              </div>
-              <div class="titlebox">凭证编号</div>
-              <div class="infobox selectbox editNot">
-                {{ tableData.oaz06 }}
-              </div>
-              <div class="titlebox">支付方式</div>
-              <div class="infobox middlebox last_row">
-                {{ tableData.oaz05_show }}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
