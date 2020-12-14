@@ -526,10 +526,8 @@ export default {
       tableHead: {
         // 申请人
         head_SQR: [
-          { name: "gen01", title: "员工编号" },
-          { name: "gen02", title: "员工名称" },
-          { name: "gen03", title: "所属部门编号" },
-          { name: "gen04", title: "所属部门" },
+          { name: "id", title: "用户ID" },
+          { name: "name", title: "用户名称" },
         ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
@@ -558,7 +556,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4884;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4886;
     this.getworkflows();
     this.getHT();
   },
@@ -911,7 +909,7 @@ export default {
           this.dataSelect.filter = filter_SQR;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.searchApi = "oa/users";
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "申请人列表";
           break;
@@ -920,7 +918,7 @@ export default {
           this.dataSelect.filter = filter_JBR;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.searchApi = "oa/users";
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "经办人列表";
           break;
