@@ -5,11 +5,11 @@
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
         <el-button
-          v-if="more != null"
+          v-for="(link,index) in more" :key="index"
           type="primary"
-          class="save"
-          @click="seeMore()"
-          >查看更多</el-button
+          class="saveBtn"
+          @click="seeMore(link.url)"
+          >{{link.name}}</el-button
         >
         <el-button type="primary" class="save" @click="editNewFlow()"
           >保存</el-button
@@ -478,7 +478,7 @@ export default {
       overloading: "", //加载定时器
       workid: "",
       workName: "借款申请",
-      more: "", //查看更多
+      more: [], //查看更多
       activeTab: "firTab",
       tableData: {},
       showData: {
@@ -558,7 +558,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4853;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4855;
     this.getworkflows();
     this.getHT();
   },
@@ -567,8 +567,8 @@ export default {
       // console.log(this.activeTab);
     },
     // 查看更多
-    seeMore() {
-      window.open(this.more, "_blank");
+    seeMore(url) {
+      window.open(url, "_blank");
     },
     // ***********获取流程信息************
     getworkflows() {
@@ -1036,4 +1036,5 @@ export default {
     }
   }
 }
+
 </style>

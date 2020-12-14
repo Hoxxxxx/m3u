@@ -4,7 +4,13 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button  v-if="more != null" type="primary" class="save" @click="seeMore()">查看更多</el-button>
+        <el-button
+          v-for="(link,index) in more" :key="index"
+          type="primary"
+          class="saveBtn"
+          @click="seeMore(link.url)"
+          >{{link.name}}</el-button
+        >
         <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button>
         <el-button v-if="workclass_personnel.perid.flownum==1" type="primary" class="next" @click="nextStep('/apply')">下一步</el-button>
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
@@ -547,7 +553,7 @@ export default {
       overloading: '', //加载定时器
       workid: '',
       workName: '出差借款申请',
-      more:"",//查看更多
+      more:[],//查看更多
       activeTab: "firTab",
       tableData: {},
       table_able:[],//表格可编辑项
@@ -665,8 +671,8 @@ export default {
       // console.log(this.activeTab);
     },
     // 查看更多
-    seeMore(){
-      window.open(this.more, '_blank');
+    seeMore(url) {
+      window.open(url, "_blank");
     },
     // ***********获取下拉列表信息************
     getGens () {

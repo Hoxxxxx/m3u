@@ -1082,7 +1082,7 @@ export default {
       workid: "",
       workname: "发票申请单",
       activeTab: "firTab",
-      more: "", //查看更多
+      more: [], //查看更多
       showData: {
         oaa04_show: "", //申请人
         expenseMoneyF: "", //报销金额大写
@@ -1321,8 +1321,8 @@ export default {
       // console.log(this.activeTab);
     },
     // 查看更多
-    seeMore() {
-      window.open(this.more, "_blank");
+    seeMore(url) {
+      window.open(url, "_blank");
     },
     // ***********获取流程信息************
     getworkflows() {

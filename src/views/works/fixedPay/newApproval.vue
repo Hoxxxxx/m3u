@@ -4,7 +4,13 @@
     <el-card class="formContent">
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
-        <el-button  v-if="more != null" type="primary" class="save" @click="seeMore()">查看更多</el-button>
+        <el-button
+          v-for="(link,index) in more" :key="index"
+          type="primary"
+          class="saveBtn"
+          @click="seeMore(link.url)"
+          >{{link.name}}</el-button
+        >
         <el-button type="primary" class="save" @click="editNewFlow()">保存</el-button>
         <el-button v-if="workclass_personnel.perid.flownum==1" type="primary" class="next" @click="nextStep('/apply')">下一步</el-button>
         <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
@@ -1212,7 +1218,7 @@ export default {
       activeTab: "firTab",
       workid: '',
       workname:"固定资产付款",//流程名
-      more:"",//查看更多
+      more:[],//查看更多
       tableData: {
         // 表格部分
         oaf: [], // 发票明细
@@ -1472,8 +1478,8 @@ export default {
       // console.log(this.activeTab);
     },
     // 查看更多
-    seeMore(){
-      window.open(this.more, '_blank');
+    seeMore(url) {
+      window.open(url, "_blank");
     },
     // ***********获取流程信息************
     getworkflows(){
