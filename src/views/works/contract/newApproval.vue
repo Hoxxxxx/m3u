@@ -103,10 +103,13 @@
                   </div>
                 </div>
                 <div class="titlebox">所属部门</div>
-                <div
-                  class="infobox selectbox editNot last_row"
-                >
+                <div class="infobox selectbox editNot last_row" v-if="!table_able.includes('oaa06')">
                   {{ tableData.oaa06_show }}
+                </div>
+                <div class="infobox selectbox  last_row" v-if="table_able.includes('oaa06')">
+                  <div class="selector" @click="selectDialog('BM')">
+                    {{ tableData.oaa06_show }}
+                  </div>
                 </div>
               </div>
               <div class="form_line lastline">
@@ -528,7 +531,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    // this.workid = 4853;
+    this.workid = 4853;
     this.getworkflows();
     this.getHT();
   },

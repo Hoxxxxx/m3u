@@ -49,8 +49,10 @@
                   </div>
                 </div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox  last_row">
+                <div class="infobox selectbox  last_row">
+                  <div class="selector" @click="selectDialog('BM')">
                     {{ showData.oaa06_show }}
+                  </div>
                 </div>
               </div>
               <div class="form_line lastline">
