@@ -68,7 +68,9 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox">经办人</div>
+                <div class="titlebox">
+                  <span class="redPot">经办人</span>
+                </div>
                 <div
                   class="infobox middlebox editNot"
                   v-if="!table_able.includes('oaa03')"
@@ -80,10 +82,12 @@
                   v-if="table_able.includes('oaa03')"
                 >
                   <div class="selector" @click="selectDialog('JBR')">
-                    {{ showData.oaa03_show }}
+                    {{ tableData.oaa03_show }}
                   </div>
                 </div>
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">
+                  <span class="redPot">申请人</span>
+                </div>
                 <div
                   class="infobox selectbox editNot"
                   v-if="!table_able.includes('oaa04')"
@@ -95,14 +99,14 @@
                   v-if="table_able.includes('oaa04')"
                 >
                   <div class="selector" @click="selectDialog('SQR')">
-                    {{ showData.oaa04_show }}
+                    {{ tableData.oaa04_show }}
                   </div>
                 </div>
                 <div class="titlebox">所属部门</div>
                 <div
                   class="infobox selectbox editNot last_row"
                 >
-                  {{ showData.oaa06_show }}
+                  {{ tableData.oaa06_show }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -195,7 +199,7 @@
                     style="background-position: 99%"
                     v-if="!table_able.includes('oaa14')"
                   >
-                    {{ tableData.oaa14 }}
+                    {{ tableData.oaa14_show }}
                   </div>
                   <div
                     class="selector"
@@ -203,7 +207,7 @@
                     @click="selectType()"
                     v-if="table_able.includes('oaa14')"
                   >
-                    {{ showData.oaa14_show }}
+                    {{ tableData.oaa14_show }}
                   </div>
                 </div>
               </div>
@@ -226,9 +230,9 @@
                   >
                     <el-option
                       v-for="item in fixedData.htList"
-                      :key="item.pma01"
-                      :label="item.pma02"
-                      :value="item.pma01"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
                     >
                     </el-option>
                   </el-select>
@@ -524,7 +528,7 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid;
-    // this.workid = 4775;
+    // this.workid = 4853;
     this.getworkflows();
     this.getHT();
   },
@@ -552,6 +556,7 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able;
           this.more = res.data.workclass_info.more;
+          this.tableData.oaa15 = parseInt(this.tableData.oaa15)
           if (res.data.file !== null) {
             res.data.file.forEach((item) => {
               this.fileList_user.push({
@@ -934,27 +939,27 @@ export default {
         switch (this.dataSelect.cur_input) {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
-            this.showData.oaa04_show = val[0].gen02;
-            this.showData.oaa04_gen01 = val[0].gen01;
-            this.showData.oaa04_gen04 = val[0].gen04;
+            this.tableData.oaa04_show = val[0].gen02;
+            this.tableData.oaa04_gen01 = val[0].gen01;
+            this.tableData.oaa04_gen04 = val[0].gen04;
             this.tableData.oaa06 = val[0].gen03;
-            this.showData.oaa06_show = val[0].gen04;
+            this.tableData.oaa06_show = val[0].gen04;
             break;
           case "JBR":
             this.tableData.oaa03 = val[0].gen01;
-            this.showData.oaa03_show = val[0].gen02;
+            this.tableData.oaa03_show = val[0].gen02;
             break;
           case "BM":
             this.tableData.oaa06 = val[0].id;
-            this.showData.oaa06_show = val[0].name;
+            this.tableData.oaa06_show = val[0].name;
             break;
           case "GYS":
             this.tableData.oaa14 = val[0].pmc01;
-            this.showData.oaa14_show = val[0].pmc03;
+            this.tableData.oaa14_show = val[0].pmc03;
             break;
           case "KH":
             this.tableData.oaa14 = val[0].occ01;
-            this.showData.oaa14_show = val[0].occ02;
+            this.tableData.oaa14_show = val[0].occ02;
             break;
           default:
             return;
