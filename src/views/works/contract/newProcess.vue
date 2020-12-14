@@ -178,12 +178,16 @@
               </div>
               <div class="form_line last_line">
                 <div class="titlebox">备注</div>
-                <div class="infobox longbox selectbox">
-                  <input
-                    class="abstracInput"
+                <div class="longbox">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
                     v-model="tableData.oaa20"
                     placeholder="请输入备注"
-                  />
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
                 </div>
               </div>
             </div>

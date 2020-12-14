@@ -319,20 +319,24 @@
               <div class="form_line last_line">
                 <div class="titlebox">备注</div>
                 <div
-                  class="infobox longbox selectbox"
+                  class="infobox longbox infoShow"
                   v-if="!table_able.includes('oaa20')"
                 >
                   {{ tableData.oaa20 }}
                 </div>
                 <div
-                  class="infobox longbox selectbox"
+                  class="longbox "
                   v-if="table_able.includes('oaa20')"
                 >
-                  <input
-                    class="abstracInput"
+                  <el-input
+                    type="textarea"
+                    :rows="4"
                     v-model="tableData.oaa20"
                     placeholder="请输入备注"
-                  />
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
                 </div>
               </div>
             </div>
