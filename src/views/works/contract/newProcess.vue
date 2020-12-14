@@ -383,14 +383,13 @@ export default {
     };
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid;
+    this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8954;
     let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
     this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
     this.showData.oaa03_show = oauserinfo.oaname;
     this.tableData.oaa04 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
     this.showData.oaa04_show = oauserinfo.oaname;
     this.getHT();
-    // this.addParams.tplid = 8954;
   },
   methods: {
     handleClick() {
