@@ -966,16 +966,12 @@ export default {
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
           case "SQR":
-            this.tableData.oaa04 = val[0].gen01;
-            this.tableData.oaa04_show = val[0].gen02;
-            this.tableData.oaa04_gen01 = val[0].gen01;
-            this.tableData.oaa04_gen04 = val[0].gen04;
-            this.tableData.oaa06 = val[0].gen03;
-            this.tableData.oaa06_show = val[0].gen04;
+            this.tableData.oaa04 = val[0].id;
+            this.showData.oaa04_show = val[0].name;
             break;
           case "JBR":
-            this.tableData.oaa03 = val[0].gen01;
-            this.tableData.oaa03_show = val[0].gen02;
+            this.tableData.oaa03 = val[0].id;
+            this.showData.oaa03_show = val[0].name;
             break;
           case "BM":
             this.tableData.oaa06 = val[0].id;
