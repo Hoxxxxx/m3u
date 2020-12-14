@@ -67,8 +67,12 @@
             <div class="infobox longbox">{{ tableData.oaa12_show }}</div>
           </div> -->
           <div class="form_line">
+            <div class="titlebox">说明</div>
+            <div class="infobox longbox infoShow_print">{{ tableData.oaa21 }}</div>
+          </div>
+          <div class="form_line last_line">
             <div class="titlebox">备注</div>
-            <div class="infobox longbox">{{ tableData.oaa20 }}</div>
+            <div class="infobox longbox infoShow_print">{{ tableData.oaa20 }}</div>
           </div>
         </div>
       </div>

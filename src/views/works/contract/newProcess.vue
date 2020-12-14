@@ -176,6 +176,23 @@
                   </el-upload>
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox"><span class="redPot">说明</span></div>
+                <div
+                  class="infobox longbox areabox"
+                  style="width: 100%"
+                >
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa21"
+                    placeholder="请输入说明"
+                    maxlength="80"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
               <div class="form_line last_line">
                 <div class="titlebox">备注</div>
                 <div class="longbox">
@@ -291,6 +308,7 @@ export default {
         oaa18: "",
         oaa19: "",
         oaa20: "",
+        oaa21: "",
       },
       showData: {
         oaa04_show: "", //申请人

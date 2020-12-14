@@ -130,9 +130,15 @@
                   </div>
                 </div>
               </div>
+              <div class="form_line ">
+                <div class="titlebox">说明</div>
+                <div class="longbox infoShow">
+                  {{ tableData.oaa21 }}
+                </div>
+              </div>
               <div class="form_line last_line">
                 <div class="titlebox">备注</div>
-                <div class="infobox longbox selectbox">
+                <div class="longbox infoShow">
                   {{ tableData.oaa20 }}
                 </div>
               </div>
@@ -233,8 +239,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid;
-    // this.workid = 4775;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4853;
     this.getworkflows();
     this.getAzis();
   },

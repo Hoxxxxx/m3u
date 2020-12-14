@@ -190,7 +190,7 @@
                     type="textarea"
                     :rows="4"
                     v-model="tableData.oaa15"
-                    placeholder="请输入说明"
+                    placeholder="请输入备注"
                     maxlength="80"
                     show-word-limit
                     :disabled="table_able.includes('oaa15') ? false : true"
