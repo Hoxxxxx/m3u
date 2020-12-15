@@ -1080,7 +1080,7 @@ export default {
     return {
       overloading: "", //加载定时器
       workid: "",
-      workname: "发票申请单",
+      workname: "发货申请单",
       activeTab: "firTab",
       more: [], //查看更多
       showData: {
@@ -1702,8 +1702,10 @@ export default {
     addRow2() {
       let data = {
         oab01: "", //会计科目
-        oab02: "", //项目
-        oab03: "", //项目wbs
+        oab02: "0000", //项目
+        oab02_show:"公用项目",//
+        oab03: "0000-0000", //项目wbs
+        oab03_show:"公用项目",//
         oab04: "", //摘要
         oab05: "", //金额
         oab06: 1, //数量

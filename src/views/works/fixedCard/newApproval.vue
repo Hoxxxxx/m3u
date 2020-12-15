@@ -78,11 +78,12 @@
                 <div v-if="!table_able.includes('oaa11')" class="infobox editNot">
                   {{tableData.oaa11}}
                 </div>
-                <div v-if="table_able.includes('oaa11')" class="infobox selectbox">
+                <div v-if="table_able.includes('oaa11')" class="infobox selectbox editNot">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa11"
-                    placeholder="请输入财产编号"
+                    placeholder="财产编号提交数据后显示"
+                    disabled
                   />
                 </div>
                 <div class="titlebox">资产主类别</div>
