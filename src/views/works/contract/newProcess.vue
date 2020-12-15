@@ -56,7 +56,9 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">联系电话</div>
+                <div class="titlebox">
+                  <span class="redPot">联系电话</span>
+                </div>
                 <div class="infobox selectbox longbox last_row">
                   <input
                     class="abstracInput"
