@@ -5,11 +5,12 @@
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
         <el-button
-          v-for="(link,index) in more" :key="index"
+          v-for="(link, index) in more"
+          :key="index"
           type="primary"
           class="saveBtn"
           @click="seeMore(link.url)"
-          >{{link.name}}</el-button
+          >{{ link.name }}</el-button
         >
         <el-button type="primary" class="save" @click="editNewFlow()"
           >保存</el-button
@@ -103,10 +104,16 @@
                   </div>
                 </div>
                 <div class="titlebox">所属部门</div>
-                <div class="infobox selectbox editNot last_row" v-if="!table_able.includes('oaa06')">
+                <div
+                  class="infobox selectbox editNot last_row"
+                  v-if="!table_able.includes('oaa06')"
+                >
                   {{ tableData.oaa06_show }}
                 </div>
-                <div class="infobox selectbox  last_row" v-if="table_able.includes('oaa06')">
+                <div
+                  class="infobox selectbox last_row"
+                  v-if="table_able.includes('oaa06')"
+                >
                   <div class="selector" @click="selectDialog('BM')">
                     {{ tableData.oaa06_show }}
                   </div>
@@ -178,8 +185,10 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">签约方</div>
-                <div class="infobox longbox selectbox">
+                <div class="titlebox required">
+                  <span class="redPot">签约方</span>
+                </div>
+                <div class="infobox middlebox selectbox">
                   <el-radio-group
                     class="radioGroup"
                     style="margin-right: 120px"
@@ -196,7 +205,11 @@
                       >客户</el-radio
                     >
                   </el-radio-group>
-                  <div class="columLine"></div>
+                </div>
+                <div class="titlebox required">
+                  <span class="redPot">签约方名称</span>
+                </div>
+                <div class="infobox selectbox middlebox last_row">
                   <div
                     class=""
                     style="background-position: 99%"
@@ -348,10 +361,7 @@
                 >
                   {{ tableData.oaa20 }}
                 </div>
-                <div
-                  class="longbox "
-                  v-if="table_able.includes('oaa20')"
-                >
+                <div class="longbox" v-if="table_able.includes('oaa20')">
                   <el-input
                     type="textarea"
                     :rows="4"
@@ -584,7 +594,7 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able;
           this.more = res.data.workclass_info.more;
-          this.tableData.oaa15 = parseInt(this.tableData.oaa15)
+          this.tableData.oaa15 = parseInt(this.tableData.oaa15);
           if (res.data.file !== null) {
             res.data.file.forEach((item) => {
               this.fileList_user.push({
@@ -1025,10 +1035,9 @@ export default {
     align-items: center;
     height: 25px;
     line-height: 25px;
-    div{
+    div {
       margin-left: 10px;
     }
   }
 }
-
 </style>

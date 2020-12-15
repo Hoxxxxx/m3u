@@ -56,7 +56,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">签约方</div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox middlebox selectbox">
                   <el-radio-group
                     class="radioGroup"
                     style="margin-right: 120px"
@@ -65,11 +65,9 @@
                     <el-radio :label="1" disabled>供应商</el-radio>
                     <el-radio :label="2" disabled>客户</el-radio>
                   </el-radio-group>
-                  <div class="columLine"></div>
-                  <div class="" style="background-position: 99%">
-                    {{ tableData.oaa14_show }}
-                  </div>
                 </div>
+                <div class="titlebox">签约方名称</div>
+                <div class="infobox middlebox last_row">{{ tableData.oaa14_show }}</div>
               </div>
               <div class="form_line">
                 <div class="titlebox">合同类型</div>

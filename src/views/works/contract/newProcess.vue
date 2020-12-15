@@ -68,8 +68,8 @@
               <!-- 合同信息 -->
               <div class="title_line">合同信息</div>
               <div class="form_line">
-                <div class="titlebox">合同编号</div>
-                <div class="infobox selectbox">
+                <div class="titlebox ">合同编号</div>
+                <div class="infobox selectbox editNot">
                   {{ tableData.oaa16 }}
                 </div>
                 <div class="titlebox required">
@@ -94,8 +94,10 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox required">签约方</div>
-                <div class="infobox longbox selectbox">
+                <div class="titlebox required">
+                  <span class="redPot">签约方</span>
+                </div>
+                <div class="infobox middlebox selectbox">
                   <el-radio-group
                     class="radioGroup"
                     style="margin-right: 120px"
@@ -104,7 +106,12 @@
                     <el-radio :label="1">供应商</el-radio>
                     <el-radio :label="2">客户</el-radio>
                   </el-radio-group>
-                  <div class="columLine" ></div>
+                  
+                </div>
+                <div class="titlebox required">
+                  <span class="redPot">签约方名称</span>
+                </div>
+                <div class="infobox selectbox middlebox  last_row">
                   <div class="selector" style="background-position:99%;" @click="selectType()">
                     {{ showData.oaa14_show }}
                   </div>
