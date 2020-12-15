@@ -32,7 +32,9 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
                 </div>
-                <div class="titlebox">联系电话</div>
+                <div class="titlebox">
+                  <span class="redPot">联系电话</span>
+                </div>
                 <div class="infobox selectbox middlebox last_row">
                   <input
                     class="abstracInput"
