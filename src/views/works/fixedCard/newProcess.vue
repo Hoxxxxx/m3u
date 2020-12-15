@@ -63,11 +63,12 @@
               <div class="title_line">卡片信息</div>
               <div class="form_line">
                 <div class="titlebox">财产编号</div>
-                <div class="infobox selectbox">
+                <div class="infobox selectbox editNot">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa11"
-                    placeholder="请输入财产编号"
+                    placeholder="财产编号提交数据后显示"
+                    disabled
                   />
                 </div>
                 <div class="titlebox">资产主类别</div>

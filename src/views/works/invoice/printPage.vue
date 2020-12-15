@@ -259,7 +259,7 @@ export default {
       timeNow: timeFmt(),
       overloading: '', //加载定时器
       workid: '',
-      workname: '发票申请单',
+      workname: '发货申请单',
       activeTab: "firTab",
       tableBox_invoice: [
         // 表格一
