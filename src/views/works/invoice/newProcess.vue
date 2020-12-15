@@ -115,6 +115,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must"
                 >
                   <el-table-column
                     prop="id"
@@ -143,7 +144,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab01_show"
-                    label="* 会计科目"
+                    label="会计科目"
                     min-width="150px"
                     align="center"
                   >
@@ -160,7 +161,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab02_show"
-                    label="* 项目"
+                    label="项目"
                     min-width="150px"
                     align="center"
                   >
@@ -177,7 +178,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab03_show"
-                    label="* 项目WBS"
+                    label="项目WBS"
                     min-width="150px"
                     align="center"
                   >
@@ -194,7 +195,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab04"
-                    label="* 摘要"
+                    label="摘要"
                     min-width="150px"
                     align="center"
                   >
@@ -209,7 +210,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab05"
-                    label="* 金额"
+                    label="金额"
                     min-width="180px"
                     align="center"
                   >
@@ -225,7 +226,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab06"
-                    label="* 数量"
+                    label="数量"
                     min-width="150px"
                     align="center"
                   >
@@ -240,7 +241,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab07"
-                    label="* 单价"
+                    label="单价"
                     min-width="150px"
                     align="center"
                   >
@@ -255,7 +256,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab11"
-                    label="* 核算项一"
+                    label="核算项一"
                     min-width="180px"
                     align="center"
                   >
@@ -277,7 +278,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab12"
-                    label="* 核算项二"
+                    label="核算项二"
                     min-width="180px"
                     align="center"
                   >
@@ -299,7 +300,9 @@
                   </el-table-column>
                 </el-table>
                 <div class="form_line last_line">
-                  <div class="titlebox"><span class="redPot">是否开票</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">是否开票</span>
+                  </div>
                   <div class="infobox longbox">
                     <el-radio-group
                       class="radioGroup"
@@ -323,7 +326,9 @@
                       placeholder="请输入名称"
                     />
                   </div>
-                  <div class="titlebox"><span class="redPot">纳税人识别号</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">纳税人识别号</span>
+                  </div>
                   <div class="infobox selectbox">
                     <input
                       class="abstracInput"
@@ -341,7 +346,9 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox"><span class="redPot">银行账号</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">银行账号</span>
+                  </div>
                   <div class="infobox selectbox">
                     <input
                       class="abstracInput"
@@ -367,7 +374,9 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox"><span class="redPot">开票种类</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">开票种类</span>
+                  </div>
                   <div class="infobox longbox selectbox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -381,7 +390,9 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox"><span class="redPot">开票金额</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">开票金额</span>
+                  </div>
                   <div
                     class="infobox last_row longbox selectbox"
                     style="width: 100%"
@@ -402,6 +413,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must1"
                 >
                   <el-table-column
                     prop="id"
@@ -430,7 +442,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac01"
-                    label="* 序号"
+                    label="序号"
                     min-width="130px"
                     align="center"
                   >
@@ -445,7 +457,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac02_show"
-                    label="* 商品名称"
+                    label="商品名称"
                     min-width="200px"
                     align="center"
                   >
@@ -462,7 +474,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac03"
-                    label="* 规格"
+                    label="规格"
                     min-width="150px"
                     align="center"
                   >
@@ -477,7 +489,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac04"
-                    label="* 数量"
+                    label="数量"
                     min-width="150px"
                     align="center"
                   >
@@ -492,7 +504,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac05"
-                    label="* 含税单价"
+                    label="含税单价"
                     min-width="150px"
                     align="center"
                   >
@@ -507,7 +519,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac06"
-                    label="* 金额"
+                    label="金额"
                     min-width="150px"
                     align="center"
                   >
@@ -523,7 +535,9 @@
                   </el-table-column>
                 </el-table>
                 <div class="form_line">
-                  <div class="titlebox"><span class="redPot">货款回收情况</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">货款回收情况</span>
+                  </div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -550,7 +564,9 @@
                   </div>
                 </div>
                 <div class="form_line">
-                  <div class="titlebox"><span class="redPot">回款方式</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">回款方式</span>
+                  </div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -579,7 +595,9 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox"><span class="redPot">是否签订合同</span></div>
+                  <div class="titlebox">
+                    <span class="redPot">是否签订合同</span>
+                  </div>
                   <div class="infobox middlebox" style="width: 100%">
                     <el-radio-group
                       class="radioGroup"
@@ -920,6 +938,33 @@ export default {
     this.getPma(); //支付方式
   },
   methods: {
+    must(obj) {
+      if (
+        obj.columnIndex == 1 ||
+        obj.columnIndex == 2 ||
+        obj.columnIndex == 3 ||
+        obj.columnIndex == 4 ||
+        obj.columnIndex == 5 ||
+        obj.columnIndex == 6 ||
+        obj.columnIndex == 7 ||
+        obj.columnIndex == 8 ||
+        obj.columnIndex == 9
+      ) {
+        return "must";
+      }
+    },
+    must1(obj) {
+      if (
+        obj.columnIndex == 1 ||
+        obj.columnIndex == 2 ||
+        obj.columnIndex == 3 ||
+        obj.columnIndex == 4 ||
+        obj.columnIndex == 5 ||
+        obj.columnIndex == 6
+      ) {
+        return "must";
+      }
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -1012,12 +1057,12 @@ export default {
         let sum = this.tableData.oab.reduce((prev, cur) => {
           return prev + Number(cur.oab05);
         }, 0);
-        let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
+        let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2);
         // let sums = fomatFloat(
         //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
         //   2
         // );
-        
+
         if (this.tableData.oaa16 == 1) {
           if (this.tableData.oaa28 != this.tableData.oaa12) {
             this.$message.warning("开票金额与总金额不相等，请重新填写！");
@@ -1139,19 +1184,19 @@ export default {
         oab01: 600101, //会计科目
         oab01_show: "主营业务收入-内销收入[NEW]", //会计科目
         oab02: "0000", //项目
-        oab02_show:"公用项目",//
+        oab02_show: "公用项目", //
         oab03: "0000-0000", //项目wbs
-        oab03_show:"公用项目",//
+        oab03_show: "公用项目", //
         oab04: "", //摘要
         oab05: "", //金额
         oab06: 1, //数量
         oab07: "", //单价
         oab11: "", //核算项1
         oab12: "", //核算项2
-        oab01_aag15 : 'N23',
-        oab01_aag151: '3',
-        oab01_aag16 :'N24',
-        oab01_aag161: '3',
+        oab01_aag15: "N23",
+        oab01_aag151: "3",
+        oab01_aag16: "N24",
+        oab01_aag161: "3",
       };
       this.tableData.oab.push(data);
     },
@@ -1537,7 +1582,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
 @import "../../../assets/style/public.less";
 .summry {
   display: flex;
@@ -1580,4 +1625,5 @@ export default {
     }
   }
 }
+
 </style>

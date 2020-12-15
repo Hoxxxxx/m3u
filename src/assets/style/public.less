@@ -15,6 +15,17 @@
     }
   }
 }
+.el-table th{
+  &.must{
+    .cell {
+      &::before {
+        content: "*" !important;
+        color: #ff1818 !important;
+      }
+    }
+  }
+  
+}
 
 .workSpace {
   position: relative;

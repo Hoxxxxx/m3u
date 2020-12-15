@@ -212,49 +212,49 @@
                 >
                   <el-table-column
                     prop="oab01_show"
-                    label="* 会计科目"
+                    label="会计科目"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab02_show"
-                    label="* 项目"
+                    label="项目"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab03_show"
-                    label="* 项目WBS"
+                    label="项目WBS"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab04"
-                    label="* 摘要"
+                    label="摘要"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab05"
-                    label="* 金额"
+                    label="金额"
                     min-width="180px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab06"
-                    label="* 数量"
+                    label="数量"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oab07"
-                    label="* 单价"
+                    label="单价"
                     min-width="150px"
                     align="center"
                   >
@@ -296,6 +296,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must"
                 >
                   <el-table-column
                     prop="id"
@@ -617,42 +618,42 @@
                 >
                   <el-table-column
                     prop="oac01"
-                    label="* 序号"
+                    label="序号"
                     min-width="130px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac02_show"
-                    label="* 商品名称"
+                    label="商品名称"
                     min-width="200px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac03"
-                    label="* 规格"
+                    label="规格"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac04"
-                    label="* 数量"
+                    label="数量"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac05"
-                    label="* 含税单价"
+                    label="含税单价"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oac06"
-                    label="* 金额"
+                    label="金额"
                     min-width="150px"
                     align="center"
                   >
@@ -667,6 +668,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must1"
                 >
                   <el-table-column
                     prop="id"
@@ -695,7 +697,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac01"
-                    label="* 序号"
+                    label="序号"
                     min-width="130px"
                     align="center"
                   >
@@ -710,7 +712,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac02_show"
-                    label="* 商品名称"
+                    label="商品名称"
                     min-width="200px"
                     align="center"
                   >
@@ -727,7 +729,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac03"
-                    label="* 规格"
+                    label="规格"
                     min-width="150px"
                     align="center"
                   >
@@ -742,7 +744,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac04"
-                    label="* 数量"
+                    label="数量"
                     min-width="150px"
                     align="center"
                   >
@@ -757,7 +759,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac05"
-                    label="* 含税单价"
+                    label="含税单价"
                     min-width="150px"
                     align="center"
                   >
@@ -772,7 +774,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oac06"
-                    label="* 金额"
+                    label="金额"
                     min-width="150px"
                     align="center"
                   >
@@ -1317,6 +1319,33 @@ export default {
     },
   },
   methods: {
+    must(obj) {
+      if (
+        obj.columnIndex == 1 ||
+        obj.columnIndex == 2 ||
+        obj.columnIndex == 3 ||
+        obj.columnIndex == 4 ||
+        obj.columnIndex == 5 ||
+        obj.columnIndex == 6 ||
+        obj.columnIndex == 7 ||
+        obj.columnIndex == 8 ||
+        obj.columnIndex == 9
+      ) {
+        return "must";
+      }
+    },
+    must1(obj) {
+      if (
+        obj.columnIndex == 1 ||
+        obj.columnIndex == 2 ||
+        obj.columnIndex == 3 ||
+        obj.columnIndex == 4 ||
+        obj.columnIndex == 5 ||
+        obj.columnIndex == 6
+      ) {
+        return "must";
+      }
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
