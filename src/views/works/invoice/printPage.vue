@@ -67,13 +67,8 @@
           <div class="form_line">
             <div class="titlebox">是否开票</div>
             <div class="infobox longbox">
-              <el-radio-group
-                class="radioGroup"
-                v-model="tableData.oaa16"
-              >
-                <el-radio :label="1" disabled>是</el-radio>
-                <el-radio :label="2" disabled>否</el-radio>
-              </el-radio-group>
+              <span class="radioItem" v-if="tableData.oaa16==1">是</span>
+              <span class="radioItem" v-if="tableData.oaa16==2">否</span>
             </div>
           </div>
           <!-- 开票信息 -->
@@ -110,15 +105,10 @@
                 <div class="form_line">
                   <div class="titlebox">开票种类</div>
                   <div class="infobox longbox selectbox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa27"
-                    >
-                      <el-radio :label="1" disabled>增值税发票</el-radio>
-                      <el-radio :label="2" disabled>普通发票</el-radio>
-                      <el-radio :label="3" disabled>服务发票</el-radio>
-                      <el-radio :label="4" disabled>资金往来发票</el-radio>
-                    </el-radio-group>
+                    <span class="radioItem" v-if="tableData.oaa27==1">增值税发票</span>
+                    <span class="radioItem" v-if="tableData.oaa27==2">普通发票</span>
+                    <span class="radioItem" v-if="tableData.oaa27==3">服务发票</span>
+                    <span class="radioItem" v-if="tableData.oaa27==4">资金往来发票</span>
                   </div>
                 </div>
                 <div class="form_line ">
@@ -145,13 +135,8 @@
                 <div class="form_line">
                   <div class="titlebox">货款回收情况</div>
                   <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa31"
-                    >
-                      <el-radio :label="1" disabled>货款已收</el-radio>
-                      <el-radio :label="2" disabled>尚未回款</el-radio>
-                    </el-radio-group>
+                    <span class="radioItem" v-if="tableData.oaa31==1">货款已收</span>
+                    <span class="radioItem" v-if="tableData.oaa31==2">尚未回款</span>
                   </div>
                   <div class="titlebox">回款日期</div>
                   <div
@@ -164,15 +149,10 @@
                 <div class="form_line">
                   <div class="titlebox">回款方式</div>
                   <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa33"
-                    >
-                      <el-radio :label="1" disabled>现金</el-radio>
-                      <el-radio :label="2" disabled>转账支票</el-radio>
-                      <el-radio :label="3" disabled>电汇</el-radio>
-                      <el-radio :label="4" disabled>汇票</el-radio>
-                    </el-radio-group>
+                    <span class="radioItem" v-if="tableData.oaa33==1">现金</span>
+                    <span class="radioItem" v-if="tableData.oaa33==2">转账支票</span>
+                    <span class="radioItem" v-if="tableData.oaa33==3">电汇</span>
+                    <span class="radioItem" v-if="tableData.oaa33==4">汇票</span>
                   </div>
                   <div class="titlebox">发货时间</div>
                   <div
@@ -185,13 +165,8 @@
                 <div class="form_line last_line">
                   <div class="titlebox">是否签订合同</div>
                   <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa35"
-                    >
-                      <el-radio :label="1" disabled>是</el-radio>
-                      <el-radio :label="2" disabled>否</el-radio>
-                    </el-radio-group>
+                    <span class="radioItem" v-if="tableData.oaa35==1">是</span>
+                    <span class="radioItem" v-if="tableData.oaa35==2">否</span>
                   </div>
                   <div class="titlebox">发票号码</div>
                   <div

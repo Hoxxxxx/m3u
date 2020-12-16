@@ -42,14 +42,16 @@
           <div class="form_line">
             <div class="titlebox">签约方</div>
             <div class="infobox middlebox selectbox">
-              <el-radio-group
+              <span class="radioItem" v-if="tableData.oaa13==1">供应商</span>
+              <span class="radioItem" v-if="tableData.oaa13==2">客户</span>
+              <!-- <el-radio-group
                 class="radioGroup"
                 style="margin-right: 120px"
                 v-model="tableData.oaa13"
               >
                 <el-radio :label="1" disabled>供应商</el-radio>
                 <el-radio :label="2" disabled>客户</el-radio>
-              </el-radio-group>
+              </el-radio-group> -->
             </div>
             <div class="titlebox">签约方名称</div>
             <div class="infobox middlebox last_row">{{ tableData.oaa14_show }}</div>
