@@ -143,6 +143,24 @@
             </div>
           </div>
         </el-tab-pane>
+        <el-tab-pane label="流程进度" name="secTab">
+          <!-- tab标签 -->
+          <div slot="label" class="potBox">
+            <span
+              class="pot"
+              :class="activeTab == 'secTab' ? 'potActive' : ''"
+            ></span>
+            <span> 流程进度</span>
+          </div>
+          <!-- 内容 -->
+          <div class="tabContent">
+            <div class="title">{{workname}}</div>
+            <div class="table_Info">
+              <span class="code">业务日期：{{tableData.oaa02}}</span>
+              <span class="name">申请单编号：{{tableData.oaa01}}</span>
+            </div>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </el-card>
 
@@ -237,7 +255,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4885;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4966;
     this.getworkflows();
     this.getAzis();
   },
