@@ -150,4 +150,13 @@ export const htList = (params) => {
     params
   })
 }
+// 获取模型必填项
+export const mustItem = (params) => {
+  return request.get('oa/workflows/mustitem',
+  {},
+  {
+    params
+  })
+}
+
 
