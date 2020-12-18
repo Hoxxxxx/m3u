@@ -2225,9 +2225,9 @@ export default {
         switch (this.dataSelect.cur_input) {
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
-            this.showData.oaa04_show = val[0].gen02;
-            this.showData.oaa04_gen01 = val[0].gen01;
-            this.showData.oaa04_gen04 = val[0].gen04;
+            this.tableData.oaa04 = val[0].gen01;
+            this.tableData.oaa04_show = val[0].gen02;
+            this.tableData.oaa04_gen04 = val[0].gen04;
             break;
           case "KJKM":
             this.tableData.oac[this.rowIndex].oac01 = val[0].aag01;
@@ -2244,7 +2244,7 @@ export default {
             break;
           case "CCSQD":
             this.tableData.oaa15 = val[0].id;
-            this.showData.oaa15_show = val[0].title;
+            this.tableData.oaa15_show = val[0].title;
             break;
           case "WQX":
             val.forEach((item) => {

@@ -985,6 +985,7 @@ export default {
       //
       oacType: "", //核算项类型
       form_must:[],//必填项
+      form_must_able:{},
       //财务信息
       oaz: {
         oaz01: "", //银行
@@ -1203,6 +1204,8 @@ export default {
       mustItem(params).then(res=>{
         if(res.status == 200){
           this.form_must = res.data.form_able
+          this.form_must_able = res.data.form_must_able
+          console.log(this.form_must_able)
         }else{
           console.log('必填项获取失败！')
         }
