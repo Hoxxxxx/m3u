@@ -1,207 +1,209 @@
 <template>
   <div class="workSpace">
-    <div class="backMsg">
-      退回流程
-    </div>
-    <!-- 签批 -->
-    <el-card class="formContent">
-      <el-tabs v-model="activeTab" @tab-click="handleClick">
-        <el-tab-pane name="firTab">
-          <div slot="label" class="potBox">
-            <span
-              class="pot"
-              :class="activeTab == 'firTab' ? 'potActive' : ''"
-            ></span>
-            <span>签批</span>
-          </div>
-          <div class="title">{{workname}}</div>
-          <div class="workName">
-            <div>业务日期：{{oaa02}}</div>
-            <div>申请单编号：{{oaa01}}</div>
-          </div>
-          <!-- 步骤 -->
-          <div class="processBox">
-            <!-- 当前步骤 -->
-            <div class="curProcess">
-              <div class="processName">
-                <img src="../../assets/img/step.png" />
-                <span>当前步骤：</span>
-                <div class="mainPeo">第{{fixedData.now_workFlows.flownum}}步：{{fixedData.now_workFlows.flowname}}</div>
-              </div>
-              <div class="processPeo">
-                <img src="../../assets/img/person.png" />
-                <span>主办人员：</span>
-                <div class="mainPeo">{{fixedData.now_workFlows.flowuser}}</div>
-              </div>
+    <div class="containBox">
+      <div class="backMsg">
+        退回流程
+      </div>
+      <!-- 签批 -->
+      <el-card class="formContent">
+        <el-tabs v-model="activeTab" @tab-click="handleClick">
+          <el-tab-pane name="firTab">
+            <div slot="label" class="potBox">
+              <span
+                class="pot"
+                :class="activeTab == 'firTab' ? 'potActive' : ''"
+              ></span>
+              <span>签批</span>
             </div>
-            <img v-if="fixedData.is_last==1" class="arrowImg" src="../../assets/img/jiantou.png" />
-            <!-- 下一步骤 -->
-            <div v-if="fixedData.is_last==1" class="curProcess">
-              <div class="processName">
-                <img src="../../assets/img/step.png" />
-                <span>下一步骤：</span>
-                <div class="mainSelect">
-                  <el-select
-                    v-model="uploadData.next_flowid"
-                    class="memeberSelect"
-                    placeholder="请选择下一步骤"
-                    @change="checkNextFlow()"
-                  >
-                    <el-option
-                      v-for="(item,index) in fixedData.next_workFlows"
-                      :key="index"
-                      :label="item.flowname"
-                      :value="item.fid"
-                    >
-                    </el-option>
-                  </el-select>
+            <div class="title">{{workname}}</div>
+            <div class="workName">
+              <div>业务日期：{{oaa02}}</div>
+              <div>申请单编号：{{oaa01}}</div>
+            </div>
+            <!-- 步骤 -->
+            <div class="processBox">
+              <!-- 当前步骤 -->
+              <div class="curProcess">
+                <div class="processName">
+                  <img src="../../assets/img/step.png" />
+                  <span>当前步骤：</span>
+                  <div class="mainPeo">第{{fixedData.now_workFlows.flownum}}步：{{fixedData.now_workFlows.flowname}}</div>
+                </div>
+                <div class="processPeo">
+                  <img src="../../assets/img/person.png" />
+                  <span>主办人员：</span>
+                  <div class="mainPeo">{{fixedData.now_workFlows.flowuser}}</div>
                 </div>
               </div>
-              <div class="processPeo">
-                <img src="../../assets/img/person.png" />
-                <span>主办人员：</span>
-                <div class="mainSelect">
-                  <!-- 未选择流程 -->
-                  <div v-if="uploadData.next_flowid == ''">
+              <img v-if="fixedData.is_last==1" class="arrowImg" src="../../assets/img/jiantou.png" />
+              <!-- 下一步骤 -->
+              <div v-if="fixedData.is_last==1" class="curProcess">
+                <div class="processName">
+                  <img src="../../assets/img/step.png" />
+                  <span>下一步骤：</span>
+                  <div class="mainSelect">
                     <el-select
-                      v-model="uploadData.next_userid"
+                      v-model="uploadData.next_flowid"
                       class="memeberSelect"
-                      placeholder="请先选择下一步骤"
-                      disabled
+                      placeholder="请选择下一步骤"
+                      @change="checkNextFlow()"
                     >
+                      <el-option
+                        v-for="(item,index) in fixedData.next_workFlows"
+                        :key="index"
+                        :label="item.flowname"
+                        :value="item.fid"
+                      >
+                      </el-option>
                     </el-select>
                   </div>
-                  <div v-if="uploadData.next_flowid !== ''">
-                    <!-- 可选所有 -->
-                    <div 
-                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '1'"
-                      class="selector" 
-                      @click="selectDialog('SQR')">
-                        {{showData.oaa04_show}}
+                </div>
+                <div class="processPeo">
+                  <img src="../../assets/img/person.png" />
+                  <span>主办人员：</span>
+                  <div class="mainSelect">
+                    <!-- 未选择流程 -->
+                    <div v-if="uploadData.next_flowid == ''">
+                      <el-select
+                        v-model="uploadData.next_userid"
+                        class="memeberSelect"
+                        placeholder="请先选择下一步骤"
+                        disabled
+                      >
+                      </el-select>
                     </div>
-                    <!-- 条件内可选 -->
-                    <el-select
-                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '2'"
-                      v-model="uploadData.next_userid"
-                      class="memeberSelect"
-                      placeholder="请选择主办人员"
-                    >
-                      <el-option
-                        v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
-                        :key="index"
-                        :label="item.name"
-                        :value="item.id"
+                    <div v-if="uploadData.next_flowid !== ''">
+                      <!-- 可选所有 -->
+                      <div 
+                        v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '1'"
+                        class="selector" 
+                        @click="selectDialog('SQR')">
+                          {{showData.oaa04_show}}
+                      </div>
+                      <!-- 条件内可选 -->
+                      <el-select
+                        v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '2'"
+                        v-model="uploadData.next_userid"
+                        class="memeberSelect"
+                        placeholder="请选择主办人员"
                       >
-                      </el-option>
-                    </el-select>
-                    <!-- 不可选 -->
-                    <el-select
-                      v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '3'"
-                      v-model="uploadData.next_userid"
-                      class="memeberSelect"
-                      disabled
-                    >
-                      <el-option
-                        v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
-                        :key="index"
-                        :label="item.name"
-                        :value="item.id"
+                        <el-option
+                          v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
+                          :key="index"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                      <!-- 不可选 -->
+                      <el-select
+                        v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '3'"
+                        v-model="uploadData.next_userid"
+                        class="memeberSelect"
+                        disabled
                       >
-                      </el-option>
-                    </el-select>
+                        <el-option
+                          v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
+                          :key="index"
+                          :label="item.name"
+                          :value="item.id"
+                        >
+                        </el-option>
+                      </el-select>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- 流程审批意见 -->
-          <div class="opinion">
-            <div class="top">
-              <div class="opinionName">流程审批意见</div>
-              <el-dropdown trigger="click" @command="handleCommand">
-                <span class="el-dropdown-link">
-                  常用语<img src="../../assets/img/more.png" class="moreImg" />
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item
-                    v-for="(item, index) in fixedData.msgs"
-                    :key="index"
-                    :command="item"
-                    >{{ item.label }}</el-dropdown-item
-                  >
-                </el-dropdown-menu>
-              </el-dropdown>
+            <!-- 流程审批意见 -->
+            <div class="opinion">
+              <div class="top">
+                <div class="opinionName">流程审批意见</div>
+                <el-dropdown trigger="click" @command="handleCommand">
+                  <span class="el-dropdown-link">
+                    常用语<img src="../../assets/img/more.png" class="moreImg" />
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item
+                      v-for="(item, index) in fixedData.msgs"
+                      :key="index"
+                      :command="item"
+                      >{{ item.label }}</el-dropdown-item
+                    >
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </div>
+              <div class="note">
+                <el-input
+                  type="textarea"
+                  :autosize="{ minRows: 2, maxRows: 4 }"
+                  placeholder="请输入流程审批意见"
+                  v-model="uploadData.content"
+                >
+                </el-input>
+              </div>
             </div>
-            <div class="note">
-              <el-input
-                type="textarea"
-                :autosize="{ minRows: 2, maxRows: 4 }"
-                placeholder="请输入流程审批意见"
-                v-model="uploadData.content"
-              >
-              </el-input>
-            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </el-card>
+      <el-card class="messageCont">
+        <div class="remindMember">
+          <div class="opinionName">提醒相关人员</div>
+          <div class="checks">
+            <el-checkbox
+              v-model="uploadData.return_user"
+              class="check"
+              :true-label="1"
+              :false-label="0"
+              label="回退步骤人员"
+              border
+            ></el-checkbox>
           </div>
-        </el-tab-pane>
-      </el-tabs>
-    </el-card>
-    <el-card class="messageCont">
-      <div class="remindMember">
-        <div class="opinionName">提醒相关人员</div>
-        <div class="checks">
-          <el-checkbox
-            v-model="uploadData.return_user"
-            class="check"
-            :true-label="1"
-            :false-label="0"
-            label="回退步骤人员"
-            border
-          ></el-checkbox>
         </div>
-      </div>
-      <div class="remindMember">
-        <div class="opinionName">提醒方式</div>
-        <div class="checks">
-          <el-checkbox
-            v-model="uploadData.sms_box"
-            class="check"
-            :true-label="1"
-            :false-label="0"
-            label="内部短消息"
-            border
-          ></el-checkbox>
-          <el-checkbox
-            v-model="uploadData.sms_phone"
-            class="check"
-            label="手机短信"
-            :true-label="1"
-            :false-label="0"
-            border
-          ></el-checkbox>
-          <el-checkbox
-            v-model="uploadData.sms_mail"
-            class="check"
-            :true-label="1"
-            :false-label="0"
-            label="邮件"
-            border
-          ></el-checkbox>
+        <div class="remindMember">
+          <div class="opinionName">提醒方式</div>
+          <div class="checks">
+            <el-checkbox
+              v-model="uploadData.sms_box"
+              class="check"
+              :true-label="1"
+              :false-label="0"
+              label="内部短消息"
+              border
+            ></el-checkbox>
+            <el-checkbox
+              v-model="uploadData.sms_phone"
+              class="check"
+              label="手机短信"
+              :true-label="1"
+              :false-label="0"
+              border
+            ></el-checkbox>
+            <el-checkbox
+              v-model="uploadData.sms_mail"
+              class="check"
+              :true-label="1"
+              :false-label="0"
+              label="邮件"
+              border
+            ></el-checkbox>
+          </div>
         </div>
-      </div>
-      <div class="remindMember">
-        <div class="opinionName">消息内容</div>
-        <el-input
-          type="textarea"
-          :autosize="{ minRows: 1, maxRows: 4 }"
-          v-model="uploadData.sms_content"
-        >
-        </el-input>
-      </div>
-      <div class="btns">
-        <el-button @click="$router.go(-1)">返回</el-button>
-        <el-button type="primary" @click="submit()">提交</el-button>
-      </div>
-    </el-card>
+        <div class="remindMember">
+          <div class="opinionName">消息内容</div>
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 1, maxRows: 4 }"
+            v-model="uploadData.sms_content"
+          >
+          </el-input>
+        </div>
+        <div class="btns">
+          <el-button @click="$router.go(-1)">返回</el-button>
+          <el-button type="primary" @click="submit()" v-loading.fullscreen.lock="fullscreenLoading">提交</el-button>
+        </div>
+      </el-card>
+    </div>
     <!-- 数据选择弹出框 -->
     <SelectData
       :isLoading="dataSelect.selectLoading"
@@ -229,6 +231,7 @@ export default {
   components: {SelectData},
   data() {
     return {
+      fullscreenLoading: false,
       workname: '',
       oaa01: '',
       oaa02: '',
@@ -325,8 +328,10 @@ export default {
       this.uploadData.content = command.label
     },
     submit(){
+      this.fullscreenLoading = true;
       transact(this.uploadData).then(res=>{
         if(res.status == 200){
+          this.fullscreenLoading = false;
           this.$message({
             message: '提交成功！',
             type: 'success'
@@ -339,6 +344,7 @@ export default {
             },
           });
         }else{
+          this.fullscreenLoading = false;
           this.$message.error('提交失败：'+res.error.message);
         }
       })
@@ -426,30 +432,38 @@ export default {
 
 <style lang="less">
 @import "../../assets/style/public.less";
-.formContent {
-  .title {
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-    text-align: center;
-  }
-  .mainSelect {
-    .selector{
-      background-color: #f5f5f5;
-      width: 228px;
-      height: 26px;
-      line-height: 28px;
-      border-radius: 4px;
-      padding: 0 15px;
-      font-size: 16px;
-      color: #333333;
-    }
-    .el-input {
-      font-size: 16px;
-      .el-input__inner {
-        padding-left: 15px;
-        &::-webkit-input-placeholder {
+.workSpace{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-top: 0;
+  .containBox {
+    .formContent {
+      .title {
+        font-size: 16px;
+        color: #333;
+        font-weight: bold;
+        text-align: center;
+      }
+      .mainSelect {
+        .selector{
+          background-color: #f5f5f5;
+          width: 228px;
+          height: 26px;
+          line-height: 28px;
+          border-radius: 4px;
+          padding: 0 15px;
           font-size: 16px;
+          color: #333333;
+        }
+        .el-input {
+          font-size: 16px;
+          .el-input__inner {
+            padding-left: 15px;
+            &::-webkit-input-placeholder {
+              font-size: 16px;
+            }
+          }
         }
       }
     }
