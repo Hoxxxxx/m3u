@@ -363,7 +363,7 @@ export default {
               value: 'oad03'
             },
             {
-              label: '借款人',
+              label: '供应商',
               value: 'oad04_show'
             },
             {

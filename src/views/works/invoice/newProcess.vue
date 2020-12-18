@@ -927,11 +927,10 @@ export default {
     },
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid;
+    this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8952;
     let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
     this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
     this.tableData.oaa03_show = oauserinfo.oaname;
-    // this.addParams.tplid = 8952;
     this.addRow2();
     this.addRow1();
     this.getAzi(); //币种列表
@@ -939,28 +938,31 @@ export default {
   },
   methods: {
     must(obj) {
+      let index = obj.columnIndex
       if (
-        obj.columnIndex == 1 ||
-        obj.columnIndex == 2 ||
-        obj.columnIndex == 3 ||
-        obj.columnIndex == 4 ||
-        obj.columnIndex == 5 ||
-        obj.columnIndex == 6 ||
-        obj.columnIndex == 7 ||
-        obj.columnIndex == 8 ||
-        obj.columnIndex == 9
+        index == 1 ||
+        index == 2 ||
+        index == 3 ||
+        index == 4 ||
+        index == 5 ||
+        index == 6 ||
+        index == 7 ||
+        index == 8 ||
+        index == 9
       ) {
+        console.log(obj)
         return "must";
       }
     },
     must1(obj) {
+      let index = obj.columnIndex
       if (
-        obj.columnIndex == 1 ||
-        obj.columnIndex == 2 ||
-        obj.columnIndex == 3 ||
-        obj.columnIndex == 4 ||
-        obj.columnIndex == 5 ||
-        obj.columnIndex == 6
+        index == 1 ||
+        index == 2 ||
+        index == 3 ||
+        index == 4 ||
+        index == 5 ||
+        index == 6
       ) {
         return "must";
       }

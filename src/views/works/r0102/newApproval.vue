@@ -874,7 +874,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad04_show"
-                    label="借款人"
+                    label="供应商"
                     min-width="110px"
                     align="center"
                   >
@@ -951,7 +951,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad04_show"
-                    label="借款人"
+                    label="供应商"
                     min-width="110px"
                     align="center"
                   >

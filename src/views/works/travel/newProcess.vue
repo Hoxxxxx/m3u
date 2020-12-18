@@ -33,7 +33,7 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox required">
-                  <span :class="form_must.includes('oaa03') ? 'redPot' : ''">经办人</span>
+                  经办人
                 </div>
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
@@ -125,7 +125,7 @@
                   {{ tableData.expenseMoneyF }}
                 </div>
                 <div class="titlebox">
-                  <span >支付方式</span>
+                  <span :class="form_must.includes('oaa12') ? 'redPot' : ''">支付方式</span>
                 </div>
                 <div class="infobox last_row selectbox">
                   <el-select
@@ -984,7 +984,7 @@ export default {
       },
       //
       oacType: "", //核算项类型
-      form_must:[],
+      form_must:[],//必填项
       //财务信息
       oaz: {
         oaz01: "", //银行

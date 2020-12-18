@@ -437,7 +437,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab11"
-                    label="* 核算项一"
+                    label="核算项一"
                     min-width="180px"
                     align="center"
                   >
@@ -459,7 +459,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oab12"
-                    label="* 核算项二"
+                    label="核算项二"
                     min-width="180px"
                     align="center"
                   >
@@ -1270,8 +1270,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid;
-    // this.workid = 4610
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4610;
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
