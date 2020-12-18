@@ -987,28 +987,31 @@ export default {
       })
     },
     must(obj) {
+      let index = obj.columnIndex
       if (
-        obj.columnIndex == 1 ||
-        obj.columnIndex == 2 ||
-        obj.columnIndex == 3 ||
-        obj.columnIndex == 4 ||
-        obj.columnIndex == 5 ||
-        obj.columnIndex == 6 ||
-        obj.columnIndex == 7 ||
-        obj.columnIndex == 8 ||
-        obj.columnIndex == 9
+        index == 1 ||
+        index == 2 ||
+        index == 3 ||
+        index == 4 ||
+        index == 5 ||
+        index == 6 ||
+        index == 7 ||
+        index == 8 ||
+        index == 9
       ) {
+        console.log(obj)
         return "must";
       }
     },
     must1(obj) {
+      let index = obj.columnIndex
       if (
-        obj.columnIndex == 1 ||
-        obj.columnIndex == 2 ||
-        obj.columnIndex == 3 ||
-        obj.columnIndex == 4 ||
-        obj.columnIndex == 5 ||
-        obj.columnIndex == 6
+        index == 1 ||
+        index == 2 ||
+        index == 3 ||
+        index == 4 ||
+        index == 5 ||
+        index == 6
       ) {
         return "must";
       }

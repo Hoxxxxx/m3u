@@ -433,8 +433,8 @@ router.beforeEach((to, from, next) => {
             paraStr += `&${key}=${allParams[key]}`
           }
           let urlStr = window.location.href.split('?')[0]
-          let curUrl = `${urlStr}?${paraStr.substring(1)}`
-          window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
+          let nowUrl = `${urlStr}?${paraStr.substring(1)}`
+          window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${nowUrl}`
         }
       })
     } else {

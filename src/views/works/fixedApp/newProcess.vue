@@ -33,7 +33,7 @@
                   {{ tableData.oaa03_show }}
                 </div>
                 <div class="titlebox">
-                  <span class="redPot">联系电话</span>
+                  <span :class="form_must.includes('oaa05') ? 'redPot' : ''">联系电话</span>
                 </div>
                 <div class="infobox selectbox middlebox last_row">
                   <input
@@ -44,17 +44,23 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox required"><span class="redPot">申请人</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">申请人</span>
+                </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox required"><span class="redPot">员工编号</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">员工编号</span>
+                </div>
                 <div class="infobox editNot">
                   {{ showData.oaa04_gen01 }}
                 </div>
-                <div class="titlebox">所属部门</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">所属部门</span>
+                </div>
                 <div class="infobox editNot last_row">
                   {{ showData.oaa04_gen04 }}
                 </div>
@@ -62,7 +68,9 @@
               <!-- 构建信息 -->
               <div class="title_line">构建信息</div>
               <div class="form_line">
-                <div class="titlebox">购置类别</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa11') ? 'redPot' : ''">购置类别</span>
+                </div>
                 <div class="infobox longbox selectbox">
                   <el-select
                     v-model="tableData.oaa11"
@@ -80,7 +88,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">固定资产名称</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa12') ? 'redPot' : ''">固定资产名称</span>
+                </div>
                 <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
@@ -88,7 +98,9 @@
                     placeholder="请输入固定资产名称"
                   />
                 </div>
-                <div class="titlebox">规格型号</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa13') ? 'redPot' : ''">规格型号</span>
+                </div>
                 <div class="infobox middlebox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -98,7 +110,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">计量单位</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa14') ? 'redPot' : ''">计量单位</span>
+                </div>
                 <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
@@ -106,7 +120,9 @@
                     placeholder="请输入计量单位"
                   />
                 </div>
-                <div class="titlebox">构建数量</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa15') ? 'redPot' : ''">构建数量</span>
+                </div>
                 <div class="infobox middlebox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -116,7 +132,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">计划金额</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa16') ? 'redPot' : ''">计划金额</span>
+                </div>
                 <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
@@ -124,7 +142,9 @@
                     placeholder="请输入计划金额"
                   />
                 </div>
-                <div class="titlebox">生产厂家</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa17') ? 'redPot' : ''">生产厂家</span>
+                </div>
                 <div class="infobox middlebox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -134,7 +154,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">构建时间</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa18') ? 'redPot' : ''">构建时间</span>
+                </div>
                 <div class="infobox middlebox datebox">
                   <el-date-picker
                     v-model="tableData.oaa18"
@@ -144,7 +166,9 @@
                   >
                   </el-date-picker>
                 </div>
-                <div class="titlebox">使用部门</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa19') ? 'redPot' : ''">使用部门</span>
+                </div>
                 <div class="infobox middlebox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -154,7 +178,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">计划内外</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa20') ? 'redPot' : ''">计划内外</span>
+                </div>
                 <div class="infobox middlebox selectbox">
                   <input
                     class="abstracInput"
@@ -162,7 +188,9 @@
                     placeholder="请输入计划内外"
                   />
                 </div>
-                <div class="titlebox">采购金额</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa21') ? 'redPot' : ''">采购金额</span>
+                </div>
                 <div class="infobox middlebox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -172,7 +200,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">主要参数配置</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa22') ? 'redPot' : ''">主要参数配置</span>
+                </div>
                 <div class="infobox longbox areabox">
                   <el-input
                     type="textarea"
@@ -184,7 +214,9 @@
                 </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">构建依据</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa23') ? 'redPot' : ''">构建依据</span>
+                </div>
                 <div class="infobox longbox areabox">
                   <el-input
                     type="textarea"
@@ -267,7 +299,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { gensList,  } from "@/api/basic";
+import { gensList, mustItem } from "@/api/basic";
 import { addFlow, editFlow, } from "@/api/process_new";
 
 export default {
@@ -297,6 +329,7 @@ export default {
         oaa22: '',
         oaa23: '',
       },
+      form_must:[],//必填项
       showData: {
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
@@ -353,13 +386,26 @@ export default {
     };
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid
+    this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8946;
     let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
     this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
     this.tableData.oaa03_show = oauserinfo.oaname
     this.getGens()
+    this.getMustItem()
   },
   methods: {
+    getMustItem(){
+      let params={
+        tplid:this.addParams.tplid
+      }
+      mustItem(params).then(res=>{
+        if(res.status == 200){
+          this.form_must = res.data.form_able
+        }else{
+          console.log('必填项获取失败！')
+        }
+      })
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
