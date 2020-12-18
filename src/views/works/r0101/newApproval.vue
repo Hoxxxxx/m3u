@@ -42,9 +42,13 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox">经办人</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa03') ? 'redPot' : ''">经办人</span>
+                </div>
                 <div class="infobox middlebox editNot">{{ tableData.oaa03_show }}</div>
-                <div class="titlebox">联系电话</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa05') ? 'redPot' : ''">联系电话</span>
+                </div>
                 <div class="infobox selectbox middlebox last_row editNot" v-if="!table_able.includes('oaa05')">{{ tableData.oaa05 }}</div>
                 <div class="infobox selectbox middlebox last_row" v-if="table_able.includes('oaa05')">
                   <input
@@ -55,29 +59,41 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">申请人</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">申请人</span>
+                </div>
                 <div class="infobox selectbox editNot" v-if="!table_able.includes('oaa04')">{{ tableData.oaa04_show }}</div>
                 <div class="infobox selectbox" v-if="table_able.includes('oaa04')">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ tableData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox">员工编号</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">员工编号</span>
+                </div>
                 <div class="infobox editNot">{{ tableData.oaa04 }}</div>
-                <div class="titlebox">所属部门</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">所属部门</span>
+                </div>
                 <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
               <!-- 预付信息 -->
               <div class="title_line">预付信息</div>
               <div class="form_line">
-                <div class="titlebox">预付厂商</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa11') ? 'redPot' : ''">预付厂商</span>
+                </div>
                 <div v-if="!table_able.includes('oaa11')" class="infobox selectbox editNot">{{tableData.oaa11}}</div>
                 <div v-if="table_able.includes('oaa11')" class="infobox selectbox">
                   <div class="selector" @click="selectDialog('YFCS')">{{tableData.oaa11}}</div>
                 </div>
-                <div class="titlebox">厂商简称</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa11') ? 'redPot' : ''">厂商简称</span>
+                </div>
                 <div class="infobox disabledbox">{{tableData.oaa11_show}}</div>
-                <div class="titlebox">支付方式</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa16') ? 'redPot' : ''">支付方式</span>
+                </div>
                 <div class="infobox last_row selectbox" :class="!table_able.includes('oaa16')?'disabledbox':''">
                   <el-select
                     v-model="tableData.oaa16"
@@ -96,7 +112,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">币种</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa13') ? 'redPot' : ''">币种</span>
+                </div>
                 <div class="infobox selectbox" :class="!table_able.includes('oaa13')?'disabledbox':''">
                   <el-select
                     v-model="tableData.oaa13"
@@ -113,7 +131,9 @@
                     </el-option>
                   </el-select>
                 </div>
-                <div class="titlebox">汇率</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa14') ? 'redPot' : ''">汇率</span>
+                </div>
                 <div v-if="!table_able.includes('oaa14')" class="infobox selectbox editNot">{{tableData.oaa14}}</div>
                 <div v-if="table_able.includes('oaa14')" class="infobox selectbox selectbox">
                   <input
@@ -123,7 +143,9 @@
                     @input="getExchangeRate()"
                   />
                 </div>
-                <div class="titlebox">预付金额</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa12') ? 'redPot' : ''">预付金额</span>
+                </div>
                 <div v-if="!table_able.includes('oaa12')" class="infobox selectbox last_row editNot">{{tableData.oaa12}}</div>
                 <div v-if="table_able.includes('oaa12')" class="infobox selectbox last_row">
                   <input
@@ -141,14 +163,18 @@
                 <div class="infobox middlebox disabledbox last_row">{{exchange_Cap}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">项目</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa27') ? 'redPot' : ''">项目</span>
+                </div>
                 <div v-if="!table_able.includes('oaa27')" class="infobox middlebox selectbox editNot">{{ tableData.oaa27_show }}</div>
                 <div v-if="table_able.includes('oaa27')" class="infobox middlebox selectbox">
                   <div class="selector" @click="selectDialog('XM')">
                   {{ tableData.oaa27_show }}
                   </div>
                 </div>
-                <div class="titlebox">项目WBS</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa28') ? 'redPot' : ''">项目WBS</span>
+                </div>
                 <div v-if="!table_able.includes('oaa28')" class="infobox middlebox selectbox last_row editNot">{{ tableData.oaa28_show }}</div>
                 <div v-if="table_able.includes('oaa28')" class="infobox middlebox selectbox last_row">
                   <div class="selector" @click="selectDialog('WBS')">
@@ -157,7 +183,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">说明</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa18') ? 'redPot' : ''">说明</span>
+                </div>
                 <div class="infobox areabox longbox" style="width: 100%">
                   <el-input
                     type="textarea"
@@ -172,7 +200,9 @@
                 </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">备注</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa99') ? 'redPot' : ''">备注</span>
+                </div>
                 <div class="infobox areabox longbox" style="width: 100%">
                   <el-input
                     type="textarea"
@@ -189,7 +219,9 @@
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
               <div class="form_line">
-                <div class="titlebox">收款人</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa21') ? 'redPot' : ''">收款人</span>
+                </div>
                 <div v-if="!table_able.includes('oaa21')" class="infobox selectbox editNot">{{tableData.oaa21}}</div>
                 <div v-if="table_able.includes('oaa21')" class="infobox selectbox">
                   <input
@@ -198,7 +230,9 @@
                     placeholder="请输入收款人"
                   />
                 </div>
-                <div class="titlebox">开户行</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa22') ? 'redPot' : ''">开户行</span>
+                </div>
                 <div v-if="!table_able.includes('oaa22')" class="infobox selectbox editNot">{{tableData.oaa22}}</div>
                 <div v-if="table_able.includes('oaa22')" class="infobox selectbox">
                   <input
@@ -207,7 +241,9 @@
                     placeholder="请输入开户行"
                   />
                 </div>
-                <div class="titlebox">收款账号</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa23') ? 'redPot' : ''">收款账号</span>
+                </div>
                 <div v-if="!table_able.includes('oaa23')" class="infobox selectbox last_row editNot">{{tableData.oaa23}}</div>
                 <div v-if="table_able.includes('oaa23')" class="infobox selectbox last_row">
                   <input
@@ -218,7 +254,9 @@
                 </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">支票号</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa24') ? 'redPot' : ''">支票号</span>
+                </div>
                 <div v-if="!table_able.includes('oaa24')" class="infobox last_row longbox selectbox editNot" style="width: 100%">{{tableData.oaa24}}</div>
                 <div v-if="table_able.includes('oaa24')" class="infobox last_row longbox selectbox" style="width: 100%">
                   <input
@@ -412,6 +450,7 @@ export default {
       workName: '预付款申请单',
       more:[],//查看更多
       activeTab: "firTab",
+      form_must_able: [],
       tableData: {},
       // 汇率数据
       exchange: '', //折合汇率
@@ -547,6 +586,7 @@ export default {
         if(res.status == 200){
           loading.close()
           clearTimeout(this.overloading)
+          this.form_must_able = res.data.form_must_able
           this.tableData = res.data.workclass_info.from_data
           this.workName = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
