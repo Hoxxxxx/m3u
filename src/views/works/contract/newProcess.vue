@@ -33,7 +33,7 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox required">
-                  <span class="redPot">经办人</span>
+                  <span :class="form_must.includes('oaa03') ? 'redPot' : ''">经办人</span>
                 </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('JBR')">
@@ -41,14 +41,16 @@
                   </div>
                 </div>
                 <div class="titlebox required">
-                  <span class="redPot">申请人</span>
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">申请人</span>
                 </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox">所属部门</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa06') ? 'redPot' : ''">所属部门</span>
+                </div>
                 <div class="infobox selectbox  last_row">
                   <div class="selector" @click="selectDialog('BM')">
                     {{ showData.oaa06_show }}
@@ -57,7 +59,7 @@
               </div>
               <div class="form_line lastline">
                 <div class="titlebox">
-                  <span class="redPot">联系电话</span>
+                  <span :class="form_must.includes('oaa05') ? 'redPot' : ''">联系电话</span>
                 </div>
                 <div class="infobox selectbox longbox last_row">
                   <input
@@ -70,12 +72,14 @@
               <!-- 合同信息 -->
               <div class="title_line">合同信息</div>
               <div class="form_line">
-                <div class="titlebox ">合同编号</div>
+                <div class="titlebox ">
+                  <span :class="form_must.includes('oaa16') ? 'redPot' : ''">合同编号</span>
+                </div>
                 <div class="infobox selectbox editNot">
                   {{ tableData.oaa16 }}
                 </div>
                 <div class="titlebox required">
-                  <span class="redPot">合同名称</span>
+                  <span :class="form_must.includes('oaa11') ? 'redPot' : ''">合同名称</span>
                 </div>
                 <div class="infobox selectbox">
                   <input
@@ -85,7 +89,7 @@
                   />
                 </div>
                 <div class="titlebox required">
-                  <span class="redPot">合同金额</span>
+                  <span :class="form_must.includes('oaa12') ? 'redPot' : ''">合同金额</span>
                 </div>
                 <div class="infobox selectbox last_row">
                   <input
@@ -97,7 +101,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox required">
-                  <span class="redPot">签约方</span>
+                  <span :class="form_must.includes('oaa13') ? 'redPot' : ''">签约方</span>
                 </div>
                 <div class="infobox middlebox selectbox">
                   <el-radio-group
@@ -111,7 +115,7 @@
                   
                 </div>
                 <div class="titlebox required">
-                  <span class="redPot">签约方名称</span>
+                  <span :class="form_must.includes('oaa14') ? 'redPot' : ''">签约方名称</span>
                 </div>
                 <div class="infobox selectbox middlebox  last_row">
                   <div class="selector" style="background-position:99%;" @click="selectType()">
@@ -121,7 +125,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox required">
-                  <span class="redPot">合同类型</span>
+                  <span :class="form_must.includes('oaa15') ? 'redPot' : ''">合同类型</span>
                 </div>
                 <div class="infobox selectbox">
                   <el-select
@@ -139,7 +143,7 @@
                   </el-select>
                 </div>
                 <div class="titlebox required">
-                  <span class="redPot">合同开始日期</span>
+                  <span :class="form_must.includes('oaa17') ? 'redPot' : ''">合同开始日期</span>
                 </div>
                 <div class="infobox selectbox">
                   <el-date-picker
@@ -151,7 +155,7 @@
                   </el-date-picker>
                 </div>
                 <div class="titlebox required">
-                  <span class="redPot">合同结束日期</span>
+                  <span :class="form_must.includes('oaa18') ? 'redPot' : ''">合同结束日期</span>
                 </div>
                 <div class="infobox selectbox last_row">
                   <el-date-picker
@@ -165,7 +169,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox required">
-                  <span class="redPot">合同文件</span>
+                  <span :class="form_must.includes('oaa19') ? 'redPot' : ''">合同文件</span>
                 </div>
                 <div class="infobox longbox selectbox" style="padding:10px 20px;">
                   <el-upload
@@ -186,7 +190,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox"><span class="redPot">说明</span></div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa21') ? 'redPot' : ''">说明</span>
+                </div>
                 <div
                   class="infobox longbox areabox"
                   style="width: 100%"
@@ -203,7 +209,9 @@
                 </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">备注</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa20') ? 'redPot' : ''">备注</span>
+                </div>
                 <div class="longbox">
                   <el-input
                     type="textarea"
@@ -290,7 +298,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { htList } from "@/api/basic";
+import { htList, mustItem } from "@/api/basic";
 import { addFlow, editFlow } from "@/api/process_new";
 
 export default {
@@ -327,6 +335,7 @@ export default {
         oaa06_show: "", //部门
         oaa14_show:"",
       },
+      form_must:[],
       // 表单数据
       fixedData: {
         // 币种列表
@@ -397,8 +406,21 @@ export default {
     this.tableData.oaa04 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
     this.showData.oaa04_show = oauserinfo.oaname;
     this.getHT();
+    this.getMustItem()
   },
   methods: {
+    getMustItem(){
+      let params={
+        tplid:this.addParams.tplid
+      }
+      mustItem(params).then(res=>{
+        if(res.status == 200){
+          this.form_must = res.data.form_able
+        }else{
+          console.log('必填项获取失败！')
+        }
+      })
+    },
     handleClick() {
       // console.log(this.activeTab);
     },

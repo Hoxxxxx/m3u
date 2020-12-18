@@ -28,12 +28,14 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox required"><span class="redPot">经办人</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa03') ? 'redPot' : ''">经办人</span>
+                </div>
                 <div class="infobox middlebox editNot">
                   {{ tableData.oaa03_show }}
                 </div>
                 <div class="titlebox">
-                  <span class="redPot">联系电话</span>
+                  <span :class="form_must.includes('oaa05') ? 'redPot' : ''">联系电话</span>
                 </div>
                 <div class="infobox selectbox middlebox last_row">
                   <input
@@ -44,17 +46,23 @@
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox required"><span class="redPot">申请人</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">申请人</span>
+                </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
-                <div class="titlebox required"><span class="redPot">员工编号</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">员工编号</span>
+                </div>
                 <div class="infobox editNot">
                   {{ showData.oaa04_gen01 }}
                 </div>
-                <div class="titlebox">所属部门</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">所属部门</span>
+                </div>
                 <div class="infobox editNot last_row">
                   {{ showData.oaa04_gen04 }}
                 </div>
@@ -63,13 +71,19 @@
               <div class="title_line">付款信息</div>
               <!-- 1 -->
               <div class="form_line">
-                <div class="titlebox required"><span class="redPot">预付厂商</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa11') ? 'redPot' : ''">预付厂商</span>
+                </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('YFCS')">{{tableData.oaa11}}</div>
                 </div>
-                <div class="titlebox">厂商简称</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa11') ? 'redPot' : ''">厂商简称</span>
+                </div>
                 <div class="infobox disabledbox">{{showData.oaa11_show}}</div>
-                <div class="titlebox">本次支付金额</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa12') ? 'redPot' : ''">本次支付金额</span>
+                </div>
                 <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -80,7 +94,9 @@
               </div>
               <!-- 2 -->
               <div class="form_line">
-                <div class="titlebox required"><span class="redPot">币种</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa13') ? 'redPot' : ''">币种</span>
+                </div>
                 <div class="infobox selectbox">
                   <el-select
                     v-model="tableData.oaa13"
@@ -96,7 +112,9 @@
                     </el-option>
                   </el-select>
                 </div>
-                <div class="titlebox required"><span class="redPot">汇率</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa14') ? 'redPot' : ''">汇率</span>
+                </div>
                 <div class="infobox selectbox">
                   <input
                     class="abstracInput"
@@ -109,13 +127,19 @@
               </div>
               <!-- 3 -->
               <div class="form_line">
-                <div class="titlebox required"><span class="redPot">税别</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa15') ? 'redPot' : ''">税别</span>
+                </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SB')">{{tableData.oaa15}}</div>
                 </div>
-                <div class="titlebox required"><span class="redPot">税率</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa15') ? 'redPot' : ''">税率</span>
+                </div>
                 <div class="infobox editNot">{{showData.oaa15_show}}</div>
-                <div class="titlebox">支付方式</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa16') ? 'redPot' : ''">支付方式</span>
+                </div>
                 <div class="infobox last_row selectbox">
                   <el-select
                     v-model="tableData.oaa16"
@@ -144,7 +168,9 @@
               </div>
               <!-- 5 -->
               <div class="form_line">
-                <div class="titlebox required"><span class="redPot">说明</span></div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa18') ? 'redPot' : ''">说明</span>
+                </div>
                 <div class="infobox areabox longbox" style="width: 100%">
                   <el-input
                     type="textarea"
@@ -158,7 +184,9 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">备注</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa99') ? 'redPot' : ''">备注</span>
+                </div>
                 <div class="infobox areabox longbox" style="width: 100%">
                   <el-input
                     type="textarea"
@@ -174,7 +202,9 @@
               <!-- 收款信息 -->
               <div class="title_line">收款信息</div>
               <div class="form_line">
-                <div class="titlebox">收款人</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa21') ? 'redPot' : ''">收款人</span>
+                </div>
                 <div class="infobox selectbox">
                   <input
                     class="abstracInput"
@@ -182,7 +212,9 @@
                     placeholder="请输入收款人"
                   />
                 </div>
-                <div class="titlebox">开户行</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa22') ? 'redPot' : ''">开户行</span>
+                </div>
                 <div class="infobox selectbox">
                   <input
                     class="abstracInput"
@@ -190,7 +222,9 @@
                     placeholder="请输入开户行"
                   />
                 </div>
-                <div class="titlebox">收款账号</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa23') ? 'redPot' : ''">收款账号</span>
+                </div>
                 <div class="infobox selectbox last_row">
                   <input
                     class="abstracInput"
@@ -200,7 +234,9 @@
                 </div>
               </div>
               <div class="form_line last_line">
-                <div class="titlebox">支票号</div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa24') ? 'redPot' : ''">支票号</span>
+                </div>
                 <div class="infobox last_row longbox selectbox" style="width: 100%">
                   <input
                     class="abstracInput"
@@ -797,6 +833,7 @@
 import SelectData from "@/components/selectData";
 import { dateFmt,number_chinese } from "@/utils/utils.js";
 import { addFlow,editFlow,workflows,openitems } from "@/api/process_new";
+import {  mustItem } from "@/api/basic";
 import {
   gensList,
   azisList,
@@ -849,6 +886,7 @@ export default {
         oac: [], // 费用明细行项目
         oad: [], // 冲销信息
       },
+      form_must:[],
       oacType: "", //核算项类型
       oaz: {
         oaz01: "", //银行
@@ -989,7 +1027,7 @@ export default {
     };
   },
   created() {
-    this.addParams.tplid = this.$route.query.tplid
+    this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8950
     let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
     this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
     this.tableData.oaa03_show = oauserinfo.oaname
@@ -997,6 +1035,7 @@ export default {
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
+    this.getMustItem()
   },
   computed: {
     // 应付金额
@@ -1053,6 +1092,18 @@ export default {
     },
   },
   methods: {
+    getMustItem(){
+      let params={
+        tplid:this.addParams.tplid
+      }
+      mustItem(params).then(res=>{
+        if(res.status == 200){
+          this.form_must = res.data.form_able
+        }else{
+          console.log('必填项获取失败！')
+        }
+      })
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
