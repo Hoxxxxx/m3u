@@ -623,7 +623,7 @@
                 >
                   <el-table-column
                     prop="oad01"
-                    label="待抵单号"
+                    label="预付编号"
                     min-width="150px"
                     align="center"
                   >
@@ -639,7 +639,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad03"
-                    label="借款日期"
+                    label="付款日期"
                     min-width="130px"
                     align="center"
                   >
@@ -676,7 +676,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad05"
-                    label="借款总金额"
+                    label="预付金额（原币）"
                     min-width="130px"
                     align="center"
                   >
@@ -692,7 +692,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad02"
-                    label="还款金额"
+                    label="还款金额（原币）"
                     min-width="130px"
                     align="center"
                   >

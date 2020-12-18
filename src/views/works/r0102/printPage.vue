@@ -355,11 +355,11 @@ export default {
         {
           theadList: [
             {
-              label: '待抵单号',
+              label: '预付编号',
               value: 'oad01'
             },
             {
-              label: '借款日期',
+              label: '付款日期',
               value: 'oad03'
             },
             {
@@ -367,11 +367,11 @@ export default {
               value: 'oad04_show'
             },
             {
-              label: '借款总金额',
+              label: '预付金额（原币）',
               value: 'oad05'
             },
             {
-              label: '还款金额',
+              label: '还款金额（原币）',
               value: 'oad02'
             },
             {

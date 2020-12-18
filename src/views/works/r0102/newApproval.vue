@@ -846,14 +846,14 @@
                 >
                   <el-table-column
                     prop="oad01"
-                    label="待抵单号"
+                    label="预付编号"
                     min-width="150px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oad03"
-                    label="借款日期"
+                    label="付款日期"
                     min-width="130px"
                     align="center"
                   >
@@ -864,7 +864,7 @@
                           style="width: 100%"
                           disabled
                           type="date"
-                          placeholder="选择借款日期"
+                          placeholder="选择付款日期"
                           format="yyyy/MM/dd"
                           value-format="yyyy/MM/dd"
                         >
@@ -881,14 +881,14 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad05"
-                    label="借款总金额"
+                    label="预付金额（原币）"
                     min-width="130px"
                     align="center"
                   >
                   </el-table-column>
                   <el-table-column
                     prop="oad02"
-                    label="还款金额"
+                    label="还款金额（原币）"
                     min-width="130px"
                     align="center"
                   >
@@ -914,7 +914,7 @@
                 >
                   <el-table-column
                     prop="oad01"
-                    label="待抵单号"
+                    label="预付编号"
                     min-width="150px"
                     align="center"
                   >
@@ -930,7 +930,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad03"
-                    label="借款日期"
+                    label="付款日期"
                     min-width="130px"
                     align="center"
                   >
@@ -967,7 +967,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad05"
-                    label="借款总金额"
+                    label="预付金额（原币）"
                     min-width="130px"
                     align="center"
                   >
@@ -983,7 +983,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="oad02"
-                    label="还款金额"
+                    label="还款金额（原币）"
                     min-width="130px"
                     align="center"
                   >
@@ -991,7 +991,7 @@
                       <div>
                         <el-input
                           v-model="scope.row.oad02"
-                          placeholder="请输入还款金额"
+                          placeholder=""
                         ></el-input>
                       </div>
                     </template>
