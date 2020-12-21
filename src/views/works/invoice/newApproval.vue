@@ -1415,7 +1415,7 @@ export default {
         if (res.status == 200) {
           loading.close();
           clearTimeout(this.overloading);
-          this.form_must_able = res.data.form_must_able
+          this.form_must_able = res.data.workclass_info.form_must_able
           this.tableData = res.data.workclass_info.from_data;
           this.workname = res.data.workclass_info.title;
           this.workclass_personnel = res.data.workclass_personnel;
