@@ -468,6 +468,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oab"
                 >
                   <el-table-column
                     prop="id"
@@ -1439,6 +1440,9 @@ export default {
       },
       table_able:[],//表格可编辑项
       form_must:[],//必填项
+      oab_must:[],//差旅明细必填项
+      oac_must:[],//费用明细必填项
+      oad_must:[],//冲销信息必填项
       financialData: {
         bank_show: "", //银行回显数据
         num_show: "", //异动码回显数据
@@ -1669,6 +1673,21 @@ export default {
     },
   },
   methods: {
+    must_oab(obj) {
+      if (this.oab_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oac(obj) {
+      if (this.oac_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oad(obj) {
+      if (this.oad_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -1688,6 +1707,9 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able
           this.form_must = res.data.workclass_info.form_must_able
+          this.oab_must = res.data.workclass_info.form_view_must_able.oab ? res.data.workclass_info.form_view_must_able.oab : []
+          this.oac_must = res.data.workclass_info.form_view_must_able.oac ? res.data.workclass_info.form_view_must_able.oac : []
+          this.oad_must = res.data.workclass_info.form_view_must_able.oad ? res.data.workclass_info.form_view_must_able.oad : []
           this.more = res.data.workclass_info.more
           this.oazShow = res.data.workclass_flow.erp_turn
           this.oaz = {
@@ -2414,5 +2436,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/style/public.less";
 </style>

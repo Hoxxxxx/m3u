@@ -345,6 +345,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oaf"
                 >
                   <el-table-column
                     prop="id"
@@ -602,6 +603,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oae"
                 >
                   <el-table-column
                     prop="oae01"
@@ -862,6 +864,8 @@ export default {
       activeTab: "firTab",
       more:[],//查看更多
       form_must_able: [],
+      oae_must:[],//费用明细必填项
+      oaf_must:[],//冲销信息必填项
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
@@ -1019,9 +1023,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    // this.workid = 4371
-    // this.workid = 4593
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4593
     this.getworkflows()
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1072,12 +1074,14 @@ export default {
         if(res.status == 200){
           loading.close()
           clearTimeout(this.overloading)
-          this.form_must_able = res.data.form_must_able
+          this.form_must_able = res.data.workclass_info.form_must_able
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
           this.perflow = res.data.workclass_perflow
           this.table_able = res.data.workclass_info.form_able
+          this.oae_must = res.data.workclass_info.form_view_must_able.oae ? res.data.workclass_info.form_view_must_able.oae : []
+          this.oaf_must = res.data.workclass_info.form_view_must_able.oaf ? res.data.workclass_info.form_view_must_able.oaf : []
           this.oazShow = res.data.workclass_flow.erp_turn
           this.more = res.data.workclass_info.more
           this.oaz = {
