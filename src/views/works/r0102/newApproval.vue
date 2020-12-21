@@ -422,6 +422,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oaf"
                 >
                   <el-table-column
                     prop="id"
@@ -714,6 +715,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oac"
                 >
                   <el-table-column
                     prop="id"
@@ -949,6 +951,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oad"
                 >
                   <el-table-column
                     prop="oad01"
@@ -1211,6 +1214,9 @@ export default {
       workName:"付款申请单",//流程名
       more:[],//查看更多
       form_must_able: [],
+      oaf_must:[],//差旅明细必填项
+      oac_must:[],//费用明细必填项
+      oad_must:[],//冲销信息必填项
       tableData: {
         // 表格部分
         oaf: [], // 发票明细
@@ -1389,8 +1395,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    // this.workid = 4405
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4405;
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
@@ -1483,6 +1488,9 @@ export default {
           this.tableData.oaf.forEach((item, index) => {
             this.change_HSJE(index)
           })
+          this.oaf_must = res.data.workclass_info.form_view_must_able.oaf ? res.data.workclass_info.form_view_must_able.oaf : []
+          this.oac_must = res.data.workclass_info.form_view_must_able.oac ? res.data.workclass_info.form_view_must_able.oac : []
+          this.oad_must = res.data.workclass_info.form_view_must_able.oad ? res.data.workclass_info.form_view_must_able.oad : []
           this.workName = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
           this.workclass_perflow = res.data.workclass_perflow

@@ -318,7 +318,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must"
+                  :header-cell-class-name="must_oab"
                 >
                   <el-table-column
                     prop="id"
@@ -708,7 +708,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must1"
+                  :header-cell-class-name="must_oac"
                 >
                   <el-table-column
                     prop="id"
@@ -1185,6 +1185,8 @@ export default {
         payTypes: [],
       },
       table_able: [], //表格可编辑项
+      oab_must:[],//差旅明细必填项
+      oac_must:[],//费用明细必填项
       financialData: {
         bank_show: "", //银行回显数据
         num_show: "", //异动码回显数据
@@ -1371,30 +1373,13 @@ export default {
     },
   },
   methods: {
-    must(obj) {
-      if (
-        obj.columnIndex == 1 ||
-        obj.columnIndex == 2 ||
-        obj.columnIndex == 3 ||
-        obj.columnIndex == 4 ||
-        obj.columnIndex == 5 ||
-        obj.columnIndex == 6 ||
-        obj.columnIndex == 7 ||
-        obj.columnIndex == 8 ||
-        obj.columnIndex == 9
-      ) {
+    must_oab(obj) {
+      if (this.oab_must.includes(obj.column.property)) {
         return "must";
       }
     },
-    must1(obj) {
-      if (
-        obj.columnIndex == 1 ||
-        obj.columnIndex == 2 ||
-        obj.columnIndex == 3 ||
-        obj.columnIndex == 4 ||
-        obj.columnIndex == 5 ||
-        obj.columnIndex == 6
-      ) {
+    must_oac(obj) {
+      if (this.oac_must.includes(obj.column.property)) {
         return "must";
       }
     },
@@ -1416,6 +1401,8 @@ export default {
           loading.close();
           clearTimeout(this.overloading);
           this.form_must_able = res.data.workclass_info.form_must_able
+          this.oab_must = res.data.workclass_info.form_view_must_able.oab ? res.data.workclass_info.form_view_must_able.oab : []
+          this.oac_must = res.data.workclass_info.form_view_must_able.oac ? res.data.workclass_info.form_view_must_able.oac : []
           this.tableData = res.data.workclass_info.from_data;
           this.workname = res.data.workclass_info.title;
           this.workclass_personnel = res.data.workclass_personnel;
