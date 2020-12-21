@@ -1057,6 +1057,16 @@ export default {
     },
   },
   methods: {
+    must_oae(obj) {
+      if (this.oae_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oaf(obj) {
+      if (this.oaf_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -1549,7 +1559,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;

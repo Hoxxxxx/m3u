@@ -990,7 +990,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;

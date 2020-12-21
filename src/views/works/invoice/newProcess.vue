@@ -1617,7 +1617,6 @@ export default {
 </script>
 
 <style lang="less" >
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;
