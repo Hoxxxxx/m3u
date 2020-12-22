@@ -671,6 +671,23 @@ export default {
     },
     // 下一步
     nextStep(url) {
+      if(url == "/reject" || url == "/back"){
+        this.$router.push({
+          path: url,
+          query: {
+            url_type: 'fixedApp',
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02,
+          },
+        });
+      }else{
+        this.nextFuns(url);
+      }
+    },
+
+    nextFuns(url) {
       this.addParams.from_data = this.tableData
       this.addParams.workid = this.workid
       this.fileList_user.forEach(item => {
@@ -698,7 +715,7 @@ export default {
           this.$message.error("编辑失败：" + result.error.message);
         }
       })
-    },
+    }
     // ******************************************
 
 

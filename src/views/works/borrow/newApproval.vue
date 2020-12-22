@@ -784,7 +784,19 @@ export default {
         console.log(this.oaz,this.oazShow)
         if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
-        } else {
+        } else if(url == "/reject" || url == "/back"){
+        this.$router.push({
+          path: url,
+          query: {
+            url_type: 'borrow',
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02,
+          },
+        });
+      }
+        else {
           this.nextFuns(url);
         }
       } else {

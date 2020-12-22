@@ -1634,7 +1634,19 @@ export default {
         } else {
           this.nextFuns(url);
         }
-      } else {
+      } else if(url == "/reject" || url == "/back"){
+        this.$router.push({
+          path: url,
+          query: {
+            url_type: 'invoice',
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02,
+          },
+        });
+      }
+      else {
         this.nextFuns(url);
       }
     },

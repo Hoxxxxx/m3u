@@ -1039,7 +1039,20 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      this.nextFuns(url);
+      if(url == "/reject" || url == "/back"){
+        this.$router.push({
+          path: url,
+          query: {
+            url_type: 'invoiceApply',
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02,
+          },
+        });
+      }else{
+        this.nextFuns(url);
+      }
     },
     nextFuns(url) {
         this.tableData = {...this.tableData,...this.oaz}
