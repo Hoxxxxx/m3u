@@ -198,7 +198,7 @@
                     :rows="4"
                     v-model="tableData.oaa18"
                     placeholder="请输入说明"
-                    maxlength="80"
+                    maxlength="255"
                     show-word-limit
                   >
                   </el-input>
@@ -217,7 +217,7 @@
                     :rows="4"
                     v-model="tableData.oaa99"
                     placeholder="请输入备注"
-                    maxlength="80"
+                    maxlength="255"
                     show-word-limit
                   >
                   </el-input>
