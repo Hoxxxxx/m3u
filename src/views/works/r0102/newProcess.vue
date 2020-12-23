@@ -258,6 +258,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oaf"
                 >
                   <el-table-column
                     prop="id"
@@ -489,6 +490,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oac"
                 >
                   <el-table-column
                     prop="id"
@@ -656,6 +658,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oad"
                 >
                   <el-table-column
                     prop="oad01"
@@ -887,6 +890,9 @@ export default {
         oad: [], // 冲销信息
       },
       form_must:[],
+      oaf_must:[],//差旅明细必填项
+      oac_must:[],//费用明细必填项
+      oad_must:[],//冲销信息必填项
       oacType: "", //核算项类型
       oaz: {
         oaz01: "", //银行
@@ -1099,10 +1105,28 @@ export default {
       mustItem(params).then(res=>{
         if(res.status == 200){
           this.form_must = res.data.form_able
+          this.oaf_must = res.data.form_must_able.oaf ? res.data.form_must_able.oaf : []
+          this.oac_must = res.data.form_must_able.oac ? res.data.form_must_able.oac : []
+          this.oad_must = res.data.form_must_able.oad ? res.data.form_must_able.oad : []
         }else{
           console.log('必填项获取失败！')
         }
       })
+    },
+    must_oaf(obj) {
+      if (this.oaf_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oac(obj) {
+      if (this.oac_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oad(obj) {
+      if (this.oad_must.includes(obj.column.property)) {
+        return "must";
+      }
     },
     handleClick() {
       // console.log(this.activeTab);
@@ -1731,7 +1755,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;

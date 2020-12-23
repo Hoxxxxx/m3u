@@ -243,6 +243,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oaf"
                 >
                   <el-table-column
                     prop="id"
@@ -449,6 +450,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oae"
                 >
                   <el-table-column
                     prop="oae01"
@@ -641,6 +643,8 @@ export default {
         oae: [], //冲销信息
       },
       form_must:[],
+      oae_must:[],//费用明细必填项
+      oaf_must:[],//冲销信息必填项
       //财务信息
       oaz: {
         oaz01: "", //银行
@@ -782,10 +786,22 @@ export default {
       mustItem(params).then(res=>{
         if(res.status == 200){
           this.form_must = res.data.form_able
+          this.oae_must = res.data.form_must_able.oae ? res.data.form_must_able.oae : []
+          this.oaf_must = res.data.form_must_able.oaf ? res.data.form_must_able.oaf : []
         }else{
           console.log('必填项获取失败！')
         }
       })
+    },
+    must_oae(obj) {
+      if (this.oae_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oaf(obj) {
+      if (this.oaf_must.includes(obj.column.property)) {
+        return "must";
+      }
     },
     handleClick() {
       // console.log(this.activeTab);
@@ -1133,7 +1149,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;

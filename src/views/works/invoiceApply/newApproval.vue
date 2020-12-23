@@ -137,6 +137,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oaf"
                 >
                   <el-table-column
                   prop="id"
@@ -355,6 +356,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oac"
                 >
                   <el-table-column
                     prop="oac01"
@@ -760,6 +762,8 @@ export default {
         oaa13_rate:0,//税率
       },
       form_must_able: [],
+      oaf_must:[],//差旅明细必填项
+      oac_must:[],//费用明细必填项
       tableData: {
         // 基本信息
         oaa02: "", //业务日期
@@ -846,7 +850,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4515
     // this.workid = 4515
     this.getworkflows()
   },
@@ -863,6 +867,16 @@ export default {
   computed: {
   },
   methods: {
+    must_oac(obj) {
+      if (this.oac_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oaf(obj) {
+      if (this.oaf_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -881,6 +895,8 @@ export default {
           loading.close()
           clearTimeout(this.overloading)
           this.form_must_able = res.data.workclass_info.form_must_able
+          this.oac_must = res.data.workclass_info.form_view_must_able.oac ? res.data.workclass_info.form_view_must_able.oac : []
+          this.oaf_must = res.data.workclass_info.form_view_must_able.oaf ? res.data.workclass_info.form_view_must_able.oaf : []
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
@@ -1023,7 +1039,20 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      this.nextFuns(url);
+      if(url == "/reject" || url == "/back"){
+        this.$router.push({
+          path: url,
+          query: {
+            url_type: 'invoiceApply',
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02,
+          },
+        });
+      }else{
+        this.nextFuns(url);
+      }
     },
     nextFuns(url) {
         this.tableData = {...this.tableData,...this.oaz}
@@ -1180,7 +1209,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;

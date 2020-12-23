@@ -316,6 +316,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oac"
                 >
                   <el-table-column
                     prop="id"
@@ -568,6 +569,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oad"
                 >
                   <el-table-column
                     prop="oad01"
@@ -898,6 +900,8 @@ export default {
       },
       table_able:[],//表格可编辑项
       form_must:[],//必填项
+      oac_must:[],//费用明细必填项
+      oad_must:[],//冲销信息必填项
       financialData: {
         bank_show: "", //银行回显数据
         num_show: "", //异动码回显数据
@@ -1061,6 +1065,16 @@ export default {
     }
   },
   methods: {
+    must_oac(obj) {
+      if (this.oac_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
+    must_oad(obj) {
+      if (this.oad_must.includes(obj.column.property)) {
+        return "must";
+      }
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -1084,6 +1098,8 @@ export default {
           this.perflow = res.data.workclass_perflow
           this.table_able = res.data.workclass_info.form_able
           this.form_must = res.data.workclass_info.form_must_able
+          this.oac_must = res.data.workclass_info.form_view_must_able.oac ? res.data.workclass_info.form_view_must_able.oac : []
+          this.oad_must = res.data.workclass_info.form_view_must_able.oad ? res.data.workclass_info.form_view_must_able.oad : []
           this.oazShow = res.data.workclass_flow.erp_turn
           this.more = res.data.workclass_info.more
           this.oaz = {
@@ -1243,7 +1259,19 @@ export default {
         } else {
           this.nextFuns(url);
         }
-      } else {
+      } else if(url == "/reject" || url == "/back"){
+        this.$router.push({
+          path: url,
+          query: {
+            url_type: 'otherFees',
+            workid: this.workid,
+            workName: this.workName,
+            oaa01: this.tableData.oaa01,
+            oaa02: this.tableData.oaa02,
+          },
+        });
+      }
+      else {
         this.nextFuns(url);
       }
     },
@@ -1718,7 +1746,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;

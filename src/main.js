@@ -11,6 +11,8 @@ Vue.use(element)
 //默认样式修改
 import '../src/assets/style/global.css'
 import '../src/assets/style/icon-font/iconfont.css'
+import "../src/assets/style/public.less";
+
 
 Vue.config.productionTip = false
 Vue.prototype.axios = axios;

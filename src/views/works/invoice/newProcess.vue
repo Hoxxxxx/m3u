@@ -135,7 +135,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must"
+                  :header-cell-class-name="must_oab"
                 >
                   <el-table-column
                     prop="id"
@@ -441,7 +441,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must1"
+                  :header-cell-class-name="must_oac"
                 >
                   <el-table-column
                     prop="id"
@@ -787,6 +787,8 @@ export default {
       },
       oabType: "", //核算项类型
       form_must:[],
+      oab_must:[],//差旅明细必填项
+      oac_must:[],//费用明细必填项
       //财务信息
       oaz: {
         oaz01: "", //银行
@@ -808,7 +810,6 @@ export default {
         annexurlid: [],
         tplid: 8952,
       },
-
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -981,38 +982,20 @@ export default {
       mustItem(params).then(res=>{
         if(res.status == 200){
           this.form_must = res.data.form_able
+          this.oab_must = res.data.form_must_able.oab ? res.data.form_must_able.oab : []
+          this.oac_must = res.data.form_must_able.oac ? res.data.form_must_able.oac : []
         }else{
           console.log('必填项获取失败！')
         }
       })
     },
-    must(obj) {
-      let index = obj.columnIndex
-      if (
-        index == 1 ||
-        index == 2 ||
-        index == 3 ||
-        index == 4 ||
-        index == 5 ||
-        index == 6 ||
-        index == 7 ||
-        index == 8 ||
-        index == 9
-      ) {
-        console.log(obj)
+    must_oab(obj) {
+      if (this.oab_must.includes(obj.column.property)) {
         return "must";
       }
     },
-    must1(obj) {
-      let index = obj.columnIndex
-      if (
-        index == 1 ||
-        index == 2 ||
-        index == 3 ||
-        index == 4 ||
-        index == 5 ||
-        index == 6
-      ) {
+    must_oac(obj) {
+      if (this.oac_must.includes(obj.column.property)) {
         return "must";
       }
     },
@@ -1634,7 +1617,6 @@ export default {
 </script>
 
 <style lang="less" >
-@import "../../../assets/style/public.less";
 .summry {
   display: flex;
   flex-direction: row;
