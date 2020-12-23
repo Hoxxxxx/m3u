@@ -105,7 +105,7 @@
                   <input v-model="tableData.oaa14" placeholder="请输入税额" />
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line ">
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa15') ? 'redPot' : ''">备注</span>
                 </div>
@@ -118,7 +118,26 @@
                     :rows="4"
                     v-model="tableData.oaa15"
                     placeholder="请输入备注"
-                    maxlength="80"
+                    maxlength="255"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa98') ? 'redPot' : ''">说明</span>
+                </div>
+                <div
+                  class="infobox last_row longbox areabox"
+                  style="width: 100%"
+                >
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa98"
+                    placeholder="请输入说明"
+                    maxlength="255"
                     show-word-limit
                   >
                   </el-input>
@@ -765,6 +784,7 @@ export default {
         oaa13: "", //税别
         oaa14: "", //税额
         oaa15: "", //备注
+        oaa98: "", //说明
         // 表格部分
         oab: [], //应收明细
         oaa16: 1, //是否开票

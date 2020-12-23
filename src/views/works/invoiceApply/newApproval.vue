@@ -208,7 +208,7 @@
                     </template>
                   </el-table-column>
               </el-table>
-              <div class="form_line last_line">
+              <div class="form_line ">
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa99') ? 'redPot' : ''">备注</span>
                 </div>
@@ -221,7 +221,26 @@
                     :rows="4"
                     v-model="tableData.oaa99"
                     placeholder="请输入备注"
-                    maxlength="80"
+                    maxlength="255"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa98') ? 'redPot' : ''">说明</span>
+                </div>
+                <div v-if="!table_able.includes('oaa98')" class="infobox longbox editNot" style="width: 100%">
+                  {{tableData.oaa98}}
+                </div>
+                <div v-if="table_able.includes('oaa98')" class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa98"
+                    placeholder="请输入说明"
+                    maxlength="255"
                     show-word-limit
                   >
                   </el-input>
@@ -775,6 +794,8 @@ export default {
         // oaa16_show: "", //发货单
         oaf:[],//发货单信息
         // 开票信息
+        oaa98:"",//说明
+        oaa99:"",//备注
         oaa21:"",//名称
         oaa22:"",//纳税人识别号
         oaa23:"",//地址
