@@ -9,13 +9,72 @@
           <div class="titleBox">自定义表单设置</div>
         </div>
         <!-- 下层 -->
-        <div class="bottomBox"></div>
+        <div class="bottomBox">
+          <div class="btns">
+            <!-- btn -->
+            <div class="btn">
+              <div class="icon">
+                <i class="el-icon-document-add"></i>
+              </div>
+              <div class="btnName">
+                <span>暂存</span>
+              </div>
+            </div>
+            <!-- btn -->
+            <div class="btn">
+              <div class="icon">
+                <i class="el-icon-view"></i>
+              </div>
+              <div class="btnName">
+                <span>预览</span>
+              </div>
+            </div>
+            <!-- btn -->
+            <div class="btn">
+              <div class="icon">
+                <i class="el-icon-files"></i>
+              </div>
+              <div class="btnName">
+                <span>导入</span>
+              </div>
+            </div>
+            <!-- btn -->
+            <div class="btn">
+              <div class="icon">
+                <i class="el-icon-tickets"></i>
+              </div>
+              <div class="btnName">
+                <span>生成json</span>
+              </div>
+            </div>
+            <!-- btn -->
+            <div class="btn">
+              <div class="icon">
+                <i class="el-icon-connection"></i>
+              </div>
+              <div class="btnName">
+                <span>生成代码</span>
+              </div>
+            </div>
+            <!-- btn -->
+            <div class="btn">
+              <div class="icon">
+                <i class="el-icon-refresh"></i>
+              </div>
+              <div class="btnName">
+                <span>清空</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="mainContainer">
       <div class="main">
         <!-- 左侧边栏 -->
-        <div class="leftContainer"></div>
+        <div class="leftContainer">
+          <left-Btns></left-Btns>
+        </div>
         <!-- 右侧边栏 -->
         <div class="rightContainer"></div>
         <!-- 中间内容栏 -->
@@ -29,7 +88,18 @@
 </template>
 
 <script>
+import leftBtns from './leftBtns'
+
 export default {
+  components: {
+    leftBtns
+  },
+
+  data() {
+    return {
+      
+    }
+  },
   
 }
 </script>
@@ -73,8 +143,42 @@ export default {
       .bottomBox{
         width: 100%;
         height: 56px;
-        background: lightyellow;
         overflow: hidden;
+        .btns{
+          width: fit-content;
+          width: -webkit-fit-content;
+          width: -moz-fit-content;
+          height: 43px;
+          margin: 7px auto;
+          display: flex;
+          .btn {
+            height: 43px;
+            margin-right: 29px;
+            .icon{
+              height: 18px;
+              font-size: 18px;
+              text-align: center;
+              color: #666666;
+              margin-bottom: 6px;
+            }
+            .btnName{
+              height: 20px;
+              text-align: center;
+              font-size: 14px;
+              color: #666666;
+            }
+          }
+          .btn:last-child{
+            margin-right: 0;
+          }
+          .btn:hover{
+            cursor: pointer;
+            .icon,
+            .btnName{
+              color: #409EFD;
+            }
+          }
+        }
       }
     }
   }
@@ -93,6 +197,8 @@ export default {
         background:  #FFFFFF;
         position: absolute;
         left: 0;
+        padding: 0 5px 0 15px;
+        box-sizing: border-box;
       }
       .rightContainer{
         width: 260px;
