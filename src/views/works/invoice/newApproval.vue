@@ -1346,7 +1346,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4610;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5132;
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1356,11 +1356,7 @@ export default {
     "tableData.oaa13": {
       handler(newval, oldval) {
         this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) /
-            (1 + this.showData.oaa13_rate / 100)) *
-            this.showData.oaa13_rate) /
-          100
-        ).toFixed(2);
+          ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate / 100)) * this.showData.oaa13_rate) /100).toFixed(2);
       },
       deep: true,
     },
@@ -1608,12 +1604,8 @@ export default {
         return prev + Number(cur.oab05);
       }, 0);
       let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
-      // let sums = fomatFloat(
-      //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
-      //   2
-      // );
       if (this.tableData.oaa16 == 1) {
-        if (this.tableData.oaa28 != this.tableData.oaa12) {
+        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
           this.$message.warning("开票金额与总金额不相等，请重新填写！");
         } else {
           if (Number(this.tableData.oaa12) != sums) {
@@ -1688,12 +1680,8 @@ export default {
         return prev + Number(cur.oab05);
       }, 0);
       let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
-      // let sums = fomatFloat(
-      //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
-      //   2
-      // );
       if (this.tableData.oaa16 == 1) {
-        if (this.tableData.oaa28 != this.tableData.oaa12) {
+        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
           this.$message.warning("开票金额与总金额不相等，请重新填写！");
         } else {
           if (Number(this.tableData.oaa12) != sums) {
