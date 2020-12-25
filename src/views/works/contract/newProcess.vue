@@ -134,10 +134,10 @@
                     placeholder="请选择合同类型"
                   >
                     <el-option
-                      v-for="item in fixedData.htList"
-                      :key="item.id"
+                      v-for="(item,index) in fixedData.htList"
+                      :key="index"
                       :label="item.name"
-                      :value="item.id"
+                      :value="item.number"
                     >
                     </el-option>
                   </el-select>
