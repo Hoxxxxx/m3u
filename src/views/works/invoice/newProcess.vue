@@ -1118,7 +1118,7 @@ export default {
         // );
 
         if (this.tableData.oaa16 == 1) {
-          if (this.tableData.oaa28 != this.tableData.oaa12) {
+          if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
             this.$message.warning("开票金额与总金额不相等，请重新填写！");
           } else {
             if (Number(this.tableData.oaa12) != sums) {
