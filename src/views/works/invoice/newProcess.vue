@@ -1112,11 +1112,6 @@ export default {
           return prev + Number(cur.oab05);
         }, 0);
         let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2);
-        // let sums = fomatFloat(
-        //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
-        //   2
-        // );
-
         if (this.tableData.oaa16 == 1) {
           if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
             this.$message.warning("开票金额与总金额不相等，请重新填写！");
