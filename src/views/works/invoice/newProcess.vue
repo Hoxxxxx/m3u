@@ -1121,9 +1121,9 @@ export default {
           if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
             this.$message.warning("开票金额与总金额不相等，请重新填写！");
           } else {
-            // if (Number(this.tableData.oaa12) != sums) {
-            //   this.$message.warning("总金额有错误，请重新填写！");
-            // } else {
+            if (Number(this.tableData.oaa12) != sums) {
+              this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+            } else {
               addFlow(this.addParams).then((result) => {
                 if (result.status == 200) {
                   this.workid = result.data.workid;
@@ -1148,12 +1148,12 @@ export default {
                   this.$message.error("保存失败：" + result.error.message);
                 }
               });
-            // }
+            }
           }
         } else {
-          // if (Number(this.tableData.oaa12) != sums) {
-          //   this.$message.warning("总金额有错误，请重新填写！");
-          // } else {
+          if (Number(this.tableData.oaa12) != sums) {
+            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+          } else {
             addFlow(this.addParams).then((result) => {
               if (result.status == 200) {
                 this.workid = result.data.workid;
@@ -1178,7 +1178,7 @@ export default {
                 this.$message.error("保存失败：" + result.error.message);
               }
             });
-          // }
+          }
         }
       } else {
         this.addParams.workid = this.workid;
