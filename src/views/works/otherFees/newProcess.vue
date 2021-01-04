@@ -576,7 +576,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt,number_chinese } from "@/utils/utils.js";
+import { dateFmt,number_chinese,OpenLoading } from "@/utils/utils.js";
 import { addFlow,editFlow,workflows,openitems } from "@/api/process_new";
 import {
   gensList,
@@ -864,6 +864,7 @@ export default {
     addNewFlow(type) {
       this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData
+      const loading = OpenLoading(this, 1)
       if (this.workid == '') {
         addFlow(this.addParams)
         .then( result => {
@@ -891,6 +892,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         })
       } else {
         this.addParams.workid = this.workid;
@@ -916,6 +919,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       }
     },

@@ -300,6 +300,7 @@ import SelectData from "@/components/selectData";
 // api
 import { htList, mustItem } from "@/api/basic";
 import { addFlow, editFlow } from "@/api/process_new";
+import {OpenLoading} from "@/utils/utils"
 
 export default {
   components: { SelectData },
@@ -582,6 +583,7 @@ export default {
     addNewFlow(type) {
       this.tableData = { ...this.tableData, ...this.oaz };
       this.addParams.from_data = this.tableData;
+      const loading = OpenLoading(this, 1)
       if (this.workid == "") {
         addFlow(this.addParams).then((result) => {
           if (result.status == 200) {
@@ -606,6 +608,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       } else {
         this.addParams.workid = this.workid;
@@ -629,6 +633,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       }
     },

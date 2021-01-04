@@ -745,7 +745,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese, fomatFloat } from "@/utils/utils.js";
+import { dateFmt, number_chinese, fomatFloat,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {  mustItem } from "@/api/basic";
 import {
@@ -1119,6 +1119,7 @@ export default {
             if (Number(this.tableData.oaa12) != sums) {
               this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
             } else {
+              const loading = OpenLoading(this, 1)
               addFlow(this.addParams).then((result) => {
                 if (result.status == 200) {
                   this.workid = result.data.workid;
@@ -1142,6 +1143,8 @@ export default {
                 } else {
                   this.$message.error("保存失败：" + result.error.message);
                 }
+                loading.close();
+        clearTimeout(this.overloading)
               });
             }
           }
@@ -1149,6 +1152,7 @@ export default {
           if (Number(this.tableData.oaa12) != sums) {
             this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
           } else {
+            const loading = OpenLoading(this, 1)
             addFlow(this.addParams).then((result) => {
               if (result.status == 200) {
                 this.workid = result.data.workid;
@@ -1172,11 +1176,14 @@ export default {
               } else {
                 this.$message.error("保存失败：" + result.error.message);
               }
+              loading.close();
+        clearTimeout(this.overloading)
             });
           }
         }
       } else {
         this.addParams.workid = this.workid;
+        const loading = OpenLoading(this, 1)
         editFlow(this.addParams).then((result) => {
           if (result.status == 200) {
             if (type == "add") {
@@ -1197,6 +1204,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       }
     },

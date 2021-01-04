@@ -1622,12 +1622,15 @@ export default {
           if (Number(this.tableData.oaa12) != sums) {
             this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
           } else {
+            const loading = OpenLoading(this, 1)
             editFlow(this.addParams).then((result) => {
               if (result.status == 200) {
                 this.$message.success("编辑成功！");
               } else {
                 this.$message.error("编辑失败：" + result.error.message);
               }
+              loading.close();
+        clearTimeout(this.overloading)
             });
           }
         }
@@ -1635,12 +1638,15 @@ export default {
         if (Number(this.tableData.oaa12) != sums) {
           this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
         } else {
+          const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
             if (result.status == 200) {
               this.$message.success("编辑成功！");
             } else {
               this.$message.error("编辑失败：" + result.error.message);
             }
+            loading.close();
+        clearTimeout(this.overloading)
           });
         }
       }
@@ -1698,6 +1704,7 @@ export default {
           if (Number(this.tableData.oaa12) != sums) {
             this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
           } else {
+            const loading = OpenLoading(this, 1)
             editFlow(this.addParams).then((result) => {
               if (result.status == 200) {
                 this.$message.success("编辑成功！");
@@ -1714,6 +1721,8 @@ export default {
               } else {
                 this.$message.error("编辑失败：" + result.error.message);
               }
+              loading.close();
+        clearTimeout(this.overloading)
             });
           }
         }
@@ -1721,6 +1730,7 @@ export default {
         if (Number(this.tableData.oaa12) != sums) {
           this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
         } else {
+          const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
             if (result.status == 200) {
               this.$message.success("编辑成功！");
@@ -1737,6 +1747,8 @@ export default {
             } else {
               this.$message.error("编辑失败：" + result.error.message);
             }
+            loading.close();
+        clearTimeout(this.overloading)
           });
         }
       }
