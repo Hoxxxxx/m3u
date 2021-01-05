@@ -1346,9 +1346,16 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "KH":
-          let filter_KH = [{ label: "", model_key_search: "keyword" }];
+          let filter_KH = [{ label: "", model_key_search: "keyword" },
+          {
+              label: "",
+              model_key_search: "occ06",
+              disabled: true,
+              value: "1",
+              hide: true,
+            },];
           this.dataSelect.filter = filter_KH;
-          this.dataSelect.searchType = "single";
+          this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
           this.dataSelect.searchApi = "meta/occs";
           this.dataSelect.headList = this.tableHead.head_KH;
