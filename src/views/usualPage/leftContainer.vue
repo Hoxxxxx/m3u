@@ -28,20 +28,20 @@ export default {
       // 基础控件
       basicBtns: [{
         icon: 'el-icon-copy-document',
-        label: '按钮全名称',
-        value: 'basic_01'
+        label: '输入框',
+        value: 'basic_Input'
       },{
         icon: 'el-icon-copy-document',
         label: '按钮全名称',
-        value: 'basic_02'
+        value: 'basic_InputText'
       },{
         icon: 'el-icon-copy-document',
-        label: '按钮全名称',
-        value: 'basic_03'
+        label: '下拉选框',
+        value: 'basic_Select'
       },{
         icon: 'el-icon-copy-document',
-        label: '按钮全名称',
-        value: 'basic_04'
+        label: '弹窗选框',
+        value: 'basic_Dialog'
       },{
         icon: 'el-icon-copy-document',
         label: '按钮全名称',
@@ -56,6 +56,7 @@ export default {
   methods: {
     chooseBtn(btn) {
       this.activeBtn = btn
+      this.$emit("activeBtn", this.activeBtn);
     }
   },
 }
