@@ -72,15 +72,14 @@
     <div class="mainContainer">
       <div class="main">
         <!-- 左侧边栏 -->
-        <div class="leftContainer">
-          <left-Btns></left-Btns>
+        <div class="LEFT">
+          <left-Container></left-Container>
         </div>
         <!-- 右侧边栏 -->
         <div class="rightContainer"></div>
         <!-- 中间内容栏 -->
         <div class="middleContainer">
-          <!-- 无内容 -->
-          <div class="emptyMsg"><span>请选择左侧控件</span></div>
+          <main-Container></main-Container>
         </div>
       </div>
     </div>
@@ -88,11 +87,13 @@
 </template>
 
 <script>
-import leftBtns from './leftBtns'
+import leftContainer from './leftContainer'
+import mainContainer from './mainContainer'
 
 export default {
   components: {
-    leftBtns
+    leftContainer,
+    mainContainer,
   },
 
   data() {
@@ -107,11 +108,11 @@ export default {
 <style lang="less" scoped>
 .Container {
   width: 100%;
-  background: #F5F5F5;
+  height: 100%;
+  background: #F0F2F5;
   .headContainer{
     width: 100%;
     height: 96px;
-    background: lightskyblue;
     .main{
       width: 1440px;
       height: 96px;
@@ -184,40 +185,34 @@ export default {
   }
   .mainContainer{
     width: 100%;
-    background: #F5F5F5;
+    height: 100%;
     margin-top: 10px;
     .main{
       width: 1440px;
+      min-height: 918px;
       margin: 0 auto;
-      background: #F5F5F5;
       position: relative;
-      .leftContainer{
+      .LEFT{
         width: 260px;
-        height: 918px;
+        min-height: 918px;
         background:  #FFFFFF;
         position: absolute;
         left: 0;
-        padding: 0 5px 0 15px;
+        padding: 0 5px 0 5px;
         box-sizing: border-box;
       }
       .rightContainer{
         width: 260px;
-        height: 918px;
+        min-height: 918px;
         background:  #FFFFFF;
         position: absolute;
         right: 0;
       }
       .middleContainer{
-        width: 920px;
+        background: #FFFFFF;
+        width: 900px;
         min-height: 918px;
-        margin-left: 260px;
-        .emptyMsg{
-          width: 140px;
-          margin: 0 auto;
-          line-height: 918px;
-          font-size: 20px;
-          color: #666666;
-        }
+        margin-left: 270px;
       }
     }
   }
