@@ -127,7 +127,6 @@ export default {
   height: 100%;
   min-height: 1024px;
   background: #F0F2F5;
-  overflow-y: overlay;
   .headContainer{
     width: 100%;
     height: 96px;

@@ -385,6 +385,7 @@ import jwtDecode from 'jwt-decode'
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem("token")
   let curUrl = window.location.href
+  console.log('router：',`${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`)
   if (token) {
     const code = jwtDecode(token)
     let now = Math.round(new Date() / 1000)
