@@ -73,3 +73,24 @@ dt {
 .el-input.is-disabled .el-input__inner{
     background: #FCFDFF;
 }
+
+/* 滚动条美化 */
+::-webkit-scrollbar-track-piece {
+    background-color: #f8f8f8;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d1cece;
+    background-clip: padding-box;
+    min-height: 28px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(192, 189, 189);
+}
