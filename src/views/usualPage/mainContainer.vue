@@ -16,6 +16,8 @@ export default {
   width: 100%;
   height: 100%;
   background: lightgoldenrodyellow;
+  padding: 10px;
+  box-sizing: border-box;
   .emptyMsg{
     width: 140px;
     margin: 0 auto;

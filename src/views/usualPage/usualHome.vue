@@ -76,9 +76,9 @@
           <left-Container></left-Container>
         </div>
         <!-- 右侧边栏 -->
-        <div class="rightContainer"></div>
+        <div class="RIGHT"></div>
         <!-- 中间内容栏 -->
-        <div class="middleContainer">
+        <div class="MAIN">
           <main-Container></main-Container>
         </div>
       </div>
@@ -203,7 +203,7 @@ export default {
         padding: 0 5px 0 5px;
         box-sizing: border-box;
       }
-      .rightContainer{
+      .RIGHT{
         width: 260px;
         min-height: 918px;
         height: 100%;
@@ -211,7 +211,7 @@ export default {
         position: absolute;
         right: 0;
       }
-      .middleContainer{
+      .MAIN{
         background: #FFFFFF;
         width: 900px;
         min-height: 918px;
