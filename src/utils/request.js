@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // axios配置
 axios.defaults.timeout = 15000;
-axios.defaults.baseURL = 'http://test-erp.hualumedia.com/api/v2/'
+axios.defaults.baseURL = process.env.VUE_APP_BASE_API
 
 
 //http request 
@@ -14,27 +14,27 @@ axios.interceptors.request.use(
 		// let roleId = sessionStorage.getItem('roleId')
 		// config.headers['Org-Id'] = 2
 		// let token = sessionStorage.getItem('token')
-    // let orgid = sessionStorage.getItem('OrgId')
-    //     if (token) {
-    //         config.headers.Authorization = 'Bearer ' + token,
-    //         config.headers['Org-Id'] = orgid
-    //     }
+		// let orgid = sessionStorage.getItem('OrgId')
+		//     if (token) {
+		//         config.headers.Authorization = 'Bearer ' + token,
+		//         config.headers['Org-Id'] = orgid
+		//     }
 		// 配置公共请求头Authorization
 		let curUrl = window.location.href
 		let token = sessionStorage.getItem('token')
-    let orgid = sessionStorage.getItem('OrgId')
-    if (token) {
-      let exp = sessionStorage.getItem('exp')
-      let now = Math.round(new Date() / 1000)
-      if (now > exp) {
-          sessionStorage.clear()
-					// window.location = '/error'
-					window.location.href = `http://test.oa.hualumedia.com/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
-      }else{
-          config.headers.Authorization = 'Bearer ' + token,
-          config.headers['Org-Id'] = orgid
-      }
-    }
+		let orgid = sessionStorage.getItem('OrgId')
+		if (token) {
+			let exp = sessionStorage.getItem('exp')
+			let now = Math.round(new Date() / 1000)
+			if (now > exp) {
+				sessionStorage.clear()
+				// window.location = '/error'
+				window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
+			} else {
+				config.headers.Authorization = 'Bearer ' + token,
+					config.headers['Org-Id'] = orgid
+			}
+		}
 		return config;
 	},
 	error => {
@@ -67,7 +67,10 @@ axios.interceptors.response.use(response => {
 				break;
 			case 401:
 				sessionStorage.clear();
-				window.location = '/login'
+				sessionStorage.clear();
+				// window.location = '/error'
+				let curUrl = window.location.href
+				window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
 				break;
 			case 403:
 				window.location = '/403'
@@ -144,7 +147,7 @@ export default {
 	},
 	post(url, params = {}) {
 		return new Promise((resolve, reject) => {
-			axios.post(  url,
+			axios.post(url,
 					params
 				)
 				.then(response => {
@@ -210,15 +213,15 @@ export default {
 	 * @returns {Promise}
 	 */
 	refreshToken() {
-		axios.put('token', '',{
-			headers: 'Bearer ' + sessionStorage.getItem('token')
-		})
-		.then(function(response){
+		axios.put('token', '', {
+				headers: 'Bearer ' + sessionStorage.getItem('token')
+			})
+			.then(function (response) {
 				resolve(response)
-		})
-		.catch(function(err){
+			})
+			.catch(function (err) {
 				reject(err)
-		});
+			});
 	}
 
 }
