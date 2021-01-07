@@ -1,5 +1,5 @@
 <template>
-  <div class="mainContainer">
+  <div class="centerContainner">
     <!-- 无内容 -->
     <div class="emptyMsg"><span>请选择左侧控件</span></div>
   </div>
@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.mainContainer{
+.centerContainner{
   width: 100%;
   height: 100%;
   background: lightgoldenrodyellow;

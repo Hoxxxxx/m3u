@@ -185,16 +185,18 @@ export default {
   }
   .mainContainer{
     width: 100%;
-    height: 100%;
+    height: calc(100% - 106px);
     margin-top: 10px;
     .main{
       width: 1440px;
       min-height: 918px;
+      height: 100%;
       margin: 0 auto;
       position: relative;
       .LEFT{
         width: 260px;
         min-height: 918px;
+        height: 100%;
         background:  #FFFFFF;
         position: absolute;
         left: 0;
@@ -204,6 +206,7 @@ export default {
       .rightContainer{
         width: 260px;
         min-height: 918px;
+        height: 100%;
         background:  #FFFFFF;
         position: absolute;
         right: 0;
@@ -212,6 +215,7 @@ export default {
         background: #FFFFFF;
         width: 900px;
         min-height: 918px;
+        height: 100%;
         margin-left: 270px;
       }
     }
