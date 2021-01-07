@@ -6,6 +6,6 @@ const state = {
   userInfo: userInfo,
   companyInfo: companyInfo,
 
-  upload_url: 'http://test-erp.hualumedia.com/api/v2/files/upload'
+  upload_url: `${process.env.VUE_APP_BASE_API}files/upload`
 }
 export default state
