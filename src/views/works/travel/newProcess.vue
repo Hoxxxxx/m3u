@@ -928,7 +928,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese } from "@/utils/utils.js";
+import { dateFmt, number_chinese,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {
   pmcsList,
@@ -1318,6 +1318,7 @@ export default {
     // ****************其他操作*******************
     // 新增（暂存）表单
     addNewFlow(type) {
+      const loading = OpenLoading(this, 1)
       this.tableData = { ...this.tableData, ...this.oaz };
       this.addParams.from_data = this.tableData;
       if (this.workid == "") {
@@ -1343,6 +1344,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+          clearTimeout(this.overloading)
         });
       } else {
         this.addParams.workid = this.workid;
@@ -1365,6 +1368,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+          clearTimeout(this.overloading)
         });
       }
     },

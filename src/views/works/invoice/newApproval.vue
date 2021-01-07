@@ -148,13 +148,13 @@
                   <span :class="form_must_able.includes('oaa12') ? 'redPot' : ''">总金额</span>
                 </div>
                 <div
-                  class="infobox middlebox editNot"
+                  class="infobox middlebox editNot last_row"
                   v-if="!table_able.includes('oaa12')"
                 >
                   {{ tableData.oaa12 }}
                 </div>
                 <div
-                  class="infobox selectbox middlebox"
+                  class="infobox selectbox middlebox last_row"
                   v-if="table_able.includes('oaa12')"
                 >
                   <input
@@ -198,7 +198,7 @@
                   <input v-model="tableData.oaa14" placeholder="请输入税额" />
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa15') ? 'redPot' : ''">备注</span>
                 </div>
@@ -211,9 +211,29 @@
                     :rows="4"
                     v-model="tableData.oaa15"
                     placeholder="请输入备注"
-                    maxlength="80"
+                    maxlength="255"
                     show-word-limit
                     :disabled="table_able.includes('oaa15') ? false : true"
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa98') ? 'redPot' : ''">说明</span>
+                </div>
+                <div
+                  class="infobox last_row longbox areabox"
+                  style="width: 100%"
+                >
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa98"
+                    placeholder="请输入说明"
+                    maxlength="255"
+                    show-word-limit
+                    :disabled="table_able.includes('oaa98') ? false : true"
                   >
                   </el-input>
                 </div>
@@ -1157,6 +1177,7 @@ export default {
         oaa13: "", //税别
         oaa14: "", //税额
         oaa15: "", //备注
+        oaa98: "", //说明
         // 表格部分
         oab: [], //应收明细
         oaa16: 1, //是否开票
@@ -1229,6 +1250,11 @@ export default {
         searchType: "", //搜索类型
         filter: [], //筛选条件
         keyMsg: [], //需要显示在顶部的数据
+      },
+      firstLoad:{
+        oaa12:'',
+        oaa13:'',
+        oaa14:''
       },
       // 弹出框表头数据
       tableHead: {
@@ -1325,7 +1351,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4610;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5156;
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1334,24 +1360,35 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) /
-            (1 + this.showData.oaa13_rate / 100)) *
-            this.showData.oaa13_rate) /
-          100
-        ).toFixed(2);
+        if(this.firstLoad.oaa13 == this.tableData.oaa13){
+          let sum = this.tableData.oab.reduce((prev, cur) => {
+            return prev + Number(cur.oab05);
+          }, 0);
+          this.tableData.oaa14 = Number(this.firstLoad.oaa14) 
+        }else{
+          this.tableData.oaa14 = (
+          ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate / 100)) * this.showData.oaa13_rate) /100).toFixed(2);
+        }
       },
       deep: true,
     },
     // 总金额
     "tableData.oaa12": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) /
-            (1 + this.showData.oaa13_rate / 100)) *
-            this.showData.oaa13_rate) /
-          100
-        ).toFixed(2);
+        console.log(this.firstLoad)
+        if(this.firstLoad.oaa12 == this.tableData.oaa12){
+          let sum = this.tableData.oab.reduce((prev, cur) => {
+            return prev + Number(cur.oab05);
+          }, 0);
+          this.tableData.oaa14 = Number(this.firstLoad.oaa14) 
+        }else{
+          this.tableData.oaa14 = (
+            ((Number(this.tableData.oaa12) /
+              (1 + this.showData.oaa13_rate / 100)) *
+              this.showData.oaa13_rate) /
+            100
+          ).toFixed(2);
+        }
       },
       deep: true,
     },
@@ -1410,28 +1447,19 @@ export default {
           this.table_able = res.data.workclass_info.form_able;
           this.oazShow = res.data.workclass_flow.erp_turn;
           this.more = res.data.workclass_info.more;
+          this.firstLoad = {
+            oaa12:res.data.workclass_info.from_data.oaa12,
+            oaa13:res.data.workclass_info.from_data.oaa13,
+            oaa14:res.data.workclass_info.from_data.oaa14
+          }
           this.showData.oaa13_rate =
             res.data.workclass_info.from_data.oaa13_show;
           this.oaz = {
-            // oaz01: res.data.workclass_info.from_data.oaz01, //银行
-            // oaz02: res.data.workclass_info.from_data.oaz02, //异动码
             oaz03: res.data.workclass_info.from_data.oaz03
               ? res.data.workclass_info.from_data.oaz03
               : dateFmt(new Date()), //记账日期
-            // oaz04: res.data.workclass_info.from_data.oaz04, //账款类型
-            // oaz05: res.data.workclass_info.from_data.oaz05
-            //   ? res.data.workclass_info.from_data.oaz05
-            //   : res.data.workclass_info.from_data.oaa12, //支付方式
             oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
           };
-          // this.financialData = {
-          //   bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
-          //   num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
-          //   oaz04_show: res.data.workclass_info.from_data.oaz04_show, //账款类型回显数据
-          //   oaz05_show: res.data.workclass_info.from_data.oaz05_show
-          //     ? res.data.workclass_info.from_data.oaz05_show
-          //     : res.data.workclass_info.from_data.oaa12_show, //支付方式回显数据
-          // };
           if (res.data.file !== null) {
             res.data.file.forEach((item) => {
               this.fileList_user.push({
@@ -1587,36 +1615,38 @@ export default {
         return prev + Number(cur.oab05);
       }, 0);
       let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
-      // let sums = fomatFloat(
-      //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
-      //   2
-      // );
       if (this.tableData.oaa16 == 1) {
-        if (this.tableData.oaa28 != this.tableData.oaa12) {
+        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
           this.$message.warning("开票金额与总金额不相等，请重新填写！");
         } else {
           if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有错误，请重新填写！");
+            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
           } else {
+            const loading = OpenLoading(this, 1)
             editFlow(this.addParams).then((result) => {
               if (result.status == 200) {
                 this.$message.success("编辑成功！");
               } else {
                 this.$message.error("编辑失败：" + result.error.message);
               }
+              loading.close();
+        clearTimeout(this.overloading)
             });
           }
         }
       } else {
         if (Number(this.tableData.oaa12) != sums) {
-          this.$message.warning("总金额有错误，请重新填写！");
+          this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
         } else {
+          const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
             if (result.status == 200) {
               this.$message.success("编辑成功！");
             } else {
               this.$message.error("编辑失败：" + result.error.message);
             }
+            loading.close();
+        clearTimeout(this.overloading)
           });
         }
       }
@@ -1667,17 +1697,14 @@ export default {
         return prev + Number(cur.oab05);
       }, 0);
       let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
-      // let sums = fomatFloat(
-      //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
-      //   2
-      // );
       if (this.tableData.oaa16 == 1) {
-        if (this.tableData.oaa28 != this.tableData.oaa12) {
+        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
           this.$message.warning("开票金额与总金额不相等，请重新填写！");
         } else {
           if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有错误，请重新填写！");
+            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
           } else {
+            const loading = OpenLoading(this, 1)
             editFlow(this.addParams).then((result) => {
               if (result.status == 200) {
                 this.$message.success("编辑成功！");
@@ -1694,13 +1721,16 @@ export default {
               } else {
                 this.$message.error("编辑失败：" + result.error.message);
               }
+              loading.close();
+        clearTimeout(this.overloading)
             });
           }
         }
       } else {
         if (Number(this.tableData.oaa12) != sums) {
-          this.$message.warning("总金额有错误，请重新填写！");
+          this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
         } else {
+          const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
             if (result.status == 200) {
               this.$message.success("编辑成功！");
@@ -1717,6 +1747,8 @@ export default {
             } else {
               this.$message.error("编辑失败：" + result.error.message);
             }
+            loading.close();
+        clearTimeout(this.overloading)
           });
         }
       }

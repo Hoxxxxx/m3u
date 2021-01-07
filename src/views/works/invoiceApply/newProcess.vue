@@ -170,7 +170,23 @@
                     :rows="4"
                     v-model="tableData.oaa99"
                     placeholder="请输入备注"
-                    maxlength="80"
+                    maxlength="255"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa98') ? 'redPot' : ''">说明</span>
+                </div>
+                <div class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa98"
+                    placeholder="请输入说明"
+                    maxlength="255"
                     show-word-limit
                   >
                   </el-input>
@@ -576,7 +592,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese } from "@/utils/utils.js";
+import { dateFmt, number_chinese,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {  mustItem } from "@/api/basic";
 import {
@@ -611,6 +627,8 @@ export default {
         // oaa16: "", //发货单
         // oaa16_show: "", //发货单
         oaf: [], //发货单信息
+        oaa98:"",//说明
+        oaa99:"",//备注
         // 开票信息
         oaa21: "", //名称
         oaa22: "", //纳税人识别号
@@ -817,6 +835,7 @@ export default {
     addNewFlow(type) {
       this.tableData = { ...this.tableData, ...this.oaz };
       this.addParams.from_data = this.tableData;
+      const loading = OpenLoading(this, 1)
       if (this.workid == "") {
         addFlow(this.addParams).then((result) => {
           if (result.status == 200) {
@@ -841,6 +860,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       } else {
         this.addParams.workid = this.workid;
@@ -864,6 +885,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       }
     },

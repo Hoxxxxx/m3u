@@ -50,6 +50,10 @@
             <div class="titlebox">备注</div>
             <div class="infobox last_row longbox" style="width: 100%">{{tableData.oaa99}}</div>
           </div>
+          <div class="form_line">
+            <div class="titlebox">说明</div>
+            <div class="infobox last_row longbox" style="width: 100%">{{tableData.oaa98}}</div>
+          </div>
 
           <!-- 开票信息 -->
           <div class="title_line">开票信息</div>
@@ -262,6 +266,8 @@ export default {
         // oaa16: "", //发货单
         // oaa16_show: "", //发货单
         oaf:[],//发货单信息
+        oaa98:"",//说明
+        oaa99:"",//备注
         // 开票信息
         oaa21: "", //名称
         oaa22: "", //纳税人识别号

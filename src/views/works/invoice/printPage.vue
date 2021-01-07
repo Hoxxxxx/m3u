@@ -50,6 +50,10 @@
             <div class="titlebox">备注</div>
             <div class="infobox longbox" style="width: 100%">{{tableData.oaa15}}</div>
           </div>
+          <div class="form_line">
+            <div class="titlebox">说明</div>
+            <div class="infobox longbox" style="width: 100%">{{tableData.oaa98}}</div>
+          </div>
           <!-- 应收明细 -->
           <div class="title_line">应收明细</div>
           <!-- 拆分成几组表格 -->

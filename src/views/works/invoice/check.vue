@@ -73,7 +73,7 @@
                   {{tableData.oaa14 }}
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">备注</div>
                 <div
                   class="infobox last_row longbox areabox"
@@ -83,8 +83,26 @@
                     type="textarea"
                     :rows="4"
                     v-model="tableData.oaa15"
-                    placeholder="请输入说明"
-                    maxlength="80"
+                    placeholder=""
+                    maxlength="255"
+                    disabled
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">说明</div>
+                <div
+                  class="infobox last_row longbox areabox"
+                  style="width: 100%"
+                >
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa98"
+                    placeholder=""
+                    maxlength="255"
                     disabled
                     show-word-limit
                   >
@@ -491,6 +509,7 @@ export default {
         oaa13: "", //税别
         oaa14: "", //税额
         oaa15: "", //备注
+        oaa98: "", //说明
         // 表格部分
         oab: [], //应收明细
         oaa16:1,//是否开票
@@ -523,7 +542,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4512
     // this.workid = 4512
     this.getworkflows()
   },

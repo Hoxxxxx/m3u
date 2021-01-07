@@ -102,6 +102,10 @@
                 <div class="titlebox">备注</div>
                 <div class="infobox longbox" style="width: 100%">{{tableData.oaa99}}</div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">说明</div>
+                <div class="infobox longbox" style="width: 100%">{{tableData.oaa98}}</div>
+              </div>
               <!-- <div class="title_line">发货单</div>
               <div class="form_line">
                 <div class="titlebox">选择发货单</div>
@@ -388,6 +392,8 @@ export default {
         // oaa16: "", //发货单
         // oaa16_show: "", //发货单
         oaf:[],//发货单信息
+        oaa98:"",//说明
+        oaa99:"",//备注
         // 开票信息
         oaa21: "", //名称
         oaa22: "", //纳税人识别号
@@ -416,7 +422,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 4515
     // this.workid = 4515
     this.getworkflows()
   },

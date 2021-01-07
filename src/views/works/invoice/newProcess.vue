@@ -105,7 +105,7 @@
                   <input v-model="tableData.oaa14" placeholder="请输入税额" />
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line ">
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa15') ? 'redPot' : ''">备注</span>
                 </div>
@@ -118,7 +118,26 @@
                     :rows="4"
                     v-model="tableData.oaa15"
                     placeholder="请输入备注"
-                    maxlength="80"
+                    maxlength="255"
+                    show-word-limit
+                  >
+                  </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa98') ? 'redPot' : ''">说明</span>
+                </div>
+                <div
+                  class="infobox last_row longbox areabox"
+                  style="width: 100%"
+                >
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa98"
+                    placeholder="请输入说明"
+                    maxlength="255"
                     show-word-limit
                   >
                   </el-input>
@@ -726,7 +745,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese, fomatFloat } from "@/utils/utils.js";
+import { dateFmt, number_chinese, fomatFloat,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {  mustItem } from "@/api/basic";
 import {
@@ -765,6 +784,7 @@ export default {
         oaa13: "", //税别
         oaa14: "", //税额
         oaa15: "", //备注
+        oaa98: "", //说明
         // 表格部分
         oab: [], //应收明细
         oaa16: 1, //是否开票
@@ -1092,18 +1112,14 @@ export default {
           return prev + Number(cur.oab05);
         }, 0);
         let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2);
-        // let sums = fomatFloat(
-        //   sum * (1 + this.showData.oaa13_rate / 100).toFixed(2),
-        //   2
-        // );
-
         if (this.tableData.oaa16 == 1) {
-          if (this.tableData.oaa28 != this.tableData.oaa12) {
+          if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
             this.$message.warning("开票金额与总金额不相等，请重新填写！");
           } else {
             if (Number(this.tableData.oaa12) != sums) {
-              this.$message.warning("总金额有错误，请重新填写！");
+              this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
             } else {
+              const loading = OpenLoading(this, 1)
               addFlow(this.addParams).then((result) => {
                 if (result.status == 200) {
                   this.workid = result.data.workid;
@@ -1127,13 +1143,16 @@ export default {
                 } else {
                   this.$message.error("保存失败：" + result.error.message);
                 }
+                loading.close();
+        clearTimeout(this.overloading)
               });
             }
           }
         } else {
           if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有错误，请重新填写！");
+            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
           } else {
+            const loading = OpenLoading(this, 1)
             addFlow(this.addParams).then((result) => {
               if (result.status == 200) {
                 this.workid = result.data.workid;
@@ -1157,11 +1176,14 @@ export default {
               } else {
                 this.$message.error("保存失败：" + result.error.message);
               }
+              loading.close();
+        clearTimeout(this.overloading)
             });
           }
         }
       } else {
         this.addParams.workid = this.workid;
+        const loading = OpenLoading(this, 1)
         editFlow(this.addParams).then((result) => {
           if (result.status == 200) {
             if (type == "add") {
@@ -1182,6 +1204,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       }
     },
@@ -1322,9 +1346,16 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "KH":
-          let filter_KH = [{ label: "", model_key_search: "keyword" }];
+          let filter_KH = [{ label: "", model_key_search: "keyword" },
+          {
+              label: "",
+              model_key_search: "occ06",
+              disabled: true,
+              value: "1",
+              hide: true,
+            },];
           this.dataSelect.filter = filter_KH;
-          this.dataSelect.searchType = "single";
+          this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
           this.dataSelect.searchApi = "meta/occs";
           this.dataSelect.headList = this.tableHead.head_KH;

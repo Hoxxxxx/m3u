@@ -2241,6 +2241,7 @@ export default {
     // ****************其他操作*******************
     // 保存
     editNewFlow() {
+      const loading = OpenLoading(this, 1)
       this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData;
       this.addParams.workid = this.workid;
@@ -2259,6 +2260,8 @@ export default {
         } else {
           this.$message.error("编辑失败：" + result.error.message);
         }
+        loading.close();
+        clearTimeout(this.overloading)
       });
     },
     // 下一步
@@ -2300,7 +2303,7 @@ export default {
         });
       });
       }
-      
+      const loading = OpenLoading(this, 1)
       editFlow(this.addParams).then((result) => {
         if (result.status == 200) {
           this.$message.success("编辑成功！");
@@ -2317,6 +2320,8 @@ export default {
         } else {
           this.$message.error("编辑失败：" + result.error.message);
         }
+        loading.close();
+        clearTimeout(this.overloading)
       });
     },
     // ******************************************

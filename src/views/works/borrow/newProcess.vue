@@ -284,6 +284,7 @@ import SelectData from "@/components/selectData";
 // api
 import { azisList, pmasList,mustItem  } from "@/api/basic";
 import { addFlow, editFlow, } from "@/api/process_new";
+import {OpenLoading} from "@/utils/utils"
 
 export default {
   components: {SelectData},
@@ -553,6 +554,7 @@ export default {
     },
     // 新增（暂存）表单
     addNewFlow(type) {
+      const loading = OpenLoading(this, 1)
       this.tableData = {...this.tableData,...this.oaz}
       this.addParams.from_data = this.tableData
       if (this.workid == '') {
@@ -582,6 +584,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         })
       } else {
         this.addParams.workid = this.workid;
@@ -607,6 +611,8 @@ export default {
           } else {
             this.$message.error("保存失败：" + result.error.message);
           }
+          loading.close();
+        clearTimeout(this.overloading)
         });
       }
     },
