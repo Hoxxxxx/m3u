@@ -76,7 +76,7 @@ const routes = [{
   {
     path: '/usual',
     name: 'usual',
-    component: () => import('@/views/usualPage/usual')
+    component: () => import('@/views/usualPage/usualHome')
   },
   // 出差借款申请
   {
