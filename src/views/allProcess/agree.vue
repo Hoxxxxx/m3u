@@ -461,13 +461,8 @@ export default {
 };
 </script>
 
-<style lang="less">
-@import "../../assets/style/public.less";
+<style lang="less" scoped>
 .workSpace{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  margin-top: 0;
   .containBox {
     .formContent {
       .title {

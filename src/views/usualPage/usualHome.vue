@@ -70,55 +70,48 @@
     <div class="mainContainer">
       <!-- 左侧边栏 -->
       <div class="LEFT">
-        <left-Container @activeBtn='getActiveBtn'>
-        </left-Container>
+        <left-Container @activeBtn="getActiveBtn"> </left-Container>
       </div>
       <!-- 右侧边栏 -->
       <div class="RIGHT">
-        <right-Container>
-        </right-Container>
+        <right-Container> </right-Container>
       </div>
       <!-- 中间内容栏 -->
       <div class="MAIN">
-        <main-Container :addCount='addCount'
-                                      :addBtn='addBtn'>
-        </main-Container>
+        <main-Container :addCount="addCount" :addBtn="addBtn"> </main-Container>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import leftContainer from './leftContainer'
-import rightContainer from './rightContainer'
-import mainContainer from './mainContainer'
+import leftContainer from "./leftContainer";
+import rightContainer from "./rightContainer";
+import mainContainer from "./mainContainer";
 
 export default {
   components: {
     leftContainer,
     mainContainer,
-    rightContainer
+    rightContainer,
   },
 
   data() {
     return {
       // 左侧传入数据
       addCount: 0, //添加按钮计数
-      addBtn: '', //用户点击的按钮值
+      addBtn: "", //用户点击的按钮值
       // 右侧传入数据
-
-      
-    }
+    };
   },
 
   methods: {
     getActiveBtn(btn) {
-      this.addBtn = btn
-      this.addCount++
-    }
+      this.addBtn = btn;
+      this.addCount++;
+    },
   },
-  
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -126,27 +119,29 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 1024px;
-  background: #F0F2F5;
-  .headContainer{
+  background: #f0f2f5;
+  .headContainer {
     width: 100%;
     height: 96px;
-    background: #FFFFFF;
-    .topBox{
+    background: #ffffff;
+    .topBox {
       width: 100%;
       height: 40px;
-      display: flex;
       overflow: hidden;
-      .logoBox{
+      position: relative;
+      .logoBox {
         width: 90px;
         height: 24px;
-        margin-top: 8px;
-        margin-left: 24px;
         background: url(../../assets/usual/img/logo.png) no-repeat;
         background-size: 90px 24px;
+        position: absolute;
+        left: 24px;
+        top: 8px;
       }
-      .titleBox{
-        width: 98px;
+      .titleBox {
+        width: 100%;
         height: 20px;
+        text-align: center;
         margin: 8px auto;
         font-size: 14px;
         line-height: 20px;
@@ -154,75 +149,75 @@ export default {
         font-weight: bolder;
       }
     }
-    .bottomBox{
+    .bottomBox {
       width: 100%;
       height: 56px;
       overflow: hidden;
-      .btns{
+      .btns {
         width: fit-content;
         width: -webkit-fit-content;
         width: -moz-fit-content;
         height: 43px;
         margin: 7px auto;
         display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         .btn {
+          width: 80px;
           height: 43px;
-          margin-right: 29px;
-          .icon{
+          .icon {
             height: 18px;
             font-size: 18px;
             text-align: center;
             color: #666666;
             margin-bottom: 6px;
           }
-          .btnName{
+          .btnName {
             height: 20px;
             text-align: center;
             font-size: 14px;
             color: #666666;
           }
         }
-        .btn:last-child{
-          margin-right: 0;
-        }
-        .btn:hover{
+        .btn:hover {
           cursor: pointer;
           .icon,
-          .btnName{
-            color: #409EFD;
+          .btnName {
+            color: #409efd;
           }
         }
       }
     }
   }
-  .mainContainer{
+  .mainContainer {
     width: 100%;
     height: calc(100% - 106px);
     min-height: 918px;
     margin-top: 10px;
     position: relative;
-    .LEFT{
+    .LEFT {
       width: 260px;
       min-height: 918px;
       height: 100%;
-      background:  #FFFFFF;
+      background: #ffffff;
       position: absolute;
       left: 0;
       padding: 0 5px 0 5px;
       box-sizing: border-box;
     }
-    .RIGHT{
+    .RIGHT {
       width: 260px;
       min-height: 918px;
       height: 100%;
-      background:  #FFFFFF;
+      background: #ffffff;
       position: absolute;
       right: 0;
       padding: 0 5px 0 5px;
       box-sizing: border-box;
     }
-    .MAIN{
-      background: #FFFFFF;
+    .MAIN {
+      background: #ffffff;
       width: calc(100% - 540px);
       min-height: 918px;
       height: 100%;
