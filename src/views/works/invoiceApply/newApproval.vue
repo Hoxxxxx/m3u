@@ -863,10 +863,12 @@ export default {
           { name: "id", title: "商品编号" },
           { name: "name", title: "商品名称" },
         ],
-        head_FHD:[
-          { name: "id", title: "id" },
-          { name: "title", title: "流程名称" },
-        ]
+        head_FHD: [
+          { name: "fhd00", title: "发货单号" },
+          { name: "fhd05_show", title: "客户名称" },
+          { name: "fhd02", title: "发货单日期" },
+          { name: "fhd11", title: "未开票金额" },
+        ],
       },
     };
   },

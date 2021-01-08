@@ -697,7 +697,7 @@ export default {
         ],
         head_FHD: [
           { name: "fhd00", title: "发货单号" },
-          { name: "fhd05", title: "客户名称" },
+          { name: "fhd05_show", title: "客户名称" },
           { name: "fhd02", title: "发货单日期" },
           { name: "fhd11", title: "未开票金额" },
         ],

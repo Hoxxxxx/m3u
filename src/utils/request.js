@@ -23,7 +23,6 @@ axios.interceptors.request.use(
 		let curUrl = window.location.href
 		let token = sessionStorage.getItem('token')
 		let orgid = sessionStorage.getItem('OrgId')
-		console.log('request：',`${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`)
 		if (token) {
 			let exp = sessionStorage.getItem('exp')
 			let now = Math.round(new Date() / 1000)
