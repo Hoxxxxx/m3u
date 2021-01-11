@@ -5,11 +5,11 @@
       <div class="btnBox" v-if="activeTab == 'firTab'">
         <!-- <el-button type="primary" @click="$router.push('/')">回到首页</el-button> -->
         <el-button
-          v-if="more != null"
+          v-for="(link,index) in more" :key="index"
           type="primary"
-          class="save"
-          @click="seeMore()"
-          >查看更多</el-button
+          class="saveBtn"
+          @click="seeMore(link.url)"
+          >{{link.name}}</el-button
         >
         <el-button type="primary" class="save" @click="editNewFlow()"
           >保存</el-button
@@ -1351,7 +1351,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 5156;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5400;
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
