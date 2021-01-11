@@ -1376,7 +1376,6 @@ export default {
     // 总金额
     "tableData.oaa12": {
       handler(newval, oldval) {
-        console.log(this.firstLoad)
         if(this.firstLoad.oaa12 == this.tableData.oaa12){
           let sum = this.tableData.oab.reduce((prev, cur) => {
             return prev + Number(cur.oab05);
