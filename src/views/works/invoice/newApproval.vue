@@ -21,7 +21,6 @@
           @click="nextStep('/apply')"
           >下一步</el-button
         >
-        <!-- <el-button class="normal" style="margin-left: 50px">委托</el-button> -->
         <!-- <el-button class="normal">挂起</el-button> -->
         <!-- <el-button class="normal">增加会签人</el-button> -->
         <!-- <el-button class="normal" style="margin-right: 70px">抛转</el-button> -->
