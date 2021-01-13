@@ -216,9 +216,9 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa20') ? 'redPot' : ''">计划内外</span>
+                  <span :class="form_must.includes('oaa20') ? 'redPot' : ''">计划内 / 外</span>
                 </div>
-                <div v-if="!table_able.includes('oaa20')" class="infobox middlebox editNot">
+                <!-- <div v-if="!table_able.includes('oaa20')" class="infobox middlebox editNot">
                   {{tableData.oaa20}}
                 </div>
                 <div v-if="table_able.includes('oaa20')" class="infobox middlebox selectbox">
@@ -227,6 +227,22 @@
                     v-model="tableData.oaa20"
                     placeholder="请输入计划内外"
                   />
+                </div> -->
+                <div class="infobox middlebox selectbox" :class="!table_able.includes('oaa20')?'disabledbox':''">
+                  <el-select
+                    v-model="tableData.oaa20"
+                    class="select"
+                    placeholder="请选择计划内 / 外"
+                    :disabled="!table_able.includes('oaa20')"
+                  >
+                    <el-option
+                      v-for="item in fixedData.buyList1"
+                      :key="item.id"
+                      :label="item.label"
+                      :value="item.id"
+                    >
+                    </el-option>
+                  </el-select>
                 </div>
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa21') ? 'redPot' : ''">采购金额</span>
@@ -413,6 +429,16 @@ export default {
             label: '升级更换'
           }
         ],
+        buyList1: [
+          {
+            id: '0',
+            label: '计划内'
+          },
+          {
+            id: '1',
+            label: '计划外'
+          }
+        ],
       },
       fileList_user: [],
       fileList: [],
@@ -452,7 +478,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 3963
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5472
     this.getworkflows()
   },
   methods: {
