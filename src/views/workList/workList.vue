@@ -189,6 +189,18 @@ export default {
           name: "合同审批——查看",
           path: "/contract/check",
         },
+        {
+          name: "新增签约方申请单——申请",
+          path: "/signing",
+        },
+        {
+          name: "新增签约方申请单——审核",
+          path: "/signing/approval",
+        },
+        {
+          name: "新增签约方申请单——查看",
+          path: "/signing/check",
+        },
       ]
     };
   },

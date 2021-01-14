@@ -361,6 +361,27 @@ const routes = [{
     name: 'contract_printPage',
     component: () => import('@/views/works/contract/printPage')
   },
+  // 新增签约方申请单
+  {
+    path: '/signing',
+    name: 'signing',
+    component: () => import('@/views/works/signing/newProcess')
+  },
+  {
+    path: '/signing/check',
+    name: 'signing_check',
+    component: () => import('@/views/works/signing/check')
+  },
+  {
+    path: '/signing/approval',
+    name: 'signing_approval',
+    component: () => import('@/views/works/signing/newApproval')
+  },
+  {
+    path: '/signing/printPage',
+    name: 'signing_printPage',
+    component: () => import('@/views/works/signing/printPage')
+  },
 
 ]
 
