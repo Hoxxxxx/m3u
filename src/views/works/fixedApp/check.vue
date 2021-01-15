@@ -86,8 +86,8 @@
                 <div class="infobox middlebox last_row">{{tableData.oaa19}}</div>
               </div>
               <div class="form_line">
-                <div class="titlebox">计划内外</div>
-                <div class="infobox middlebox">{{tableData.oaa20}}</div>
+                <div class="titlebox">计划内 / 外</div>
+                <div class="infobox middlebox">{{tableData.oaa20 == '0' ? '计划内' : '计划外'}}</div>
                 <div class="titlebox">采购金额</div>
                 <div class="infobox middlebox last_row">{{tableData.oaa21}}</div>
               </div>

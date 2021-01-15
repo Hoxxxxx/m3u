@@ -213,6 +213,18 @@ export default {
           name: "红字发票申请单——查看",
           path: "/8985/check",
         },
+        {
+          name: "新增签约方申请单——申请",
+          path: "/signing",
+        },
+        {
+          name: "新增签约方申请单——审核",
+          path: "/signing/approval",
+        },
+        {
+          name: "新增签约方申请单——查看",
+          path: "/signing/check",
+        },
       ]
     };
   },

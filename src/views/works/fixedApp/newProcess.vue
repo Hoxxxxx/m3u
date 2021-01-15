@@ -179,14 +179,27 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa20') ? 'redPot' : ''">计划内外</span>
+                  <span :class="form_must.includes('oaa20') ? 'redPot' : ''">计划内 / 外</span>
                 </div>
                 <div class="infobox middlebox selectbox">
-                  <input
+                  <!-- <input
                     class="abstracInput"
                     v-model="tableData.oaa20"
                     placeholder="请输入计划内外"
-                  />
+                  /> -->
+                  <el-select
+                    v-model="tableData.oaa20"
+                    class="select"
+                    placeholder="请选择计划内 / 外"
+                  >
+                    <el-option
+                      v-for="item in fixedData.buyList1"
+                      :key="item.id"
+                      :label="item.label"
+                      :value="item.id"
+                    >
+                    </el-option>
+                  </el-select>
                 </div>
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa21') ? 'redPot' : ''">采购金额</span>
@@ -349,6 +362,16 @@ export default {
           {
             id: 2,
             label: '升级更换'
+          }
+        ],
+        buyList1: [
+          {
+            id: '0',
+            label: '计划内'
+          },
+          {
+            id: '1',
+            label: '计划外'
           }
         ],
       },
