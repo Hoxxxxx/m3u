@@ -35,7 +35,7 @@
                 <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
                 <div class="titlebox">所属部门</div>
                 <div class="infobox selectbox middlebox last_row">
-                  {{ tableData.oaa06_show }}
+                  {{ tableData.oaa04_gen04 }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -80,7 +80,7 @@
                     :key="index"
                     style="position:relative;"
                   >
-                    <div class="titlebox">账户名称>
+                    <div class="titlebox">账户名称
                     </div>
                     <div class="infobox selectbox">
                       {{line.oac01}}
@@ -296,7 +296,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4966;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5510;
     this.getworkflows();
   },
   methods: {
@@ -335,8 +335,9 @@ export default {
               });
             });
           }
-          if (res.data.workclass_info.from_data.oaa19_show.length > 0) {
-            res.data.workclass_info.from_data.oaa19_show.forEach((item) => {
+          let res_oaa11_show = res.data.workclass_info.from_data.oaa11_show
+          if (res_oaa11_show && res_oaa11_show.length > 0) {
+            res_oaa11_show.forEach((item) => {
               this.fileList_down.push({
                 id: item.id,
                 name: item.name,

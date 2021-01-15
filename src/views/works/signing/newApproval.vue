@@ -108,17 +108,8 @@
                 </div>
                 <div
                   class="infobox selectbox editNot last_row"
-                  v-if="!table_able.includes('oaa06')"
                 >
-                  {{ tableData.oaa06_show }}
-                </div>
-                <div
-                  class="infobox selectbox last_row"
-                  v-if="table_able.includes('oaa06')"
-                >
-                  <div class="selector" @click="selectDialog('BM')">
-                    {{ tableData.oaa06_show }}
-                  </div>
+                  {{ tableData.oaa04_gen04 }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -186,7 +177,7 @@
                       >
                     </div>
                     <div class="infobox selectbox editNot" v-if="!table_able.includes('oab02')">
-                      {{ tableData.oab01 }}
+                      {{ tableData.oab02 }}
                     </div>
                     <div class="infobox selectbox" v-if="table_able.includes('oab02')">
                       <input
@@ -233,12 +224,10 @@
                       v-if="table_able.includes('oac')"
                     ></i>
                     <div class="titlebox">
-                      <span :class="form_must_able.includes('oac') ? 'redPot' : ''"
-                        >账户名称</span
-                      >
+                      <span :class="form_must_able.includes('oac') ? 'redPot' : ''">账户名称</span>
                     </div>
                     <div class="infobox selectbox editNot" v-if="!table_able.includes('oac01')">
-                      {{ tableData.oac01 }}
+                      {{ line.oac01 }}
                     </div>
                     <div class="infobox selectbox" v-if="table_able.includes('oac01')">
                       <input
@@ -253,7 +242,7 @@
                       >
                     </div>
                     <div class="infobox selectbox editNot" v-if="!table_able.includes('oac02')">
-                      {{ tableData.oac02 }}
+                      {{ line.oac02 }}
                     </div>
                     <div class="infobox selectbox" v-if="table_able.includes('oac02')">
                       <input
@@ -269,7 +258,7 @@
                       >
                     </div>
                     <div class="infobox selectbox editNot last_row" v-if="!table_able.includes('oac03')">
-                      {{ tableData.oac03 }}
+                      {{ line.oac03 }}
                     </div>
                     <div class="infobox selectbox last_row" v-if="table_able.includes('oac03')">
                       <input
@@ -365,7 +354,7 @@
                         >地址</span
                       >
                     </div>
-                    <div class="infobox selectbox editNot" v-if="!table_able.includes('oad06')">
+                    <div class="infobox selectbox editNot last_row" v-if="!table_able.includes('oad06')">
                       {{ tableData.oad06 }}
                     </div>
                     <div class="infobox selectbox last_row" v-if="table_able.includes('oad06')">
@@ -523,8 +512,8 @@
                 </div>
               </div>
               <!-- 财务信息 -->
-              <!--  v-if="workclass_personnel.perid.flownum==3 && oazShow == 1" -->
-              <div>
+              <!-- v-if="workclass_personnel.perid.flownum==3 && oazShow == 1" -->
+              <div >
                 <div class="title_line">
                   抛转信息
                   <el-button
@@ -675,13 +664,16 @@ export default {
       form_must_able: [],
       tableData: {},
       showData: {
+        oaa03_show: "", //经办人
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号
-        oaa04_gen04: "", //部门编号
-        oaa03_show: "", //经办人
+        oaa04_gen04: "", //部门
         oaa06_show: "", //部门
         oab03_show: "",
         oad03_show:"",
+      },
+      firstLoad:{
+
       },
       //财务信息
       oaz: {
@@ -722,8 +714,10 @@ export default {
       tableHead: {
         // 申请人
         head_SQR: [
-          { name: "id", title: "用户ID" },
-          { name: "name", title: "用户名称" },
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
         ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
@@ -762,21 +756,34 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4886;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5519;
     this.getworkflows();
   },
   watch:{
     'tableData.oab02':{
       handler(newVal,oldVal){
-        this.tableData.oac.forEach(item=>{
-          item.oac01 = newVal
-        })
+        let first_oac = this.firstLoad.oac;
+        let table_oac = this.tableData.oac
+        for(let i=0,len=first_oac.length;i<len;i++){
+            if(first_oac[i].oac01 == table_oac[i].oac01){
+              table_oac[i].oac01 = table_oac[i].oac01
+            }else{
+              table_oac[i].oac01 = this.tableData.oab02
+            }
+        }
+        // this.tableData.oac.forEach(item=>{
+        //   item.oac01 = newVal
+        // })
       },
       deep:true
     },
     'tableData.oad02':{
       handler(newVal,oldVal){
-        this.tableData.oad04 = newVal
+        if(this.firstLoad.oad04 == this.tableData.oad04){
+          this.tableData.oad04 = this.tableData.oad04
+        }else{
+          this.tableData.oad04 = newVal
+        }
       },
       deep:true
     }
@@ -805,9 +812,13 @@ export default {
           this.workclass_personnel = res.data.workclass_personnel;
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able;
+          this.oazShow = res.data.workclass_flow.erp_turn
           this.more = res.data.workclass_info.more;
-          this.tableData.oaa10 = 1
-          this.tableData.oac = [{}]
+          this.firstLoad = {
+            oac:res.data.workclass_info.from_data.oac,
+            oad04:res.data.workclass_info.from_data.oad04
+          }
+          console.log(this.firstLoad)
           if (res.data.file !== null) {
             res.data.file.forEach((item) => {
               this.fileList_user.push({
@@ -1072,25 +1083,24 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (
-        url == "/agree" &&
-        this.oazShow == 1 &&
-        this.workclass_personnel.perid.flownum == 3
-      ) {
-        this.nextFuns(url);
-      } else if(url == "/reject" || url == "/back"){
-        this.$router.push({
-          path: url,
-          query: {
-            url_type: 'signing',
-            workid: this.workid,
-            workName: this.workName,
-            oaa01: this.tableData.oaa01,
-            oaa02: this.tableData.oaa02,
-          },
-        });
-      }
-      else {
+      if (url == "/agree" && this.oazShow == 1 && this.workclass_personnel.perid.flownum == 3) {
+        if (this.oaz.oaz02 == "" || this.oaz.oaz02 == null) {
+          this.$message.error("请先生成签约方编号！");
+          } else if(url == "/reject" || url == "/back"){
+          this.$router.push({
+            path: url,
+            query: {
+              url_type: 'signing',
+              workid: this.workid,
+              workName: this.workName,
+              oaa01: this.tableData.oaa01,
+              oaa02: this.tableData.oaa02,
+            },
+          });
+        }else{
+          this.nextFuns(url);
+        }
+      } else {
         this.nextFuns(url);
       }
     },
@@ -1141,16 +1151,16 @@ export default {
           this.dataSelect.filter = filter_SQR;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "oa/users";
+          this.dataSelect.searchApi = "meta/gens";
           this.dataSelect.headList = this.tableHead.head_SQR;
-          this.dataSelect.dialogTitle = "申请人列表";
+          this.dataSelect.dialogTitle = "员工列表";
           break;
         case "JBR":
           let filter_JBR = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_JBR;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "oa/users";
+          this.dataSelect.searchApi = "meta/gens";
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "经办人列表";
           break;
@@ -1216,12 +1226,14 @@ export default {
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
           case "SQR":
-            this.tableData.oaa04 = val[0].id;
-            this.showData.oaa04_show = val[0].name;
+            this.tableData.oaa04 = val[0].gen01;
+            this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen04 = val[0].gen04;
             break;
           case "JBR":
-            this.tableData.oaa03 = val[0].id;
-            this.showData.oaa03_show = val[0].name;
+            this.tableData.oaa03 = val[0].gen01;
+            this.showData.oaa03_show = val[0].gen02;
             break;
           case "BM":
             this.tableData.oaa06 = val[0].id;
@@ -1249,7 +1261,6 @@ export default {
         }
       }
     },
-    // 签约方
     addBank() {
       let line = {
         oac01: this.tableData.oab02,
@@ -1267,6 +1278,36 @@ export default {
         this.tableData.oac.splice(val, 1);
         if (this.tableData.oac.length == 0) {
           this.addBank();
+        }
+      });
+    },
+    // 生成签约方
+    generate(){
+      const loading = OpenLoading(this, 2)
+      this.addParams.from_data = {...this.tableData,...this.oaz};
+      this.addParams.workid = this.workid;
+      editFlow(this.addParams).then((res) => {
+        if (res.status == 200) {
+          let params = {
+            workid: this.workid,
+          };
+          transfer(params).then((res) => {
+            if (res.status == 200) {
+              loading.close();
+              clearTimeout(this.overloading)
+              this.$message.success("生成签约方成功！");
+              this.oaz.oaz01 = res.data.oaz01;
+              this.oaz.oaz02 = res.data.oaz02;
+            } else {
+              loading.close();
+              clearTimeout(this.overloading)
+              this.$message.error("生成签约方失败:" + res.error.message);
+            }
+          });
+        } else {
+          loading.close();
+          clearTimeout(this.overloading)
+          this.$message.error("生成签约方失败:" + res.error.message);
         }
       });
     }

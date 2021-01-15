@@ -23,7 +23,7 @@
             <div class="titlebox">申请人</div>
             <div class="infobox">{{ tableData.oaa04_show }}</div>
             <div class="titlebox">所属部门</div>
-            <div class="infobox last_row">{{ tableData.oaa06_show }}</div>
+            <div class="infobox last_row">{{ tableData.oaa04_gen04 }}</div>
           </div>
           <div class="form_line">
             <div class="titlebox">联系电话</div>

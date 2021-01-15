@@ -58,9 +58,7 @@
                   >
                 </div>
                 <div class="infobox selectbox last_row">
-                  <div class="selector" @click="selectDialog('BM')">
-                    {{ showData.oaa06_show }}
-                  </div>
+                    {{ showData.oaa04_gen04 }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -177,7 +175,7 @@
                       <input
                         class="abstracInput"
                         v-model="line.oac02"
-                        placeholder="请输入合同名称"
+                        placeholder="请输入银行账号"
                       />
                     </div>
                     <div class="titlebox required">
@@ -189,7 +187,7 @@
                       <input
                         class="abstracInput"
                         v-model="line.oac03"
-                        placeholder="请输入合同金额"
+                        placeholder="请输入开户行名称"
                       />
                     </div>
                   </div>
@@ -472,7 +470,7 @@ export default {
         oaa13: "",
         oab01:"",
         oab02:"",
-        oab03:"j07",
+        oab03:"J07",
         oac: [
           {
             oac01: "",
@@ -482,13 +480,15 @@ export default {
         ],
         oad01:"",
         oad02:"",
-        oad03:"x09",
+        oad03:"X09",
         oad04:"",
         oad05:"",
         oad06:"",
         oad07:"",
         oad08:"",
         oad09:"",
+        oaz01: "", //日期
+        oaz02: "", //签约方编号
       },
       showData: {
         oaa04_show: "", //申请人
@@ -528,8 +528,10 @@ export default {
       tableHead: {
         // 申请人
         head_SQR: [
-          { name: "id", title: "用户ID" },
-          { name: "name", title: "用户名称" },
+          { name: "gen01", title: "员工编号" },
+          { name: "gen02", title: "员工名称" },
+          { name: "gen03", title: "所属部门编号" },
+          { name: "gen04", title: "所属部门" },
         ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
@@ -571,11 +573,6 @@ export default {
     this.addParams.tplid = this.$route.query.tplid
       ? this.$route.query.tplid
       : 8984;
-    let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
-    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
-    this.showData.oaa03_show = oauserinfo.oaname;
-    this.tableData.oaa04 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
-    this.showData.oaa04_show = oauserinfo.oaname;
     this.getMustItem();
   },
   watch:{
@@ -853,16 +850,16 @@ export default {
           this.dataSelect.filter = filter_SQR;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "oa/users";
+          this.dataSelect.searchApi = "meta/gens";
           this.dataSelect.headList = this.tableHead.head_SQR;
-          this.dataSelect.dialogTitle = "申请人列表";
+          this.dataSelect.dialogTitle = "员工列表";
           break;
         case "JBR":
           let filter_JBR = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_JBR;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "oa/users";
+          this.dataSelect.searchApi = "meta/gens";
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "经办人列表";
           break;
@@ -928,12 +925,14 @@ export default {
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
           case "SQR":
-            this.tableData.oaa04 = val[0].id;
-            this.showData.oaa04_show = val[0].name;
+            this.tableData.oaa04 = val[0].gen01;
+            this.showData.oaa04_show = val[0].gen02;
+            this.showData.oaa04_gen01 = val[0].gen01;
+            this.showData.oaa04_gen04 = val[0].gen04;
             break;
           case "JBR":
-            this.tableData.oaa03 = val[0].id;
-            this.showData.oaa03_show = val[0].name;
+            this.tableData.oaa03 = val[0].gen01;
+            this.showData.oaa03_show = val[0].gen02;
             break;
           case "BM":
             this.tableData.oaa06 = val[0].id;
