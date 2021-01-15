@@ -189,6 +189,30 @@
                   {{ tableData.oaa13 }}
                 </div>
               </div>
+              <div>
+                <div class="title_line">
+                  抛转信息
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">日期
+                  </div>
+                  <div class="infobox middlebox datebox ">
+                    <el-date-picker
+                      v-model="tableData.oaz01"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
+                      disabled
+                    >
+                    </el-date-picker>
+                  </div>
+                  <div class="titlebox">签约方编号
+                  </div>
+                  <div class="infobox selectbox middlebox editNot last_row">
+                    {{ tableData.oaz02 }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </el-tab-pane>
@@ -296,7 +320,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 5510;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5519;
     this.getworkflows();
   },
   methods: {

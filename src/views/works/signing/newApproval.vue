@@ -512,8 +512,8 @@
                 </div>
               </div>
               <!-- 财务信息 -->
-              <!-- v-if="workclass_personnel.perid.flownum==3 && oazShow == 1" -->
-              <div >
+              <!--  -->
+              <div v-if="workclass_personnel.perid.flownum==3 && oazShow == 1">
                 <div class="title_line">
                   抛转信息
                   <el-button
@@ -762,18 +762,18 @@ export default {
   watch:{
     'tableData.oab02':{
       handler(newVal,oldVal){
-        let first_oac = this.firstLoad.oac;
-        let table_oac = this.tableData.oac
-        for(let i=0,len=first_oac.length;i<len;i++){
-            if(first_oac[i].oac01 == table_oac[i].oac01){
-              table_oac[i].oac01 = table_oac[i].oac01
-            }else{
-              table_oac[i].oac01 = this.tableData.oab02
-            }
-        }
-        // this.tableData.oac.forEach(item=>{
-        //   item.oac01 = newVal
-        // })
+        // let first_oac = this.firstLoad.oac;
+        // let table_oac = this.tableData.oac
+        // for(let i=0,len=first_oac.length;i<len;i++){
+        //     if(first_oac[i].oac01 == table_oac[i].oac01){
+        //       table_oac[i].oac01 = table_oac[i].oac01
+        //     }else{
+        //       table_oac[i].oac01 = this.tableData.oab02
+        //     }
+        // }
+        this.tableData.oac.forEach(item=>{
+          item.oac01 = newVal
+        })
       },
       deep:true
     },
