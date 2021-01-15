@@ -361,6 +361,48 @@ const routes = [{
     name: 'contract_printPage',
     component: () => import('@/views/works/contract/printPage')
   },
+  // 发货单
+  {
+    path: '/8987',
+    name: '8987',
+    component: () => import('@/views/works/8987/newProcess')
+  },
+  {
+    path: '/8987/check',
+    name: '8987check',
+    component: () => import('@/views/works/8987/check')
+  },
+  {
+    path: '/8987/approval',
+    name: '8987approval',
+    component: () => import('@/views/works/8987/newApproval')
+  },
+  {
+    path: '/8987/printPage',
+    name: '8987printPage',
+    component: () => import('@/views/works/8987/printPage')
+  },
+  // 红字发票申请
+  {
+    path: '/8985',
+    name: '8985',
+    component: () => import('@/views/works/8985/newProcess')
+  },
+  {
+    path: '/8985/check',
+    name: '8985check',
+    component: () => import('@/views/works/8985/check')
+  },
+  {
+    path: '/8985/approval',
+    name: '8985approval',
+    component: () => import('@/views/works/8985/newApproval')
+  },
+  {
+    path: '/8985/printPage',
+    name: '8985printPage',
+    component: () => import('@/views/works/8985/printPage')
+  },
 
 ]
 
