@@ -190,6 +190,30 @@ export default {
           path: "/contract/check",
         },
         {
+          name: "退货申请单——申请",
+          path: "/8987",
+        },
+        {
+          name: "退货申请单——审核",
+          path: "/8987/approval",
+        },
+        {
+          name: "退货申请单——查看",
+          path: "/8987/check",
+        },
+        {
+          name: "红字发票申请单——申请",
+          path: "/8985",
+        },
+        {
+          name: "红字发票申请单——审核",
+          path: "/8985/approval",
+        },
+        {
+          name: "红字发票申请单——查看",
+          path: "/8985/check",
+        },
+        {
           name: "新增签约方申请单——申请",
           path: "/signing",
         },
