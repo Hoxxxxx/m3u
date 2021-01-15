@@ -189,7 +189,7 @@
                   {{ tableData.oaa13 }}
                 </div>
               </div>
-              <div>
+              <div v-if="oazShow == 1">
                 <div class="title_line">
                   抛转信息
                 </div>
