@@ -315,6 +315,7 @@ export default {
         annexurlid: [],
         tplid: 8984,
       },
+      oazShow:0,
       // 当前流程列表
       workclass_perflow: [],
     };
@@ -445,6 +446,7 @@ export default {
     line-height: 25px;
     div {
       margin-left: 10px;
+      
     }
   }
 }
