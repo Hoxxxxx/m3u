@@ -1167,7 +1167,7 @@ export default {
         this.$router.push({
           path: url,
           query: {
-            url_type: 'r0102',
+            url_type: 'redinvoice',
             workid: this.workid,
             workName: this.workName,
             oaa01: this.tableData.oaa01,
@@ -1199,7 +1199,7 @@ export default {
           this.$router.push({
             path: url,
             query: {
-              url_type: 'r0102',
+              url_type: 'redinvoice',
               workid: this.workid,
               workName: this.workName,
               oaa01: this.tableData.oaa01,
