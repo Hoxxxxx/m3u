@@ -324,6 +324,12 @@ export default {
       // console.log(this.activeTab);
     },
     // ***********获取流程信息************
+    // 含税金额计算
+    sum_HSJE(rowIndex) {
+      // 税前金额 = （含税金额  / （1+税率/100））
+      this.tableData.oab[rowIndex].oab07 = (this.tableData.oab[rowIndex].oab02 * this.tableData.oab[rowIndex].oab03).toFixed(2)
+      this.change_HSJE(rowIndex)
+    },
     // 税额计算
     change_HSJE(rowIndex) {
       // 税前金额 = （含税金额  / （1+税率/100））
@@ -341,9 +347,9 @@ export default {
           loading.close()
           clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
-          this.tableData.oab.forEach((item, index) => {
-            this.change_HSJE(index)
-          })
+          // this.tableData.oab.forEach((item, index) => {
+          //   this.change_HSJE(index)
+          // })
           this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           this.oazShow = res.data.workclass_flow.erp_turn

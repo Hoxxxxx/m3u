@@ -163,6 +163,7 @@
                         <el-input
                           v-model="scope.row.oab02"
                           placeholder="数量"
+                          @input="sum_HSJE(scope.$index)"
                         ></el-input>
                       </div>
                     </template>
@@ -178,6 +179,7 @@
                         <el-input
                           v-model="scope.row.oab03"
                           placeholder="含税单价"
+                          @input="sum_HSJE(scope.$index)"
                         ></el-input>
                       </div>
                     </template>
@@ -726,7 +728,7 @@ export default {
       let data = {
         oab01: "", //商品名
         oab02: "", //数量
-        oab03: "", //含税单价
+        oab03: "0.00", //含税单价
         oab04: "0.00", //税前金额
         oab05: "", //税率
         oab05_show: "1.00",
@@ -747,6 +749,12 @@ export default {
           this.addRow1();
         }
       });
+    },
+    // 含税金额计算
+    sum_HSJE(rowIndex) {
+      // 税前金额 = （含税金额  / （1+税率/100））
+      this.tableData.oab[rowIndex].oab07 = (this.tableData.oab[rowIndex].oab02 * this.tableData.oab[rowIndex].oab03).toFixed(2)
+      this.change_HSJE(rowIndex)
     },
     // 税额计算
     change_HSJE(rowIndex) {
