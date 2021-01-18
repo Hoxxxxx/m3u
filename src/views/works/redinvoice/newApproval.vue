@@ -105,10 +105,10 @@
                   <span :class="form_must_able.includes('oaa12') ? 'redPot' : ''">购买方名称</span>
                 </div>
                 <div v-if="!table_able.includes('oaa12')" class="infobox editNot">
-                  {{ tableData.oaa10_show }}
+                  {{ tableData.oaa12 }}
                 </div>
                 <div v-if="table_able.includes('oaa12')" class="infobox middlebox selectbox">
-                  <div class="selector" @click="selectDialog('GMF')">{{tableData.oaa12_show}}</div>
+                  <div class="selector" @click="selectDialog('GMF')">{{tableData.oaa12}}</div>
                 </div>
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa13') ? 'redPot' : ''">购买方纳税人识别号</span>

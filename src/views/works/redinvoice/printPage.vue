@@ -41,7 +41,7 @@
           </div>
           <div class="form_line lastline">
             <div class="titlebox">购买方名称</div>
-            <div class="infobox middlebox">{{tableData.oaa12_show}}</div>
+            <div class="infobox middlebox">{{tableData.oaa12}}</div>
             <div class="titlebox">购买方纳税人识别号</div>
             <div class="infobox middlebox last_row">{{ tableData.oaa13 }}</div>
           </div>

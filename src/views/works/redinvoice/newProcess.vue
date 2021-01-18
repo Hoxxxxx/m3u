@@ -88,7 +88,7 @@
                   <span :class="form_must.includes('oaa12') ? 'redPot' : ''">购买方名称</span>
                 </div>
                 <div class="infobox middlebox selectbox">
-                  <div class="selector" @click="selectDialog('GMF')">{{showData.oaa12_show}}</div>
+                  <div class="selector" @click="selectDialog('GMF')">{{tableData.oaa12}}</div>
                 </div>
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa13') ? 'redPot' : ''">购买方纳税人识别号</span>
@@ -393,7 +393,6 @@ export default {
         oaa04_gen01: "", //申请人编号
         oaa04_gen04: "", //申请人部门
         oaa10_show: "", //销售方名称
-        oaa12_show: "", //购买方名称
         expenseMoney: "", //报销金额
         expenseMoneyF: "", //报销金额大写
       },
@@ -675,7 +674,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r0102',
+                    url_type: 'redinvoice',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -702,7 +701,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r0102',
+                    url_type: 'redinvoice',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -981,7 +980,6 @@ export default {
             break;
           case "GMF":
             this.tableData.oaa12 = val[0].company01;
-            this.showData.oaa12_show = val[0].company01;
             this.tableData.oaa13 = val[0].company02;
             break;
           case "SP":
