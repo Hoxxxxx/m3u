@@ -85,7 +85,7 @@
               <div class="title_line">开票信息</div>
               <div class="form_line">
                 <div class="titlebox required">
-                  <span :class="form_must.includes('oaa10') ? 'redPot' : ''">销售方名称</span>
+                  <span :class="form_must_able.includes('oaa10') ? 'redPot' : ''">销售方名称</span>
                 </div>
                 <div v-if="!table_able.includes('oaa10')" class="infobox editNot">
                   {{ tableData.oaa10_show }}
@@ -94,7 +94,7 @@
                   <div class="selector" @click="selectDialog('XSF')">{{tableData.oaa10_show}}</div>
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa11') ? 'redPot' : ''">销售方纳税人识别号</span>
+                  <span :class="form_must_able.includes('oaa11') ? 'redPot' : ''">销售方纳税人识别号</span>
                 </div>
                 <div class="infobox middlebox last_row editNot">
                   {{ tableData.oaa11 }}
@@ -102,7 +102,7 @@
               </div>
               <div class="form_line lastline">
                 <div class="titlebox required">
-                  <span :class="form_must.includes('oaa12') ? 'redPot' : ''">购买方名称</span>
+                  <span :class="form_must_able.includes('oaa12') ? 'redPot' : ''">购买方名称</span>
                 </div>
                 <div v-if="!table_able.includes('oaa12')" class="infobox editNot">
                   {{ tableData.oaa10_show }}
@@ -111,7 +111,7 @@
                   <div class="selector" @click="selectDialog('GMF')">{{tableData.oaa12_show}}</div>
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa13') ? 'redPot' : ''">购买方纳税人识别号</span>
+                  <span :class="form_must_able.includes('oaa13') ? 'redPot' : ''">购买方纳税人识别号</span>
                 </div>
                 <div class="infobox middlebox last_row editNot">
                   {{ tableData.oaa13 }}
