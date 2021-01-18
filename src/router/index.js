@@ -361,7 +361,7 @@ const routes = [{
     name: 'contract_printPage',
     component: () => import('@/views/works/contract/printPage')
   },
-  // 发货单
+  // 退货单
   {
     path: '/8987',
     name: '8987',

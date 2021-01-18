@@ -130,9 +130,16 @@
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa40') ? 'redPot' : ''">发货单</span>
                 </div>
-                <div class="infobox selectbox longbox">
+                <div
+                  class="infobox selectbox"
+                  v-if="!table_able.includes('oaa40')"
+                >
+                  {{ tableData.oaa40 }}
+                </div>
+                <div class="infobox selectbox longbox"
+                        v-if="table_able.includes('oaa40')">
                   <div class="selector" style="background-position: right center;" @click="selectDialog('FHD')">
-                    {{ tableData.oaa40_show }}
+                    {{ tableData.oaa40 }}
                   </div>
                 </div>
               </div>
