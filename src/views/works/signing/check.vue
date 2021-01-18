@@ -35,7 +35,7 @@
                 <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
                 <div class="titlebox">所属部门</div>
                 <div class="infobox selectbox middlebox last_row">
-                  {{ tableData.oaa06_show }}
+                  {{ tableData.oaa04_gen04 }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -80,7 +80,7 @@
                     :key="index"
                     style="position:relative;"
                   >
-                    <div class="titlebox">账户名称>
+                    <div class="titlebox">账户名称
                     </div>
                     <div class="infobox selectbox">
                       {{line.oac01}}
@@ -189,6 +189,30 @@
                   {{ tableData.oaa13 }}
                 </div>
               </div>
+              <div v-if="oazShow == 1">
+                <div class="title_line">
+                  抛转信息
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">日期
+                  </div>
+                  <div class="infobox middlebox datebox ">
+                    <el-date-picker
+                      v-model="tableData.oaz01"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
+                      disabled
+                    >
+                    </el-date-picker>
+                  </div>
+                  <div class="titlebox">签约方编号
+                  </div>
+                  <div class="infobox selectbox middlebox editNot last_row">
+                    {{ tableData.oaz02 }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </el-tab-pane>
@@ -291,12 +315,13 @@ export default {
         annexurlid: [],
         tplid: 8984,
       },
+      oazShow:0,
       // 当前流程列表
       workclass_perflow: [],
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4966;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5519;
     this.getworkflows();
   },
   methods: {
@@ -335,8 +360,9 @@ export default {
               });
             });
           }
-          if (res.data.workclass_info.from_data.oaa19_show.length > 0) {
-            res.data.workclass_info.from_data.oaa19_show.forEach((item) => {
+          let res_oaa11_show = res.data.workclass_info.from_data.oaa11_show
+          if (res_oaa11_show && res_oaa11_show.length > 0) {
+            res_oaa11_show.forEach((item) => {
               this.fileList_down.push({
                 id: item.id,
                 name: item.name,
@@ -420,6 +446,7 @@ export default {
     line-height: 25px;
     div {
       margin-left: 10px;
+      
     }
   }
 }
