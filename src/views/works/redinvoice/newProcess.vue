@@ -549,7 +549,7 @@ export default {
     this.getMustItem()
   },
   computed: {
-    // 税前金额（原币）
+    // 税前金额合计
     com_SQJEyb(){
       let sum =  this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab04);
@@ -557,7 +557,7 @@ export default {
       this.tableData.oaa14 = sum.toFixed(2)
       return sum.toFixed(2)
     },
-    // 税额（原币）
+    // 税额合计
     com_SEyb(){
       let sum =  this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab06);
@@ -565,7 +565,7 @@ export default {
       this.tableData.oaa15 = sum.toFixed(2)
       return sum.toFixed(2)
     },
-    // 含税合计（原币）
+    // 含税合计
     com_HSHJyb(){
       let sum =  this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab07);

@@ -189,15 +189,15 @@
                 <div class="summry">
                   <ul class="summryUl">
                     <li class="summryLi">
-                      <div class="summryName">税前金额（原币）</div>
+                      <div class="summryName">税前金额合计</div>
                       <div class="summryCont editNot">{{ com_SQJEyb }}</div>
                     </li>
                     <li class="summryLi">
-                      <div class="summryName">税额</div>
+                      <div class="summryName">税额合计</div>
                       <div class="summryCont editNot">{{ com_SEyb }}</div>
                     </li>
                     <li class="summryLi">
-                      <div class="summryName">含税合计（原币）</div>
+                      <div class="summryName">含税合计</div>
                       <div class="summryCont editNot">{{ com_HSHJyb }}</div>
                     </li>
                   </ul>
@@ -369,15 +369,15 @@
                 <div class="summry">
                   <ul class="summryUl">
                     <li class="summryLi">
-                      <div class="summryName">税前金额（原币）</div>
+                      <div class="summryName">税前金额合计</div>
                       <div class="summryCont editNot">{{ com_SQJEyb }}</div>
                     </li>
                     <li class="summryLi">
-                      <div class="summryName">税额</div>
+                      <div class="summryName">税额合计</div>
                       <div class="summryCont editNot">{{ com_SEyb }}</div>
                     </li>
                     <li class="summryLi">
-                      <div class="summryName">含税合计（原币）</div>
+                      <div class="summryName">含税合计</div>
                       <div class="summryCont editNot">{{ com_HSHJyb }}</div>
                     </li>
                   </ul>
@@ -691,27 +691,17 @@ export default {
     this.getworkflows()
   },
   computed: {
-    // 应付金额
-    com_YFJE(){
-      if (this.tableData.oab) {
-        let sum =  this.tableData.oab.reduce((prev, cur) => {
-          return prev + Number(cur.oab07);
-        }, 0);
-        this.tableData.oaa17 = sum.toFixed(2)
-        return sum.toFixed(2)
-      }
-    },
-    // 税前金额（原币）
+    // 税前金额合计
     com_SQJEyb(){
       if (this.tableData.oab) {
         let sum =  this.tableData.oab.reduce((prev, cur) => {
-          return prev + Number(cur.oab05);
+          return prev + Number(cur.oab04);
         }, 0);
         this.tableData.oaa14 = sum.toFixed(2)
         return sum.toFixed(2)
       }
     },
-    // 税额
+    // 税额合计
     com_SEyb(){
       if (this.tableData.oab) {
         let sum =  this.tableData.oab.reduce((prev, cur) => {
@@ -721,7 +711,7 @@ export default {
         return sum.toFixed(2)
       }
     },
-    // 含税合计（原币）
+    // 含税合计
     com_HSHJyb(){
       if (this.tableData.oab) {
         let sum =  this.tableData.oab.reduce((prev, cur) => {
