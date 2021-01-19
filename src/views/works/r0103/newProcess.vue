@@ -778,7 +778,7 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
-    console.log('process.env:')
+    console.log('process.env:',JSON.parse(sessionStorage.getItem('OrgId')))
     console.log(process.env,this.filter_tplid)
   },
   methods: {

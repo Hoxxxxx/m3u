@@ -1203,6 +1203,7 @@ export default {
     this.getPma(); //支付方式
     this.getMustItem()
     console.log(process.env,this.filter_tplid)
+    console.log('vuex:',orgid)
   },
   methods: {
     getMustItem(){
