@@ -1051,10 +1051,10 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
-    console.log(process.env,this.filter)
+    console.log(process.env,this.filter_tplid)
   },
   computed: {
-    ...mapState(['filter']),
+    ...mapState(['filter_tplid']),
     // 应付金额
     com_YFJE(){
       let sum =  this.tableData.oaf.reduce((prev, cur) => {
@@ -1466,7 +1466,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter.FILTER_GDZCSQD, hide:true }];
+          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid.FILTER_GDZCSQD, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

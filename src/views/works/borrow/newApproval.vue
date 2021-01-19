@@ -522,10 +522,10 @@ export default {
     this.getworkflows()
     this.getAzis()
     this.getPmas()
-    console.log(process.env,this.filter)
+    console.log(process.env,this.filter_tplid)
   },
   computed: {
-    ...mapState(['filter']),
+    ...mapState(['filter_tplid']),
   },
   methods: {
     handleClick() {
@@ -910,7 +910,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter.FILTER_CCSQD, hide:true }];
+          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid.FILTER_CCSQD, hide:true }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

@@ -740,7 +740,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['filter']),
+    ...mapState(['filter_tplid']),
     // 报销金额（不含税）
     oaa10_ZHHLJE() {
       let sum =
@@ -778,7 +778,7 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
-    console.log(process.env,this.filter)
+    console.log(process.env,this.filter_tplid)
   },
   methods: {
     getMustItem(){
@@ -1017,7 +1017,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: this.filter.FILTER_FKSQD,
+              value: this.filter_tplid.FILTER_FKSQD,
               hide: true,
             },
           ];
