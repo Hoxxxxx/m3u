@@ -1,7 +1,7 @@
 <template>
   <div class="centerContainner">
     <!-- 无内容 -->
-    <div class="emptyMsg" v-if="containList.layouts.length==0">
+    <div class="emptyMsg" v-if="containList.layouts.length == 0">
       <span>请选择左侧控件</span>
     </div>
     <!-- 有内容 -->
@@ -10,58 +10,37 @@
         {{item.value}}
       </div> -->
 
-      <!-- <div v-for="(item, index) in form.layouts" :key="index">
-        <h2 class="title" v-if="item.title">{{ item.title }}</h2>
-        <ul class="layout_table">
-          <li
-            class="layout_row"
-            v-for="(layout_item, layout_key) in item.layout_rows"
-            :key="layout_key"
-          >
-            <div
-              class="layout_td"
-              v-for="(layout_td, td_key) in layout_item.tds"
-              :key="td_key"
-              :class="`rows_${item.layout}`"
-            >
-              <div class="layout_td_title">
-                <span>{{ layout_td.item_title }}</span>
-              </div>
-              <div class="layout_td_cont">
-                <render :tag="layout_td"></render>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div> -->
       <!-- limeiqi -->
-      <div v-for="(item, index) in containList.layouts" :key="index">
-        <!-- 表格控件 -->
-        <div v-if="item.type=='layout_Form'" class="handleBox layout_Form">
-          <!-- 内容行 -->
-          <div v-for="(line_item, line_index) in item.InnerInfo" :key="line_index">
-            <!-- 顶部工具栏 -->
-            <div v-if="line_item.active_status" class="topTools">
-              <el-tooltip class="item" effect="dark" content="复制" placement="top">
-                <div class="tool copy" @click="add_FormLine(index, line_index)"></div>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="删除" placement="top">
-                <div class="tool delete" @click="del_FormLine(index, line_index)"></div>
-              </el-tooltip>
-            </div>
-            <!-- 行内容 -->
-            <div class="Form_line"
-                    :class="line_item.active_status?'Form_line_active':''"
-                    @click="choose_FormLine(index, line_index)">
-              <div class="formline_inner">
-                
-              </div>
-            </div>
+      <!-- <div v-for="(item, index) in containList.layouts" :key="index"> -->
+        
+        <!-- 其他控件 -->
+        <div >
+          <div v-for="(item, index) in form.layouts" :key="index">
+            <h2 class="title" v-if="item.title">{{ item.title }}</h2>
+            <ul class="layout_table">
+              <li
+                class="layout_row"
+                v-for="(layout_item, layout_key) in item.layout_rows"
+                :key="layout_key"
+              >
+                <div
+                  class="layout_td"
+                  v-for="(layout_td, td_key) in layout_item.tds"
+                  :key="td_key"
+                  :class="`rows_${item.layout}`"
+                >
+                  <div class="layout_td_title">
+                    <span>{{ layout_td.item_title }}</span>
+                  </div>
+                  <div class="layout_td_cont">
+                    <render :tag="layout_td"></render>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-        <!-- 其他控件 -->
-        <!-- 。。。 -->
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -75,7 +54,9 @@ export default {
     addBtn: String,
     layout: {
       type: Object,
-      default: {},
+      default: function () {
+        return {};
+      },
     },
   },
   components: {
@@ -87,48 +68,53 @@ export default {
       containList: {
         formRef: "elForm",
         formModel: "formData",
-        layouts: []
+        layouts: [],
       },
-    }
+    };
   },
+  created() {},
   methods: {
     // 清空选中状态
     cleanActive() {
-      this.containList.layouts.forEach( item => {
-        item.InnerInfo.forEach( subItem => {
+      this.containList.layouts.forEach((item) => {
+        item.InnerInfo.forEach((subItem) => {
           if (subItem.active_status) {
-            subItem.active_status = !subItem.active_status
+            subItem.active_status = !subItem.active_status;
           }
-        })
-      })
+        });
+      });
     },
     // 选择表格行
     choose_FormLine(index, line_index) {
-      this.cleanActive()
+      this.cleanActive();
       // 选中行赋值
-      this.containList.layouts[index].InnerInfo[line_index].active_status = true
+      this.containList.layouts[index].InnerInfo[
+        line_index
+      ].active_status = true;
     },
     // 新增表格行
     add_FormLine(index, line_index) {
-      this.containList.layouts[index].InnerInfo.splice(line_index+1, 0, {
-        active_status: false,   // 此行被选中状态
-        InnerInfo: [   // 此行内容
+      this.containList.layouts[index].InnerInfo.splice(line_index + 1, 0, {
+        active_status: false, // 此行被选中状态
+        InnerInfo: [
+          // 此行内容
           {
-            title: '111'
-          },{
-            title: '222'
-          },{
-            title: '333'
-          }],
-        })
-        // console.log(this.containList)
+            title: "111",
+          },
+          {
+            title: "222",
+          },
+          {
+            title: "333",
+          },
+        ],
+      });
+      // console.log(this.containList)
     },
     // 删除表格行
     del_FormLine(index, line_index) {
-      this.containList.layouts[index].InnerInfo.splice(line_index, 1)
+      this.containList.layouts[index].InnerInfo.splice(line_index, 1);
     },
-
-
   },
   watch: {
     // 用户每点击一次按钮，都触发添加组件动作
@@ -138,33 +124,50 @@ export default {
       switch (this.addBtn) {
         // *****基础控件*****
         // 输入框
-        case 'basic_Input':
+        case "basic_Input":
           this.containList.layouts.push({
-            type: 'basic_Input',
-          })
-        break;
+            type: "basic_Input",
+          });
+          this.initTable()
+          // console.log(this.form)
+          break;
         // *****布局控件*****
         // 表格控件
-        case 'layout_Form':
-          this.containList.layouts.push({
-            type: 'layout_Form',
-            InnerInfo: [{
-              active_status: false,   // 此行被选中状态
-              InnerInfo: [   // 此行内容
-                {
-                  title: '111'
-                },{
-                  title: '222'
-                },{
-                  title: '333'
-                }
-              ],
-            }]
-          })
-        break;
+        case "layout_Form":
+          this.initTable()
+          console.log(this.containList)
+          // this.containList.layouts.push({
+          //   type: "layout_Form",
+          //   InnerInfo: [
+          //     {
+          //       active_status: false, // 此行被选中状态
+          //       InnerInfo: [
+          //         // 此行内容
+          //         {
+          //           title: "111",
+          //         },
+          //         {
+          //           title: "222",
+          //         },
+          //         {
+          //           title: "333",
+          //         },
+          //       ],
+          //     },
+          //   ],
+          // });
+          break;
         default:
-        break;
+          break;
       }
+    },
+  },
+  computed: {
+    ...mapState(["form"]),
+  },
+  methods: {
+    ...mapMutations(["CHANGE_FORM"]),
+    initTable() {
       let data = {
         // 表单属性部分
         formRef: "elForm",
@@ -261,23 +264,16 @@ export default {
       this.CHANGE_FORM(data);
     },
   },
-  computed: {
-    ...mapState(["form"]),
-  },
-  methods: {
-    ...mapMutations(["CHANGE_FORM"]),
-  },
 };
 </script>
 
 <style lang="less" scoped>
-@import "../../assets/style/usualPage.less";   // 组件样式
-
-.centerContainner{
+@import "../../assets/style/usualPage.less"; // 组件样式
+.centerContainner {
   width: 100%;
   height: 100%;
-  background: #F5F5F5;
-  .emptyMsg{
+  background: #f5f5f5;
+  .emptyMsg {
     width: 140px;
     margin: 0 auto;
     line-height: 918px;
@@ -354,3 +350,48 @@ export default {
   }
 }
 </style>
+
+
+
+// <!-- 表格控件 -->
+//         <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">
+//           <!-- 内容行 -->
+//           <div
+//             v-for="(line_item, line_index) in item.InnerInfo"
+//             :key="line_index"
+//           >
+//             <!-- 顶部工具栏 -->
+//             <div v-if="line_item.active_status" class="topTools">
+//               <el-tooltip
+//                 class="item"
+//                 effect="dark"
+//                 content="复制"
+//                 placement="top"
+//               >
+//                 <div
+//                   class="tool copy"
+//                   @click="add_FormLine(index, line_index)"
+//                 ></div>
+//               </el-tooltip>
+//               <el-tooltip
+//                 class="item"
+//                 effect="dark"
+//                 content="删除"
+//                 placement="top"
+//               >
+//                 <div
+//                   class="tool delete"
+//                   @click="del_FormLine(index, line_index)"
+//                 ></div>
+//               </el-tooltip>
+//             </div>
+//             <!-- 行内容 -->
+//             <div
+//               class="Form_line"
+//               :class="line_item.active_status ? 'Form_line_active' : ''"
+//               @click="choose_FormLine(index, line_index)"
+//             >
+//               <div class="formline_inner"></div>
+//             </div>
+//           </div>
+//         </div>

@@ -83,9 +83,7 @@
         <!-- houxin -->
         <!-- <main-Container :addCount="addCount" :addBtn="addBtn" :layout="layout"> </main-Container> -->
         <!-- limeiqi -->
-        <main-Container :addCount="addCount" 
-                                    :addBtn="addBtn">
-        </main-Container>
+        <main-Container :addCount="addCount" :addBtn="addBtn"></main-Container>
       </div>
     </div>
   </div>
