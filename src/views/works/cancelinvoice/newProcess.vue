@@ -1018,8 +1018,6 @@ export default {
     this.tableData.oaa03_show = oauserinfo.oaname;
     this.addRow2();
     this.addRow1();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
     this.getMustItem()
   },
   methods: {

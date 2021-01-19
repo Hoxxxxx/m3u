@@ -1396,8 +1396,6 @@ export default {
   created() {
     this.workid = this.$route.query.workid ? this.$route.query.workid : 5680;
     this.getworkflows();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
   },
   watch: {
     // 税别
