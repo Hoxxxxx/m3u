@@ -1756,7 +1756,7 @@ export default {
     // *******************************************
     // 生成凭证
     generate() {
-      const loading = OpenLoading(this, 2);
+      const loading = OpenLoading(this, 2 , 50000);
       this.addParams.from_data = { ...this.tableData, ...this.oaz };
       this.addParams.workid = this.workid;
       editFlow(this.addParams).then((res) => {
