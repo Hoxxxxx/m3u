@@ -1174,7 +1174,7 @@ export default {
                     this.$router.push({
                       path: "/apply",
                       query: {
-                        url_type: "invoice",
+                        url_type: "cancelinvoice",
                         workName: this.workName,
                         workid: this.workid,
                         workName: this.workName,
@@ -1207,7 +1207,7 @@ export default {
                   this.$router.push({
                     path: "/apply",
                     query: {
-                      url_type: "invoice",
+                      url_type: "cancelinvoice",
                       workName: this.workName,
                       workid: this.workid,
                       workName: this.workName,
@@ -1235,7 +1235,7 @@ export default {
               this.$router.push({
                 path: "/apply",
                 query: {
-                  url_type: "invoice",
+                  url_type: "cancelinvoice",
                   workName: this.workName,
                   workid: this.workid,
                   workName: this.workName,

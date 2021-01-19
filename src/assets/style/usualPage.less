@@ -1,0 +1,87 @@
+// 最外层控件
+.handleBox:hover{
+  cursor: pointer;
+  background: #DFEFFF;
+}
+/* 表格控件 */
+.layout_Form{
+  width: 100%;
+  background: #FFFFFF;
+  // 顶部工具栏（复制、删除）
+  .topTools{
+    width: 100px;
+    height: 24px;
+    border-radius: 0 0 0 100px;
+    background: #79BBFF;
+    float: right;
+    display: flex;
+    .tool{
+      width: 24px;
+      height: 24px;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+    .copy{
+      margin-left: 25px;
+      background: url(../usual/img/copy.png) no-repeat;
+      background-size: 24px;
+    }
+    .delete{
+      background: url(../usual/img/delete.png) no-repeat;
+      background-size: 24px;
+    }
+  }
+  // 表格行公用样式
+  .Form_line{
+    width: 100%;
+    height: 60px;
+    background: #FFFFFF;
+    padding: 10px;
+    box-sizing: border-box;
+    // 内层
+    .formline_inner{
+      width: 100%;
+      height: 100%;
+      background: #DFEFFF;
+    }
+  }
+  .Form_line:last-child{
+    margin-bottom: 0;
+  }
+  .Form_line:hover{
+    background: #79BBFF;
+  }
+  // 被选中行
+  .Form_line_active{
+    background: #79BBFF;
+  }
+  // 新增按钮
+  .addLine{
+    width: 100%;
+    height: 60px;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    padding: 10px;
+    .formline_inner{
+      width: 100%;
+      height: 100%;
+      background: #DFEFFF;
+      line-height: 40px;
+      text-align: center;
+      color: #409EFD;
+      font-size: 14px;
+      .add_img{
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+
+// 右侧属性栏
+// .rightContainer{
+  
+// }

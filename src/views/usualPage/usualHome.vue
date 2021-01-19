@@ -74,11 +74,15 @@
       </div>
       <!-- 右侧边栏 -->
       <div class="RIGHT">
-        <right-Container> </right-Container>
+        <right-Container :addCount="addCount" 
+                                    :addBtn="addBtn">
+        </right-Container>
       </div>
       <!-- 中间内容栏 -->
       <div class="MAIN">
-        <main-Container :addCount="addCount" :addBtn="addBtn"> </main-Container>
+        <main-Container :addCount="addCount" 
+                                    :addBtn="addBtn">
+        </main-Container>
       </div>
     </div>
   </div>
@@ -214,11 +218,11 @@ export default {
       position: absolute;
       right: 0;
       padding: 0 5px 0 5px;
-      box-sizing: border-box;
+      // box-sizing: border-box;
     }
     .MAIN {
       background: #ffffff;
-      width: calc(100% - 540px);
+      width: calc(100% - 550px);
       min-height: 918px;
       height: 100%;
       margin-left: 270px;
