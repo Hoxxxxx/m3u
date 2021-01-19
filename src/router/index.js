@@ -482,7 +482,6 @@ router.beforeEach((to, from, next) => {
           }
           sessionStorage.setItem('exp',code.exp)
           sessionStorage.setItem('oauserinfo',JSON.stringify(oauserinfo))
-          // sessionStorage.setItem('OrgId', code.orgid)
           sessionStorage.setItem('OrgId', allParams.orgid ? allParams.orgid : code.orgid)
           sessionStorage.setItem('token', token)
           delete allParams.code 

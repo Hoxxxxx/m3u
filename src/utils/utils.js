@@ -1,5 +1,5 @@
 // loading
-export function OpenLoading(val, type) { // type=1：普通请求； type=2：抛转请求
+export function OpenLoading(val, type,delay = 15000) { // type=1：普通请求； type=2：抛转请求
   const loading = val.$loading({
     lock: true,
     text: "加载中",
@@ -13,7 +13,7 @@ export function OpenLoading(val, type) { // type=1：普通请求； type=2：�
     } else if (type == 2) {
       val.$message.warning('网络问题，请稍候刷新页面重试！');
     }
-  }, 15000)
+  }, delay)
   return loading;
 }
 
