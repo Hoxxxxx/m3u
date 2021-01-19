@@ -983,10 +983,6 @@ export default {
           { name: "pjb01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
         ],
-        head_GDZCSQD:[
-          { name: "id", title: "id" },
-          { name: "title", title: "流程名称" },
-        ],
         head_WQX:[
           { name: "id", title: "待抵账款编号" },
           { name: "original_amount", title: "本币未冲金额" },
@@ -1458,15 +1454,6 @@ export default {
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
         break;
-        case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
-          this.dataSelect.filter = filter_GDZCSQD;
-          this.dataSelect.searchType = "mixed"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "oa/workflows";
-          this.dataSelect.headList = this.tableHead.head_GDZCSQD;
-          this.dataSelect.dialogTitle = "申请单列表";
-        break;
         case "WQX":
           this.dataSelect.dialogVisible = false;
           if (this.tableData.oaa11 == '') {
@@ -1601,10 +1588,6 @@ export default {
           case "WBS":
             this.tableData.oac[this.rowIndex].oac05 = val[0].pjb02;
             break;
-          case "GDZCSQD":
-            this.tableData.oaa17 = val[0].id;
-            this.showData.oaa17_show = val[0].title;
-          break;
           case "WQX":
             val.forEach(item =>{
               this.$set(item,'oad01',item.id)

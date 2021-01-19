@@ -434,10 +434,6 @@ export default {
           { name: "pjb01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
         ],
-        head_CCSQD:[
-          { name: "id", title: "id" },
-          { name: "title", title: "流程名称" },
-        ],
       },
     };
   },
@@ -710,15 +706,6 @@ export default {
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
           break;
-        case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.addParams.tplid, hide:true }];
-          this.dataSelect.filter = filter_CCSQD;
-          this.dataSelect.searchType = "mixed"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "oa/workflows";
-          this.dataSelect.headList = this.tableHead.head_CCSQD;
-          this.dataSelect.dialogTitle = "出差申请单列表";
-          break;
         default:
           return;
           break;
@@ -755,10 +742,6 @@ export default {
           case "WBS":
             this.tableData.oaa28 = val[0].pjb02;
             this.showData.oaa28_show = val[0].pjb03;
-          break;
-          case "CCSQD":
-            this.tableData.oaa17 = val[0].id;
-            this.showData.oaa17_show = val[0].title;
           break;
           default:
           return;

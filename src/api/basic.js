@@ -142,6 +142,7 @@ export const usersList = (params) => {
     params
   })
 }
+
 // 合同类型列表
 export const htList = (params) => {
   return request.get('oa/contracttypes',
@@ -150,6 +151,7 @@ export const htList = (params) => {
     params
   })
 }
+
 // 获取模型必填项
 export const mustItem = (params) => {
   return request.get('oa/workflows/mustitem',
@@ -159,4 +161,11 @@ export const mustItem = (params) => {
   })
 }
 
-
+// 获取发货单详情
+export const invoicesInfo = (params) => {
+  return request.get(`meta/invoices`,
+  {},
+  {
+    params
+  })
+}
