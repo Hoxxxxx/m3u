@@ -54,33 +54,23 @@
               <div class="title_line">发货单信息</div>
               <!-- 1 -->
               <div class="form_line">
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa40') ? 'redPot' : ''">发货单</span>
-                </div>
-                <div class="infobox selectbox longbox">
-                  <div class="selector" style="background-position: right center;" @click="selectDialog('FHD')">
-                    {{ tableData.oaa40_show }}
-                  </div>
+                <div class="titlebox">发货单</div>
+                <div class="infobox longbox editNot">
+                  {{ tableData.oaa40 }}
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa41') ? 'redPot' : ''">发货单号</span>
-                </div>
+                <div class="titlebox">发货单号</div>
                 <div class="infobox editNot">
-                  {{ showData.oaa41 }}
+                  {{ tableData.oaa41 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa42') ? 'redPot' : ''">发货日期</span>
-                </div>
+                <div class="titlebox">发货日期</div>
                 <div class="infobox editNot">
-                  {{ showData.oaa42 }}
+                  {{ tableData.oaa42 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa43') ? 'redPot' : ''">总金额</span>
-                </div>
+                <div class="titlebox">总金额</div>
                 <div class="infobox last_row editNot">
-                  {{ showData.oaa43 }}
+                  {{ tableData.oaa43 }}
                 </div>
               </div>
               <!-- 退货信息 -->

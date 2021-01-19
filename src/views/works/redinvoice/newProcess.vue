@@ -74,12 +74,12 @@
                   <span :class="form_must.includes('oaa10') ? 'redPot' : ''">销售方名称</span>
                 </div>
                 <div class="infobox middlebox selectbox">
-                  <div class="selector" @click="selectDialog('KH')">{{showData.oaa10_show}}</div>
+                  <div class="selector" @click="selectDialog('XSF')">{{showData.oaa10_show}}</div>
                 </div>
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa11') ? 'redPot' : ''">销售方纳税人识别号</span>
                 </div>
-                <div class="infobox middlebox editNot">
+                <div class="infobox middlebox last_row editNot">
                   {{ tableData.oaa11 }}
                 </div>
               </div>
@@ -88,12 +88,12 @@
                   <span :class="form_must.includes('oaa12') ? 'redPot' : ''">购买方名称</span>
                 </div>
                 <div class="infobox middlebox selectbox">
-                  <div class="selector" @click="selectDialog('YFCS')">{{showData.oaa12_show}}</div>
+                  <div class="selector" @click="selectDialog('GMF')">{{tableData.oaa12}}</div>
                 </div>
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa13') ? 'redPot' : ''">购买方纳税人识别号</span>
                 </div>
-                <div class="infobox middlebox editNot">
+                <div class="infobox middlebox last_row editNot">
                   {{ tableData.oaa13 }}
                 </div>
               </div>
@@ -147,7 +147,7 @@
                           class="selector selectBorder"
                           @click="selectDialog('SP', scope.$index)"
                         >
-                          {{ scope.row.oab01 }}
+                          {{ scope.row.oab01_show }}
                         </div>
                       </div>
                     </template>
@@ -163,6 +163,7 @@
                         <el-input
                           v-model="scope.row.oab02"
                           placeholder="数量"
+                          @input="sum_HSJE(scope.$index)"
                         ></el-input>
                       </div>
                     </template>
@@ -178,39 +179,57 @@
                         <el-input
                           v-model="scope.row.oab03"
                           placeholder="含税单价"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                   <el-table-column
-                    prop="oab04"
-                    label="税前金额"
-                    min-width="130px"
-                    align="center"
-                  >
-                  <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oab04"
-                          placeholder="税前金额"
+                          @input="sum_HSJE(scope.$index)"
                         ></el-input>
                       </div>
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oab05"
-                    label="税率"
+                    prop="oab07"
+                    label="含税金额"
                     min-width="170px"
                     align="center"
                   >
                     <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.oab05"
-                          placeholder="税率"
+                          v-model="scope.row.oab07"
+                          placeholder="含税金额"
+                          @input="change_HSJE(scope.$index)"
                         ></el-input>
                       </div>
                     </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab05"
+                    label="税别"
+                    min-width="170px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div
+                          class="selector selectBorder"
+                          @click="selectDialog('FPSB', scope.$index)"
+                        >
+                          {{ scope.row.oab05 }}
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab05_show"
+                    label="税率"
+                    min-width="170px"
+                    align="center"
+                  >
+                    <div slot-scope="scope">
+                      <el-input
+                        v-model="scope.row.oab05_show"
+                        placeholder="税率"
+                        disabled
+                      ></el-input>
+                    </div>
                   </el-table-column>
                   <el-table-column
                     prop="oab06"
@@ -228,17 +247,16 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="oab07"
-                    label="含税金额"
-                    min-width="170px"
+                    prop="oab04"
+                    label="税前金额"
+                    min-width="130px"
                     align="center"
                   >
-                    <template slot-scope="scope">
+                  <template slot-scope="scope">
                       <div>
                         <el-input
-                          v-model="scope.row.oab07"
-                          placeholder="含税金额"
-                          @input="change_HSJE(scope.$index)"
+                          v-model="scope.row.oab04"
+                          placeholder="税前金额"
                         ></el-input>
                       </div>
                     </template>
@@ -375,7 +393,6 @@ export default {
         oaa04_gen01: "", //申请人编号
         oaa04_gen04: "", //申请人部门
         oaa10_show: "", //销售方名称
-        oaa12_show: "", //购买方名称
         expenseMoney: "", //报销金额
         expenseMoneyF: "", //报销金额大写
       },
@@ -468,28 +485,6 @@ export default {
           { name: "gec07", title: "單價含稅否" },
           { name: "gec08", title: "媒體申報格式" },
         ],
-        head_KJKM: [
-          { name: "aag01", title: "科目编号" },
-          { name: "aag02", title: "科目名称" },
-          { name: "aag03", title: "科目性质" },
-          { name: "aag04", title: "资产损益别" },
-          { name: "aag07", title: "统制明细别" },
-          { name: "aag13", title: "额外名称" },
-          { name: "aag24", title: "科目层级" },
-        ],
-        head_XM: [
-          { name: "pja01", title: "项目编号" },
-          { name: "pja02", title: "项目名称" },
-          { name: "pja08", title: "项目负责人" },
-          { name: "pja09", title: "负责部门" },
-          { name: "pja13", title: "项目预计总额" },
-        ],
-        head_WBS: [
-          { name: "pjb02", title: "WBS编号" },
-          { name: "pjb03", title: "WBS名称" },
-          { name: "pjb01", title: "项目编号" },
-          { name: "pja02", title: "项目名称" },
-        ],
         head_GDZCSQD:[
           { name: "id", title: "id" },
           { name: "title", title: "流程名称" },
@@ -528,9 +523,17 @@ export default {
           { name: "gja01", title: "项目编号" },
           { name: "gja02", title: "项目名称" },
         ],
-        head_KH: [
+        head_XSF: [
           { name: "occ01", title: "客户编号" },
           { name: "occ02", title: "客户名称" },
+        ],
+        head_GMF: [
+          { name: "company01", title: "公司名称" },
+          { name: "company02", title: "纳税人识别号" },
+        ],
+        head_SP: [
+          { name: "id", title: "商品编号" },
+          { name: "name", title: "商品名称" },
         ],
       },
     };
@@ -546,33 +549,28 @@ export default {
     this.getMustItem()
   },
   computed: {
-    // 应付金额
-    com_YFJE(){
-      let sum =  this.tableData.oab.reduce((prev, cur) => {
-        return prev + Number(cur.oab07);
-      }, 0);
-      this.tableData.oaa17 = sum.toFixed(2)
-      return sum.toFixed(2)
-    },
-    // 税前金额（原币）
+    // 税前金额合计
     com_SQJEyb(){
       let sum =  this.tableData.oab.reduce((prev, cur) => {
-        return prev + Number(cur.oab05);
+        return prev + Number(cur.oab04);
       }, 0);
+      this.tableData.oaa14 = sum.toFixed(2)
       return sum.toFixed(2)
     },
-    // 税额（原币）
+    // 税额合计
     com_SEyb(){
       let sum =  this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab06);
       }, 0);
+      this.tableData.oaa15 = sum.toFixed(2)
       return sum.toFixed(2)
     },
-    // 含税合计（原币）
+    // 含税合计
     com_HSHJyb(){
       let sum =  this.tableData.oab.reduce((prev, cur) => {
         return prev + Number(cur.oab07);
       }, 0);
+      this.tableData.oaa16 = sum.toFixed(2)
       return sum.toFixed(2)
     },
   },
@@ -676,7 +674,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r0102',
+                    url_type: 'redinvoice',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -703,7 +701,7 @@ export default {
                 {
                   path:'/apply',
                   query: {
-                    url_type: 'r0102',
+                    url_type: 'redinvoice',
                     workName:this.workName,
                     workid: this.workid,
                     workName: this.workName,
@@ -727,16 +725,14 @@ export default {
     // 发票明细表格
     addRow1() {
       let data = {
-        oab01: "", //发票号码
-        oab02: dateFmt(new Date()), //发票日期
-        oab03: "", //税别
-        oab03_show: "1", //税率
-        oab05: "0.00", //税前金额（原币）
-        oab06: "0.00", //税额（原币）
-        oab07: "0.00", //含税金额（原币）
-        sqjeBB: "0.00", //税前金额（本币）
-        seBB: "0.00", //税额（本币）
-        hsjeBB: "0.00", //含税金额（本币）
+        oab01: "", //商品名
+        oab02: "", //数量
+        oab03: "0.00", //含税单价
+        oab04: "0.00", //税前金额
+        oab05: "", //税率
+        oab05_show: "1.00",
+        oab06: "0.00", //税额
+        oab07: "0.00", //含税金额
       };
       this.tableData.oab.push(data);
     },
@@ -752,6 +748,19 @@ export default {
           this.addRow1();
         }
       });
+    },
+    // 含税金额计算
+    sum_HSJE(rowIndex) {
+      // 税前金额 = （含税金额  / （1+税率/100））
+      this.tableData.oab[rowIndex].oab07 = (this.tableData.oab[rowIndex].oab02 * this.tableData.oab[rowIndex].oab03).toFixed(2)
+      this.change_HSJE(rowIndex)
+    },
+    // 税额计算
+    change_HSJE(rowIndex) {
+      // 税前金额 = （含税金额  / （1+税率/100））
+      this.tableData.oab[rowIndex].oab04 = (this.tableData.oab[rowIndex].oab07 / (1 + this.tableData.oab[rowIndex].oab05_show / 100)).toFixed(2)
+      // 税额 = （含税金额  / （1+税率/100））* （税率 / 100）
+      this.tableData.oab[rowIndex].oab06 = (this.tableData.oab[rowIndex].oab07 / (1 + this.tableData.oab[rowIndex].oab05_show / 100) * (this.tableData.oab[rowIndex].oab05_show / 100)).toFixed(2)
     },
     // 获取基础数据*******
     // 币种列表
@@ -832,42 +841,6 @@ export default {
           this.dataSelect.headList = this.tableHead.head_SB;
           this.dataSelect.dialogTitle = "税别列表";
         break;
-        case "KJKM":
-          let filter_KJKM = [
-            { label: "科目名称", model_key_search: "keyword" },
-            {
-              label: "",
-              model_key_search: "aag00",
-              disabled: true,
-              value: "01",
-              hide: true,
-            },
-          ];
-          this.dataSelect.filter = filter_KJKM;
-          this.dataSelect.searchType = "mixed";
-          this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/aags";
-          this.dataSelect.headList = this.tableHead.head_KJKM;
-          this.dataSelect.dialogTitle = "会计科目";
-        break;
-        case "XM":
-          let filter_XM = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_XM;
-          this.dataSelect.searchType = "single"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "meta/pjas";
-          this.dataSelect.headList = this.tableHead.head_XM;
-          this.dataSelect.dialogTitle = "项目";
-        break;
-        case "WBS":
-          let filter_WBS = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_WBS;
-          this.dataSelect.searchType = "single"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "meta/pjbs";
-          this.dataSelect.headList = this.tableHead.head_WBS;
-          this.dataSelect.dialogTitle = "WBS列表";
-        break;
         case "GDZCSQD":
           let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
@@ -931,17 +904,8 @@ export default {
           this.dataSelect.headList = this.tableHead.head_pjas;
           this.dataSelect.dialogTitle = "项目列表";
           break;
-        case "getpjbsList":
-          let filter_pjbs = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_pjbs;
-          this.dataSelect.searchType = "single";
-          this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/pjbs";
-          this.dataSelect.headList = this.tableHead.head_WBS;
-          this.dataSelect.dialogTitle = "WBS列表";
-          break;
-        case "KH":
-          let filter_KH = [{ label: "", model_key_search: "keyword" },
+        case "XSF":
+          let filter_XSF = [{ label: "", model_key_search: "keyword" },
           {
               label: "",
               model_key_search: "occ06",
@@ -949,12 +913,30 @@ export default {
               value: "1",
               hide: true,
             },];
-          this.dataSelect.filter = filter_KH;
+          this.dataSelect.filter = filter_XSF;
           this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
           this.dataSelect.searchApi = "meta/occs";
-          this.dataSelect.headList = this.tableHead.head_KH;
-          this.dataSelect.dialogTitle = "客户列表";
+          this.dataSelect.headList = this.tableHead.head_XSF;
+          this.dataSelect.dialogTitle = "销售方列表";
+          break;
+        case "GMF":
+        let filter_GMF = [{ label: "", model_key_search: "Org-Id" }];
+        this.dataSelect.filter = filter_GMF;
+        this.dataSelect.searchType = "single";
+        this.dataSelect.editType = "entry";
+        this.dataSelect.searchApi = "meta/sale_companies";
+        this.dataSelect.headList = this.tableHead.head_GMF;
+        this.dataSelect.dialogTitle = "购买方列表";
+        break;
+        case "SP":
+          let filter_SP = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SP;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/invoicetypes";
+          this.dataSelect.headList = this.tableHead.head_SP;
+          this.dataSelect.dialogTitle = "商品列表";
           break;
         default:
         return;
@@ -983,18 +965,26 @@ export default {
           this.showData.oaa15_show = val[0].gec04;
           break;
           case "FPSB":
-            this.tableData.oab[this.rowIndex].oab03 = val[0].gec01;
-            this.tableData.oab[this.rowIndex].oab03_show = val[0].gec04;
+            this.tableData.oab[this.rowIndex].oab05 = val[0].gec01;
+            this.tableData.oab[this.rowIndex].oab05_show = val[0].gec04;
             this.change_HSJE(this.rowIndex)
           break;
           case "GDZCSQD":
             this.tableData.oaa17 = val[0].id;
             this.showData.oaa17_show = val[0].title;
           break;
-          case "KH":
+          case "XSF":
             this.tableData.oaa10 = val[0].occ01;
             this.showData.oaa10_show = val[0].occ02;
-            this.tableData.oaa11 = val[0].occ01;
+            this.tableData.oaa11 = val[0].occ14;
+            break;
+          case "GMF":
+            this.tableData.oaa12 = val[0].company01;
+            this.tableData.oaa13 = val[0].company02;
+            break;
+          case "SP":
+            this.tableData.oab[this.rowIndex].oab01 = val[0].id;
+            this.tableData.oab[this.rowIndex].oab01_show = val[0].name;
             break;
           default:
           return;

@@ -361,47 +361,47 @@ const routes = [{
     name: 'contract_printPage',
     component: () => import('@/views/works/contract/printPage')
   },
-  // 发货单
+  // 退货单
   {
-    path: '/8987',
-    name: '8987',
-    component: () => import('@/views/works/8987/newProcess')
+    path: '/cancelinvoice',
+    name: 'cancelinvoice',
+    component: () => import('@/views/works/cancelinvoice/newProcess')
   },
   {
-    path: '/8987/check',
-    name: '8987check',
-    component: () => import('@/views/works/8987/check')
+    path: '/cancelinvoice/check',
+    name: 'cancelinvoicecheck',
+    component: () => import('@/views/works/cancelinvoice/check')
   },
   {
-    path: '/8987/approval',
-    name: '8987approval',
-    component: () => import('@/views/works/8987/newApproval')
+    path: '/cancelinvoice/approval',
+    name: 'cancelinvoiceapproval',
+    component: () => import('@/views/works/cancelinvoice/newApproval')
   },
   {
-    path: '/8987/printPage',
-    name: '8987printPage',
-    component: () => import('@/views/works/8987/printPage')
+    path: '/cancelinvoice/printPage',
+    name: 'cancelinvoiceprintPage',
+    component: () => import('@/views/works/cancelinvoice/printPage')
   },
   // 红字发票申请
   {
-    path: '/8985',
-    name: '8985',
-    component: () => import('@/views/works/8985/newProcess')
+    path: '/redinvoice',
+    name: 'redinvoice',
+    component: () => import('@/views/works/redinvoice/newProcess')
   },
   {
-    path: '/8985/check',
-    name: '8985check',
-    component: () => import('@/views/works/8985/check')
+    path: '/redinvoice/check',
+    name: 'redinvoicecheck',
+    component: () => import('@/views/works/redinvoice/check')
   },
   {
-    path: '/8985/approval',
-    name: '8985approval',
-    component: () => import('@/views/works/8985/newApproval')
+    path: '/redinvoice/approval',
+    name: 'redinvoiceapproval',
+    component: () => import('@/views/works/redinvoice/newApproval')
   },
   {
-    path: '/8985/printPage',
-    name: '8985printPage',
-    component: () => import('@/views/works/8985/printPage')
+    path: '/redinvoice/printPage',
+    name: 'redinvoiceprintPage',
+    component: () => import('@/views/works/redinvoice/printPage')
   },
   // 新增签约方申请单
   {
