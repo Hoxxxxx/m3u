@@ -5,7 +5,7 @@ const state = {
   workInfo: workInfo,
   userInfo: userInfo,
   companyInfo: companyInfo,
-
-  upload_url: `${process.env.VUE_APP_BASE_API}files/upload`
+  upload_url: `${process.env.VUE_APP_BASE_API}files/upload`,
+  form:{},//自定义表单数据
 }
 export default state
