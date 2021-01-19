@@ -285,6 +285,7 @@ import SelectData from "@/components/selectData";
 import { azisList, pmasList,mustItem  } from "@/api/basic";
 import { addFlow, editFlow, } from "@/api/process_new";
 import {OpenLoading} from "@/utils/utils"
+import {mapState} from 'vuex'
 
 export default {
   components: {SelectData},
@@ -399,6 +400,10 @@ export default {
     this.getAzis()
     this.getPmas()
     this.getMustItem()
+    console.log(process.env,this.filter)
+  },
+  computed: {
+    ...mapState(['filter']),
   },
   methods: {
     getMustItem(){
@@ -652,7 +657,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8941, hide:true }];
+          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter.FILTER_CCSQD, hide:true }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

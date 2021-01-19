@@ -845,6 +845,7 @@ import {
   pjasList,
   mustItem
 } from "@/api/basic.js";
+import {mapState} from 'vuex'
 
 export default {
   components: { SelectData },
@@ -1050,8 +1051,10 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
+    console.log(process.env,this.filter)
   },
   computed: {
+    ...mapState(['filter']),
     // 应付金额
     com_YFJE(){
       let sum =  this.tableData.oaf.reduce((prev, cur) => {
@@ -1463,7 +1466,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
+          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter.FILTER_GDZCSQD, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

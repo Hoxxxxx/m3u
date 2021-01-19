@@ -943,6 +943,7 @@ import {
   aagsList,
   mustItem
 } from "@/api/basic.js";
+import {mapState} from 'vuex'
 
 export default {
   components: { SelectData },
@@ -1111,6 +1112,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(['filter']),
     totalCost() {
       let sum =
         this.carCost +
@@ -1200,6 +1202,7 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
+    console.log(process.env,this.filter)
   },
   methods: {
     getMustItem(){
@@ -1517,7 +1520,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: 8941,
+              value: this.filter.FILTER_CCSQD,
               hide: true,
             },
           ];
