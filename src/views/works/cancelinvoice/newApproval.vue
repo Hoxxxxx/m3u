@@ -1912,28 +1912,6 @@ export default {
         }
       });
     },
-    // 获取基础数据*******
-    // 币种列表
-    getAzi() {
-      azisList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.cointypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
-    // 支付方式列表
-    getPma() {
-      pmasList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.payTypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
-    // ******************
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
