@@ -1247,6 +1247,7 @@ import SelectData from "@/components/selectData";
 import { workflowsList, editFlow, transfer, addFlow } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
 import { dateFmt, OpenLoading } from '@/utils/utils'
+import {mapState} from 'vuex'
 
 export default {
   components: {SelectData},
@@ -1450,8 +1451,10 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
+    console.log(process.env,this.filter_tplid)
   },
   computed: {
+    ...mapState(['filter_tplid']),
     // 应付金额
     com_YFJE(){
       if (this.tableData.oaf) {
@@ -1891,7 +1894,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
+          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid.FILTER_GDZCSQD, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

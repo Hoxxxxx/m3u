@@ -80,9 +80,10 @@
       </div>
       <!-- 中间内容栏 -->
       <div class="MAIN">
-        <main-Container :addCount="addCount" 
-                                    :addBtn="addBtn">
-        </main-Container>
+        <!-- houxin -->
+        <!-- <main-Container :addCount="addCount" :addBtn="addBtn" :layout="layout"> </main-Container> -->
+        <!-- limeiqi -->
+        <main-Container :addCount="addCount" :addBtn="addBtn"></main-Container>
       </div>
     </div>
   </div>
@@ -105,6 +106,7 @@ export default {
       // 左侧传入数据
       addCount: 0, //添加按钮计数
       addBtn: "", //用户点击的按钮值
+      layout:{},//布局数据
       // 右侧传入数据
     };
   },
@@ -209,6 +211,7 @@ export default {
       left: 0;
       padding: 0 5px 0 5px;
       box-sizing: border-box;
+      overflow: auto;
     }
     .RIGHT {
       width: 260px;
@@ -226,6 +229,7 @@ export default {
       min-height: 918px;
       height: 100%;
       margin-left: 270px;
+      overflow: auto;
     }
   }
 }

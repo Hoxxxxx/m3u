@@ -11,6 +11,9 @@ const mutations = {
   [types.CHANGE_COMPANY_INFO](state, val) {
     state.companyInfo = val ? val : {}
     sessionStorage.setItem('companyInfo', JSON.stringify(state.companyInfo))
+  },
+  [types.CHANGE_FORM](state, val) {
+    state.form = val ? val : {}
   }
 }
 export default mutations

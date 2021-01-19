@@ -1395,6 +1395,7 @@ import {
   aagsList,
   pjasList,
 } from "@/api/basic.js";
+import {mapState} from 'vuex'
 
 export default {
   components: { SelectData },
@@ -1592,8 +1593,10 @@ export default {
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
+    console.log(process.env,this.filter_tplid)
   },
   computed: {
+    ...mapState(['filter_tplid']),
     totalCost() {
       let sum =
         this.carCost +
@@ -2126,7 +2129,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: 8941,
+              value: this.filter_tplid.FILTER_CCSQD,
               hide: true,
             },
           ];

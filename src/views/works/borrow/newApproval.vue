@@ -407,7 +407,7 @@ import SelectData from "@/components/selectData";
 import { workflowsList, editFlow ,transfer,addFlow,} from "@/api/process_new.js"
 import { azisList, pmasList,  } from "@/api/basic";
 import { dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
-
+import {mapState} from 'vuex'
 export default {
   components: {SelectData},
   data() {
@@ -522,6 +522,10 @@ export default {
     this.getworkflows()
     this.getAzis()
     this.getPmas()
+    console.log(process.env,this.filter_tplid)
+  },
+  computed: {
+    ...mapState(['filter_tplid']),
   },
   methods: {
     handleClick() {
@@ -906,7 +910,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8941, hide:true }];
+          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid.FILTER_CCSQD, hide:true }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

@@ -3,11 +3,14 @@
     <el-collapse v-model="activeNames">
       <el-collapse-item title="基础控件" name="1">
         <div class="Btns">
-          <div class="btn"
-                  v-for="item in basicBtns" :key="item.value"
-                  @click="chooseBtn(item.value)">
+          <div
+            class="btn"
+            v-for="item in basicBtns"
+            :key="item.value"
+            @click="chooseBtn(item.value)"
+          >
             <i :class="item.icon"></i>
-            <span>{{item.label}}</span>
+            <span>{{ item.label }}</span>
           </div>
         </div>
       </el-collapse-item>
@@ -26,6 +29,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -67,30 +71,32 @@ export default {
   },
   methods: {
     chooseBtn(btn) {
-      this.activeBtn = btn
+      this.activeBtn = btn;
       this.$emit("activeBtn", this.activeBtn);
+    },
+    chooseLayOut(val){
     }
   },
-}
+};
 </script>
 
 <style lang="less" scoped>
-.el-collapse{
+.el-collapse {
   padding-left: 10px;
   color: #666666;
   border: none !important;
-  .el-collapse-item{
-    /deep/ .el-collapse-item__header{
+  .el-collapse-item {
+    /deep/ .el-collapse-item__header {
       border: none !important;
       font-size: 14px;
       font-weight: bold;
       color: #666666;
     }
-    .Btns{
+    .Btns {
       width: 250px;
       display: flex;
       flex-wrap: wrap;
-      .btn{
+      .btn {
         width: 110px;
         height: 36px;
         line-height: 36px;
@@ -99,28 +105,28 @@ export default {
         flex-grow: 0;
         flex-shrink: 0;
         box-sizing: border-box;
-        border: 1px solid #CCCCCC;
+        border: 1px solid #cccccc;
         border-radius: 4px;
         text-align: center;
-        i{
-          margin-right: 5px;  
-          color: #D8D8D8;
+        i {
+          margin-right: 5px;
+          color: #d8d8d8;
         }
-        span{
+        span {
           color: #666666;
         }
       }
       // 鼠标悬浮
-      .btn:hover{
+      .btn:hover {
         cursor: pointer;
-        background: #409EFD;
-        border-color: #409EFD;
+        background: #409efd;
+        border-color: #409efd;
         box-shadow: 0px 3px 6px rgba(152, 185, 254, 0.5);
-        i{
-          color: #FFFFFF;
+        i {
+          color: #ffffff;
         }
-        span{
-          color: #FFFFFF;
+        span {
+          color: #ffffff;
         }
       }
     }

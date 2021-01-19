@@ -600,7 +600,7 @@ import SelectData from "@/components/selectData";
 import { dateFmt, number_chinese,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import { azisList, pmasList, mustItem } from "@/api/basic.js";
-
+import {mapState} from 'vuex'
 export default {
   components: { SelectData },
   data() {
@@ -740,6 +740,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(['filter_tplid']),
     // 报销金额（不含税）
     oaa10_ZHHLJE() {
       let sum =
@@ -777,6 +778,8 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
+    console.log('process.env:',JSON.parse(sessionStorage.getItem('OrgId')))
+    console.log(process.env,this.filter_tplid)
   },
   methods: {
     getMustItem(){
@@ -1015,7 +1018,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: 8950,
+              value: this.filter_tplid.FILTER_FKSQD,
               hide: true,
             },
           ];
