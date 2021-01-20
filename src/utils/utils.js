@@ -158,9 +158,9 @@ export function getFilterTplid(type){
   }
   let id_prod = {
     BJ:{
-      GDZCSQD:"8910",
-      CCSQD:"8906",
-      FKSQD:"8914"
+      GDZCSQD:"8910",//固定资产申请单
+      CCSQD:"8906",//出差申请单
+      FKSQD:"8914"//付款申请单
     },//北京
     CD:{
       GDZCSQD:"8952",
