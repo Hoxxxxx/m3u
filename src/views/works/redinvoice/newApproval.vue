@@ -635,10 +635,6 @@ export default {
           { name: "apr01", title: "账款类型编号" },
           { name: "apr02", title: "账款类型名称" },
         ],
-        head_GDZCSQD:[
-          { name: "id", title: "id" },
-          { name: "title", title: "流程名称" },
-        ],
         head_pmcs: [
           { name: "pmc01", title: "供应厂商编号" },
           { name: "pmc02", title: "厂商分类" },
@@ -1025,15 +1021,6 @@ export default {
           this.dataSelect.headList = this.tableHead.head_SB;
           this.dataSelect.dialogTitle = "税别列表";
         break;
-        case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:8946, hide:true }];
-          this.dataSelect.filter = filter_GDZCSQD;
-          this.dataSelect.searchType = "mixed"
-          this.dataSelect.editType = "entry"
-          this.dataSelect.searchApi = "oa/workflows";
-          this.dataSelect.headList = this.tableHead.head_GDZCSQD;
-          this.dataSelect.dialogTitle = "申请单列表";
-        break;
         case "bank":
           let filter_bank = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_bank;
@@ -1105,10 +1092,6 @@ export default {
             this.tableData.oab[this.rowIndex].oab03 = val[0].gec01;
             this.tableData.oab[this.rowIndex].oab04 = val[0].gec04;
             this.change_HSJE(this.rowIndex)
-          break;
-          case "GDZCSQD":
-            this.tableData.oaa17 = val[0].id;
-            this.tableData.oaa17_show = val[0].title;
           break;
           case "bank":
             this.oaz.oaz01 = val[0].nma01;

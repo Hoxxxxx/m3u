@@ -119,7 +119,7 @@
                   <span :class="form_must.includes('oaa12') ? 'redPot' : ''">退货金额</span>
                 </div>
                 <div class="infobox last_row middlebox">
-                  <input v-model="tableData.oaa12" placeholder="请输入总金额" />
+                  <input v-model="tableData.oaa12" placeholder="请输入退货金额" />
                 </div>
               </div>
               <div class="form_line">
@@ -780,15 +780,7 @@
 import SelectData from "@/components/selectData";
 import { dateFmt, number_chinese, fomatFloat,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
-import {  mustItem } from "@/api/basic";
-import {
-  gensList,
-  azisList,
-  pmasList,
-  pjbsList,
-  aagsList,
-  pjasList,
-} from "@/api/basic.js";
+import { mustItem, invoicesInfo } from "@/api/basic";
 
 export default {
   components: { SelectData },
@@ -800,7 +792,6 @@ export default {
       workName: "退货单", //流程名
       showData: {
         oaa04_show: "", //申请人
-        expenseMoneyF: "", //报销金额大写
         oaa13_rate: 0, //税率
       },
       tableData: {
@@ -811,13 +802,13 @@ export default {
         oaa04: "", //申请人id
         oaa05: "", //联系电话
         //发货单信息
-        oaa40: "", //客户名称
-        oaa41: "", //客户名称
-        oaa42: "", //总金额
-        oaa43: "", //税别
+        oaa40: "", //发货单
+        oaa41: "", //发货单号
+        oaa42: "", //发货单日期
+        oaa43: "", //总金额
         //退货信息
         oaa11: "", //客户名称
-        oaa12: "", //总金额
+        oaa12: "", //退货金额
         oaa13: "", //税别
         oaa14: "", //税额
         oaa15: "", //备注
@@ -854,12 +845,6 @@ export default {
         oaz04: "", //账款类型
         oaz05: "", //支付方式
         oaz06: "", //凭证编号
-      },
-      fixedData: {
-        // 币种列表
-        cointypes: [],
-        //支付方式
-        payTypes: [],
       },
       fileList: [],
       addParams: {
@@ -1033,8 +1018,6 @@ export default {
     this.tableData.oaa03_show = oauserinfo.oaname;
     this.addRow2();
     this.addRow1();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
     this.getMustItem()
   },
   methods: {
@@ -1048,7 +1031,36 @@ export default {
           this.oab_must = res.data.form_must_able.oab ? res.data.form_must_able.oab : []
           this.oac_must = res.data.form_must_able.oac ? res.data.form_must_able.oac : []
         }else{
-          console.log('必填项获取失败！')
+          this.$message.warning("必填项获取失败");
+        }
+      })
+    },
+    getInvoicesInfo(workid){
+      const params = {
+        workid: workid
+      }
+      invoicesInfo(params)
+      .then( res=> {
+        if(res.status == 200){
+          // 更新申请单除【基本信息】【发货单信息】以外的值
+          Object.keys(res.data).forEach(
+            (key) => {
+              if (key!=='oaa01' &&
+                  key!=='oaa02' &&
+                  key!=='oaa03' &&
+                  key!=='oaa04' &&
+                  key!=='oaa04_show' &&
+                  key!=='oaa05' &&
+                  key!=='oaa40' &&
+                  key!=='oaa41' &&
+                  key!=='oaa42' &&
+                  key!=='oaa43'   ) {
+                this.tableData[key] = res.data[key]
+              }
+            }
+          )
+        }else{
+          this.$message.error("发货单详情获取失败" + res.error.message);
         }
       })
     },
@@ -1160,7 +1172,7 @@ export default {
             this.$message.warning("开票金额与总金额不相等，请重新填写！");
           } else {
             if (Number(this.tableData.oaa12) != sums) {
-              this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+              this.$message.warning("退货金额有误：退货金额 = 税额 + 应收明细中的金额之和");
             } else {
               const loading = OpenLoading(this, 1)
               addFlow(this.addParams).then((result) => {
@@ -1193,7 +1205,9 @@ export default {
           }
         } else {
           if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+              console.log('0', this.tableData.oaa12)
+              console.log('1', sums)
+            this.$message.warning("退货金额有误：退货金额 = 税额 + 应收明细中的金额之和");
           } else {
             const loading = OpenLoading(this, 1)
             addFlow(this.addParams).then((result) => {
@@ -1314,28 +1328,6 @@ export default {
         }
       });
     },
-    // 获取基础数据*******
-    // 币种列表
-    getAzi() {
-      azisList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.cointypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
-    // 支付方式列表
-    getPma() {
-      pmasList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.payTypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
-    // ******************
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
@@ -1542,6 +1534,7 @@ export default {
             this.tableData.oaa41 = val[0].fhd00;
             this.tableData.oaa42 = val[0].fhd02;
             this.tableData.oaa43 = val[0].fhd07;
+            this.getInvoicesInfo(val[0].fhd10)
             break;
           case "WBS":
             this.tableData.oab[this.rowIndex].oab03 = val[0].pjb02;

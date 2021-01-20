@@ -128,12 +128,10 @@
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa40') ? 'redPot' : ''">发货单</span>
+                  <span :class="form_must_able.includes('oaa40') ? 'redPot' : ''">发货单</span>
                 </div>
-                <div
-                  class="infobox selectbox"
-                  v-if="!table_able.includes('oaa40')"
-                >
+                <div class="infobox selectbox longbox"
+                  v-if="!table_able.includes('oaa40')">
                   {{ tableData.oaa40 }}
                 </div>
                 <div class="infobox selectbox longbox"
@@ -145,19 +143,19 @@
               </div>
               <div class="form_line lastline">
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa41') ? 'redPot' : ''">发货单号</span>
+                  <span :class="form_must_able.includes('oaa41') ? 'redPot' : ''">发货单号</span>
                 </div>
                 <div class="infobox editNot">
                   {{ showData.oaa41 }}
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa42') ? 'redPot' : ''">发货日期</span>
+                  <span :class="form_must_able.includes('oaa42') ? 'redPot' : ''">发货日期</span>
                 </div>
                 <div class="infobox editNot">
                   {{ showData.oaa42 }}
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa43') ? 'redPot' : ''">总金额</span>
+                  <span :class="form_must_able.includes('oaa43') ? 'redPot' : ''">总金额</span>
                 </div>
                 <div class="infobox last_row editNot">
                   {{ showData.oaa43 }}
@@ -1180,12 +1178,7 @@ import {
   fomatFloat,
 } from "@/utils/utils.js";
 import {
-  gensList,
-  azisList,
-  pmasList,
-  pjbsList,
-  aagsList,
-  pjasList,
+  invoicesInfo
 } from "@/api/basic.js";
 
 export default {
@@ -1331,6 +1324,12 @@ export default {
           { name: "pjb01", title: "项目编号" },
           { name: "pja02", title: "项目名称" },
         ],
+        head_FHD: [
+          { name: "fhd00", title: "发货单号" },
+          { name: "fhd05_show", title: "客户名称" },
+          { name: "fhd02", title: "发货单日期" },
+          { name: "fhd11", title: "未开票金额" },
+        ],
         head_WQX: [
           { name: "id", title: "待抵账款编号" },
           { name: "original_amount", title: "本币未冲金额" },
@@ -1395,11 +1394,8 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 5400;
-    console.log('test!!!')
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5680;
     this.getworkflows();
-    this.getAzi(); //币种列表
-    this.getPma(); //支付方式
   },
   watch: {
     // 税别
@@ -1454,6 +1450,35 @@ export default {
     },
   },
   methods: {
+    getInvoicesInfo(workid){
+      const params = {
+        workid: workid
+      }
+      invoicesInfo(params)
+      .then( res=> {
+        if(res.status == 200){
+          // 更新申请单除【基本信息】【发货单信息】以外的值
+          Object.keys(res.data).forEach(
+            (key) => {
+              if (key!=='oaa01' &&
+                  key!=='oaa02' &&
+                  key!=='oaa03' &&
+                  key!=='oaa04' &&
+                  key!=='oaa04_show' &&
+                  key!=='oaa05' &&
+                  key!=='oaa40' &&
+                  key!=='oaa41' &&
+                  key!=='oaa42' &&
+                  key!=='oaa43'   ) {
+                this.tableData[key] = res.data[key]
+              }
+            }
+          )
+        }else{
+          this.$message.error("发货单详情获取失败" + res.error.message);
+        }
+      })
+    },
     must_oab(obj) {
       if (this.oab_must.includes(obj.column.property)) {
         return "must";
@@ -1885,28 +1910,6 @@ export default {
         }
       });
     },
-    // 获取基础数据*******
-    // 币种列表
-    getAzi() {
-      azisList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.cointypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
-    // 支付方式列表
-    getPma() {
-      pmasList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.payTypes = res.data;
-        } else {
-          this.$message.error(res.error);
-        }
-      });
-    },
-    // ******************
     // 数据选择
     selectDialog(type, rowIndex) {
       this.rowIndex = rowIndex;
@@ -2058,6 +2061,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
           break;
+        case "FHD":
+        let filter_FHD = [{ label: "", model_key_search: "keyword" }];
+        this.dataSelect.filter = filter_FHD;
+        this.dataSelect.searchType = "single";
+        this.dataSelect.editType = "entry";
+        this.dataSelect.searchApi = "finance/receivables/uncovered";
+        this.dataSelect.headList = this.tableHead.head_FHD;
+        this.dataSelect.dialogTitle = "发货单列表";
+        break;
         default:
           return;
           break;
@@ -2074,6 +2086,13 @@ export default {
       this.dataSelect.choosedData = val;
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
+          case "FHD":
+            this.tableData.oaa40 = val[0].fhd00;
+            this.tableData.oaa41 = val[0].fhd00;
+            this.tableData.oaa42 = val[0].fhd02;
+            this.tableData.oaa43 = val[0].fhd07;
+            this.getInvoicesInfo(val[0].fhd10)
+            break;
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
             this.showData.oaa04_show = val[0].gen02;
