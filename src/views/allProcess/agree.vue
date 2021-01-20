@@ -330,7 +330,7 @@ export default {
     },
     checkNextFlow() {
       if (this.fixedData.next_workFlows.length !== 0) {
-        // 获取指定下标的步骤信息
+        // 获取指定下标（默认选中的下一步骤）的主办人员信息
         this.fixedData.next_workFlows.forEach( (item, index) => {
           if (item.fid == this.uploadData.next_flowid) {
             // 获取下标
@@ -341,8 +341,8 @@ export default {
                 this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
               }
             } else {
-              this.uploadData.next_userid = this.fixedData.members[0].id;
-              this.showData.oaa04_show = this.fixedData.members[0].name;
+              this.uploadData.next_userid = this.fixedData.flowuser[0].id;
+              this.showData.oaa04_show = this.fixedData.flowuser[0].name;
             }
           }
         })
@@ -375,6 +375,7 @@ export default {
           this.fixedData.is_last = res.data.workclass_personnel.perid.is_last // 是否最终步
           this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
           this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 下一步骤
+          // 如果下一步骤只有一个可选项，则赋值步骤id
           if (this.fixedData.next_workFlows.length == 1) {
             this.uploadData.next_flowid = this.fixedData.next_workFlows[0].fid
             this.checkNextFlow()
