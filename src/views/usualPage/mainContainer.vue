@@ -6,15 +6,75 @@
     </div>
     <!-- 有内容 -->
     <div v-else>
-      <!-- <div v-for="(item, index) in containList" :key="index">
-        {{item.value}}
-      </div> -->
-
-      <!-- limeiqi -->
-      <!-- <div v-for="(item, index) in containList.layouts" :key="index"> -->
-        
+      <div v-for="(item, index) in containList.layouts" :key="index">
+        <!-- 表格控件 -->
+        <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">
+          <!-- 内容行（一个内容块） -->
+          <div
+            v-for="(line_item, line_index) in item.form_areas"
+            :key="line_index"
+          >
+            <!-- 顶部工具栏 -->
+            <div v-if="line_item.active_status" class="topTools">
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="复制"
+                placement="top"
+              >
+                <div
+                  class="tool copy"
+                  @click="add_FormLine(index, line_index)"
+                ></div>
+              </el-tooltip>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="删除"
+                placement="top"
+              >
+                <div
+                  class="tool delete"
+                  @click="del_FormLine(index, line_index)"
+                ></div>
+              </el-tooltip>
+            </div>
+            <!-- 行内容start -->
+            <!-- 当前内容块标题 -->
+            <h2 class="title" v-if="line_item.title" @click="titleClick()">
+              {{ line_item.title }}
+            </h2>
+            <!-- 内容行  -->
+            <div
+              class="Form_line"
+              :class="line_item.active_status ? 'Form_line_active' : ''"
+              v-for="(line, line_index) in line_item.form_lines"
+              :key="line_index"
+              @click.capture="choose_FormLine(index, line_index)"
+            >
+              <div class="formline_inner layout_row">
+                <!-- 每一个小的格子 -->
+                <div
+                  class="layout_td"
+                  v-for="(layout_td, td_key) in line.form_tds"
+                  :key="td_key"
+                  :class="`rows_${line.layout}`"
+                >
+                  <!-- 小格子标题 -->
+                  <div class="layout_td_title">
+                    <span>{{ layout_td.item_title }}</span>
+                  </div>
+                  <!-- 小格子内容/组件 -->
+                  <div class="layout_td_cont">
+                    <render :tag="layout_td"></render>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- 其他控件 -->
-        <div >
+        <!-- <div >
           <div v-for="(item, index) in form.layouts" :key="index">
             <h2 class="title" v-if="item.title">{{ item.title }}</h2>
             <ul class="layout_table">
@@ -39,8 +99,8 @@
               </li>
             </ul>
           </div>
-        </div>
-      <!-- </div> -->
+        </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -72,7 +132,9 @@ export default {
       },
     };
   },
-  created() {},
+  created() {
+    this.initTable()
+  },
   methods: {
     // 清空选中状态
     cleanActive() {
@@ -84,8 +146,15 @@ export default {
         });
       });
     },
+    handelclick() {
+      console.log(123);
+    },
+    titleClick() {
+      console.log("titleClick");
+    },
     // 选择表格行
     choose_FormLine(index, line_index) {
+      console.log(index, line_index);
       this.cleanActive();
       // 选中行赋值
       this.containList.layouts[index].InnerInfo[
@@ -128,34 +197,33 @@ export default {
           this.containList.layouts.push({
             type: "basic_Input",
           });
-          this.initTable()
+          this.initTable();
           // console.log(this.form)
           break;
         // *****布局控件*****
         // 表格控件
         case "layout_Form":
-          this.initTable()
-          console.log(this.containList)
-          // this.containList.layouts.push({
-          //   type: "layout_Form",
-          //   InnerInfo: [
-          //     {
-          //       active_status: false, // 此行被选中状态
-          //       InnerInfo: [
-          //         // 此行内容
-          //         {
-          //           title: "111",
-          //         },
-          //         {
-          //           title: "222",
-          //         },
-          //         {
-          //           title: "333",
-          //         },
-          //       ],
-          //     },
-          //   ],
-          // });
+          // this.initTable()
+          this.containList.layouts.push({
+            type: "layout_Form",
+            InnerInfo: [
+              {
+                active_status: false, // 此行被选中状态
+                InnerInfo: [
+                  // 此行内容
+                  {
+                    title: "111",
+                  },
+                  {
+                    title: "222",
+                  },
+                  {
+                    title: "333",
+                  },
+                ],
+              },
+            ],
+          });
           break;
         default:
           break;
@@ -169,89 +237,128 @@ export default {
     ...mapMutations(["CHANGE_FORM"]),
     initTable() {
       let data = {
-        // 表单属性部分
         formRef: "elForm",
         formModel: "formData",
-        // 布局组件部分
         layouts: [
-          //内容块集合
           {
-            title: "内容块1", //内容块标题（可填）
-            layout: 3, //布局方式：默认单行三列布局
-            layout_rows: [
-              //行数集合
+            type: "layout_Form", //布局控件类型
+            form_areas: [
               {
-                row_id: 0, //当前行标识
-                tds: [
-                  //当前行组件集合
+                title: "基本信息（内容区域1）",
+                form_lines: [
                   {
-                    item_title: "1", //单项label
-                    item_tag: "el-input", //组件标签
-                    prop_name: "one", //model属性名称
-                    item_prop: "", //model属性值
-                  },
-                  {
-                    item_title: "2", //单项label
-                    item_tag: "el-date-picker", //组件标签
-                    prop_name: "two", //model属性名称
-                    item_prop: "", //model属性值
-                    prop_val: "2021-01-01",
-                  },
-                  {
-                    item_title: "3", //单项label
-                    item_tag: "el-select", //组件标签
-                    prop_name: "three", //model属性名称
-                    item_prop: "", //model属性值
-                    prop_val: 1,
-                    options: [
+                    active_status: false, // 此行被选中状态
+                    layout: 3,
+                    form_tds: [
+                      //当前行组件集合
                       {
-                        value: 1,
-                        label: "黄金糕123456",
+                        item_title: "1", //单项label
+                        item_tag: "el-input", //组件标签
+                        prop_name: "one", //model属性名称
+                        item_prop: "", //model属性值
                       },
                       {
-                        value: "2",
-                        label: "双皮奶789456",
+                        item_title: "2", //单项label
+                        item_tag: "el-date-picker", //组件标签
+                        prop_name: "two", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: "2021-01-01",
+                      },
+                      {
+                        item_title: "3", //单项label
+                        item_tag: "el-select", //组件标签
+                        prop_name: "three", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: 1,
+                        options: [
+                          {
+                            value: 1,
+                            label: "黄金糕123456",
+                          },
+                          {
+                            value: "2",
+                            label: "双皮奶789456",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    active_status: false, // 此行被选中状态
+                    layout: 3,
+                    form_tds: [
+                      //当前行组件集合
+                      {
+                        item_title: "1", //单项label
+                        item_tag: "el-input", //组件标签
+                        prop_name: "one", //model属性名称
+                        item_prop: "", //model属性值
+                      },
+                      {
+                        item_title: "2", //单项label
+                        item_tag: "el-date-picker", //组件标签
+                        prop_name: "two", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: "2021-01-31",
+                      },
+                      {
+                        item_title: "3", //单项label
+                        item_tag: "el-select", //组件标签
+                        prop_name: "three", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: 1,
+                        options: [
+                          {
+                            value: 1,
+                            label: "黄金糕",
+                          },
+                          {
+                            value: "2",
+                            label: "双皮奶",
+                          },
+                        ],
                       },
                     ],
                   },
                 ],
               },
-            ],
-          },
-          {
-            title: "内容块2", //内容块标题（可填）
-            layout: 1, //布局方式：默认单行三列布局
-            layout_rows: [
               {
-                row_id: 0, //当前行标识
-                tds: [
-                  //当前行组件集合
+                title: "学历信息（内容区域2）",
+                form_lines: [
                   {
-                    item_title: "1", //单项label
-                    item_tag: "el-input", //组件标签
-                    prop_name: "one", //model属性名称
-                    item_prop: "", //model属性值
-                  },
-                  {
-                    item_title: "2", //单项label
-                    item_tag: "el-input", //组件标签
-                    prop_name: "two", //model属性名称
-                    item_prop: "", //model属性值
-                  },
-                  {
-                    item_title: "城市名称", //单项label
-                    item_tag: "el-select", //组件标签
-                    prop_name: "three", //model属性名称
-                    item_prop: "", //model属性值
-                    prop_val: null,
-                    options: [
+                    active_status: false, // 此行被选中状态
+                    layout: 3,
+                    form_tds: [
+                      //当前行组件集合
                       {
-                        value: "1",
-                        label: "北京",
+                        item_title: "1", //单项label
+                        item_tag: "el-input", //组件标签
+                        prop_name: "one", //model属性名称
+                        item_prop: "", //model属性值
                       },
                       {
-                        value: "2",
-                        label: "成都",
+                        item_title: "2", //单项label
+                        item_tag: "el-date-picker", //组件标签
+                        prop_name: "two", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: "2021-01-01",
+                      },
+                      {
+                        item_title: "3", //单项label
+                        item_tag: "el-select", //组件标签
+                        prop_name: "three", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: 1,
+                        options: [
+                          {
+                            value: 1,
+                            label: "黄金糕123456",
+                          },
+                          {
+                            value: "2",
+                            label: "双皮奶789456",
+                          },
+                        ],
                       },
                     ],
                   },
@@ -261,6 +368,7 @@ export default {
           },
         ],
       };
+      this.containList = data
       this.CHANGE_FORM(data);
     },
   },
@@ -291,45 +399,7 @@ export default {
     font-weight: bold;
     color: #409efd;
   }
-  .layout_table {
-    .layout_row {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      .layout_td {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        flex: auto;
-        .layout_td_title {
-          border-bottom: 1px solid #f0f3f7;
-          width: 133px;
-          height: 100%;
-          text-align: center;
-          border-right: 1px solid #cccccc;
-          background: #fcfdff;
-          color: #666666;
-          font-size: 12px;
-          display: table;
-          > span {
-            display: table-cell;
-            vertical-align: middle;
-            word-break: break-all;
-            padding: 4px;
-          }
-        }
-        .layout_td_cont {
-          width: 100%;
-          height: 40px;
-          border-radius: 0;
-          border: none;
-          text-align: left;
-          font-size: 12px;
-          color: #666;
-        }
-      }
-    }
-  }
+
   .rows_1 {
     flex: 0 1 100% !important;
   }
@@ -353,45 +423,3 @@ export default {
 
 
 
-// <!-- 表格控件 -->
-//         <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">
-//           <!-- 内容行 -->
-//           <div
-//             v-for="(line_item, line_index) in item.InnerInfo"
-//             :key="line_index"
-//           >
-//             <!-- 顶部工具栏 -->
-//             <div v-if="line_item.active_status" class="topTools">
-//               <el-tooltip
-//                 class="item"
-//                 effect="dark"
-//                 content="复制"
-//                 placement="top"
-//               >
-//                 <div
-//                   class="tool copy"
-//                   @click="add_FormLine(index, line_index)"
-//                 ></div>
-//               </el-tooltip>
-//               <el-tooltip
-//                 class="item"
-//                 effect="dark"
-//                 content="删除"
-//                 placement="top"
-//               >
-//                 <div
-//                   class="tool delete"
-//                   @click="del_FormLine(index, line_index)"
-//                 ></div>
-//               </el-tooltip>
-//             </div>
-//             <!-- 行内容 -->
-//             <div
-//               class="Form_line"
-//               :class="line_item.active_status ? 'Form_line_active' : ''"
-//               @click="choose_FormLine(index, line_index)"
-//             >
-//               <div class="formline_inner"></div>
-//             </div>
-//           </div>
-//         </div>
