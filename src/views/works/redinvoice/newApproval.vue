@@ -96,8 +96,15 @@
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa11') ? 'redPot' : ''">销售方纳税人识别号</span>
                 </div>
-                <div class="infobox middlebox last_row editNot">
+                <div v-if="!table_able.includes('oaa11')" class="infobox middlebox last_row editNot">
                   {{ tableData.oaa11 }}
+                </div>
+                <div v-if="table_able.includes('oaa11')" class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa11"
+                    placeholder="请输入销售方纳税人识别号"
+                  />
                 </div>
               </div>
               <div class="form_line lastline">
@@ -113,8 +120,15 @@
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa13') ? 'redPot' : ''">购买方纳税人识别号</span>
                 </div>
-                <div class="infobox middlebox last_row editNot">
+                <div v-if="!table_able.includes('oaa13')" class="infobox middlebox last_row editNot">
                   {{ tableData.oaa13 }}
+                </div>
+                <div v-if="table_able.includes('oaa13')" class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa13"
+                    placeholder="请输入购买方纳税人识别号"
+                  />
                 </div>
               </div>
               <!-- 发票明细行 -->
@@ -396,7 +410,7 @@
                   >
                 </div>
                 <div class="form_line">
-                  <div class="titlebox">银行</div>
+                  <!-- <div class="titlebox">银行</div>
                   <div class="infobox selectbox">
                     <div class="selector" @click="selectDialog('bank')">
                       {{ financialData.bank_show }}
@@ -407,7 +421,7 @@
                     <div class="selector" @click="selectDialog('YDM')">
                       {{ financialData.num_show }}
                     </div>
-                  </div>
+                  </div> -->
                   <div class="titlebox">记账日期</div>
                   <div class="infobox middlebox datebox last_row">
                     <el-date-picker
@@ -430,10 +444,10 @@
                   <div class="infobox selectbox editNot">
                     {{ oaz.oaz06 }}
                   </div>
-                  <div class="titlebox">支付方式</div>
+                  <!-- <div class="titlebox">支付方式</div>
                   <div class="infobox middlebox selectbox last_row">
                     {{ financialData.oaz05_show }}
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

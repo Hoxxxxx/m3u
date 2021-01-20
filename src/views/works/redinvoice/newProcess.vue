@@ -79,8 +79,12 @@
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa11') ? 'redPot' : ''">销售方纳税人识别号</span>
                 </div>
-                <div class="infobox middlebox last_row editNot">
-                  {{ tableData.oaa11 }}
+                <div class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa11"
+                    placeholder="请输入销售方纳税人识别号"
+                  />
                 </div>
               </div>
               <div class="form_line lastline">
@@ -93,8 +97,12 @@
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa13') ? 'redPot' : ''">购买方纳税人识别号</span>
                 </div>
-                <div class="infobox middlebox last_row editNot">
-                  {{ tableData.oaa13 }}
+                <div class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa13"
+                    placeholder="请输入购买方纳税人识别号"
+                  />
                 </div>
               </div>
               <!-- 发票明细行 -->
