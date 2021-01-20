@@ -149,7 +149,7 @@ export function format(obj, head) {
 
 export function getFilterTplid(type){
   let env = process.env.NODE_ENV
-  let orgid = sessionStorage.getItem('+') ? JSON.parse(sessionStorage.getItem('OrgId')) : 2
+  let orgid = sessionStorage.getItem('OrgId') ? JSON.parse(sessionStorage.getItem('OrgId')) : 2
   console.log('utils:',env,orgid)
   let id_env = {
     GDZCSQD:"8946",
