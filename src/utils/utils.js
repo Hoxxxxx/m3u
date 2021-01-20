@@ -146,3 +146,45 @@ export function format(obj, head) {
   }
   return res
 }
+
+export function getFilterTplid(type){
+  let env = process.env.NODE_ENV
+  let orgid = sessionStorage.getItem('+') ? JSON.parse(sessionStorage.getItem('OrgId')) : 2
+  console.log('utils:',env,orgid)
+  let id_env = {
+    GDZCSQD:"8946",
+    CCSQD:"8941",
+    FKSQD:"8950"
+  }
+  let id_prod = {
+    BJ:{
+      GDZCSQD:"8910",
+      CCSQD:"8906",
+      FKSQD:"8914"
+    },//北京
+    CD:{
+      GDZCSQD:"8952",
+      CCSQD:"8948",
+      FKSQD:"8956"
+    },//成都
+    SH:{
+      GDZCSQD:"8924",
+      CCSQD:"8920",
+      FKSQD:"8928"
+    }//上海
+  }
+  if(env == 'development' ){
+    return id_env[type]
+  }else{
+    switch (orgid) {
+      case 1:
+        return id_prod.BJ[type]
+      case 2:
+        return id_prod.CD[type]
+      case 3:
+        return id_prod.SH[type]
+      default:
+        break;
+    }
+  }
+}

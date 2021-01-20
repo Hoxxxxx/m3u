@@ -406,7 +406,7 @@ import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow ,transfer,addFlow,} from "@/api/process_new.js"
 import { azisList, pmasList,  } from "@/api/basic";
-import { dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
+import { dateFmt, number_chinese, OpenLoading,getFilterTplid } from "@/utils/utils.js";
 import {mapState} from 'vuex'
 export default {
   components: {SelectData},
@@ -455,6 +455,7 @@ export default {
       },
       workclass_personnel: {perid: {flownum: ''}}, //流程详情
       workclass_perflow: [], //已流转流程进度
+      filter_tplid:"",//用于过滤的tplid
       //数据选择弹出框
       dataSelect: {
         editType: "entry",
@@ -522,10 +523,8 @@ export default {
     this.getworkflows()
     this.getAzis()
     this.getPmas()
-    console.log(process.env,this.filter_tplid)
-  },
-  computed: {
-    ...mapState(['filter_tplid']),
+    this.filter_tplid = getFilterTplid('CCSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   methods: {
     handleClick() {
@@ -910,7 +909,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid.FILTER_CCSQD, hide:true }];
+          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid, hide:true }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

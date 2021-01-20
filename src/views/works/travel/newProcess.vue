@@ -928,7 +928,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese,OpenLoading } from "@/utils/utils.js";
+import { dateFmt, number_chinese,OpenLoading,getFilterTplid } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import {
   pmcsList,
@@ -1014,6 +1014,7 @@ export default {
         annexurlid: [],
         tplid: 8943,
       },
+      filter_tplid:"",//用于过滤的tplid
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -1112,7 +1113,6 @@ export default {
     };
   },
   computed: {
-    ...mapState(['filter_tplid']),
     totalCost() {
       let sum =
         this.carCost +
@@ -1202,8 +1202,8 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
-    console.log(process.env,this.filter_tplid)
-    console.log('vuex:',orgid)
+    this.filter_tplid = getFilterTplid('CCSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   methods: {
     getMustItem(){
@@ -1521,7 +1521,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: this.filter_tplid.FILTER_CCSQD,
+              value: this.filter_tplid,
               hide: true,
             },
           ];

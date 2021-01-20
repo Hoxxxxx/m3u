@@ -597,7 +597,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { dateFmt, number_chinese,OpenLoading } from "@/utils/utils.js";
+import { dateFmt, number_chinese,OpenLoading,getFilterTplid } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
 import { azisList, pmasList, mustItem } from "@/api/basic.js";
 import {mapState} from 'vuex'
@@ -666,6 +666,7 @@ export default {
         annexurlid: [],
         tplid: 8949,
       },
+      filter_tplid:"",//用于过滤的tplid
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -740,7 +741,6 @@ export default {
     };
   },
   computed: {
-    ...mapState(['filter_tplid']),
     // 报销金额（不含税）
     oaa10_ZHHLJE() {
       let sum =
@@ -773,13 +773,12 @@ export default {
     let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
     this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
     this.tableData.oaa03_show = oauserinfo.oaname
-    // this.addParams.tplid = 8949;
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
-    console.log('process.env:',JSON.parse(sessionStorage.getItem('OrgId')))
-    console.log(process.env,this.filter_tplid)
+    this.filter_tplid = getFilterTplid('FKSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   methods: {
     getMustItem(){
@@ -1018,7 +1017,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: this.filter_tplid.FILTER_FKSQD,
+              value: this.filter_tplid,
               hide: true,
             },
           ];

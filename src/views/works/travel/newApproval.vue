@@ -1386,7 +1386,7 @@
 <script>
 import SelectData from "@/components/selectData";
 import { workflowsList, editFlow, transfer, addFlow } from "@/api/process_new";
-import { dateFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
+import { dateFmt, number_chinese, OpenLoading,getFilterTplid } from "@/utils/utils.js";
 import {
   gensList,
   azisList,
@@ -1475,6 +1475,7 @@ export default {
         annexurlid: [],
         tplid: 8943,
       },
+      filter_tplid:"",//用于过滤的tplid
       //数据选择弹出框
       dataSelect: {
         editType: "entry",
@@ -1593,10 +1594,10 @@ export default {
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
-    console.log(process.env,this.filter_tplid)
+    this.filter_tplid = getFilterTplid('CCSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   computed: {
-    ...mapState(['filter_tplid']),
     totalCost() {
       let sum =
         this.carCost +
@@ -2129,7 +2130,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: this.filter_tplid.FILTER_CCSQD,
+              value: this.filter_tplid,
               hide: true,
             },
           ];
