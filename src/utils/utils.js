@@ -152,9 +152,21 @@ export function getFilterTplid(type){
   let orgid = sessionStorage.getItem('OrgId') ? JSON.parse(sessionStorage.getItem('OrgId')) : 2
   console.log('utils:',env,orgid)
   let id_env = {
-    GDZCSQD:"8946",
-    CCSQD:"8941",
-    FKSQD:"8950"
+    BJ:{
+      GDZCSQD:"8898",//固定资产申请单
+      CCSQD:"8894",//出差申请单
+      FKSQD:"8902"//付款申请单
+    },//北京
+    CD:{
+      GDZCSQD:"8946",
+      CCSQD:"8941",
+      FKSQD:"8950",
+    },//成都
+    SH:{
+      GDZCSQD:"8946",
+      CCSQD:"8941",
+      FKSQD:"8950",
+    }//上海
   }
   let id_prod = {
     BJ:{
@@ -174,7 +186,17 @@ export function getFilterTplid(type){
     }//上海
   }
   if(env == 'development' ){
-    return id_env[type]
+    // return id_env[type]
+    switch (orgid) {
+      case 1:
+        return id_env.BJ[type]
+      case 2:
+        return id_env.CD[type]
+      case 3:
+        return id_env.SH[type]
+      default:
+        break;
+    }
   }else{
     switch (orgid) {
       case 1:
