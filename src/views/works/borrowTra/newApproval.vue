@@ -442,7 +442,7 @@
                 </div>
               </div>
               <!-- 财务信息 -->
-              <div v-if="workclass_personnel.perid.flownum==3 && oazShow == 1">
+              <div v-if="oazShow == 1">
                 <div class="title_line">
                   财务信息
                   <el-button
@@ -977,11 +977,11 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (url == "/agree" && this.oazShow == 1 && this.workclass_personnel.perid.flownum == 3) {
+      if (url == "/agree" && this.oazShow == 1) {
         if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
         } else {
-          console.log(this.oaz,this.oazShow)
+          // console.log(this.oaz,this.oazShow)
           this.nextFuns(url);
         }
       } else if(url == "/reject" || url == "/back"){

@@ -147,46 +147,27 @@
                 <div class="title_line">
                   财务信息
                 </div>
-                <div class="form_line">
-                  <!-- <div class="titlebox">银行</div>
-                  <div class="infobox selectbox editNot">
-                    <div class="" >
-                      {{ tableData.oaz01 }}
-                    </div>
-                  </div>
-                  <div class="titlebox">异动码</div>
-                  <div class="infobox selectbox editNot">
-                    <div class="" >
-                      {{ tableData.oaz02 }}
-                    </div>
-                  </div> -->
+                <div class="form_line last_line">
                   <div class="titlebox">记账日期</div>
-                  <div class="infobox middlebox datebox last_row">
+                  <div class="infobox datebox">
                     <el-date-picker
-                      v-model="tableData.oaz03"
+                      v-model="oaz.oaz03"
                       type="date"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
-                      disabled
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
                     >
                     </el-date-picker>
                   </div>
-                </div>
-                <div class="form_line last_line">
                   <div class="titlebox">账款类型</div>
-                  <div class="infobox selectbox editNot">
-                    <div class="editNot" >
-                      {{ tableData.oaz04 }}
+                  <div class="infobox selectbox">
+                    <div class="selector" @click="selectDialog('ZKLX')">
+                      {{ financialData.oaz04_show }}
                     </div>
                   </div>
                   <div class="titlebox">凭证编号</div>
-                  <div class="infobox selectbox editNot">
-                    {{ tableData.oaz06 }}
+                  <div class="infobox selectbox editNot last_row">
+                    {{ oaz.oaz06 }}
                   </div>
-                  <!-- <div class="titlebox">支付方式</div>
-                  <div class="infobox middlebox selectbox last_row editNot">
-                    {{ tableData.oaz05 }}
-                  </div> -->
                 </div>
               </div>
             </div>

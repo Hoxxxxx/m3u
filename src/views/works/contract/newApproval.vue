@@ -882,11 +882,7 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (
-        url == "/agree" &&
-        this.oazShow == 1 &&
-        this.workclass_personnel.perid.flownum == 3
-      ) {
+      if (url == "/agree" && this.oazShow == 1 ) {
         this.nextFuns(url);
       } else if(url == "/reject" || url == "/back"){
         this.$router.push({

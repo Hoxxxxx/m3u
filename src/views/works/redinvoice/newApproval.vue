@@ -398,7 +398,7 @@
                 </div>
               </div>
               <!-- 财务信息 -->
-              <div v-if="workclass_personnel.perid.flownum==3 && oazShow == 1">
+              <div v-if="oazShow == 1">
                 <div class="title_line">
                   财务信息
                   <el-button
@@ -409,21 +409,9 @@
                     >生成凭证</el-button
                   >
                 </div>
-                <div class="form_line">
-                  <!-- <div class="titlebox">银行</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('bank')">
-                      {{ financialData.bank_show }}
-                    </div>
-                  </div>
-                  <div class="titlebox">异动码</div>
-                  <div class="infobox selectbox">
-                    <div class="selector" @click="selectDialog('YDM')">
-                      {{ financialData.num_show }}
-                    </div>
-                  </div> -->
+                <div class="form_line last_line">
                   <div class="titlebox">记账日期</div>
-                  <div class="infobox middlebox datebox last_row">
+                  <div class="infobox datebox">
                     <el-date-picker
                       v-model="oaz.oaz03"
                       type="date"
@@ -432,8 +420,6 @@
                     >
                     </el-date-picker>
                   </div>
-                </div>
-                <div class="form_line last_line">
                   <div class="titlebox">账款类型</div>
                   <div class="infobox selectbox">
                     <div class="selector" @click="selectDialog('ZKLX')">
@@ -441,13 +427,9 @@
                     </div>
                   </div>
                   <div class="titlebox">凭证编号</div>
-                  <div class="infobox selectbox editNot">
+                  <div class="infobox selectbox editNot last_row">
                     {{ oaz.oaz06 }}
                   </div>
-                  <!-- <div class="titlebox">支付方式</div>
-                  <div class="infobox middlebox selectbox last_row">
-                    {{ financialData.oaz05_show }}
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -1153,8 +1135,8 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (url == "/agree" && this.oazShow == 1 && this.workclass_personnel.perid.flownum == 3) {
-        console.log(this.oaz, this.oazShow);
+      if (url == "/agree" && this.oazShow == 1 ) {
+        // console.log(this.oaz, this.oazShow);
         if (this.oaz.oaz06 == "" || this.oaz.oaz06 == null) {
           this.$message.error("请先生成凭证！");
         } else {
