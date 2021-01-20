@@ -341,8 +341,8 @@ export default {
                 this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
               }
             } else {
-              this.uploadData.next_userid = this.fixedData.flowuser[0].id;
-              this.showData.oaa04_show = this.fixedData.flowuser[0].name;
+              this.uploadData.next_userid = this.fixedData.members[0].id;
+              this.showData.oaa04_show = this.fixedData.members[0].name;
             }
           }
         })
