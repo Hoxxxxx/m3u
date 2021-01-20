@@ -245,7 +245,7 @@
 </template>
 
 <script>
-import { OpenLoading } from "@/utils/utils.js";
+import { dateFmt, OpenLoading } from "@/utils/utils.js";
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
@@ -263,32 +263,31 @@ export default {
         oab: [], // 发票明细
         oac: [], // 费用明细行项目
       },
-      // 表单数据
-      fixedData: {
-        // 币种列表
-        azisList: [],
-        // 分摊列表
-        shareList: [
-          {
-            id: 1,
-            label: '单一部门分摊'
-          },{
-            id: 2,
-            label: '多部门分摊'
-          }
-        ],
-      },
       oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
       fileList_user: [],
       // 当前流程列表
       workclass_perflow: [],
+      // 财务信息
+      financialData: {
+        bank_show: "", //银行回显数据
+        num_show: "", //异动码回显数据
+        oaz05_show: "", //支付方式回显数据
+        oaz04_show: "", //账款类型回显数据
+      },
+      //财务信息
+      oaz: {
+        oaz01: "", //银行
+        oaz02: "", //异动码
+        oaz03: dateFmt(new Date()), //记账日期
+        oaz04: "", //账款类型
+        oaz05: "", //支付方式
+        oaz06: "", //凭证编号
+      },
+      oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 5624;
-    // this.workid = 4374
-    this.getAzi()
-    this.getPma()
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5692;
     this.getworkflows()
   },
   methods: {
@@ -325,6 +324,7 @@ export default {
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
+          console.log(res)
           loading.close()
           clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data
@@ -334,6 +334,20 @@ export default {
           this.workName = res.data.workclass_info.title
           this.workclass_perflow = res.data.workclass_perflow
           this.oazShow = res.data.workclass_flow.erp_turn
+          this.oaz = {
+            oaz01: res.data.workclass_info.from_data.oaz01, //银行
+            oaz02: res.data.workclass_info.from_data.oaz02, //异动码
+            oaz03: res.data.workclass_info.from_data.oaz03 ? res.data.workclass_info.from_data.oaz03 : dateFmt(new Date()), //记账日期
+            oaz04: 2001, //账款类型
+            oaz05: res.data.workclass_info.from_data.oaz05 ? res.data.workclass_info.from_data.oaz05 : res.data.workclass_info.from_data.oaa16, //支付方式
+            oaz06: res.data.workclass_info.from_data.oaz06, //凭证编号
+          }
+          this.financialData ={
+            bank_show: res.data.workclass_info.from_data.oaz01_show, //银行回显数据
+            num_show: res.data.workclass_info.from_data.oaz02_show, //异动码回显数据
+            oaz04_show: "费用请款",//账款类型回显数据
+            oaz05_show: res.data.workclass_info.from_data.oaz05_show ? res.data.workclass_info.from_data.oaz05_show : res.data.workclass_info.from_data.oaa16_show , //支付方式回显数据
+          }
           if (res.data.file !== null) {
             res.data.file.forEach( item => {
               this.fileList_user.push({
@@ -349,27 +363,6 @@ export default {
           this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
-    },
-    // *******************************************
-    // ***********获取下拉列表信息************
-    getAzi () {
-      azisList()
-      .then( result => {
-        if (result.status == 200) {
-          this.fixedData.azisList = result.data;
-        } else {
-          this.$message.error("获取币种列表失败：" + result.error.message);
-        }
-      })
-    },
-    getPma() {
-      pmasList().then((res) => {
-        if (res.status == 200) {
-          this.fixedData.payTypes = res.data;
-        } else {
-          this.$message.error("获取支付方式列表失败：" + result.error.message);
-        }
-      });
     },
     // *******************************************
     // 下载文件流
