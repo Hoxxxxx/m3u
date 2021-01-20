@@ -13,7 +13,7 @@
               <span>签批</span>
             </div>
             <div class="title">{{workname}}</div>
-            <div class="workName">
+            <div class="workname">
               <span class="code">业务日期：{{oaa02}}</span>
               <span class="name">申请单编号：{{oaa01}}</span>
             </div>
@@ -371,7 +371,7 @@ export default {
             this.$router.push({
               path: `${this.$route.query.url_type}/check`,
               query: {
-                workName: this.workName,
+                workname: this.workname,
                 workid: this.uploadData.workid
               },
             });

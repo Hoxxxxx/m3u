@@ -789,7 +789,6 @@ export default {
       workname: "退货申请单",
       activeTab: "firTab",
       workid: "",
-      workName: "退货单", //流程名
       showData: {
         oaa04_show: "", //申请人
         oaa13_rate: 0, //税率
@@ -1187,9 +1186,8 @@ export default {
                       path: "/apply",
                       query: {
                         url_type: "cancelinvoice",
-                        workName: this.workName,
                         workid: this.workid,
-                        workName: this.workName,
+                        workname: this.workname,
                         oaa01: this.tableData.oaa01,
                         oaa02: this.tableData.oaa02,
                       },
@@ -1222,9 +1220,8 @@ export default {
                     path: "/apply",
                     query: {
                       url_type: "cancelinvoice",
-                      workName: this.workName,
                       workid: this.workid,
-                      workName: this.workName,
+                      workname: this.workname,
                       oaa01: this.tableData.oaa01,
                       oaa02: this.tableData.oaa02,
                     },
@@ -1250,9 +1247,8 @@ export default {
                 path: "/apply",
                 query: {
                   url_type: "cancelinvoice",
-                  workName: this.workName,
                   workid: this.workid,
-                  workName: this.workName,
+                  workname: this.workname,
                   oaa01: this.tableData.oaa01,
                   oaa02: this.tableData.oaa02,
                 },
