@@ -324,7 +324,6 @@ export default {
       }
       workflowsList(params).then(res=>{
         if(res.status == 200){
-          console.log(res)
           loading.close()
           clearTimeout(this.overloading)
           this.tableData = res.data.workclass_info.from_data

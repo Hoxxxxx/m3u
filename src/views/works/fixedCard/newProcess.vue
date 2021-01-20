@@ -397,7 +397,7 @@ import SelectData from "@/components/selectData";
 // api
 import { azisList,mustItem  } from "@/api/basic";
 import { addFlow, editFlow } from "@/api/process_new";
-import {OpenLoading} from "@/utils/utils"
+import {OpenLoading, getFilterTplid} from "@/utils/utils"
 
 export default {
   components: {SelectData},
@@ -406,6 +406,7 @@ export default {
       activeTab: "firTab",
       workid: '',
       workName:"固定资产卡片",//流程名
+      filter_tplid:"",//用于过滤的tplid
       tableData: {
         oaa01: '',
         oaa02: '',
@@ -551,6 +552,8 @@ export default {
     this.tableData.oaa03_show = oauserinfo.oaname
     this.getAzis()
     this.getMustItem()
+    this.filter_tplid = getFilterTplid('GDZCSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   methods: {
     getMustItem(){
@@ -818,7 +821,7 @@ export default {
               label: "",
               model_key_search: "tplid",
               disabled: true,
-              value: 8946,
+              value: this.filter_tplid,
               hide: true,
             },
           ];
