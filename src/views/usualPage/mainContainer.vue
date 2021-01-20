@@ -11,11 +11,11 @@
         <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">
           <!-- 内容行（一个内容块） -->
           <div
-            v-for="(line_item, line_index) in item.form_areas"
-            :key="line_index"
+            v-for="(area_item, area_index) in item.form_areas"
+            :key="area_index"
           >
-            <!-- 顶部工具栏 -->
-            <div v-if="line_item.active_status" class="topTools">
+            <!-- 顶部工具栏  v-if="area_item.active_status"-->
+            <div  class="topTools">
               <el-tooltip
                 class="item"
                 effect="dark"
@@ -41,16 +41,16 @@
             </div>
             <!-- 行内容start -->
             <!-- 当前内容块标题 -->
-            <h2 class="title" v-if="line_item.title" @click="titleClick()">
-              {{ line_item.title }}
+            <h2 class="title" v-if="area_item.title">
+              {{ area_item.title }}
             </h2>
             <!-- 内容行  -->
             <div
-              class="Form_line"
-              :class="line_item.active_status ? 'Form_line_active' : ''"
-              v-for="(line, line_index) in line_item.form_lines"
+              v-for="(line, line_index) in area_item.form_lines"
               :key="line_index"
-              @click.capture="choose_FormLine(index, line_index)"
+              class="Form_line"
+              :class="line.active_status ? 'Form_line_active' : ''"
+              @click.stop="choose_FormLine(index, area_index, line_index)"
             >
               <div class="formline_inner layout_row">
                 <!-- 每一个小的格子 -->
@@ -132,34 +132,34 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(["form"]),
+  },
   created() {
-    this.initTable()
+    this.initTable();
   },
   methods: {
+    ...mapMutations(["CHANGE_FORM"]),
     // 清空选中状态
     cleanActive() {
       this.containList.layouts.forEach((item) => {
-        item.InnerInfo.forEach((subItem) => {
-          if (subItem.active_status) {
-            subItem.active_status = !subItem.active_status;
-          }
+        item.form_areas.forEach((subItem) => {
+          subItem.form_lines.forEach((ele) => {
+            if (ele.active_status) {
+              ele.active_status = !ele.active_status;
+            }
+          });
         });
       });
     },
-    handelclick() {
-      console.log(123);
-    },
-    titleClick() {
-      console.log("titleClick");
-    },
     // 选择表格行
-    choose_FormLine(index, line_index) {
-      console.log(index, line_index);
+    choose_FormLine(index, area_index, line_index) {
       this.cleanActive();
       // 选中行赋值
-      this.containList.layouts[index].InnerInfo[
+      this.containList.layouts[index].form_areas[area_index].form_lines[
         line_index
       ].active_status = true;
+      console.log(index, area_index, line_index);
     },
     // 新增表格行
     add_FormLine(index, line_index) {
@@ -184,57 +184,6 @@ export default {
     del_FormLine(index, line_index) {
       this.containList.layouts[index].InnerInfo.splice(line_index, 1);
     },
-  },
-  watch: {
-    // 用户每点击一次按钮，都触发添加组件动作
-    addCount(newVal) {
-      // 此处判断用户添加的按钮类型
-      // 依据类型向containList（内容列表）中添加其格式的预设参数
-      switch (this.addBtn) {
-        // *****基础控件*****
-        // 输入框
-        case "basic_Input":
-          this.containList.layouts.push({
-            type: "basic_Input",
-          });
-          this.initTable();
-          // console.log(this.form)
-          break;
-        // *****布局控件*****
-        // 表格控件
-        case "layout_Form":
-          // this.initTable()
-          this.containList.layouts.push({
-            type: "layout_Form",
-            InnerInfo: [
-              {
-                active_status: false, // 此行被选中状态
-                InnerInfo: [
-                  // 此行内容
-                  {
-                    title: "111",
-                  },
-                  {
-                    title: "222",
-                  },
-                  {
-                    title: "333",
-                  },
-                ],
-              },
-            ],
-          });
-          break;
-        default:
-          break;
-      }
-    },
-  },
-  computed: {
-    ...mapState(["form"]),
-  },
-  methods: {
-    ...mapMutations(["CHANGE_FORM"]),
     initTable() {
       let data = {
         formRef: "elForm",
@@ -368,8 +317,53 @@ export default {
           },
         ],
       };
-      this.containList = data
+      this.containList = data;
       this.CHANGE_FORM(data);
+    },
+  },
+  watch: {
+    // 用户每点击一次按钮，都触发添加组件动作
+    addCount(newVal) {
+      // 此处判断用户添加的按钮类型
+      // 依据类型向containList（内容列表）中添加其格式的预设参数
+      switch (this.addBtn) {
+        // *****基础控件*****
+        // 输入框
+        case "basic_Input":
+          this.containList.layouts.push({
+            type: "basic_Input",
+          });
+          this.initTable();
+          // console.log(this.form)
+          break;
+        // *****布局控件*****
+        // 表格控件
+        case "layout_Form":
+          // this.initTable()
+          this.containList.layouts.push({
+            type: "layout_Form",
+            InnerInfo: [
+              {
+                active_status: false, // 此行被选中状态
+                InnerInfo: [
+                  // 此行内容
+                  {
+                    title: "111",
+                  },
+                  {
+                    title: "222",
+                  },
+                  {
+                    title: "333",
+                  },
+                ],
+              },
+            ],
+          });
+          break;
+        default:
+          break;
+      }
     },
   },
 };
