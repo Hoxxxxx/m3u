@@ -8,6 +8,8 @@
     <div v-else>
       <div v-for="(item, index) in containList.layouts" :key="index">
         <!-- 表格控件 -->
+        <!-- 表格控件 -->	
+        
         <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">
           <!-- 内容行（一个内容块） -->
           <div
@@ -417,3 +419,44 @@ export default {
 
 
 
+// <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">	
+//           <!-- 内容行 -->	
+//           <div	
+//             v-for="(line_item, line_index) in item.InnerInfo"	
+//             :key="line_index"	
+//           >	
+//             <!-- 顶部工具栏 -->	
+//             <div v-if="line_item.active_status" class="topTools">	
+//               <el-tooltip	
+//                 class="item"	
+//                 effect="dark"	
+//                 content="复制"	
+//                 placement="top"	
+//               >	
+//                 <div	
+//                   class="tool copy"	
+//                   @click="add_FormLine(index, line_index)"	
+//                 ></div>	
+//               </el-tooltip>	
+//               <el-tooltip	
+//                 class="item"	
+//                 effect="dark"	
+//                 content="删除"	
+//                 placement="top"	
+//               >	
+//                 <div	
+//                   class="tool delete"	
+//                   @click="del_FormLine(index, line_index)"	
+//                 ></div>	
+//               </el-tooltip>	
+//             </div>	
+//             <!-- 行内容 -->	
+//             <div	
+//               class="Form_line"	
+//               :class="line_item.active_status ? 'Form_line_active' : ''"	
+//               @click="choose_FormLine(index, line_index)"	
+//             >	
+//               <div class="formline_inner"></div>	
+//             </div>	
+//           </div>	
+//         </div>
