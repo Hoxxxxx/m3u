@@ -85,7 +85,7 @@
               财务信息
             </div>
             <div class="form_line">
-              <div class="titlebox">银行</div>
+              <!-- <div class="titlebox">银行</div>
               <div class="infobox selectbox editNot">
                 <div class="" >
                   {{ tableData.oaz01_show }}
@@ -96,7 +96,7 @@
                 <div class="" >
                   {{ tableData.oaz02 }}
                 </div>
-              </div>
+              </div> -->
               <div class="titlebox">记账日期</div>
               <div class="infobox middlebox last_row">{{tableData.oaz03}}</div>
             </div>
@@ -111,10 +111,10 @@
               <div class="infobox selectbox editNot">
                 {{ tableData.oaz06 }}
               </div>
-              <div class="titlebox">支付方式</div>
+              <!-- <div class="titlebox">支付方式</div>
               <div class="infobox middlebox last_row">
                 {{ tableData.oaz05_show }}
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -258,7 +258,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 5624;
     // this.workid = 4374
     this.getAzi()
     this.getPma()
