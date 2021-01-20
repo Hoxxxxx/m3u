@@ -844,7 +844,7 @@
 <script>
 import SelectData from "@/components/selectData";
 import { workflowsList, transfer,editFlow,addFlow,} from "@/api/process_new.js"
-import { number_chinese, dateFmt, OpenLoading } from "@/utils/utils.js";
+import { number_chinese, dateFmt, OpenLoading,getFilterTplid } from "@/utils/utils.js";
 import {
   gensList,
   azisList,
@@ -932,6 +932,7 @@ export default {
         annexurlid: [],
         tplid: 8949
       },
+      filter_tplid:"",//用于过滤的tplid
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -1027,10 +1028,10 @@ export default {
     this.getworkflows()
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
-    console.log(process.env,this.filter_tplid)
+    this.filter_tplid = getFilterTplid('FKSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   computed: {
-    ...mapState(['filter_tplid']),
     // 报销金额（不含税）
     oaa10_ZHHLJE() {
       let sum =
@@ -1401,7 +1402,7 @@ export default {
               label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: this.filter_tplid.FILTER_FKSQD,
+              value: this.filter_tplid,
               hide: true,
             },
           ];

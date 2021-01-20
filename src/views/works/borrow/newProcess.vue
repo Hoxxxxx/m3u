@@ -284,7 +284,7 @@ import SelectData from "@/components/selectData";
 // api
 import { azisList, pmasList,mustItem  } from "@/api/basic";
 import { addFlow, editFlow, } from "@/api/process_new";
-import {OpenLoading} from "@/utils/utils"
+import {OpenLoading,getFilterTplid} from "@/utils/utils"
 import {mapState} from 'vuex'
 
 export default {
@@ -347,6 +347,7 @@ export default {
         annexurlid: [],
         tplid: 8944
       },
+      filter_tplid:"",//用于过滤的tplid
       //数据选择弹出框
       dataSelect: {
         editType:"entry",
@@ -400,10 +401,8 @@ export default {
     this.getAzis()
     this.getPmas()
     this.getMustItem()
-    console.log(process.env,this.filter_tplid)
-  },
-  computed: {
-    ...mapState(['filter_tplid']),
+    this.filter_tplid = getFilterTplid('CCSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   methods: {
     getMustItem(){
@@ -657,7 +656,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "CCSQD":
-          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid.FILTER_CCSQD, hide:true }];
+          let filter_CCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid, hide:true }];
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"

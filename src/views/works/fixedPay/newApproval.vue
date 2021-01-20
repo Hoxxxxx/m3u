@@ -1246,7 +1246,7 @@ import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow, transfer, addFlow } from "@/api/process_new";
 import { azisList, pmasList, } from "@/api/basic";
-import { dateFmt, OpenLoading } from '@/utils/utils'
+import { dateFmt, OpenLoading,getFilterTplid } from '@/utils/utils'
 import {mapState} from 'vuex'
 
 export default {
@@ -1304,6 +1304,7 @@ export default {
         perid: {flownum: ''}
       }, //流程详情
       workclass_perflow: [], //已流转流程进度
+      filter_tplid:"",//用于过滤的tplid
       rowIndex: "", //当前点击的行数
       //数据选择弹出框
       dataSelect: {
@@ -1451,10 +1452,10 @@ export default {
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getworkflows()
-    console.log(process.env,this.filter_tplid)
+    this.filter_tplid = getFilterTplid('GDZCSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   computed: {
-    ...mapState(['filter_tplid']),
     // 应付金额
     com_YFJE(){
       if (this.tableData.oaf) {
@@ -1894,7 +1895,7 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
         break;
         case "GDZCSQD":
-          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid.FILTER_GDZCSQD, hide:true }];
+          let filter_GDZCSQD = [{ label: "", model_key_search: "keyword" },{ label: "tplid", model_key_search: "tplid", disabled:true , value:this.filter_tplid, hide:true }];
           this.dataSelect.filter = filter_GDZCSQD;
           this.dataSelect.searchType = "mixed"
           this.dataSelect.editType = "entry"
