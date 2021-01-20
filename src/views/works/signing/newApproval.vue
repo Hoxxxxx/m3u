@@ -513,7 +513,7 @@
               </div>
               <!-- 财务信息 -->
               <!--  -->
-              <div v-if="workclass_personnel.perid.flownum==3 && oazShow == 1">
+              <div v-if="oazShow == 1">
                 <div class="title_line">
                   抛转信息
                   <el-button
@@ -1083,7 +1083,7 @@ export default {
     },
     // 下一步
     nextStep(url) {
-      if (url == "/agree" && this.oazShow == 1 && this.workclass_personnel.perid.flownum == 3) {
+      if (url == "/agree" && this.oazShow == 1 ) {
         if (this.oaz.oaz02 == "" || this.oaz.oaz02 == null) {
           this.$message.error("请先生成签约方编号！");
           } else if(url == "/reject" || url == "/back"){
