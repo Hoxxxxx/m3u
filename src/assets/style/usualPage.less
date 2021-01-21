@@ -3,14 +3,17 @@
   cursor: pointer;
   background: #DFEFFF;
 }
-.el-input /deep/ .el-input__inner{
-  border: none!important;
-  border-radius: 0!important;
+
+.el-input /deep/ .el-input__inner {
+  border: none !important;
+  border-radius: 0 !important;
 }
-.el-select /deep/ .el-input__inner{
-  padding-left: 15px!important;
-  border-radius: 0!important;
+
+.el-select /deep/ .el-input__inner {
+  padding-left: 15px !important;
+  border-radius: 0 !important;
 }
+
 /* 表格控件 */
 .layout_Form {
   width: 100%;
@@ -22,7 +25,8 @@
     // padding: 10px;
     border: 10px solid transparent;
     background: #fff;
-    &::after{
+
+    &::after {
       content: '';
       display: block;
       position: absolute;
@@ -32,8 +36,9 @@
       height: 2px;
       background: #F3F5F9;
     }
-    &:last-child{
-      &::after{
+
+    &:last-child {
+      &::after {
         display: none;
       }
     }
@@ -45,17 +50,20 @@
       border-radius: 0 0 0 100px;
       background: #79BBFF;
       display: flex;
+
       .tool {
         width: 24px;
         height: 24px;
         margin-right: 15px;
         cursor: pointer;
       }
+
       .copy {
         margin-left: 25px;
         background: url(../usual/img/copy.png) no-repeat;
         background-size: 24px;
       }
+
       .delete {
         background: url(../usual/img/delete.png) no-repeat;
         background-size: 24px;
@@ -67,6 +75,7 @@
       padding: 0 6px;
       background: #fff;
       position: relative;
+
       h2 {
         position: relative;
         width: 100%;
@@ -78,7 +87,8 @@
         font-weight: bold;
         color: #409efd;
       }
-      .topTools_area_title{
+
+      .topTools_area_title {
         background: #ffd28f;
         position: absolute;
         right: 0;
@@ -101,11 +111,13 @@
         height: 100%;
         background: #DFEFFF;
       }
+
       // 表格行
       .layout_row {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+
         // 每个分栏
         .layout_td {
           display: flex;
@@ -114,7 +126,7 @@
           flex: auto;
           padding: 4px;
           box-sizing: border-box;
-          
+
           .layout_td_title {
             border-bottom: 1px solid #f0f3f7;
             width: 133px;
@@ -144,6 +156,7 @@
             color: #666;
           }
         }
+
         .layout_td:hover {
           background: #79BBFF;
           // position: relative;
@@ -160,12 +173,15 @@
         }
       }
     }
+
     .Form_line:last-child {
       margin-bottom: 0;
     }
+
     .Form_line:hover {
       border-color: #79BBFF;
     }
+
     // 被选中行
     .Form_line_active {
       border-color: #79BBFF;
@@ -173,16 +189,20 @@
 
 
   }
+
   // 内容区域选中
   .area_item_active {
-    border-color:#ffd28f;
-    &::after{
+    border-color: #ffd28f;
+
+    &::after {
       display: none;
     }
   }
+
   .area_item:hover {
-    border-color:#ffd28f;
-    &::after{
+    border-color: #ffd28f;
+
+    &::after {
       display: none;
     }
   }
@@ -195,24 +215,30 @@
   // 分栏样式
   .rows_1 {
     flex: 0 1 100% !important;
+
     &.layout_td {
-      &:first-child{
+      &:first-child {
         // margin-top: 4px!important;
       }
     }
   }
+
   .rows_2 {
     flex: 0 1 50% !important;
   }
+
   .rows_3 {
     flex: 0 1 33.3% !important;
   }
+
   .rows_4 {
     flex: 0 1 25% !important;
   }
+
   .W100 {
     width: 100% !important;
   }
+
   .W50 {
     width: 50 !important;
   }
