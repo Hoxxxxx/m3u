@@ -65,6 +65,7 @@
                   v-for="(layout_td, td_key) in line.form_tds"
                   :key="td_key"
                   :class="`rows_${line.layout}`"
+                  @click.stop="choose_layout_td()"
                 >
                   <!-- 分栏标题 -->
                   <div class="layout_td_title">
@@ -197,6 +198,10 @@ export default {
       this.containList.layouts[index].form_areas.splice(areaIndex, 1);
     },
     // 复制表格行
+    choose_layout_td(){
+      console.log(12)
+    },
+    // 新增表格行
     add_FormLine(index, line_index) {
       this.containList.layouts[index].InnerInfo.splice(line_index + 1, 0, {
         active_status: false, // 此行被选中状态
