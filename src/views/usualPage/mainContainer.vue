@@ -34,7 +34,7 @@
                 >
                   <div
                     class="tool copy"
-                    @click="add_FormLine(index, line_index)"
+                    @click="add_areaItem(index, area_index)"
                   ></div>
                 </el-tooltip>
                 <el-tooltip
@@ -45,7 +45,7 @@
                 >
                   <div
                     class="tool delete"
-                    @click="del_FormLine(index, line_index)"
+                    @click="del_areaItem(index, area_index)"
                   ></div>
                 </el-tooltip>
               </div>
@@ -180,7 +180,23 @@ export default {
       ].active_status = true;
       console.log(index, area_index, line_index);
     },
-    // 新增表格行
+    // 复制内容区域
+    add_areaItem(index, areaIndex) {
+      this.containList.layouts[index].form_areas.splice(
+        areaIndex + 1, 
+        0,
+        this.containList.layouts[index].form_areas[areaIndex]
+      )
+      console.log('1', this.containList.layouts[index].form_areas[areaIndex+1].active_status)
+      this.$set(this.containList.layouts[index].form_areas[areaIndex+1], 'active_status', false)
+      console.log('2', this.containList.layouts[index].form_areas[areaIndex+1].active_status)
+      // this.choose_areaItem(index, areaIndex)
+    },
+    // 删除内容区域
+    del_areaItem(index, areaIndex) {
+      this.containList.layouts[index].form_areas.splice(areaIndex, 1);
+    },
+    // 复制表格行
     add_FormLine(index, line_index) {
       this.containList.layouts[index].InnerInfo.splice(line_index + 1, 0, {
         active_status: false, // 此行被选中状态
@@ -379,47 +395,3 @@ export default {
   
 }
 </style>
-
-
-
-// <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">	
-//           <!-- 内容行 -->	
-//           <div	
-//             v-for="(line_item, line_index) in item.InnerInfo"	
-//             :key="line_index"	
-//           >	
-//             <!-- 顶部工具栏 -->	
-//             <div v-if="line_item.active_status" class="topTools">	
-//               <el-tooltip	
-//                 class="item"	
-//                 effect="dark"	
-//                 content="复制"	
-//                 placement="top"	
-//               >	
-//                 <div	
-//                   class="tool copy"	
-//                   @click="add_FormLine(index, line_index)"	
-//                 ></div>	
-//               </el-tooltip>	
-//               <el-tooltip	
-//                 class="item"	
-//                 effect="dark"	
-//                 content="删除"	
-//                 placement="top"	
-//               >	
-//                 <div	
-//                   class="tool delete"	
-//                   @click="del_FormLine(index, line_index)"	
-//                 ></div>	
-//               </el-tooltip>	
-//             </div>	
-//             <!-- 行内容 -->	
-//             <div	
-//               class="Form_line"	
-//               :class="line_item.active_status ? 'Form_line_active' : ''"	
-//               @click="choose_FormLine(index, line_index)"	
-//             >	
-//               <div class="formline_inner"></div>	
-//             </div>	
-//           </div>	
-//         </div>
