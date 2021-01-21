@@ -5,7 +5,7 @@
       <!-- 上层 -->
       <div class="topBox">
         <div class="logoBox"></div>
-        <div class="titleBox">自定义表单设置</div>
+        <div class="titleBox">Form Generator</div>
       </div>
       <!-- 下层 -->
       <div class="bottomBox">

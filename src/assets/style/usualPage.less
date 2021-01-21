@@ -1,75 +1,137 @@
 // 最外层控件
-.handleBox:hover{
+.handleBox:hover {
   cursor: pointer;
   background: #DFEFFF;
 }
+.el-input /deep/ .el-input__inner{
+  border: none!important;
+  border-radius: 0!important;
+}
+
+.el-select /deep/ .el-input__inner{
+  padding-left: 15px!important;
+  border-radius: 0!important;
+}
 /* 表格控件 */
-.layout_Form{
+.layout_Form {
   width: 100%;
   background: #FFFFFF;
+
   // 顶部工具栏（复制、删除）
-  .topTools{
+  .topTools {
     width: 100px;
     height: 24px;
     border-radius: 0 0 0 100px;
     background: #79BBFF;
     float: right;
     display: flex;
-    .tool{
+    margin-right: 6px;
+
+    .tool {
       width: 24px;
       height: 24px;
       margin-right: 15px;
       cursor: pointer;
     }
-    .copy{
+
+    .copy {
       margin-left: 25px;
       background: url(../usual/img/copy.png) no-repeat;
       background-size: 24px;
     }
-    .delete{
+
+    .delete {
       background: url(../usual/img/delete.png) no-repeat;
       background-size: 24px;
     }
   }
+
+  .area_item {
+    position: relative;
+    // padding: 10px;
+    border: 10px solid transparent;
+    background: #fff;
+    &::after{
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -10px;
+      left: 6px;
+      width: calc(100% - 12px);
+      height: 2px;
+      background: #F3F5F9;
+    }
+    &:last-child{
+      &::after{
+        display: none;
+      }
+    }
+
+    .area_title {
+      padding: 0 6px;
+      background: #fff;
+      h2 {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        background: #e9f4ff;
+        text-align: center;
+        line-height: 40px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #409efd;
+      }
+    }
+  }
+
   // 表格行公用样式
-  .Form_line{
+  .Form_line {
     width: 100%;
-    height: 60px;
+    // height: 50px;
     background: #FFFFFF;
-    padding: 10px;
+    // padding: 4px;
+    border: 6px solid transparent;
     box-sizing: border-box;
+
     // 内层
-    .formline_inner{
+    .formline_inner {
       width: 100%;
       height: 100%;
       background: #DFEFFF;
     }
+
     .layout_row {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+
       .layout_td {
         display: flex;
         flex-direction: row;
         align-items: center;
         flex: auto;
+        padding: 4px;
+        box-sizing: border-box;
+
         .layout_td_title {
           border-bottom: 1px solid #f0f3f7;
           width: 133px;
           height: 100%;
           text-align: center;
           border-right: 1px solid #cccccc;
-          background: #fcfdff;
+          background: #fff;
           color: #666666;
           font-size: 12px;
           display: table;
-          > span {
+
+          >span {
             display: table-cell;
             vertical-align: middle;
             word-break: break-all;
             padding: 4px;
           }
         }
+
         .layout_td_cont {
           width: 100%;
           height: 40px;
@@ -82,24 +144,56 @@
       }
     }
   }
-  .Form_line:last-child{
+
+  .Form_line:last-child {
     margin-bottom: 0;
   }
-  .Form_line:hover{
-    background: #79BBFF;
+
+  .Form_line:hover {
+    border-color: #79BBFF;
   }
+
   // 被选中行
-  .Form_line_active{
-    background: #79BBFF;
+  .Form_line_active {
+    border-color: #79BBFF;
   }
+
+  // 内容区域选中
+  .area_item_active {
+    background: #7158e2;
+  }
+
+  .area_item:hover {
+    border-color: #7158e2;
+    &::after{
+      display: none;
+    }
+  }
+
+  .layout_td:hover {
+    background: #da5552;
+    // position: relative;
+    // z-index: 100;
+    // &::before{
+    //   content: '';
+    //   display: block;
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   z-index: 1000;
+    //   background: red;
+    // }
+  }
+
   // 新增按钮
-  .addLine{
+  .addLine {
     width: 100%;
     height: 60px;
     background: #FFFFFF;
     box-sizing: border-box;
     padding: 10px;
-    .formline_inner{
+
+    .formline_inner {
       width: 100%;
       height: 100%;
       background: #DFEFFF;
@@ -107,7 +201,8 @@
       text-align: center;
       color: #409EFD;
       font-size: 14px;
-      .add_img{
+
+      .add_img {
         width: 30px;
         height: 30px;
         vertical-align: middle;
@@ -115,12 +210,33 @@
       }
     }
   }
-}
-.layout_table {
-  
+
+  .rows_1 {
+    flex: 0 1 100% !important;
+    &.layout_td {
+      &:first-child{
+        // margin-top: 4px!important;
+      }
+    }
+  }
+  .rows_2 {
+    flex: 0 1 50% !important;
+  }
+  .rows_3 {
+    flex: 0 1 33.3% !important;
+  }
+  .rows_4 {
+    flex: 0 1 25% !important;
+  }
+  .W100 {
+    width: 100% !important;
+  }
+  .W50 {
+    width: 50 !important;
+  }
 }
 
 // 右侧属性栏
 // .rightContainer{
-  
+
 // }

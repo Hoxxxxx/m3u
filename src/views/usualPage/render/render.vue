@@ -99,6 +99,7 @@ export default {
         );
         break;
       default:
+        return ''
         break;
     }
   },
