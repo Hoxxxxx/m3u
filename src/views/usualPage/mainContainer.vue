@@ -25,7 +25,10 @@
             >
               <h2>{{ area_item.title }}</h2>
               <!-- 顶部工具栏_第一层级 -->
-              <div class="topTools topTools_area_title" v-if="area_item.active_status">
+              <div
+                class="topTools topTools_area_title"
+                v-if="area_item.active_status"
+              >
                 <el-tooltip
                   class="item"
                   effect="dark"
@@ -64,8 +67,13 @@
                   class="layout_td"
                   v-for="(layout_td, td_key) in line.form_tds"
                   :key="td_key"
-                  :class="`rows_${line.layout}`"
-                  @click.stop="choose_layout_td()"
+                  :class="[
+                    `rows_${line.layout}`,
+                    layout_td.active_status ? 'layout_td_active' : '',
+                  ]"
+                  @click.stop="
+                    choose_layout_td(index, area_index, line_index, td_key)
+                  "
                 >
                   <!-- 分栏标题 -->
                   <div class="layout_td_title">
@@ -181,8 +189,21 @@ export default {
       ].active_status = true;
       console.log(index, area_index, line_index);
     },
-    choose_layout_td(){
-      console.log(12)
+    // 选中单个td
+    choose_layout_td(index, area_index, line_index, td_key) {
+      console.log(12);
+      this.containList.layouts.forEach((item) => {
+        item.form_areas.forEach((ele) => {
+          ele.form_lines.forEach((line) => {
+            line.form_tds.forEach((td) => {
+              td.active_status = false;
+            });
+          });
+        });
+      });
+      this.containList.layouts[index].form_areas[area_index].form_lines[
+        line_index
+      ].form_tds[td_key].active_status = true;
     },
     // 新增表格行
     add_FormLine(index, line_index) {
@@ -221,12 +242,14 @@ export default {
                 form_tds: [
                   //当前行组件集合
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "1", //单项label
                     item_tag: "el-input", //组件标签
                     prop_name: "one", //model属性名称
                     item_prop: "", //model属性值
                   },
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "2", //单项label
                     item_tag: "el-date-picker", //组件标签
                     prop_name: "two", //model属性名称
@@ -234,6 +257,7 @@ export default {
                     prop_val: "2021-01-01",
                   },
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "3", //单项label
                     item_tag: "el-select", //组件标签
                     prop_name: "three", //model属性名称
@@ -258,12 +282,14 @@ export default {
                 form_tds: [
                   //当前行组件集合
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "1", //单项label
                     item_tag: "el-input", //组件标签
                     prop_name: "one", //model属性名称
                     item_prop: "", //model属性值
                   },
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "2", //单项label
                     item_tag: "el-date-picker", //组件标签
                     prop_name: "two", //model属性名称
@@ -271,6 +297,7 @@ export default {
                     prop_val: "2021-01-31",
                   },
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "3", //单项label
                     item_tag: "el-select", //组件标签
                     prop_name: "three", //model属性名称
@@ -301,12 +328,14 @@ export default {
                 form_tds: [
                   //当前行组件集合
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "1", //单项label
                     item_tag: "el-input", //组件标签
                     prop_name: "one", //model属性名称
                     item_prop: "", //model属性值
                   },
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "2", //单项label
                     item_tag: "el-date-picker", //组件标签
                     prop_name: "two", //model属性名称
@@ -314,6 +343,7 @@ export default {
                     prop_val: "2021-01-01",
                   },
                   {
+                    active_status: false, // 此行被选中状态
                     item_title: "3", //单项label
                     item_tag: "el-select", //组件标签
                     prop_name: "three", //model属性名称
@@ -379,8 +409,6 @@ export default {
     font-size: 20px;
     color: #666666;
   }
-
-  
 }
 </style>
 
