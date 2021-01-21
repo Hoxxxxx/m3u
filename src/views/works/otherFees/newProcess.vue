@@ -144,7 +144,7 @@
               <!-- 5 -->
               <div class="form_line last_line">
                 <div class="titlebox required">
-                  <span :class="form_must.includes('oaa16') ? 'redPot' : ''">支付方说明式</span>
+                  <span :class="form_must.includes('oaa16') ? 'redPot' : ''">说明</span>
                 </div>
                 <div class="infobox last_row longbox areabox" style="width: 100%">
                   <el-input

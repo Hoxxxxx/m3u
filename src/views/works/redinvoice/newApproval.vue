@@ -535,7 +535,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"付款申请单",//流程名
+      workName:"红字发票申请单",//流程名
       more:[],//查看更多
       form_must_able: [],
       oab_must:[],//差旅明细必填项
@@ -1069,7 +1069,7 @@ export default {
           case "XSF":
             this.tableData.oaa10 = val[0].occ01;
             this.tableData.oaa10_show = val[0].occ02;
-            this.tableData.oaa11 = val[0].occ14;
+            this.tableData.oaa11 = val[0].occ11;
             break;
           case "GMF":
             this.tableData.oaa12 = val[0].company01;

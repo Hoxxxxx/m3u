@@ -14,7 +14,7 @@
               <span>签批</span>
             </div>
             <div class="title">{{workname}}</div>
-            <div class="workName">
+            <div class="workname">
               <div>业务日期：{{oaa02}}</div>
               <div>申请单编号：{{oaa01}}</div>
             </div>
@@ -330,12 +330,13 @@ export default {
     },
     checkNextFlow() {
       if (this.fixedData.next_workFlows.length !== 0) {
-        // 获取指定下标的步骤信息
+        // 获取指定下标（默认选中的下一步骤）的主办人员信息
         this.fixedData.next_workFlows.forEach( (item, index) => {
           if (item.fid == this.uploadData.next_flowid) {
             // 获取下标
             this.showData.nextInfo_index = index
-            // 如果只有一个审批人，默认选中
+            // 默认选中审批人列表的第一个审批人
+            // changeType：0（取用后端返回人员列表作为下一步备选）/   1 （取用所有公司人员列表作为作为下一步备选）
             if (this.fixedData.next_workFlows[index].changetype !== '1') {
               if (this.fixedData.next_workFlows[index].flowuser.length > 0) {
                 this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
@@ -375,6 +376,7 @@ export default {
           this.fixedData.is_last = res.data.workclass_personnel.perid.is_last // 是否最终步
           this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
           this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 下一步骤
+          // 如果下一步骤只有一个可选项，则赋值步骤id
           if (this.fixedData.next_workFlows.length == 1) {
             this.uploadData.next_flowid = this.fixedData.next_workFlows[0].fid
             this.checkNextFlow()
@@ -445,7 +447,7 @@ export default {
           this.$router.push({
             path: `${this.$route.query.url_type}/check`,
             query: {
-              workName: this.workName,
+              workname: this.workname,
               workid: this.uploadData.workid
             },
           });

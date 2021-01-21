@@ -504,7 +504,7 @@
 
 <script>
 import SelectData from "@/components/selectData";
-import { OpenLoading } from "@/utils/utils.js";
+import { OpenLoading, getFilterTplid } from "@/utils/utils.js";
 // api
 import { workflowsList, editFlow  } from "@/api/process_new";
 import { azisList,  } from "@/api/basic";
@@ -518,6 +518,7 @@ export default {
       workid: '',
       workName:"固定资产卡片",//流程名
       more:[],//查看更多
+      filter_tplid:"",//用于过滤的tplid
       tableData: {},
       table_able: [],
       form_must:[],//必填项
@@ -622,6 +623,8 @@ export default {
     this.workid = this.$route.query.workid ? this.$route.query.workid : 5046
     this.getAzis()
     this.getworkflows()
+    this.filter_tplid = getFilterTplid('GDZCSQD')
+    console.log(process.env,'tplid:',this.filter_tplid)
   },
   methods: {
     handleClick() {
@@ -886,10 +889,10 @@ export default {
             // { label: "流程建立时间段（结束时间）", model_key_search: "enddate" },
             // { label: "经办人", model_key_search: "uid" },
             {
-              label: "",
+              label: "tplid",
               model_key_search: "tplid",
               disabled: true,
-              value: 8946,
+              value: this.filter_tplid,
               hide: true,
             },
           ];

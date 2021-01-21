@@ -967,7 +967,7 @@ export default {
           case "XSF":
             this.tableData.oaa10 = val[0].occ01;
             this.showData.oaa10_show = val[0].occ02;
-            this.tableData.oaa11 = val[0].occ14;
+            this.tableData.oaa11 = val[0].occ11;
             break;
           case "GMF":
             this.tableData.oaa12 = val[0].company01;

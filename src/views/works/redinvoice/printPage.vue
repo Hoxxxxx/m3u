@@ -164,7 +164,7 @@ export default {
       overloading: '', //加载定时器
       activeTab: "firTab",
       workid: '',
-      workName:"付款申请单",//流程名
+      workName:"红字发票申请单",//流程名
       tableBox_invoice: [
         // 表格一
         {

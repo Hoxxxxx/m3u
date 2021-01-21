@@ -16,7 +16,7 @@
               <span>签批</span>
             </div>
             <div class="title">{{workname}}</div>
-            <div class="workName">
+            <div class="workname">
               <div>业务日期：{{oaa02}}</div>
               <div>申请单编号：{{oaa01}}</div>
             </div>
@@ -309,7 +309,8 @@ export default {
           if (item.fid == this.uploadData.next_flowid) {
             // 获取下标
             this.showData.nextInfo_index = index
-            // 如果只有一个审批人，默认选中
+            // 默认选中审批人列表的第一个审批人
+            // changeType：0（取用后端返回人员列表作为下一步备选）/   1 （取用所有公司人员列表作为作为下一步备选）
             if (this.fixedData.next_workFlows[index].changetype !== '1') {
               if (this.fixedData.next_workFlows[index].flowuser.length > 0) {
                 this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
@@ -339,7 +340,7 @@ export default {
           this.$router.push({
             path: `${this.$route.query.url_type}/check`,
             query: {
-              workName: this.workName,
+              workname: this.workname,
               workid: this.uploadData.workid
             },
           });
