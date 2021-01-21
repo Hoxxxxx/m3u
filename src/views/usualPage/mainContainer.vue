@@ -59,18 +59,18 @@
               @click.stop="choose_FormLine(index, area_index, line_index)"
             >
               <div class="formline_inner layout_row">
-                <!-- 每一个小的格子 -->
+                <!-- 每一个分栏 -->
                 <div
                   class="layout_td"
                   v-for="(layout_td, td_key) in line.form_tds"
                   :key="td_key"
                   :class="`rows_${line.layout}`"
                 >
-                  <!-- 小格子标题 -->
+                  <!-- 分栏标题 -->
                   <div class="layout_td_title">
                     <span>{{ layout_td.item_title }}</span>
                   </div>
-                  <!-- 小格子内容/组件 -->
+                  <!-- 分栏内容/组件 -->
                   <div class="layout_td_cont">
                     <render :tag="layout_td"></render>
                   </div>
@@ -250,7 +250,7 @@ export default {
               },
               {
                 active_status: false, // 此行被选中状态
-                layout: 1,
+                layout: 3,
                 form_tds: [
                   //当前行组件集合
                   {

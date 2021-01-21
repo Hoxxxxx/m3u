@@ -7,7 +7,6 @@
   border: none!important;
   border-radius: 0!important;
 }
-
 .el-select /deep/ .el-input__inner{
   padding-left: 15px!important;
   border-radius: 0!important;
@@ -17,35 +16,7 @@
   width: 100%;
   background: #FFFFFF;
 
-  // 顶部工具栏（复制、删除）
-  .topTools {
-    width: 100px;
-    height: 24px;
-    border-radius: 0 0 0 100px;
-    background: #79BBFF;
-    float: right;
-    display: flex;
-    margin-right: 6px;
-
-    .tool {
-      width: 24px;
-      height: 24px;
-      margin-right: 15px;
-      cursor: pointer;
-    }
-
-    .copy {
-      margin-left: 25px;
-      background: url(../usual/img/copy.png) no-repeat;
-      background-size: 24px;
-    }
-
-    .delete {
-      background: url(../usual/img/delete.png) no-repeat;
-      background-size: 24px;
-    }
-  }
-
+  // 表格大模块内容（第一层循环）
   .area_item {
     position: relative;
     // padding: 10px;
@@ -67,6 +38,33 @@
       }
     }
 
+    // 顶部工具栏（复制、删除）
+    .topTools {
+      width: 100px;
+      height: 24px;
+      border-radius: 0 0 0 100px;
+      background: #79BBFF;
+      float: right;
+      display: flex;
+      margin-right: 6px;
+      .tool {
+        width: 24px;
+        height: 24px;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+      .copy {
+        margin-left: 25px;
+        background: url(../usual/img/copy.png) no-repeat;
+        background-size: 24px;
+      }
+      .delete {
+        background: url(../usual/img/delete.png) no-repeat;
+        background-size: 24px;
+      }
+    }
+
+    // 表格行标题
     .area_title {
       padding: 0 6px;
       background: #fff;
@@ -82,138 +80,114 @@
         color: #409efd;
       }
     }
-  }
 
-  // 表格行公用样式
-  .Form_line {
-    width: 100%;
-    // height: 50px;
-    background: #FFFFFF;
-    // padding: 4px;
-    border: 6px solid transparent;
-    box-sizing: border-box;
-
-    // 内层
-    .formline_inner {
+    // 表格行公用样式
+    .Form_line {
       width: 100%;
-      height: 100%;
-      background: #DFEFFF;
-    }
+      // height: 50px;
+      background: #FFFFFF;
+      // padding: 4px;
+      border: 6px solid transparent;
+      box-sizing: border-box;
 
-    .layout_row {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-      .layout_td {
+      // 内层
+      .formline_inner {
+        width: 100%;
+        height: 100%;
+        background: #DFEFFF;
+      }
+      // 表格行
+      .layout_row {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        flex: auto;
-        padding: 4px;
-        box-sizing: border-box;
+        flex-wrap: wrap;
+        // 每个分栏
+        .layout_td {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex: auto;
+          padding: 4px;
+          box-sizing: border-box;
+          
+          .layout_td_title {
+            border-bottom: 1px solid #f0f3f7;
+            width: 133px;
+            height: 100%;
+            text-align: center;
+            border-right: 1px solid #cccccc;
+            background: #fff;
+            color: #666666;
+            font-size: 12px;
+            display: table;
 
-        .layout_td_title {
-          border-bottom: 1px solid #f0f3f7;
-          width: 133px;
-          height: 100%;
-          text-align: center;
-          border-right: 1px solid #cccccc;
-          background: #fff;
-          color: #666666;
-          font-size: 12px;
-          display: table;
+            >span {
+              display: table-cell;
+              vertical-align: middle;
+              word-break: break-all;
+              padding: 4px;
+            }
+          }
 
-          >span {
-            display: table-cell;
-            vertical-align: middle;
-            word-break: break-all;
-            padding: 4px;
+          .layout_td_cont {
+            width: 100%;
+            height: 40px;
+            border-radius: 0;
+            border: none;
+            text-align: left;
+            font-size: 12px;
+            color: #666;
           }
         }
-
-        .layout_td_cont {
-          width: 100%;
-          height: 40px;
-          border-radius: 0;
-          border: none;
-          text-align: left;
-          font-size: 12px;
-          color: #666;
+        .layout_td:hover {
+          background: #79BBFF;
+          // position: relative;
+          // z-index: 100;
+          // &::before{
+          //   content: '';
+          //   display: block;
+          //   position: absolute;
+          //   left: 0;
+          //   top: 0;
+          //   z-index: 1000;
+          //   background: red;
+          // }
         }
       }
     }
-  }
+    .Form_line:last-child {
+      margin-bottom: 0;
+    }
+    .Form_line:hover {
+      border-color: #79BBFF;
+    }
+    // 被选中行
+    .Form_line_active {
+      border-color: #79BBFF;
+    }
 
-  .Form_line:last-child {
-    margin-bottom: 0;
-  }
 
-  .Form_line:hover {
-    border-color: #79BBFF;
   }
-
-  // 被选中行
-  .Form_line_active {
-    border-color: #79BBFF;
-  }
-
   // 内容区域选中
   .area_item_active {
-    border-color: #7158e2;
+    border-color:#ffd28f;
     &::after{
       display: none;
     }
   }
-
   .area_item:hover {
-    border-color: #7158e2;
+    border-color:#ffd28f;
     &::after{
       display: none;
     }
   }
 
-  .layout_td:hover {
-    background: #da5552;
-    // position: relative;
-    // z-index: 100;
-    // &::before{
-    //   content: '';
-    //   display: block;
-    //   position: absolute;
-    //   left: 0;
-    //   top: 0;
-    //   z-index: 1000;
-    //   background: red;
-    // }
-  }
 
-  // 新增按钮
-  .addLine {
-    width: 100%;
-    height: 60px;
-    background: #FFFFFF;
-    box-sizing: border-box;
-    padding: 10px;
 
-    .formline_inner {
-      width: 100%;
-      height: 100%;
-      background: #DFEFFF;
-      line-height: 40px;
-      text-align: center;
-      color: #409EFD;
-      font-size: 14px;
 
-      .add_img {
-        width: 30px;
-        height: 30px;
-        vertical-align: middle;
-        margin-right: 5px;
-      }
-    }
-  }
 
+
+  // 分栏样式
   .rows_1 {
     flex: 0 1 100% !important;
     &.layout_td {
