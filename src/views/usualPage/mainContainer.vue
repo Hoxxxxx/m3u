@@ -65,6 +65,7 @@
                   v-for="(layout_td, td_key) in line.form_tds"
                   :key="td_key"
                   :class="`rows_${line.layout}`"
+                  @click.stop="choose_layout_td()"
                 >
                   <!-- 分栏标题 -->
                   <div class="layout_td_title">
@@ -179,6 +180,9 @@ export default {
         line_index
       ].active_status = true;
       console.log(index, area_index, line_index);
+    },
+    choose_layout_td(){
+      console.log(12)
     },
     // 新增表格行
     add_FormLine(index, line_index) {
