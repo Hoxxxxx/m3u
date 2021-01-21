@@ -16,31 +16,6 @@
             :class="area_item.active_status ? 'area_item_active' : ''"
             class="area_item"
           >
-            <!-- 顶部工具栏  v-if="area_item.active_status"-->
-            <div class="topTools">
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="复制"
-                placement="top"
-              >
-                <div
-                  class="tool copy"
-                  @click="add_FormLine(index, line_index)"
-                ></div>
-              </el-tooltip>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="删除"
-                placement="top"
-              >
-                <div
-                  class="tool delete"
-                  @click="del_FormLine(index, line_index)"
-                ></div>
-              </el-tooltip>
-            </div>
             <!-- 行内容start -->
             <!-- 当前内容块标题 -->
             <div
@@ -49,6 +24,31 @@
               @click="choose_areaItem(index, area_index)"
             >
               <h2>{{ area_item.title }}</h2>
+              <!-- 顶部工具栏_第一层级 -->
+              <div class="topTools topTools_area_title" v-if="area_item.active_status">
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="复制"
+                  placement="top"
+                >
+                  <div
+                    class="tool copy"
+                    @click="add_FormLine(index, line_index)"
+                  ></div>
+                </el-tooltip>
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  content="删除"
+                  placement="top"
+                >
+                  <div
+                    class="tool delete"
+                    @click="del_FormLine(index, line_index)"
+                  ></div>
+                </el-tooltip>
+              </div>
             </div>
             <!-- 内容行  -->
             <div
