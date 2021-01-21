@@ -160,7 +160,10 @@
 
   // 内容区域选中
   .area_item_active {
-    background: #7158e2;
+    border-color: #7158e2;
+    &::after{
+      display: none;
+    }
   }
 
   .area_item:hover {
