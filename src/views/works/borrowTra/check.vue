@@ -320,8 +320,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
-    // this.workid = 4606
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 1158
     this.getworkflows()
   },
   methods: {

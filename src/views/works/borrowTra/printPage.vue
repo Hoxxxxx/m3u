@@ -75,12 +75,12 @@
           <div class="form_line">
             <div class="titlebox">是否需要借款</div>
             <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa35==1">是</span>
-              <span class="radioItem" v-if="tableData.oaa35==2">否</span>
+              <span class="radioItem" v-if="tableData.oaa39==1">是</span>
+              <span class="radioItem" v-if="tableData.oaa39==2">否</span>
             </div>
           </div>
           <!-- 借款信息 -->
-          <div v-if="tableData.oaa35==1">
+          <div v-if="tableData.oaa39==1">
             <div  class="title_line">借款信息</div>
             <div class="form_line">
               <div class="titlebox">项目</div>
