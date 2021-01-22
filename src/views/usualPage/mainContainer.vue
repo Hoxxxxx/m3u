@@ -331,12 +331,14 @@ export default {
     },
     // 选择内容区域
     choose_areaItem(index, area_Index) {
-      this.cleanActive_areaItem()
-      this.cleanActive_FormLine()
-      this.cleanActive_layout_td()
-      this.containList.layouts[index].form_areas[
-        area_Index
-      ].active_status = true;
+      if(this.containList.layouts[index].form_areas[area_Index]){
+        this.cleanActive_areaItem()
+        this.cleanActive_FormLine()
+        this.cleanActive_layout_td()
+        this.containList.layouts[index].form_areas[
+          area_Index
+        ].active_status = true;
+      }
     },
     // 复制内容区域
     add_areaItem(params) {
@@ -373,14 +375,16 @@ export default {
     },
     // 选择表格行
     choose_FormLine(index, area_Index, line_Index) {
-      this.cleanActive_areaItem()
-      this.cleanActive_FormLine()
-      this.cleanActive_layout_td()
-      // 选中行赋值
-      this.containList.layouts[index].form_areas[area_Index].form_lines[
-        line_Index
-      ].active_status = true;
-      // console.log(index, area_Index, line_Index);
+      if(this.containList.layouts[index].form_areas[area_Index].form_lines[line_Index]){
+        this.cleanActive_areaItem()
+        this.cleanActive_FormLine()
+        this.cleanActive_layout_td()
+        // 选中行赋值
+        this.containList.layouts[index].form_areas[area_Index].form_lines[
+          line_Index
+        ].active_status = true;
+        // console.log(index, area_Index, line_Index);
+      }
     },
     // 复制表格行
     add_FormLine(params){
