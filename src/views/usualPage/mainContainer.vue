@@ -11,8 +11,8 @@
         <div v-if="item.type == 'layout_Form'" class="handleBox layout_Form">
           <!-- 内容行（一个内容块） -->
           <div
-            v-for="(area_item, area_index) in item.form_areas"
-            :key="area_index"
+            v-for="(area_item, area_Index) in item.form_areas"
+            :key="area_Index"
             :class="area_item.active_status ? 'area_item_active' : ''"
             class="area_item"
           >
@@ -21,46 +21,39 @@
             <div
               class="area_title"
               v-if="area_item.title"
-              @click.capture="choose_areaItem(index, area_index)"
+              @click.capture="choose_areaItem(index, area_Index)"
             >
               <h2>{{ area_item.title }}</h2>
-              <!-- 顶部工具栏_第一层级 -->
-              <div
-                class="topTools topTools_area_title"
+              <!-- 顶部工具栏_area -->
+              <Top-Tools
                 v-if="area_item.active_status"
+                :className="'topTools_area_title'"
+                :index="index"
+                :sec_Index="area_Index"
+                @add_Item="add_areaItem"
+                @del_Item="del_areaItem"
               >
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="复制"
-                  placement="top"
-                >
-                  <div
-                    class="tool copy"
-                    @click.capture="add_areaItem(index, area_index)"
-                  ></div>
-                </el-tooltip>
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="删除"
-                  placement="top"
-                >
-                  <div
-                    class="tool delete"
-                    @click.capture="del_areaItem(index, area_index)"
-                  ></div>
-                </el-tooltip>
-              </div>
+              </Top-Tools>
             </div>
             <!-- 内容行  -->
             <div
-              v-for="(line, line_index) in area_item.form_lines"
-              :key="line_index"
+              v-for="(line, line_Index) in area_item.form_lines"
+              :key="line_Index"
               class="Form_line"
               :class="line.active_status ? 'Form_line_active' : ''"
-              @click.stop="choose_FormLine(index, area_index, line_index)"
+              @click.stop="choose_FormLine(index, area_Index, line_Index)"
             >
+              <!-- 顶部工具栏_Form_line -->
+              <Top-Tools
+                v-if="line.active_status"
+                :className="'topTools_Form_line'"
+                :index="index"
+                :sec_Index="area_Index"
+                :thr_Index="line_Index"
+                @add_Item="add_FormLine"
+                @del_Item="del_FormLine"
+              >
+              </Top-Tools>
               <div class="formline_inner layout_row">
                 <!-- 每一个分栏 -->
                 <div
@@ -72,7 +65,7 @@
                     layout_td.active_status ? 'layout_td_active' : '',
                   ]"
                   @click.stop="
-                    choose_layout_td(index, area_index, line_index, td_key)
+                    choose_layout_td(index, area_Index, line_Index, td_key)
                   "
                 >
                   <!-- 分栏标题 -->
@@ -122,8 +115,11 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+// utils
+import TopTools from "../../components/usual/topTools";
 import render from "./render/render";
+// js
+import { mapState, mapMutations } from "vuex";
 export default {
   props: {
     addCount: Number,
@@ -133,6 +129,7 @@ export default {
   },
   components: {
     render,
+    TopTools,
   },
   data() {
     return {
@@ -295,22 +292,22 @@ export default {
           //   type: "basic_Input",
           // });
           // console.log(this.form)
-          console.log(this.choosedTd);
-          let area_index = this.choosedTd.area_index,
-            form_index = this.choosedTd.form_index,
-            line_index = this.choosedTd.line_index,
-            td_index = this.choosedTd.td_index;
-          this.containList.layouts[area_index].form_areas[
-            form_index
-          ].form_lines[line_index].form_tds[td_index] = {
+          
+          let area_Index = this.choosedTd.area_Index,
+            form_Index = this.choosedTd.form_Index,
+            line_Index = this.choosedTd.line_Index,
+            td_Index = this.choosedTd.td_Index;
+          console.log('start',area_Index,this.containList.layouts);
+          this.containList.layouts[area_Index].form_areas[
+            form_Index
+          ].form_lines[line_Index].form_tds[td_Index] = {
             active_status: true, // 此行被选中状态
             item_title: "1", //单项label
             item_tag: "el-input", //组件标签
             prop_name: "one", //model属性名称
             item_prop: "", //model属性值
           };
-          this.$forceUpdate();
-          console.log(this.containList.layouts)
+          // this.$forceUpdate();
           break;
           break;
         default:
@@ -337,97 +334,8 @@ export default {
   },
   methods: {
     ...mapMutations(["CHANGE_FORM", "CHANGE_CHOOSEDTD"]),
-    // 清空选中状态
-    cleanActive() {
-      this.containList.layouts.forEach((item) => {
-        item.form_areas.forEach((subItem) => {
-          subItem.form_lines.forEach((ele) => {
-            if (ele.active_status) {
-              ele.active_status = !ele.active_status;
-            }
-          });
-        });
-      });
-    },
-    // 选择内容区域
-    choose_areaItem(index, area_index) {
-      this.containList.layouts.forEach((item) => {
-        item.form_areas.forEach((ele) => {
-          if (ele.active_status) {
-            ele.active_status = false;
-          }
-        });
-      });
-      this.containList.layouts[index].form_areas[
-        area_index
-      ].active_status = true;
-    },
-    // 选择表格行
-    choose_FormLine(index, area_index, line_index) {
-      this.cleanActive();
-      // 选中行赋值
-      this.containList.layouts[index].form_areas[area_index].form_lines[
-        line_index
-      ].active_status = true;
-      console.log(index, area_index, line_index);
-    },
-    // 选中单个td
-    choose_layout_td(index, area_index, line_index, td_key) {
-      this.containList.layouts.forEach((item) => {
-        item.form_areas.forEach((ele) => {
-          ele.form_lines.forEach((line) => {
-            line.form_tds.forEach((td) => {
-              td.active_status = false;
-            });
-          });
-        });
-      });
-      this.containList.layouts[index].form_areas[area_index].form_lines[
-        line_index
-      ].form_tds[td_key].active_status = true;
-      let data = {
-        form_index: index, //单元格所在的最外层控件
-        area_index: area_index, //单元格所在的内容块
-        line_index: line_index, //单元格所在的行
-        td_index: td_key, //当前选中的单元格
-      };
-      this.CHANGE_CHOOSEDTD(data);
-    },
-    // 复制内容区域
-    add_areaItem(index, areaIndex) {
-      let item = this.deepCopy(
-        this.containList.layouts[index].form_areas[areaIndex]
-      );
-      item.active_status = false;
-      this.containList.layouts[index].form_areas.splice(areaIndex + 1, 0, item);
-    },
-    // 删除内容区域
-    del_areaItem(index, areaIndex) {
-      this.containList.layouts[index].form_areas.splice(areaIndex, 1);
-    },
-    // 新增表格行
-    add_FormLine(index, line_index) {
-      this.containList.layouts[index].InnerInfo.splice(line_index + 1, 0, {
-        active_status: false, // 此行被选中状态
-        InnerInfo: [
-          // 此行内容
-          {
-            title: "111",
-          },
-          {
-            title: "222",
-          },
-          {
-            title: "333",
-          },
-        ],
-      });
-      // console.log(this.containList)
-    },
-    // 删除表格行
-    del_FormLine(index, line_index) {
-      this.containList.layouts[index].InnerInfo.splice(line_index, 1);
-    },
+    // ************初始化控件**************
+    // 初始化表格控件
     init_layout_Form() {
       this.containList.layouts.push({
         type: "layout_Form", //布局控件类型
@@ -482,19 +390,140 @@ export default {
       });
       this.CHANGE_FORM(this.containList);
     },
-    // 深拷贝选中对象
-    deepCopy(obj) {
-      var result = Array.isArray(obj) ? [] : {};
-      for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (typeof obj[key] === "object" && obj[key] !== null) {
-            result[key] = this.deepCopy(obj[key]);
-          } else {
-            result[key] = obj[key];
+    // ***************************************
+
+    //********表格控件layout_Form**********
+    //***** 内容区域 *****
+    // 清空内容区域选择状态
+    cleanActive_areaItem() {
+      this.containList.layouts.forEach((item) => {
+        item.form_areas.forEach((ele) => {
+          if (ele.active_status) {
+            ele.active_status = false;
           }
-        }
-      }
-      return result;
+        });
+      });
+    },
+    // 选择内容区域
+    choose_areaItem(index, area_Index) {
+      this.cleanActive_areaItem();
+      this.cleanActive_FormLine();
+      this.cleanActive_layout_td();
+      this.containList.layouts[index].form_areas[
+        area_Index
+      ].active_status = true;
+    },
+    // 复制内容区域
+    add_areaItem(params) {
+      const index = params.index;
+      const area_Index = params.sec_Index;
+      // 深拷贝复制对象
+      const new_areaItem = JSON.parse(
+        JSON.stringify(this.containList.layouts[index].form_areas[area_Index])
+      );
+      new_areaItem.active_status = false;
+      // 复制
+      this.containList.layouts[index].form_areas.splice(
+        area_Index + 1,
+        0,
+        new_areaItem
+      );
+    },
+    // 删除内容区域
+    del_areaItem(params) {
+      const index = params.index;
+      const area_Index = params.sec_Index;
+      this.containList.layouts[index].form_areas.splice(area_Index, 1);
+    },
+    //***** 表格行 *****
+    // 清空表格行选中状态
+    cleanActive_FormLine() {
+      this.containList.layouts.forEach((item) => {
+        item.form_areas.forEach((subItem) => {
+          subItem.form_lines.forEach((ele) => {
+            if (ele.active_status) {
+              ele.active_status = !ele.active_status;
+            }
+          });
+        });
+      });
+    },
+    // 选择表格行
+    choose_FormLine(index, area_Index, line_Index) {
+      this.cleanActive_areaItem();
+      this.cleanActive_FormLine();
+      this.cleanActive_layout_td();
+      // 选中行赋值
+      this.containList.layouts[index].form_areas[area_Index].form_lines[
+        line_Index
+      ].active_status = true;
+      console.log(index, area_Index, line_Index);
+    },
+    // 复制表格行
+    add_FormLine(params) {
+      const index = params.index;
+      const area_Index = params.sec_Index;
+      const line_Index = params.thr_Index;
+      // 深拷贝复制对象
+      const new_lineItem = JSON.parse(
+        JSON.stringify(
+          this.containList.layouts[index].form_areas[area_Index].form_lines[
+            line_Index
+          ]
+        )
+      );
+      new_lineItem.active_status = false;
+      // 复制
+      this.containList.layouts[index].form_areas[area_Index].form_lines.splice(
+        line_Index + 1,
+        0,
+        new_lineItem
+      );
+    },
+    // 删除表格行
+    del_FormLine(params) {
+      const index = params.index;
+      const area_Index = params.sec_Index;
+      const line_Index = params.thr_Index;
+      this.containList.layouts[index].form_areas[area_Index].form_lines.splice(
+        line_Index,
+        1
+      );
+    },
+    //***** 单个表格td *****
+    // 清空td选中状态
+    cleanActive_layout_td() {
+      this.containList.layouts.forEach((item) => {
+        item.form_areas.forEach((ele) => {
+          ele.form_lines.forEach((line) => {
+            line.form_tds.forEach((td) => {
+              td.active_status = false;
+            });
+          });
+        });
+      });
+    },
+    // 选中单个td
+    choose_layout_td(index, area_Index, line_Index, td_key) {
+      this.containList.layouts.forEach((item) => {
+        item.form_areas.forEach((ele) => {
+          ele.form_lines.forEach((line) => {
+            line.form_tds.forEach((td) => {
+              td.active_status = false;
+            });
+          });
+        });
+      });
+      this.containList.layouts[index].form_areas[area_Index].form_lines[
+        line_Index
+      ].form_tds[td_key].active_status = true;
+      let data = {
+        form_Index: index, //单元格所在的最外层控件
+        area_Index: area_Index, //单元格所在的内容块
+        line_Index: line_Index, //单元格所在的行
+        td_Index: td_key, //当前选中的单元格
+      };
+      this.CHANGE_CHOOSEDTD(data);
     },
   },
 };

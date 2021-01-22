@@ -45,10 +45,10 @@
 
     // 顶部工具栏（复制、删除）
     .topTools {
+      z-index: 999;
       width: 100px;
       height: 24px;
       border-radius: 0 0 0 100px;
-      background: #79BBFF;
       display: flex;
 
       .tool {
@@ -104,6 +104,15 @@
       // padding: 4px;
       border: 6px solid transparent;
       box-sizing: border-box;
+      position: relative;
+
+      // 顶部工具栏
+      .topTools_Form_line {
+        background: #79BBFF;
+        position: absolute;
+        right: 0;
+        top: -5px;
+      }
 
       // 内层
       .formline_inner {
@@ -201,10 +210,10 @@
   }
 
   .layout_td:hover {
-    background: tomato;
+    background: #FFB4A7;
   }
   .layout_td_active {
-    background: tomato;
+    background:#FFB4A7;
   }
 
 
