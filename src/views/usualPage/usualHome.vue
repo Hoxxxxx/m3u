@@ -70,7 +70,11 @@
     <div class="mainContainer">
       <!-- 左侧边栏 -->
       <div class="LEFT">
-        <left-Container @activeBtn="getActiveBtn"> </left-Container>
+        <left-Container
+          @activeBtn="getActiveBtn"
+          @activeLayOut="getActiveLayOut"
+        >
+        </left-Container>
       </div>
       <!-- 右侧边栏 -->
       <div class="RIGHT">
@@ -80,7 +84,12 @@
       <!-- 中间内容栏 -->
       <div class="MAIN">
         <!-- limeiqi -->
-        <main-Container :addCount="addCount" :addBtn="addBtn"></main-Container>
+        <main-Container
+          :addCount="addCount"
+          :addBtn="addBtn"
+          :layoutCount="layoutCount"
+          :layout="layout"
+        ></main-Container>
       </div>
     </div>
   </div>
@@ -103,6 +112,8 @@ export default {
       // 左侧传入数据
       addCount: 0, //添加按钮计数
       addBtn: "", //用户点击的按钮值
+      layoutCount: 0, //布局控件计数
+      layout: "", //布局控件类型值
       // 右侧传入数据
     };
   },
@@ -111,6 +122,10 @@ export default {
     getActiveBtn(btn) {
       this.addBtn = btn;
       this.addCount++;
+    },
+    getActiveLayOut(btn) {
+      this.layout = btn;
+      this.layoutCount++;
     },
   },
 };

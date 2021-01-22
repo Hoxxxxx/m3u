@@ -14,6 +14,9 @@ const mutations = {
   },
   [types.CHANGE_FORM](state, val) {
     state.form = val ? val : {}
+  },
+  [types.CHANGE_CHOOSEDTD](state, val) {
+    state.choosedTd = val ? val : {}
   }
 }
 export default mutations

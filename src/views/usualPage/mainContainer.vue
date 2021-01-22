@@ -22,7 +22,7 @@
               class="area_title"
               v-if="area_item.title"
               @click.capture="choose_areaItem(index, area_index)"
-            > 
+            >
               <h2>{{ area_item.title }}</h2>
               <!-- 顶部工具栏_第一层级 -->
               <div
@@ -81,7 +81,8 @@
                   </div>
                   <!-- 分栏内容/组件 -->
                   <div class="layout_td_cont">
-                    <render :tag="layout_td"></render>
+                    <render :tag="layout_td" v-if="layout_td.item_tag"></render>
+                    <div class="layout_td_cont_none" v-else>请选择左侧控件</div>
                   </div>
                 </div>
               </div>
@@ -127,12 +128,8 @@ export default {
   props: {
     addCount: Number,
     addBtn: String,
-    layout: {
-      type: Object,
-      default: function () {
-        return {};
-      },
-    },
+    layoutCount: Number,
+    layout: String,
   },
   components: {
     render,
@@ -143,7 +140,145 @@ export default {
       containList: {
         formRef: "elForm",
         formModel: "formData",
-        layouts: [],
+        layouts: [
+          {
+            type: "layout_Form", //布局控件类型
+            form_areas: [
+              {
+                title: "基本信息（内容区域1）",
+                active_status: false, // 此行被选中状态
+                form_lines: [
+                  {
+                    active_status: false, // 此行被选中状态
+                    layout: 3,
+                    form_tds: [
+                      //当前行组件集合
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "1", //单项label
+                        item_tag: "el-input", //组件标签
+                        prop_name: "one", //model属性名称
+                        item_prop: "", //model属性值
+                      },
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "2", //单项label
+                        item_tag: "el-date-picker", //组件标签
+                        prop_name: "two", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: "2021-01-01",
+                      },
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "3", //单项label
+                        item_tag: "el-select", //组件标签
+                        prop_name: "three", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: 1,
+                        options: [
+                          {
+                            value: 1,
+                            label: "黄金糕123456",
+                          },
+                          {
+                            value: "2",
+                            label: "双皮奶789456",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    active_status: false, // 此行被选中状态
+                    layout: 3,
+                    form_tds: [
+                      //当前行组件集合
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "1", //单项label
+                        item_tag: "el-input", //组件标签
+                        prop_name: "one", //model属性名称
+                        item_prop: "", //model属性值
+                      },
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "2", //单项label
+                        item_tag: "el-date-picker", //组件标签
+                        prop_name: "two", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: "2021-01-31",
+                      },
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "3", //单项label
+                        item_tag: "el-select", //组件标签
+                        prop_name: "three", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: 1,
+                        options: [
+                          {
+                            value: 1,
+                            label: "黄金糕",
+                          },
+                          {
+                            value: "2",
+                            label: "双皮奶",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                title: "学历信息（内容区域2）",
+                active_status: false, // 此行被选中状态
+                form_lines: [
+                  {
+                    active_status: false, // 此行被选中状态
+                    layout: 3,
+                    form_tds: [
+                      //当前行组件集合
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "1", //单项label
+                        item_tag: "el-input", //组件标签
+                        prop_name: "one", //model属性名称
+                        item_prop: "", //model属性值
+                      },
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "2", //单项label
+                        item_tag: "el-date-picker", //组件标签
+                        prop_name: "two", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: "2021-01-01",
+                      },
+                      {
+                        active_status: false, // 此行被选中状态
+                        item_title: "3", //单项label
+                        item_tag: "el-select", //组件标签
+                        prop_name: "three", //model属性名称
+                        item_prop: "", //model属性值
+                        prop_val: 1,
+                        options: [
+                          {
+                            value: 1,
+                            label: "黄金糕123456",
+                          },
+                          {
+                            value: "2",
+                            label: "双皮奶789456",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     };
   },
@@ -160,8 +295,31 @@ export default {
           //   type: "basic_Input",
           // });
           // console.log(this.form)
+          console.log(this.choosedTd);
+          let area_index = this.choosedTd.area_index,
+            form_index = this.choosedTd.form_index,
+            line_index = this.choosedTd.line_index,
+            td_index = this.choosedTd.td_index;
+          this.containList.layouts[area_index].form_areas[
+            form_index
+          ].form_lines[line_index].form_tds[td_index] = {
+            active_status: true, // 此行被选中状态
+            item_title: "1", //单项label
+            item_tag: "el-input", //组件标签
+            prop_name: "one", //model属性名称
+            item_prop: "", //model属性值
+          };
+          this.$forceUpdate();
+          console.log(this.containList.layouts)
           break;
-        // *****布局控件*****
+          break;
+        default:
+          break;
+      }
+    },
+    // *****布局控件*****
+    layoutCount(newVal) {
+      switch (this.layout) {
         // 表格控件
         case "layout_Form":
           this.init_layout_Form();
@@ -172,13 +330,13 @@ export default {
     },
   },
   computed: {
-    ...mapState(["form"]),
+    ...mapState(["form", "choosedTd"]),
   },
   created() {
     // this.init_layout_Form();
   },
   methods: {
-    ...mapMutations(["CHANGE_FORM"]),
+    ...mapMutations(["CHANGE_FORM", "CHANGE_CHOOSEDTD"]),
     // 清空选中状态
     cleanActive() {
       this.containList.layouts.forEach((item) => {
@@ -227,6 +385,13 @@ export default {
       this.containList.layouts[index].form_areas[area_index].form_lines[
         line_index
       ].form_tds[td_key].active_status = true;
+      let data = {
+        form_index: index, //单元格所在的最外层控件
+        area_index: area_index, //单元格所在的内容块
+        line_index: line_index, //单元格所在的行
+        td_index: td_key, //当前选中的单元格
+      };
+      this.CHANGE_CHOOSEDTD(data);
     },
     // 复制内容区域
     add_areaItem(index, areaIndex) {
@@ -268,7 +433,7 @@ export default {
         type: "layout_Form", //布局控件类型
         form_areas: [
           {
-            title: "基本信息（内容区域1）",
+            title: "默认标题（内容区域1）",
             active_status: false, // 此行被选中状态
             form_lines: [
               {
@@ -279,93 +444,7 @@ export default {
                   {
                     active_status: false, // 此行被选中状态
                     item_title: "1", //单项label
-                    item_tag: "el-input", //组件标签
-                    prop_name: "one", //model属性名称
-                    item_prop: "", //model属性值
-                  },
-                  {
-                    active_status: false, // 此行被选中状态
-                    item_title: "2", //单项label
-                    item_tag: "el-date-picker", //组件标签
-                    prop_name: "two", //model属性名称
-                    item_prop: "", //model属性值
-                    prop_val: "2021-01-01",
-                  },
-                  {
-                    active_status: false, // 此行被选中状态
-                    item_title: "3", //单项label
-                    item_tag: "el-select", //组件标签
-                    prop_name: "three", //model属性名称
-                    item_prop: "", //model属性值
-                    prop_val: 1,
-                    options: [
-                      {
-                        value: 1,
-                        label: "黄金糕123456",
-                      },
-                      {
-                        value: "2",
-                        label: "双皮奶789456",
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                active_status: false, // 此行被选中状态
-                layout: 3,
-                form_tds: [
-                  //当前行组件集合
-                  {
-                    active_status: false, // 此行被选中状态
-                    item_title: "1", //单项label
-                    item_tag: "el-input", //组件标签
-                    prop_name: "one", //model属性名称
-                    item_prop: "", //model属性值
-                  },
-                  {
-                    active_status: false, // 此行被选中状态
-                    item_title: "2", //单项label
-                    item_tag: "el-date-picker", //组件标签
-                    prop_name: "two", //model属性名称
-                    item_prop: "", //model属性值
-                    prop_val: "2021-01-31",
-                  },
-                  {
-                    active_status: false, // 此行被选中状态
-                    item_title: "3", //单项label
-                    item_tag: "el-select", //组件标签
-                    prop_name: "three", //model属性名称
-                    item_prop: "", //model属性值
-                    prop_val: 1,
-                    options: [
-                      {
-                        value: 1,
-                        label: "黄金糕",
-                      },
-                      {
-                        value: "2",
-                        label: "双皮奶",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            title: "学历信息（内容区域2）",
-            active_status: false, // 此行被选中状态
-            form_lines: [
-              {
-                active_status: false, // 此行被选中状态
-                layout: 3,
-                form_tds: [
-                  //当前行组件集合
-                  {
-                    active_status: false, // 此行被选中状态
-                    item_title: "1", //单项label
-                    item_tag: "el-input", //组件标签
+                    // item_tag: "el-input", //组件标签
                     prop_name: "one", //model属性名称
                     item_prop: "", //model属性值
                   },
@@ -418,7 +497,6 @@ export default {
       return result;
     },
   },
-  
 };
 </script>
 

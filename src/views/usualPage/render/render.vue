@@ -4,6 +4,16 @@ export default {
   data() {
     return {};
   },
+  watch:{
+    tag:{
+      handler(newVal){
+        console.log(newVal)
+        // this.$render(newVal)
+        this.$forceUpdate();
+      },
+      deep:true
+    }
+  },
   props: {
     tag: {
       type: Object,
