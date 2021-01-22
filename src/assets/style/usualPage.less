@@ -109,7 +109,8 @@
       .formline_inner {
         width: 100%;
         height: 100%;
-        background: #DFEFFF;
+        // background: #DFEFFF;
+        background: rgb(246,246,246);
       }
 
       // 表格行
@@ -157,20 +158,7 @@
           }
         }
 
-        .layout_td:hover {
-          background: #79BBFF;
-          // position: relative;
-          // z-index: 100;
-          // &::before{
-          //   content: '';
-          //   display: block;
-          //   position: absolute;
-          //   left: 0;
-          //   top: 0;
-          //   z-index: 1000;
-          //   background: red;
-          // }
-        }
+        
       }
     }
 
@@ -207,6 +195,13 @@
     }
   }
 
+  .layout_td:hover {
+    background: tomato;
+  }
+  .layout_td_active {
+    background: tomato;
+  }
+
 
 
 
@@ -215,12 +210,6 @@
   // 分栏样式
   .rows_1 {
     flex: 0 1 100% !important;
-
-    &.layout_td {
-      &:first-child {
-        // margin-top: 4px!important;
-      }
-    }
   }
 
   .rows_2 {
