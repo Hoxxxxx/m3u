@@ -192,6 +192,13 @@ export default {
       this.$set(this.containList.layouts[index].form_areas[areaIndex+1], 'active_status', false)
       console.log('2', this.containList.layouts[index].form_areas[areaIndex+1].active_status)
       // this.choose_areaItem(index, areaIndex)
+      this.containList.layouts.forEach((item) => {
+        item.form_areas.forEach((ele) => {
+          if (ele.active_status) {
+            ele.active_status = false;
+          }
+        });
+      });
     },
     // 删除内容区域
     del_areaItem(index, areaIndex) {
