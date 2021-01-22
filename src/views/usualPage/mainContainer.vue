@@ -21,8 +21,8 @@
             <div
               class="area_title"
               v-if="area_item.title"
-              @click="choose_areaItem(index, area_index)"
-            >
+              @click.capture="choose_areaItem(index, area_index)"
+            > 
               <h2>{{ area_item.title }}</h2>
               <!-- 顶部工具栏_第一层级 -->
               <div
@@ -37,7 +37,7 @@
                 >
                   <div
                     class="tool copy"
-                    @click="add_areaItem(index, area_index)"
+                    @click.capture="add_areaItem(index, area_index)"
                   ></div>
                 </el-tooltip>
                 <el-tooltip
@@ -48,7 +48,7 @@
                 >
                   <div
                     class="tool delete"
-                    @click="del_areaItem(index, area_index)"
+                    @click.capture="del_areaItem(index, area_index)"
                   ></div>
                 </el-tooltip>
               </div>
@@ -147,6 +147,30 @@ export default {
       },
     };
   },
+  watch: {
+    // 用户每点击一次按钮，都触发添加组件动作
+    addCount(newVal) {
+      // 此处判断用户添加的按钮类型
+      // 依据类型向containList（内容列表）中添加其格式的预设参数
+      switch (this.addBtn) {
+        // *****基础控件*****
+        // 输入框
+        case "basic_Input":
+          // this.containList.layouts.push({
+          //   type: "basic_Input",
+          // });
+          // console.log(this.form)
+          break;
+        // *****布局控件*****
+        // 表格控件
+        case "layout_Form":
+          this.init_layout_Form();
+          break;
+        default:
+          break;
+      }
+    },
+  },
   computed: {
     ...mapState(["form"]),
   },
@@ -191,7 +215,6 @@ export default {
     },
     // 选中单个td
     choose_layout_td(index, area_index, line_index, td_key) {
-      console.log(12);
       this.containList.layouts.forEach((item) => {
         item.form_areas.forEach((ele) => {
           ele.form_lines.forEach((line) => {
@@ -207,23 +230,15 @@ export default {
     },
     // 复制内容区域
     add_areaItem(index, areaIndex) {
-      this.containList.layouts[index].form_areas.splice(
-        areaIndex + 1, 
-        0,
+      let item = this.deepCopy(
         this.containList.layouts[index].form_areas[areaIndex]
-      )
-      console.log('1', this.containList.layouts[index].form_areas[areaIndex+1].active_status)
-      this.$set(this.containList.layouts[index].form_areas[areaIndex+1], 'active_status', false)
-      console.log('2', this.containList.layouts[index].form_areas[areaIndex+1].active_status)
-      // this.choose_areaItem(index, areaIndex)
+      );
+      item.active_status = false;
+      this.containList.layouts[index].form_areas.splice(areaIndex + 1, 0, item);
     },
     // 删除内容区域
     del_areaItem(index, areaIndex) {
       this.containList.layouts[index].form_areas.splice(areaIndex, 1);
-    },
-    // 复制表格行
-    choose_layout_td(){
-      console.log(12)
     },
     // 新增表格行
     add_FormLine(index, line_index) {
@@ -388,31 +403,22 @@ export default {
       });
       this.CHANGE_FORM(this.containList);
     },
-  },
-  watch: {
-    // 用户每点击一次按钮，都触发添加组件动作
-    addCount(newVal) {
-      // 此处判断用户添加的按钮类型
-      // 依据类型向containList（内容列表）中添加其格式的预设参数
-      switch (this.addBtn) {
-        // *****基础控件*****
-        // 输入框
-        case "basic_Input":
-          // this.containList.layouts.push({
-          //   type: "basic_Input",
-          // });
-          // console.log(this.form)
-          break;
-        // *****布局控件*****
-        // 表格控件
-        case "layout_Form":
-          this.init_layout_Form();
-          break;
-        default:
-          break;
+    // 深拷贝选中对象
+    deepCopy(obj) {
+      var result = Array.isArray(obj) ? [] : {};
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          if (typeof obj[key] === "object" && obj[key] !== null) {
+            result[key] = this.deepCopy(obj[key]);
+          } else {
+            result[key] = obj[key];
+          }
+        }
       }
+      return result;
     },
   },
+  
 };
 </script>
 
