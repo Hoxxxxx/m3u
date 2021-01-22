@@ -255,7 +255,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4966;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 1174;
     this.getworkflows();
     this.getAzis();
   },
