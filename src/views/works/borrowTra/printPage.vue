@@ -232,7 +232,7 @@ export default {
       timeNow: timeFmt(),
       overloading: '', //加载定时器
       workid: '',
-      workname: '出差借款申请',
+      workname: '出差申请',
       activeTab: "firTab",
       tableData: {},
       // 汇率数据

@@ -486,7 +486,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: '',
-      workName:"出差借款申请",//流程名
+      workName:"出差申请",//流程名
       showData:{
         oaa04_show: "", //申请人
         oaa04_gen01: "", //申请人编号

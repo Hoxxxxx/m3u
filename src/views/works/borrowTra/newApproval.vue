@@ -626,7 +626,7 @@ export default {
     return {
       overloading: '', //加载定时器
       workid: '',
-      workName: '出差借款申请',
+      workName: '出差申请',
       more:[],//查看更多
       activeTab: "firTab",
       tableData: {},
