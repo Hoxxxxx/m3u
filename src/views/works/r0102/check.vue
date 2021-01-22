@@ -500,8 +500,8 @@
                     <el-date-picker
                       v-model="tableData.oaz03"
                       type="date"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
                       disabled
                     >
                     </el-date-picker>
@@ -640,7 +640,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 1130
     // this.workid = 4374
     this.getAzi()
     this.getPma()
