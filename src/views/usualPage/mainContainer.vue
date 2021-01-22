@@ -140,6 +140,30 @@ export default {
       },
     };
   },
+  watch: {
+    // 用户每点击一次按钮，都触发添加组件动作
+    addCount(newVal) {
+      // 此处判断用户添加的按钮类型
+      // 依据类型向containList（内容列表）中添加其格式的预设参数
+      switch (this.addBtn) {
+        // *****基础控件*****
+        // 输入框
+        case "basic_Input":
+          // this.containList.layouts.push({
+          //   type: "basic_Input",
+          // });
+          // console.log(this.form)
+          break;
+        // *****布局控件*****
+        // 表格控件
+        case "layout_Form":
+          this.init_layout_Form();
+          break;
+        default:
+          break;
+      }
+    },
+  },
   computed: {
     ...mapState(["form"]),
   },
@@ -428,8 +452,10 @@ export default {
         default:
           break;
       }
+      return result;
     },
   },
+  
 };
 </script>
 
