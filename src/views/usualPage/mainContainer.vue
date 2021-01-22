@@ -412,6 +412,14 @@ export default {
       this.containList.layouts[index].form_areas[
         area_Index
       ].active_status = true;
+      if(this.containList.layouts[index].form_areas[area_Index]){
+        this.cleanActive_areaItem()
+        this.cleanActive_FormLine()
+        this.cleanActive_layout_td()
+        this.containList.layouts[index].form_areas[
+          area_Index
+        ].active_status = true;
+      }
     },
     // 复制内容区域
     add_areaItem(params) {
@@ -450,14 +458,16 @@ export default {
     },
     // 选择表格行
     choose_FormLine(index, area_Index, line_Index) {
-      this.cleanActive_areaItem();
-      this.cleanActive_FormLine();
-      this.cleanActive_layout_td();
-      // 选中行赋值
-      this.containList.layouts[index].form_areas[area_Index].form_lines[
-        line_Index
-      ].active_status = true;
-      console.log(index, area_Index, line_Index);
+      if(this.containList.layouts[index].form_areas[area_Index]){
+        this.cleanActive_areaItem()
+        this.cleanActive_FormLine()
+        this.cleanActive_layout_td()
+        // 选中行赋值
+        this.containList.layouts[index].form_areas[area_Index].form_lines[
+          line_Index
+        ].active_status = true;
+        // console.log(index, area_Index, line_Index);
+      }
     },
     // 复制表格行
     add_FormLine(params) {
@@ -482,13 +492,14 @@ export default {
     },
     // 删除表格行
     del_FormLine(params) {
-      const index = params.index;
-      const area_Index = params.sec_Index;
-      const line_Index = params.thr_Index;
-      this.containList.layouts[index].form_areas[area_Index].form_lines.splice(
-        line_Index,
-        1
-      );
+      const index = params.index
+      const area_Index = params.sec_Index
+      const line_Index = params.thr_Index
+      if (this.containList.layouts[index].form_areas[area_Index].form_lines.length > 1) {
+        this.containList.layouts[index].form_areas[area_Index].form_lines.splice(line_Index, 1);
+      } else {
+        this.del_areaItem(params)
+      }
     },
     //***** 单个表格td *****
     // 清空td选中状态
@@ -524,6 +535,34 @@ export default {
         td_Index: td_key, //当前选中的单元格
       };
       this.CHANGE_CHOOSEDTD(data);
+    },
+
+  },
+
+
+  watch: {
+    // 用户每点击一次按钮，都触发添加组件动作
+    addCount(newVal) {
+      // 此处判断用户添加的按钮类型
+      // 依据类型向containList（内容列表）中添加其格式的预设参数
+      switch (this.addBtn) {
+        // *****基础控件*****
+        // 输入框
+        case "basic_Input":
+          // this.containList.layouts.push({
+          //   type: "basic_Input",
+          // });
+          // console.log(this.form)
+          break;
+        // *****布局控件*****
+        // 表格控件
+        case "layout_Form":
+          this.init_layout_Form();
+          break;
+        default:
+          break;
+      }
+      // return result;
     },
   },
 };
