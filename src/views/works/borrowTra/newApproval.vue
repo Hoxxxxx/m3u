@@ -94,39 +94,13 @@
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa32') ? 'redPot' : ''">预计结束时间</span>
                 </div>
-                <div class="infobox middlebox datebox">
+                <div class="infobox middlebox datebox last_row">
                   <el-date-picker
                     v-model="tableData.oaa32"
                     type="date"
                     format="yyyy/MM/dd"
                     value-format="yyyy/MM/dd"
                     :disabled="table_able.includes('oaa32')?false:true"
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa33') ? 'redPot' : ''">实际开始时间</span>
-                </div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa33"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    :disabled="table_able.includes('oaa33')?false:true"
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa34') ? 'redPot' : ''">实际结束时间</span>
-                </div>
-                <div class="infobox middlebox datebox last_row">
-                  <el-date-picker
-                    v-model="tableData.oaa34"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                    :disabled="table_able.includes('oaa34')?false:true"
                   >
                   </el-date-picker>
                 </div>
@@ -152,6 +126,7 @@
                   <el-radio-group class="radioGroup" v-model="tableData.oaa35">
                     <el-radio :label="1" :disabled="table_able.includes('oaa35') ? false : true">一般地区</el-radio>
                     <el-radio :label="2" :disabled="table_able.includes('oaa35') ? false : true">特殊地区</el-radio>
+                    <el-radio :label="3" :disabled="table_able.includes('oaa35') ? false : true">沿海 / 省会地区</el-radio>
                   </el-radio-group>
                   <div class="columLine"></div>
                   <input
@@ -1173,7 +1148,7 @@ export default {
     position: absolute;
     height: 40px;
     width: 1px;
-    left: 230px;
+    left: 380px;
     background: #CCCCCC;
   }
 }

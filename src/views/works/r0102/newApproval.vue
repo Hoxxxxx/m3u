@@ -422,7 +422,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must_oaf"
+                  :header-cell-class-name="'must_oaf'"
                 >
                   <el-table-column
                     prop="id"
@@ -715,7 +715,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must_oac"
+                  :header-cell-class-name="'must_oac'"
                 >
                   <el-table-column
                     prop="id"
@@ -951,7 +951,7 @@
                   element-loading-spinner="el-icon-loading"
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must_oad"
+                  :header-cell-class-name="'must_oad'"
                 >
                   <el-table-column
                     prop="oad01"
@@ -1386,6 +1386,10 @@ export default {
           { name: "gec07", title: "单价含税否" },
           { name: "gec08", title: "媒体申报格式" },
           { name: "gec11", title: "进 / 销项" },
+        ],
+        head_obas: [
+          { name: "oba01", title: "产品分类编号" },
+          { name: "oba02", title: "产品分类名称" },
         ],
         head_pjas: [
           { name: "gja01", title: "项目编号" },
@@ -1927,6 +1931,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_gecs;
           this.dataSelect.dialogTitle = "税别列表";
           break;
+        case "getobasList":
+          let filter_obas = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_obas;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/obas";
+          this.dataSelect.headList = this.tableHead.head_obas;
+          this.dataSelect.dialogTitle = "产品分类列表";
+          break;
         case "getpjasList":
           let filter_pjas = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_pjas;
@@ -2068,6 +2081,14 @@ export default {
               this.tableData.oac[this.rowIndex].oac12 = val[0].gec01;
             }
             break;
+          case "getobasList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].oba01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].oba01;
+            }
+            break;
           case "getpjasList":
             console.log(this.oacType);
             if(this.oacType == 'oac11'){
@@ -2116,6 +2137,9 @@ export default {
           case "N20":
             this.selectDialog("getgecsList", val);
             break;
+          case "N22":
+            this.selectDialog("getobasList", val);
+            break;
           case "N23":
             this.selectDialog("getpjasList", val);
             break;
@@ -2151,6 +2175,9 @@ export default {
             break;
           case "N20":
             this.selectDialog("getgecsList", val);
+            break;
+          case "N22":
+            this.selectDialog("getobasList", val);
             break;
           case "N23":
             this.selectDialog("getpjasList", val);

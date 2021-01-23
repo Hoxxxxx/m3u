@@ -79,33 +79,9 @@
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa32') ? 'redPot' : ''">预计结束时间</span>
                 </div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa32"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa33') ? 'redPot' : ''">实际开始时间</span>
-                </div>
-                <div class="infobox middlebox datebox">
-                  <el-date-picker
-                    v-model="tableData.oaa33"
-                    type="date"
-                    format="yyyy/MM/dd"
-                    value-format="yyyy/MM/dd"
-                  >
-                  </el-date-picker>
-                </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa34') ? 'redPot' : ''">实际结束时间</span>
-                </div>
                 <div class="infobox middlebox datebox last_row">
                   <el-date-picker
-                    v-model="tableData.oaa34"
+                    v-model="tableData.oaa32"
                     type="date"
                     format="yyyy/MM/dd"
                     value-format="yyyy/MM/dd"
@@ -133,6 +109,7 @@
                   <el-radio-group class="radioGroup" v-model="tableData.oaa35">
                     <el-radio :label="1">一般地区</el-radio>
                     <el-radio :label="2">特殊地区</el-radio>
+                    <el-radio :label="3">沿海 / 省会地区</el-radio>
                   </el-radio-group>
                   <div class="columLine"></div>
                   <input
@@ -476,7 +453,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { gensList, azisList, pmasList, pjasList, pjbsList,mustItem } from "@/api/basic";
+import { gensList, azisList, pmasList, pjasList, pjbsList,mustItem, userInfo } from "@/api/basic";
 import { addFlow, editFlow, } from "@/api/process_new";
 import {OpenLoading} from "@/utils/utils"
 
@@ -522,8 +499,6 @@ export default {
         oaa30: '',
         oaa31: '',
         oaa32: '',
-        oaa33: '',
-        oaa34: '',
         oaa35: '',
         oaa36: '',
         oaa37: '',
@@ -604,9 +579,7 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8941
-    let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
-    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
-    this.tableData.oaa03_show = oauserinfo.oaname
+    this.initOAuserInfo()
     this.getGens()
     this.getAzis()
     this.getPmas()
@@ -615,6 +588,21 @@ export default {
     this.getMustItem()
   },
   methods: {
+    initOAuserInfo() {
+      let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
+      this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
+      this.tableData.oaa03_show = oauserinfo.oaname
+      if(oauserinfo.oauserid) {
+        userInfo(oauserinfo.oauserid)
+        .then(res => {
+          if(res.status == 200){
+            this.tableData.oaa05 = res.data.phone
+          }else{
+            this.$message.warning("用户信息获取失败！" + result.error.message);
+          }
+        })
+      }
+    },
     getMustItem(){
       let params={
         tplid:this.addParams.tplid
@@ -937,7 +925,7 @@ export default {
     position: absolute;
     height: 40px;
     width: 1px;
-    left: 230px;
+    left: 380px;
     background: #CCCCCC;
   }
 }

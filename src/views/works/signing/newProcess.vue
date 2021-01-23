@@ -446,7 +446,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { htList, mustItem } from "@/api/basic";
+import { htList, mustItem, userInfo } from "@/api/basic";
 import { addFlow, editFlow } from "@/api/process_new";
 import { OpenLoading } from "@/utils/utils";
 
@@ -573,6 +573,7 @@ export default {
     this.addParams.tplid = this.$route.query.tplid
       ? this.$route.query.tplid
       : 8984;
+    this.initOAuserInfo()
     this.getMustItem();
   },
   watch:{
@@ -592,6 +593,21 @@ export default {
     }
   },
   methods: {
+    initOAuserInfo() {
+      let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
+      this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
+      this.showData.oaa03_show = oauserinfo.oaname
+      if(oauserinfo.oauserid) {
+        userInfo(oauserinfo.oauserid)
+        .then(res => {
+          if(res.status == 200){
+            this.tableData.oaa05 = res.data.phone
+          }else{
+            this.$message.warning("用户信息获取失败！" + result.error.message);
+          }
+        })
+      }
+    },
     getMustItem() {
       let params = {
         tplid: this.addParams.tplid,

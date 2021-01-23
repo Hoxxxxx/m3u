@@ -298,7 +298,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { htList, mustItem } from "@/api/basic";
+import { htList, mustItem, userInfo } from "@/api/basic";
 import { addFlow, editFlow } from "@/api/process_new";
 import {OpenLoading} from "@/utils/utils"
 
@@ -401,15 +401,30 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8954;
-    let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
-    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
-    this.showData.oaa03_show = oauserinfo.oaname;
-    this.tableData.oaa04 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
-    this.showData.oaa04_show = oauserinfo.oaname;
+    this.initOAuserInfo()
     this.getHT();
     this.getMustItem()
   },
   methods: {
+    initOAuserInfo() {
+      let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
+      this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
+      this.showData.oaa03_show = oauserinfo.oaname;
+      this.tableData.oaa04 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
+      this.showData.oaa04_show = oauserinfo.oaname;
+      if(oauserinfo.oauserid) {
+        userInfo(oauserinfo.oauserid)
+        .then(res => {
+          if(res.status == 200){
+            this.tableData.oaa05 = res.data.phone
+            this.tableData.oaa06 = res.data.department_id
+            this.showData.oaa06_show = res.data.department_show
+          }else{
+            this.$message.warning("用户信息获取失败！" + result.error.message);
+          }
+        })
+      }
+    },
     getMustItem(){
       let params={
         tplid:this.addParams.tplid
@@ -418,7 +433,7 @@ export default {
         if(res.status == 200){
           this.form_must = res.data.form_able
         }else{
-          console.log('必填项获取失败！')
+          this.$message.warning("必填项获取失败！" + result.error.message);
         }
       })
     },

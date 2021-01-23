@@ -47,11 +47,7 @@
                 <div class="titlebox">预计开始时间</div>
                 <div class="infobox middlebox">{{tableData.oaa31}}</div>
                 <div class="titlebox">预计结束时间</div>
-                <div class="infobox middlebox">{{tableData.oaa32}}</div>
-                <div class="titlebox">实际开始时间</div>
-                <div class="infobox middlebox">{{tableData.oaa33}}</div>
-                <div class="titlebox">实际结束时间</div>
-                <div class="infobox middlebox last_row">{{tableData.oaa34}}</div>
+                <div class="infobox middlebox last_row">{{tableData.oaa32}}</div>
               </div>
               <div class="form_line">
                 <div class="titlebox">出差目的</div>
@@ -63,6 +59,7 @@
                   <el-radio-group class="radioGroup" v-model="tableData.oaa35">
                     <el-radio :label="1" disabled>一般地区</el-radio>
                     <el-radio :label="2" disabled>特殊地区</el-radio>
+                    <el-radio :label="3" disabled>沿海 / 省会地区</el-radio>
                   </el-radio-group>
                   {{tableData.oaa36}}
                 </div>

@@ -780,7 +780,7 @@
 import SelectData from "@/components/selectData";
 import { dateFmt, number_chinese, fomatFloat,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
-import { mustItem, invoicesInfo } from "@/api/basic";
+import { mustItem, invoicesInfo, userInfo } from "@/api/basic";
 
 export default {
   components: { SelectData },
@@ -1012,14 +1012,27 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8987;
-    let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
-    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
-    this.tableData.oaa03_show = oauserinfo.oaname;
+    this.initOAuserInfo()
     this.addRow2();
     this.addRow1();
     this.getMustItem()
   },
   methods: {
+    initOAuserInfo() {
+      let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
+      this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
+      this.tableData.oaa03_show = oauserinfo.oaname
+      if(oauserinfo.oauserid) {
+        userInfo(oauserinfo.oauserid)
+        .then(res => {
+          if(res.status == 200){
+            this.tableData.oaa05 = res.data.phone
+          }else{
+            this.$message.warning("用户信息获取失败！" + result.error.message);
+          }
+        })
+      }
+    },
     getMustItem(){
       let params={
         tplid:this.addParams.tplid

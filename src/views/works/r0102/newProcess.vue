@@ -844,6 +844,7 @@ import {
   pjbsList,
   aagsList,
   pjasList,
+  userInfo
 } from "@/api/basic.js";
 
 export default {
@@ -1021,6 +1022,10 @@ export default {
           { name: "gec08", title: "媒体申报格式" },
           { name: "gec11", title: "进 / 销项" },
         ],
+        head_obas: [
+          { name: "oba01", title: "产品分类编号" },
+          { name: "oba02", title: "产品分类名称" },
+        ],
         head_pjas: [
           { name: "gja01", title: "项目编号" },
           { name: "gja02", title: "项目名称" },
@@ -1030,9 +1035,7 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8950
-    let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
-    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
-    this.tableData.oaa03_show = oauserinfo.oaname
+    this.initOAuserInfo()
     this.addRow1();
     this.addRow2();
     this.getAzi(); //币种列表
@@ -1094,6 +1097,21 @@ export default {
     },
   },
   methods: {
+    initOAuserInfo() {
+      let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
+      this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
+      this.tableData.oaa03_show = oauserinfo.oaname
+      if(oauserinfo.oauserid) {
+        userInfo(oauserinfo.oauserid)
+        .then(res => {
+          if(res.status == 200){
+            this.tableData.oaa05 = res.data.phone
+          }else{
+            this.$message.warning("用户信息获取失败！" + result.error.message);
+          }
+        })
+      }
+    },
     getMustItem(){
       let params={
         tplid:this.addParams.tplid
@@ -1519,6 +1537,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_gecs;
           this.dataSelect.dialogTitle = "税别列表";
           break;
+        case "getobasList":
+          let filter_obas = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_obas;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/obas";
+          this.dataSelect.headList = this.tableHead.head_obas;
+          this.dataSelect.dialogTitle = "产品分类列表";
+          break;
         case "getpjasList":
           let filter_pjas = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_pjas;
@@ -1643,6 +1670,14 @@ export default {
               this.tableData.oac[this.rowIndex].oac12 = val[0].gec01;
             }
             break;
+          case "getobasList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].oba01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].oba01;
+            }
+            break;
           case "getpjasList":
             console.log(this.oacType);
             if(this.oacType == 'oac11'){
@@ -1691,6 +1726,9 @@ export default {
           case "N20":
             this.selectDialog("getgecsList", val);
             break;
+          case "N22":
+            this.selectDialog("getobasList", val);
+            break;
           case "N23":
             this.selectDialog("getpjasList", val);
             break;
@@ -1726,6 +1764,9 @@ export default {
             break;
           case "N20":
             this.selectDialog("getgecsList", val);
+            break;
+          case "N22":
+            this.selectDialog("getobasList", val);
             break;
           case "N23":
             this.selectDialog("getpjasList", val);
