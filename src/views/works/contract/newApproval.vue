@@ -579,7 +579,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4886;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 1174;
     this.getworkflows();
     this.getHT();
   },
@@ -608,7 +608,6 @@ export default {
           this.workclass_perflow = res.data.workclass_perflow;
           this.table_able = res.data.workclass_info.form_able;
           this.more = res.data.workclass_info.more;
-          this.tableData.oaa15 = parseInt(this.tableData.oaa15);
           if (res.data.file !== null) {
             res.data.file.forEach((item) => {
               this.fileList_user.push({

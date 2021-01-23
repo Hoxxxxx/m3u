@@ -16,11 +16,14 @@
       </el-collapse-item>
       <el-collapse-item title="布局控件" name="2">
         <div class="Btns">
-          <div class="btn"
-                  v-for="item in layoutBtns" :key="item.value"
-                  @click="chooseBtn(item.value)">
+          <div
+            class="btn"
+            v-for="item in layoutBtns"
+            :key="item.value"
+            @click="chooseLayOut(item.value)"
+          >
             <i :class="item.icon"></i>
-            <span>{{item.label}}</span>
+            <span>{{ item.label }}</span>
           </div>
         </div>
       </el-collapse-item>
@@ -33,49 +36,69 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      activeNames: ['1', '2'], // 默认激活标签页
-      activeBtn: '',
+      activeNames: ["1", "2"], // 默认激活标签页
+      activeBtn: "",
+      activeLayOut:"",
       // 基础控件
-      basicBtns: [{
-        icon: 'el-icon-copy-document',
-        label: '输入框',
-        value: 'basic_Input'
-      },{
-        icon: 'el-icon-copy-document',
-        label: '按钮全名称',
-        value: 'basic_InputText'
-      },{
-        icon: 'el-icon-copy-document',
-        label: '下拉选框',
-        value: 'basic_Select'
-      },{
-        icon: 'el-icon-copy-document',
-        label: '弹窗选框',
-        value: 'basic_Dialog'
-      },{
-        icon: 'el-icon-copy-document',
-        label: '按钮全名称',
-        value: 'basic_05'
-      },{
-        icon: 'el-icon-copy-document',
-        label: '按钮全名称',
-        value: 'basic_06'
-      }],
+      basicBtns: [
+        {
+          icon: "el-icon-copy-document",
+          label: "输入框",
+          value: "basic_Input",
+        },
+        {
+          icon: "el-icon-copy-document",
+          label: "按钮全名称",
+          value: "basic_InputText",
+        },
+        {
+          icon: "el-icon-copy-document",
+          label: "下拉选框",
+          value: "basic_Select",
+        },
+        {
+          icon: "el-icon-copy-document",
+          label: "弹窗选框",
+          value: "basic_Dialog",
+        },
+        {
+          icon: "el-icon-copy-document",
+          label: "按钮全名称",
+          value: "basic_05",
+        },
+        {
+          icon: "el-icon-copy-document",
+          label: "按钮全名称",
+          value: "basic_06",
+        },
+      ],
       // 布局控件
-      layoutBtns: [{
-        icon: 'el-icon-copy-document',
-        label: '表格控件',
-        value: 'layout_Form'
-      }],
-    }
+      layoutBtns: [
+        {
+          icon: "el-icon-copy-document",
+          label: "表格控件",
+          value: "layout_Form",
+        },
+      ],
+    };
+  },
+  computed: {
+    ...mapState(["choosedTd"]),
   },
   methods: {
     chooseBtn(btn) {
-      this.activeBtn = btn;
-      this.$emit("activeBtn", this.activeBtn);
+      if(JSON.stringify(this.choosedTd) == '{}'){
+        this.$message.warning("请先选择需要添加组件的单元格噢！")
+      }else{
+        this.$message.success(`选中了${btn}组件`)
+        this.activeBtn = btn;
+        this.$emit("activeBtn", this.activeBtn);
+      }
     },
-    chooseLayOut(val){
-    }
+    chooseLayOut(val) {
+      this.activeLayOut = val;
+      this.$emit("activeLayOut", this.activeLayOut);
+    },
   },
 };
 </script>

@@ -6,11 +6,14 @@ const state = {
   userInfo: userInfo,
   companyInfo: companyInfo,
   upload_url: `${process.env.VUE_APP_BASE_API}files/upload`,
-  form:{},//自定义表单数据
-  // filter_tplid:{
-  //   FILTER_GDZCSQD: process.env.NODE_ENV == 'development' ? '8946': (orgid == 1 ? '8910' : (orgid == 2 ? '8952' : '8924')),//固定资产申请单
-  //   FILTER_CCSQD: process.env.NODE_ENV == 'development' ? '8941': (orgid == 1 ? '8906' : (orgid == 2 ? '8948' : '8920')),//出差申请单
-  //   FILTER_FKSQD: process.env.NODE_ENV == 'development' ? '8950': (orgid == 1 ? '8914' : (orgid == 2 ? '8956' : '8928')),//付款申请单
-  // }
+  //自定义表单数据
+  form:{},
+  //当前选中的单元格
+  choosedTd:{
+    // form_index:null,//单元格所在的最外层控件
+    // area_index:null,//单元格所在的内容块
+    // line_index:null,//单元格所在的行
+    // td_index:null//当前选中的单元格
+  },
 }
 export default state
