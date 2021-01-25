@@ -156,6 +156,24 @@
                   />
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa82') ? 'redPot' : ''">出差地点</span>
+                </div>
+                <div class="infobox longbox selectbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa81">
+                    <el-radio :label="1">一般地区</el-radio>
+                    <el-radio :label="2">特殊地区</el-radio>
+                    <el-radio :label="3">沿海 / 省会地区</el-radio>
+                  </el-radio-group>
+                  <div class="columLine"></div>
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa82"
+                    placeholder="请输入出差地点"
+                  />
+                </div>
+              </div>
               <!-- 4 -->
               <div class="form_line">
                 <div class="titlebox">
@@ -294,6 +312,7 @@
                           placeholder="开始日期"
                           format="yyyy/MM/dd"
                           value-format="yyyy/MM/dd"
+                          :disabled="showData.oab01_default==''"
                         >
                         </el-date-picker>
                       </div>
@@ -314,6 +333,8 @@
                           placeholder="结束日期"
                           format="yyyy/MM/dd"
                           value-format="yyyy/MM/dd"
+                          @change="countDate(scope.$index)"
+                          :disabled="showData.oab02_default==''"
                         >
                         </el-date-picker>
                       </div>
@@ -941,7 +962,8 @@ import {
   azisList,
   pmasList,
   aagsList,
-  mustItem
+  mustItem,
+  userInfo
 } from "@/api/basic.js";
 import {mapState} from 'vuex'
 
@@ -957,6 +979,11 @@ export default {
         oaa04_gen01: "", //申请人编号
         oaa04_gen04: "", //申请人部门
         oaa15_show: "", //出差申请单
+        oab01_default: "", //带出默认开始日期
+        oab02_default: "", //带出默认结束日期
+        aos01_default: "", //一般地区补助
+        aos02_default: "", //特殊地区补助
+        aos03_default: "", //沿海/省会地区补助
       },
       tableData: {
         // 基本信息
@@ -971,6 +998,8 @@ export default {
         oaa08: "1", //汇率
         oaa12: "TT", //支付方式
         oaa14: "", //发票张数
+        oaa81: "", //出差地点类型
+        oaa82: "", //出差地点
         oaa15: "", //出差申请单
         oaa16: "", //说明
         payMoney: "", //支付金额
@@ -1066,6 +1095,10 @@ export default {
         head_CCSQD: [
           { name: "id", title: "id" },
           { name: "title", title: "流程名称" },
+          { name: "oaa31", title: "预计开始时间" },
+          { name: "oaa32", title: "预计结束时间" },
+          { name: "oaa35", title: "出差地点类型" },
+          { name: "oaa36", title: "出差地点" },
         ],
         head_WQX: [
           { name: "id", title: "待抵账款编号" },
@@ -1104,6 +1137,10 @@ export default {
           { name: "gec07", title: "单价含税否" },
           { name: "gec08", title: "媒体申报格式" },
           { name: "gec11", title: "进 / 销项" },
+        ],
+        head_obas: [
+          { name: "oba01", title: "产品分类编号" },
+          { name: "oba02", title: "产品分类名称" },
         ],
         head_pjas: [
           { name: "gja01", title: "项目编号" },
@@ -1194,18 +1231,35 @@ export default {
   },
   created() {
     this.addParams.tplid = this.$route.query.tplid ? this.$route.query.tplid : 8943;
-    let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
-    this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
-    this.tableData.oaa03_show = oauserinfo.oaname;
+    this.initOAuserInfo()
     this.addRow1();
     this.addRow2();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
     this.getMustItem()
     this.filter_tplid = getFilterTplid('CCSQD')
-    console.log(process.env,'tplid:',this.filter_tplid)
+    // console.log(process.env,'tplid:',this.filter_tplid)
   },
   methods: {
+    initOAuserInfo() {
+      let oauserinfo = JSON.parse(sessionStorage.getItem("oauserinfo"));
+      this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : "";
+      this.tableData.oaa03_show = oauserinfo.oaname;
+      if(oauserinfo.oauserid) {
+        userInfo(oauserinfo.oauserid)
+        .then(res => {
+          if(res.status == 200){
+            this.tableData.oaa05 = res.data.phone
+            // 获取用户补助
+            this.showData.aos01_default = res.data.aos01
+            this.showData.aos02_default = res.data.aos02
+            this.showData.aos03_default = res.data.aos03
+          }else{
+            this.$message.warning("用户信息获取失败！" + result.error.message);
+          }
+        })
+      }
+    },
     getMustItem(){
       let params={
         tplid:this.addParams.tplid
@@ -1238,6 +1292,38 @@ export default {
     },
     handleClick() {
       // console.log(this.activeTab);
+    },
+    // 按照出差天数计算补助
+    countDate(index){
+      const sDate = this.tableData.oab[index].oab01
+      const eDate = this.tableData.oab[index].oab02
+      let daysCount = 0
+      // 计算天数
+      if(sDate !== ""){
+        if(sDate > eDate){
+          this.$message.warning('结束日期不能小于开始日期！')
+          this.tableData.oab[index].oab02 = ''
+          daysCount = 0
+        } else if (sDate < eDate) {
+          var aDate,  oDate1,  oDate2,  iDays ; 
+          aDate  =  sDate.split("-") ; 
+          oDate1  =  new Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]);//转换为Mm-dd-yyyy格式,这种date的构造方式在苹果手机会报错，见解释
+          aDate  =  eDate.split("-");  
+          oDate2  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]);  
+          iDays  =  parseInt(Math.abs(oDate1  -  oDate2)/1000/60/60/24);    //把相差的毫秒数转换为天数 
+          daysCount = iDays
+        } else {
+          daysCount = 1
+        }
+      }
+      // 计算补助
+      if(this.tableData.oaa81==1) {
+        this.tableData.oab[index].oab15 = this.showData.aos01_default * daysCount
+      } else if(this.tableData.oaa81==1) {
+        this.tableData.oab[index].oab15 = this.showData.aos02_default * daysCount
+      } else{
+        this.tableData.oab[index].oab15 = this.showData.aos03_default * daysCount
+      }
     },
     // ****************附件上传*****************
     // 限制格式
@@ -1383,8 +1469,8 @@ export default {
     // 差旅明细表格
     addRow1() {
       let data = {
-        oab01: "", //开始日期
-        oab02: "", //结束日期
+        oab01: this.showData.oab01_default, //开始日期
+        oab02: this.showData.oab02_default, //结束日期
         oab03: "", //单据号
         oab04: "", //出发地
         oab05: "", //目的地
@@ -1528,7 +1614,7 @@ export default {
           this.dataSelect.filter = filter_CCSQD;
           this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "oa/workflows";
+          this.dataSelect.searchApi = `meta/trips?filter[tplid]=${this.filter_tplid}`;
           this.dataSelect.headList = this.tableHead.head_CCSQD;
           this.dataSelect.dialogTitle = "出差申请单列表";
           break;
@@ -1597,6 +1683,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_gecs;
           this.dataSelect.dialogTitle = "税别列表";
           break;
+        case "getobasList":
+          let filter_obas = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_obas;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/obas";
+          this.dataSelect.headList = this.tableHead.head_obas;
+          this.dataSelect.dialogTitle = "产品分类列表";
+          break;
         case "getpjasList":
           let filter_pjas = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_pjas;
@@ -1653,6 +1748,19 @@ export default {
           case "CCSQD":
             this.tableData.oaa15 = val[0].id;
             this.showData.oaa15_show = val[0].title;
+            this.tableData.oaa81 = val[0].oaa35
+            // 带出开始、结束时间
+            this.showData.oab01_default = val[0].oaa31;
+            this.showData.oab02_default = val[0].oaa32;
+            this.tableData.oab.forEach( item => {
+              if(item.oab01 !== this.showData.oab01_default){
+                item.oab01 = this.showData.oab01_default,
+                item.oab02 = this.showData.oab02_default
+              }
+              this.countDate(0)
+            })
+            // 带出补助
+
             break;
           case "WQX":
             val.forEach((item) => {
@@ -1708,6 +1816,14 @@ export default {
               this.tableData.oac[this.rowIndex].oac12 = val[0].gec01;
             }
             break;
+          case "getobasList":
+            console.log(this.oacType);
+            if(this.oacType == 'oac11'){
+              this.tableData.oac[this.rowIndex].oac11 = val[0].oba01;
+            }else{
+              this.tableData.oac[this.rowIndex].oac12 = val[0].oba01;
+            }
+            break;
           case "getpjasList":
             console.log(this.oacType);
             if (this.oacType == "oac11") {
@@ -1759,6 +1875,9 @@ export default {
           case "N20":
             this.selectDialog("getgecsList", val);
             break;
+          case "N22":
+            this.selectDialog("getobasList", val);
+            break;
           case "N23":
             this.selectDialog("getpjasList", val);
             break;
@@ -1797,6 +1916,9 @@ export default {
           case "N20":
             this.selectDialog("getgecsList", val);
             break;
+          case "N22":
+            this.selectDialog("getobasList", val);
+            break;
           case "N23":
             this.selectDialog("getpjasList", val);
             break;
@@ -1813,4 +1935,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.infobox{
+  position: relative;
+  .columLine{
+    position: absolute;
+    height: 40px;
+    width: 1px;
+    left: 380px;
+    background: #CCCCCC;
+  }
+}
 </style>

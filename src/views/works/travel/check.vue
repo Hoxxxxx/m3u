@@ -79,6 +79,17 @@
                   {{ tableData.oaa14 }}
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox">出差地点</div>
+                <div class="infobox longbox">
+                  <el-radio-group class="radioGroup" v-model="tableData.oaa81">
+                    <el-radio :label="1" disabled>一般地区</el-radio>
+                    <el-radio :label="2" disabled>特殊地区</el-radio>
+                    <el-radio :label="3" disabled>沿海 / 省会地区</el-radio>
+                  </el-radio-group>
+                  {{tableData.oaa82}}
+                </div>
+              </div>
               <!-- 4 -->
               <div class="form_line">
                 <div class="titlebox">出差申请单</div>
@@ -599,6 +610,8 @@ export default {
         oaa08: "", //汇率
         oaa12: "", //支付方式
         oaa14: "", //发票张数
+        oaa81: "", //出差地点类型
+        oaa82: "", //出差地点
         oaa15: "", //出差申请单
         oaa16: "", //说明
         payMoney: "", //支付金额

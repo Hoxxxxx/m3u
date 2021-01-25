@@ -40,13 +40,6 @@
             <div class="titlebox">预计结束时间</div>
             <div class="infobox middlebox last_row">{{ tableData.oaa32 }}</div>
           </div>
-          <!-- 2 -->
-          <div class="form_line">
-            <div class="titlebox">实际开始时间</div>
-            <div class="infobox middlebox">{{ tableData.oaa33 }}</div>
-            <div class="titlebox">实际结束时间</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa34 }}</div>
-          </div>
           <!-- 3 -->
           <div class="form_line">
             <div class="titlebox">出差目的</div>
@@ -58,6 +51,7 @@
             <div class="infobox longbox">
               <span class="radioItem" v-if="tableData.oaa35==1">一般地区</span>
               <span class="radioItem" v-if="tableData.oaa35==2">特殊地区</span>
+              <span class="radioItem" v-if="tableData.oaa35==3">沿海 / 省会地区</span>
               {{tableData.oaa36}}
             </div>
           </div>

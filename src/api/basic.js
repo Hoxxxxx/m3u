@@ -169,3 +169,11 @@ export const invoicesInfo = (params) => {
     params
   })
 }
+
+
+// 获取当前人员详情 1.23
+export const userInfo = (uid) => {
+  return request.get(`meta/userinfos?filter[uid]=${uid}`,
+  {},
+  {})
+}
