@@ -1748,6 +1748,7 @@ export default {
           case "CCSQD":
             this.tableData.oaa15 = val[0].id;
             this.showData.oaa15_show = val[0].title;
+            this.tableData.oaa81 = val[0].oaa35
             // 带出开始、结束时间
             this.showData.oab01_default = val[0].oaa31;
             this.showData.oab02_default = val[0].oaa32;
