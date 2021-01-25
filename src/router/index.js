@@ -424,6 +424,12 @@ const routes = [{
     name: 'signing_printPage',
     component: () => import('@/views/works/signing/printPage')
   },
+  // 移动端
+  {
+    path: '/h5/general',
+    name: 'general',
+    component: () => import('@/views/h5/general')
+  },
 
 ]
 

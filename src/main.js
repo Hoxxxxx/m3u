@@ -12,6 +12,13 @@ Vue.use(element)
 import '../src/assets/style/global.css'
 import '../src/assets/style/icon-font/iconfont.css'
 import "../src/assets/style/public.less";
+import "../src/assets/style/h5.less";
+
+
+import '@/utils/rem.js';
+import Vant from 'vant';
+import 'vant/lib/index.css';
+Vue.use(Vant);
 
 
 Vue.config.productionTip = false
