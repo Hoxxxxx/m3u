@@ -312,7 +312,7 @@
                           placeholder="开始日期"
                           format="yyyy/MM/dd"
                           value-format="yyyy/MM/dd"
-                          :disabled="showData.oab01_default==''"
+                          @change="countDate(scope.$index)"
                         >
                         </el-date-picker>
                       </div>
@@ -334,7 +334,6 @@
                           format="yyyy/MM/dd"
                           value-format="yyyy/MM/dd"
                           @change="countDate(scope.$index)"
-                          :disabled="showData.oab02_default==''"
                         >
                         </el-date-picker>
                       </div>
@@ -551,7 +550,7 @@
                       <div class="summryCont editNot">{{ accomCost }}</div>
                     </li>
                     <li class="summryLi">
-                      <div class="summryName">室内交通费</div>
+                      <div class="summryName">市内交通费</div>
                       <div class="summryCont editNot">{{ tansportCost }}</div>
                     </li>
                     <li class="summryLi">
@@ -1250,12 +1249,16 @@ export default {
         .then(res => {
           if(res.status == 200){
             this.tableData.oaa05 = res.data.phone
+            this.tableData.oaa04 = res.data.employee_code
+            this.tableData.oaa04_show = res.data.employee_show
+            this.showData.oaa04_gen01 = res.data.employee_code
+            this.showData.oaa04_gen04 = res.data.department_show
             // 获取用户补助
             this.showData.aos01_default = res.data.aos01
             this.showData.aos02_default = res.data.aos02
             this.showData.aos03_default = res.data.aos03
           }else{
-            this.$message.warning("用户信息获取失败！" + result.error.message);
+            this.$message.warning("用户信息获取失败！" + res.error.message);
           }
         })
       }
@@ -1299,7 +1302,7 @@ export default {
       const eDate = this.tableData.oab[index].oab02
       let daysCount = 0
       // 计算天数
-      if(sDate !== ""){
+      if(sDate !== "" && eDate !== ""){
         if(sDate > eDate){
           this.$message.warning('结束日期不能小于开始日期！')
           this.tableData.oab[index].oab02 = ''
@@ -1315,6 +1318,7 @@ export default {
         } else {
           daysCount = 1
         }
+        // console.log('111', daysCount)
       }
       // 计算补助
       if(this.tableData.oaa81==1) {
