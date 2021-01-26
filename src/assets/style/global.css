@@ -18,8 +18,11 @@ body,
     background: #F9F9F9;
 }
 
-#app{
+.pc{
     min-width: 1440px;
+}
+.h5{
+    width: 100%;
 }
 
 ul,

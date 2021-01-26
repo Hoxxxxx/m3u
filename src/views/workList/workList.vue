@@ -34,6 +34,10 @@ export default {
         //   path: "/usual",
         // },
         {
+          name: "H5",
+          path: "/h5/general",
+        },
+        {
           name: "外地差旅报销单——申请",
           path: "/travel",
         },
