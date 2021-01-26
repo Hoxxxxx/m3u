@@ -35,9 +35,9 @@
                   <div class="mainPeo">{{fixedData.now_workFlows.flowuser}}</div>
                 </div>
               </div>
-              <img v-if="fixedData.is_last==1" class="arrowImg" src="../../assets/img/jiantou.png" />
+              <!-- <img v-if="fixedData.is_last==1" class="arrowImg" src="../../assets/img/jiantou.png" /> -->
               <!-- 下一步骤 -->
-              <div v-if="fixedData.is_last==1" class="curProcess">
+              <!-- <div v-if="fixedData.is_last==1" class="curProcess">
                 <div class="processName">
                   <img src="../../assets/img/step.png" />
                   <span>下一步骤：</span>
@@ -61,9 +61,9 @@
                 <div class="processPeo">
                   <img src="../../assets/img/person.png" />
                   <span>主办人员：</span>
-                  <div class="mainSelect">
+                  <div class="mainSelect"> -->
                     <!-- 未选择流程 -->
-                    <div v-if="uploadData.next_flowid == ''">
+                    <!-- <div v-if="uploadData.next_flowid == ''">
                       <el-select
                         v-model="uploadData.next_userid"
                         class="memeberSelect"
@@ -72,16 +72,16 @@
                       >
                       </el-select>
                     </div>
-                    <div v-if="uploadData.next_flowid !== ''">
+                    <div v-if="uploadData.next_flowid !== ''"> -->
                       <!-- 可选所有 -->
-                      <div 
+                      <!-- <div 
                         v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '1'"
                         class="selector" 
                         @click="selectDialog('SQR')">
                           {{showData.oaa04_show}}
-                      </div>
+                      </div> -->
                       <!-- 条件内可选 -->
-                      <el-select
+                      <!-- <el-select
                         v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '2'"
                         v-model="uploadData.next_userid"
                         class="memeberSelect"
@@ -94,9 +94,9 @@
                           :value="item.id"
                         >
                         </el-option>
-                      </el-select>
+                      </el-select> -->
                       <!-- 不可选 -->
-                      <el-select
+                      <!-- <el-select
                         v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '3'"
                         v-model="uploadData.next_userid"
                         class="memeberSelect"
@@ -113,7 +113,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- 流程审批意见 -->
             <div class="opinion">
