@@ -38,6 +38,10 @@ export default {
           path: "/h5/general",
         },
         {
+          name: "H5-抛转流程页",
+          path: "/h5/toss",
+        },
+        {
           name: "外地差旅报销单——申请",
           path: "/travel",
         },

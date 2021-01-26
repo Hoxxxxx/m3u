@@ -782,8 +782,12 @@ export default {
         .then(res => {
           if(res.status == 200){
             this.tableData.oaa05 = res.data.phone
+            this.tableData.oaa04 = res.data.employee_code
+            this.tableData.oaa04_show = res.data.employee_show
+            this.showData.oaa04_gen01 = res.data.employee_code
+            this.showData.oaa04_gen04 = res.data.department_show
           }else{
-            this.$message.warning("用户信息获取失败！" + result.error.message);
+            this.$message.warning("用户信息获取失败！" + res.error.message);
           }
         })
       }

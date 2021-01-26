@@ -1091,7 +1091,7 @@ export default {
           this.tableData = res.data.workclass_info.from_data
           this.workname = res.data.workclass_info.title
           this.workclass_personnel = res.data.workclass_personnel;
-          this.perflow = res.data.workclass_perflow
+          this.workclass_perflow = res.data.workclass_perflow
           this.table_able = res.data.workclass_info.form_able
           this.oae_must = res.data.workclass_info.form_view_must_able.oae ? res.data.workclass_info.form_view_must_able.oae : []
           this.oaf_must = res.data.workclass_info.form_view_must_able.oaf ? res.data.workclass_info.form_view_must_able.oaf : []
