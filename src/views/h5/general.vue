@@ -2,90 +2,107 @@
   <div class="h5Home">
     <div class="head">
       <header>{{ formData.workName }}</header>
-      <div class="store-list-shortcut">
-        <van-tabs
-          v-model="currentIndex"
-          :title-active-color="'#409EFD'"
-          :color="'#409EFD'"
-          @click="scrollTarget"
-        >
-          <van-tab
-            v-for="(sub, sub_index) in formData.subTitles"
-            :title="sub"
-            :key="sub_index"
-          >
-          </van-tab>
-        </van-tabs>
-      </div>
-      <div class="serial">
-        <div>
-          <span class="serial_label">业务日期:</span>
-          <span class="serial_cont">2021/01/25</span>
-        </div>
-        <div>
-          <span class="serial_label">申请单编号:</span>
-          <span class="serial_cont">123124124123423423</span>
-        </div>
-      </div>
     </div>
     <div class="cont">
-      <div class="storeList" ref="storeScroll">
-        <ul>
-          <li
-            v-for="(group, grop_index) in formData.grops"
-            class="store-list-group"
-            :key="grop_index"
-            ref="storeListGroup"
+      <van-tabs
+        scrollspy
+        sticky
+        :offset-top="'0.8rem'"
+        :color="'#409EFD'"
+        :title-active-color="'#409EFD'"
+      >
+        <div class="serial">
+          <div>
+            <span class="serial_label">业务日期:</span>
+            <span class="serial_cont">2021/01/25</span>
+          </div>
+          <div>
+            <span class="serial_label">申请单编号:</span>
+            <span class="serial_cont">123124124123423423</span>
+          </div>
+        </div>
+        <van-tab
+          v-for="(group, grop_index) in formData.grops"
+          :key="grop_index"
+          :title="group.subTitle"
+        >
+          <h2 class="store-list-group-title">{{ group.subTitle }}</h2>
+          <van-cell-group
+            v-for="(item, index) in group.form_layout"
+            :key="index"
           >
-            <h2 class="store-list-group-title">{{ group.subTitle }}</h2>
-            <van-cell-group>
-              <van-field
-                v-for="(item, index) in group.form_layout"
-                :key="index"
-                v-model="item.default"
-                :label="item.column_label"
+            <van-field
+              v-if="item.formType == 'input'"
+              v-model="item.default"
+              :label="item.column_label"
+              :value="item.default"
+              input-align="right"
+              label-class="label"
+              clearable
+              :readonly="!item.edit_able"
+            />
+            <div v-if="item.formType == 'datetime'">
+              <van-cell
+                :title="item.column_label"
                 :value="item.default"
-                input-align="right"
-                label-class="label"
-                clearable
-                :readonly="!item.edit_able"
+                @click="openDate(item)"
               />
-            </van-cell-group>
-          </li>
-          <li>
-            <h2 class="store-list-group-title">流程信息</h2>
-            <van-steps direction="vertical" :active="0" active-color="#969799">
-              <van-step>
-                <p>2016-07-12 12:40</p>
-                <div class="stepInner">
-                  <h5 class="stepLabel">第一步：申请人提交申请</h5>
-                  <h5 class="stepState">通过</h5>
-                  <h5 class="stepMember">
-                    分公司(2)系统管理员 2020-11-02 13:37:42
-                  </h5>
-                </div>
-              </van-step>
-              <van-step>
-                <p>2016-07-12 12:40</p>
-                <div class="stepInner">
-                  <h5 class="stepLabel">第一步：申请人提交申请</h5>
-                  <h5 class="stepState">通过</h5>
-                  <h5 class="stepMember">
-                    分公司(2)系统管理员 2020-11-02 13:37:42
-                  </h5>
-                </div>
-              </van-step>
-            </van-steps>
-          </li>
-        </ul>
-      </div>
+              <van-calendar
+                v-model="item.show"
+                @confirm="onConfirm(item, $event)"
+                color="#409EFD"
+              />
+            </div>
+            <div v-if="item.formType == 'select'">
+              <van-field
+                readonly
+                clickable
+                label="部门"
+                :value="item.default"
+                placeholder="选择部门"
+                @click="openSelect(item)"
+              />
+              <van-popup v-model="item.show" round position="bottom">
+                <van-picker
+                  show-toolbar
+                  :columns="item.options"
+                  @cancel="item.show = false"
+                  @confirm="onConfirm_select(item, $event)"
+                />
+              </van-popup>
+            </div>
+          </van-cell-group>
+          <van-steps
+            v-if="group.subTitle == '流程信息'"
+            direction="vertical"
+            :active="0"
+            active-color="#969799"
+          >
+            <van-step
+              v-for="(step, step_index) in group.form_layout"
+              :key="step_index"
+            >
+              <p>{{ step.stepTime }}</p>
+              <div class="stepInner">
+                <h5 class="stepLabel">{{ step.stepLabel }}</h5>
+                <h5 class="stepState">{{ step.stepState }}</h5>
+                <h5 class="stepMember">
+                  {{ step.stepMember }}
+                </h5>
+              </div>
+            </van-step>
+          </van-steps>
+        </van-tab>
+      </van-tabs>
     </div>
     <footer>
       <van-popover v-model="showMore" trigger="click" placement="top-start">
-        <div class="linkBox" v-for="(link, link_index) in actions"
-          :key="link_index">
-          <van-icon name="info-o" />
-          <span>{{ link.title }}</span>
+        <div
+          class="linkBox"
+          v-for="(link, link_index) in actions"
+          :key="link_index"
+        >
+          <van-cell :title="link.title" is-link @click="toLink(link.url)" />
         </div>
         <template #reference>
           <van-button
@@ -117,6 +134,7 @@
         size="small"
         color="#6DD400"
         type="danger"
+        @click="agree()"
         >同意</van-button
       >
     </footer>
@@ -138,7 +156,7 @@ export default {
           "工作信息",
           "交际信息",
           "附件信息",
-          
+          "流程信息",
         ],
         grops: [
           {
@@ -150,30 +168,32 @@ export default {
                 formType: "input",
                 default: "张三",
                 edit_able: true,
+                show: false,
               },
               {
                 column_label: "姓名",
                 columnName: "oaa01",
-                formType: "input",
+                formType: "select",
                 default: "张三",
                 edit_able: false,
+                options: ['杭州', '宁波', '温州', '绍兴', '湖州', '嘉兴', '金华', '衢州'],
               },
               {
-                column_label: "姓名",
+                column_label: "日期1",
                 columnName: "oaa01",
-                formType: "input",
-                default: "张三",
+                formType: "datetime",
+                default: "2020/1/26",
                 edit_able: false,
               },
               {
-                column_label: "姓名",
+                column_label: "日期2",
                 columnName: "oaa01",
-                formType: "input",
-                default: "张三",
+                formType: "datetime",
+                default: "2020/1/26",
                 edit_able: false,
               },
               {
-                column_label: "姓名",
+                column_label: "部门",
                 columnName: "oaa01",
                 formType: "input",
                 default: "张三",
@@ -421,14 +441,39 @@ export default {
               },
             ],
           },
+          {
+            subTitle: "流程信息",
+            form_layout: [
+              {
+                stepLabel: "第一步：申请人提交申请",
+                stepState: "通过",
+                stepMember: "分公司(2)系统管理员 2020-11-02 13:37:42",
+                stepTime: "2016-07-12 12:40",
+              },
+              {
+                stepLabel: "第二步：申请人提交申请",
+                stepState: "通过",
+                stepMember: "分公司(2)系统管理员 2020-11-02 13:37:42",
+                stepTime: "2016-07-12 12:40",
+              },
+            ],
+          },
         ],
       },
       // 底部操作栏
       showMore: false, //其他
       actions: [
         {
-          title: "查看更多",
-          url: "www.baidu.com",
+          title: "查看申请单详细信息1",
+          url: "https://www.baidu.com/",
+        },
+        {
+          title: "查看申请单详细信息2",
+          url: "https://www.baidu.com/",
+        },
+        {
+          title: "查看申请单详细信息3",
+          url: "https://www.baidu.com/",
         },
       ],
       // BScroll数据
@@ -438,12 +483,12 @@ export default {
     };
   },
   created() {
-    let that = this;
-    that.$nextTick(() => {
-      //dom渲染完成后初始化BScroll
-      that.initStorelistScroll();
-      that.calculateHeight();
-    });
+    // let that = this;
+    // that.$nextTick(() => {
+    //   //dom渲染完成后初始化BScroll
+    //   that.initStorelistScroll();
+    //   that.calculateHeight();
+    // });
   },
   watch: {
     scrollY(newVal) {
@@ -460,6 +505,11 @@ export default {
     },
   },
   methods: {
+    formatDate(date) {
+      return `${date.getFullYear() + 1}/${
+        date.getMonth() + 1
+      }/${date.getDate()}`;
+    },
     //********* BScroll *********
     initStorelistScroll() {
       let that = this;
@@ -489,9 +539,33 @@ export default {
       this.storeScroll.scrollToElement(el, 200);
     },
     //********* BScroll *********
+    //********* 内容区域操作 *****
+    openDate(val) {
+      this.$set(val, "show", true);
+    },
+    // 日期选择确认
+    onConfirm(item, $event) {
+      item.show = false;
+      item.default = this.formatDate($event);
+    },
+    // 单选框
+    openSelect(val){
+      this.$set(val, "show", true);
+    },
+    onConfirm_select(item, $event){
+      item.show = false;
+      item.default = $event;
+    },
     // 底部操作按钮区域
     showMoreBtn() {
       this.showMore = true;
+    },
+    toLink(link) {
+      console.log(123);
+      window.open(link);
+    },
+    agree(){
+      console.log(this.formData.grops)
     },
   },
 };
