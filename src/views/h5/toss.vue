@@ -7,6 +7,26 @@
     </div>
     <!-- 内容区域 -->
     <div class="cont_toss">
+      <!-- 当前步骤 -->
+      <div class="flowBox"></div>
+
+      <div class="arrowImg"></div>
+
+      <!-- 下一步骤 -->
+      <div class="flowBox"></div>
+
+      <hr  style="border:1px solid #F9F9F9;" />
+      <!-- 审批意见/常用语 -->
+
+      <hr  style="border:1px solid #F9F9F9;" />
+      <!-- 提醒相关人员 -->
+
+      <hr  style="border:1px solid #F9F9F9;" />
+      <!-- 提醒方式 -->
+
+      <hr  style="border:1px solid #F9F9F9;" />
+      <!-- 消息内容 -->
+
       
     </div>
     <!-- 底部区域 -->
