@@ -18,6 +18,13 @@
       background: #19a9eb;
       color: #fff;
     }
+  }
+
+  .cont {
+    // height: calc(100% - 3.3rem);
+    // padding: 2.32rem 0 0.98rem 0;
+    height: calc(100% - 1.78rem);
+    padding: 0.8rem 0 0.98rem 0;
 
     .serial {
       background: #fff;
@@ -53,19 +60,18 @@
   .cont {
     height: calc(100% - 3.3rem);
     padding: 2.32rem 0 0.98rem 0;
+    .store-list-group-title {
+      font-size: 0.2rem;
+      height: 0.5rem;
+      line-height: 0.5rem;
+      text-align: center;
+      background: #f9f9f9;
+      color: #999;
+    }
 
     .storeList {
       height: 100%;
       overflow: hidden;
-
-      .store-list-group-title {
-        font-size: 0.2rem;
-        height: 0.5rem;
-        line-height: 0.5rem;
-        text-align: center;
-        background: #f9f9f9;
-        color: #999;
-      }
     }
 
     .stepInner {
@@ -102,6 +108,7 @@
 
   footer {
     position: fixed;
+    z-index: 999;
     width: 100%;
     height: 0.98rem;
     background: #fff;
@@ -121,13 +128,18 @@
     }
   }
 }
-
-.label {
+.van-tabs{
+  padding-bottom: 0.98rem !important;
+}
+.van-cell__title{
   color: #999999 !important;
 }
-
-.linkBox {
-  padding: 0.2rem;
-  display: flex;
-  align-items: center;
+.van-cell__value{
+  color: #323233 !important;
+}
+.van-field__control{
+  text-align: right !important;
+}
+.label {
+  color: #999999 !important;
 }
