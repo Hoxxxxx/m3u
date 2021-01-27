@@ -32,10 +32,12 @@
     <!-- 底部区域 -->
     <footer>
       <van-popover v-model="showMore" trigger="click" placement="top-start">
-        <div class="linkBox" v-for="(link, link_index) in actions"
-          :key="link_index">
-          <van-icon name="info-o" />
-          <span>{{ link.title }}</span>
+        <div
+          class="linkBox"
+          v-for="(link, link_index) in actions"
+          :key="link_index"
+        >
+          <van-cell :title="link.title" is-link @click="toLink(link.url)" />
         </div>
         <template #reference>
           <van-button
@@ -74,7 +76,6 @@
 </template>
 
 <script>
-import BScroll from "better-scroll";
 export default {
   data() {
     return {
@@ -86,50 +87,25 @@ export default {
       showMore: false, //其他
       actions: [
         {
-          title: "查看更多",
-          url: "www.baidu.com",
+          title: "查看申请单详细信息1",
+          url: "https://www.baidu.com/",
+        },
+        {
+          title: "查看申请单详细信息2",
+          url: "https://www.baidu.com/",
+        },
+        {
+          title: "查看申请单详细信息3",
+          url: "https://www.baidu.com/",
         },
       ],
-      // BScroll数据
-      scrollY: 0,
-      currentIndex: 0, //当前选中项
-      itemHeigth: [], //每一个分区高度的集合
     };
   },
   created() {
-    let that = this;
-    that.$nextTick(() => {
-      //dom渲染完成后初始化BScroll
-      // that.initStorelistScroll();
-    });
   },
   watch: {
-    scrollY(newVal) {
-      if (newVal > 0) {
-        return (this.currentIndex = 0);
-      }
-      for (let i = 0; i < this.itemHeigth.length; i++) {
-        let heigth1 = this.itemHeigth[i];
-        let height2 = this.itemHeigth[i + 1];
-        if (!height2 || (-newVal >= heigth1 && -newVal < height2)) {
-          return (this.currentIndex = i);
-        }
-      }
-    },
   },
   methods: {
-    //********* BScroll *********
-    initStorelistScroll() {
-      let that = this;
-      that.storeScroll = new BScroll(that.$refs.storeScroll, {
-        click: true,
-        probeType: 3,
-      });
-      that.storeScroll.on("scroll", (pos) => {
-        that.scrollY = pos.y;
-      });
-    },
-    //********* BScroll *********
     // 底部操作按钮区域
     showMoreBtn() {
       this.showMore = true;
