@@ -35,9 +35,9 @@
                   <div class="mainPeo">{{fixedData.now_workFlows.flowuser}}</div>
                 </div>
               </div>
-              <img v-if="fixedData.is_last==1" class="arrowImg" src="../../assets/img/jiantou.png" />
+              <img class="arrowImg" src="../../assets/img/jiantou.png" />
               <!-- 下一步骤 -->
-              <div v-if="fixedData.is_last==1" class="curProcess">
+              <div class="curProcess">
                 <div class="processName">
                   <img src="../../assets/img/step.png" />
                   <span>下一步骤：</span>
@@ -375,7 +375,7 @@ export default {
         if(res.status == 200){
           this.fixedData.is_last = res.data.workclass_personnel.perid.is_last // 是否最终步
           this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
-          this.fixedData.next_workFlows = res.data.workclass_personnel.pre_perid // 下一步骤
+          this.fixedData.next_workFlows = res.data.workclass_personnel.pre_perid // 下一步骤(退回上一步)
           if (this.fixedData.next_workFlows.length == 1) {
             this.uploadData.next_flowid = this.fixedData.next_workFlows[0].fid
             this.checkNextFlow()

@@ -4,13 +4,10 @@ import VueRouter from 'vue-router'
 const Home = () => import('@/views/Home')
 const workList = () => import('@/views/workList/workList')
 const error = () => import('@/components/error')
-const newPro = () => import('@/views/allProcess/newProcess') // 新建流程
 const apply = () => import('@/views/allProcess/apply') // 申请
-const newApp = () => import('@/views/allProcess/newApproval') // 新建流程
 const agree = () => import('@/views/allProcess/agree') // 同意
 const reject = () => import('@/views/allProcess/reject') // 拒绝
 const back = () => import('@/views/allProcess/back') // 退回
-const check = () => import('@/views/allProcess/check') // 退回
 
 // 申请单
 Vue.use(VueRouter)
@@ -30,24 +27,6 @@ const routes = [{
     path: '/error',
     component: error,
   },
-  // 新建流程
-  {
-    path: '/newPro',
-    name: 'newPro',
-    component: newPro
-  },
-  // 申请人签批
-  {
-    path: '/apply',
-    name: 'apply',
-    component: apply
-  },
-  // 审批人进入
-  {
-    path: '/approvalPro',
-    name: 'newApp',
-    component: newApp
-  },
   // 审批人同意
   {
     path: '/agree',
@@ -65,12 +44,6 @@ const routes = [{
     path: '/back',
     name: 'back',
     component: back
-  },
-  // 查看
-  {
-    path: '/check',
-    name: 'check',
-    component: check
   },
   // 通用搭建
   {
@@ -429,6 +402,11 @@ const routes = [{
     path: '/h5/general',
     name: 'general',
     component: () => import('@/views/h5/general')
+  },
+  {
+    path: '/h5/toss',
+    name: 'toss',
+    component: () => import('@/views/h5/toss')
   },
 
 ]
