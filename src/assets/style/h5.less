@@ -31,6 +31,14 @@
       color: #6DD400;
       background: #E2F6CC;
     }
+    .reject{
+      color: #FBD951;
+      background: #FEF7DC;
+    }
+    .back{
+      color: #F56C6C;
+      background: #FDE2E2;
+    }
   }
 
   .cont {
@@ -103,6 +111,7 @@
     height: calc(100% - 2.2rem);
     padding: 1.2rem 0.3rem 0rem 0.3rem;
     background-color: #FFFFFF;
+    overflow: overlay;
 
     // 流程步骤选择
     .flowBox{
@@ -111,7 +120,123 @@
       background-color: #F9F9F9;
       border-radius: 0.08rem;
       margin: 0.2rem 0 0.2rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      .processName,
+      .processPeo {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 0.2rem;
+
+        img {
+          width: 0.26rem;
+          height: 0.3rem;
+          margin-right: 0.1rem;
+          flex-shrink: 0;
+        }
+        span {
+          display: block;
+          width: 1.4rem;
+          line-height: 0.5rem;
+          font-size: 0.28rem;
+          color: #666666;
+          flex-shrink: 0;
+        }
+        .mainPeo {
+          width: 4.46rem;
+          height: 0.52rem;
+          line-height: 0.52rem;
+          background: #FFFFFF;
+          border-radius: 0.08rem;
+          padding: 0 0.2rem;
+          font-size: 0.28rem;
+          color: #333333;
+          border: 0.02rem solid #DCDFE6;
+          box-sizing: border-box;
+          flex-shrink: 0;
+        }
+        // 下一步骤选框
+        .mainSelect {
+          width: 4.46rem;
+          height: 0.52rem;
+          line-height: 0.52rem;
+          background: #FFFFFF;
+          border-radius: 0.08rem;
+          font-size: 0.26rem;
+          color: #333333;
+          border: 0.02rem solid #DCDFE6;
+          box-sizing: content-box;
+          flex-shrink: 0;
+
+          .el-select{
+            width: 4.08rem;
+            height: 0.48rem;
+            padding: 0 0.2rem;
+          }
+          .el-select /deep/ .el-input__inner {
+            border: none;
+            width: 4.08rem;
+            height: 0.48rem;
+            background: #FFFFFF;
+          }
+
+          .el-dropdown-link {
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 228px;
+            height: 26px;
+            line-height: 28px;
+            background: #f5f5f5;
+            padding: 0 15px;
+            font-size: 16px;
+            color: #333333;
+
+            span {
+              width: 100%;
+              color: #333333;
+            }
+
+            img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+
+        .memeberSelect {
+          .el-input {
+            // width: 258px;
+            .el-select__caret {
+              color: #409efd;
+              font-weight: bold;
+            }
+          }
+
+          .el-input__inner {
+            height: 26px;
+            line-height: 26px;
+            background: #f5f5f5;
+          }
+
+          .el-input__icon {
+            line-height: 26px;
+          }
+
+          .el-input__suffix {
+            width: 56px;
+          }
+        }
+      }
     }
+
+    // 分割线
     .arrowImg{
       height: 0.36rem;
       background: url(../../assets/img/jiantou.png) no-repeat;
@@ -119,6 +244,121 @@
       background-position: center;
       -webkit-transform: rotate(90deg);
       -moz-transform: rotate(90deg);
+    }
+
+    // 审批意见
+    .sugg{
+      width: 100%;
+      height: 1.32rem;
+      margin: 0.2rem 0 0.2rem 0;
+
+      .top {
+        height: 0.3rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 0.28rem;
+        margin-bottom: 0.2rem;
+
+        .opinionName{
+          margin-right: 0.2rem;
+          font-weight: bold;
+        }
+        .el-dropdown{
+          width: 1.36rem;
+          /deep/ .el-dropdown-link{
+            font-size: 0.28rem;
+            color: #409efd;
+            /deep/ img{
+              width: 0.26rem;
+              vertical-align: text-top;
+            }
+          }
+        }
+        .note{
+          width: 100%;
+          height: 0.72rem;
+          font-size: 0.28rem;
+        }
+      }
+    }
+
+    // 提醒
+    .remind{
+      width: 100%;
+      height: 2.08rem;
+      margin: 0.2rem 0 0.2rem 0;
+
+      // 提醒相关人员
+      .remindMember {
+        margin-bottom: 7px;
+        
+        .opinionName{
+          height: 0.3rem;
+          font-size: 0.28rem;
+          margin-bottom: 0.2rem;
+          font-weight: bold;
+        }
+        .checks{
+          width: 100%;
+          .check {
+            margin-right: 0;
+            margin-left: 0;
+            width: 3.3rem;
+            height: 0.64rem;
+            margin-bottom: 0.2rem;
+            /deep/ .el-checkbox__label {
+              line-height: 0.5rem;
+              font-size: 0.28rem;
+            }
+          }
+        }
+  
+        .msgBox {
+          width: 1240px;
+          min-height: 36px;
+          border-radius: 4px;
+          box-sizing: border-box;
+          border: 1px solid #dcdfe6;
+          font-size: 14px;
+          color: #333;
+          padding: 8px 15px;
+          line-height: 20px;
+        }
+      }
+  
+      .btns {
+        width: 210px;
+        margin: 0 auto;
+        margin-top: 30px;
+  
+        button {
+          width: 90px;
+          height: 36px;
+          line-height: 36px;
+          padding: 0;
+        }
+      }
+
+      // 提醒方式
+    }
+
+    // 消息内容
+    .msg{
+      width: 100%;
+      height: 2.2rem;
+      margin: 0.2rem 0 0.2rem 0;
+
+      .opinionName{
+        height: 0.3rem;
+        font-size: 0.28rem;
+        margin-bottom: 0.2rem;
+        font-weight: bold;
+      }
+      .note{
+        border: 0.02rem solid #DCDFE6;
+        border-radius: 0.08rem;
+      }
     }
   }
 
@@ -142,6 +382,12 @@
         margin-right: 1rem;
       }
     }
+    .btn_return,
+    .btn_nextUp{
+      width: 2.7rem;
+      height: 0.64rem;
+      border-radius: 0.08rem;
+    }
   }
 }
 .van-tabs{
@@ -152,9 +398,6 @@
 }
 .van-cell__value{
   color: #323233 !important;
-}
-.van-field__control{
-  text-align: right !important;
 }
 .label {
   color: #999999 !important;
