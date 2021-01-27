@@ -59,6 +59,7 @@
                 clickable
                 label="部门"
                 :value="item.default"
+                is-link
                 placeholder="选择部门"
                 @click="openSelect(item)"
               />
