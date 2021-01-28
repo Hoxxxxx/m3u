@@ -24,28 +24,20 @@
         </div>
       </div>
 
-      <div class="arrowImg"></div>
+      <div class="arrowImg" v-if="tosstype!=='2'"></div>
 
       <!-- 下一步骤 -->
-      <div class="flowBox">
+      <div class="flowBox" v-if="tosstype!=='2'">
         <div class="processName">
           <img src="../../assets/img/step.png" />
           <span>下一步骤：</span>
           <div class="mainSelect">
-            <el-select
-              v-model="uploadData.next_flowid"
-              class="memeberSelect"
-              placeholder="请选择下一步骤"
-              @change="checkNextFlow()"
-            >
-              <el-option
-                v-for="(item,index) in fixedData.next_workFlows"
-                :key="index"
-                :label="item.flowname"
-                :value="item.fid"
-              >
-              </el-option>
-            </el-select>
+            <van-dropdown-menu>
+              <van-dropdown-item
+                v-model="uploadData.next_flowid" 
+                :options="fixedData.next_workFlowsList"
+                @change="checkNextFlow()"/>
+            </van-dropdown-menu>
           </div>
         </div>
         <div class="processPeo">
@@ -54,60 +46,36 @@
           <div class="mainSelect">
             <!-- 未选择流程 -->
             <div v-if="uploadData.next_flowid == ''">
-              <el-select
-                v-model="uploadData.next_userid"
-                class="memeberSelect"
-                placeholder="请先选择下一步骤"
-                disabled
-              >
-              </el-select>
+              <van-dropdown-menu>
+                <van-dropdown-item
+                  v-model="uploadData.next_userid" 
+                  title="请先选择下一步骤"
+                  disabled/>
+              </van-dropdown-menu>
             </div>
             <div v-if="uploadData.next_flowid !== ''">
               <!-- 可选所有 -->
-              <el-select
-                v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '1'"
-                v-model="uploadData.next_userid"
-                class="memeberSelect"
-                placeholder="请选择主办人员"
-              >
-                <el-option
-                  v-for="(item,index) in fixedData.members"
-                  :key="index"
-                  :label="item.name"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
+              <van-dropdown-menu 
+                v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '1'">
+                <van-dropdown-item
+                  v-model="uploadData.next_userid" 
+                  :options="fixedData.next_memberList"/>
+              </van-dropdown-menu>
               <!-- 条件内可选 -->
-              <el-select
-                v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '2'"
-                v-model="uploadData.next_userid"
-                class="memeberSelect"
-                placeholder="请选择主办人员"
-              >
-                <el-option
-                  v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
-                  :key="index"
-                  :label="item.name"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
+              <van-dropdown-menu 
+                v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '2'">
+                <van-dropdown-item
+                  v-model="uploadData.next_userid" 
+                  :options="fixedData.flowuser_memberList"/>
+              </van-dropdown-menu>
               <!-- 不可选 -->
-              <el-select
-                v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '3'"
-                v-model="uploadData.next_userid"
-                class="memeberSelect"
-                disabled
-              >
-                <el-option
-                  v-for="(item,index) in fixedData.next_workFlows[showData.nextInfo_index].flowuser"
-                  :key="index"
-                  :label="item.name"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
+              <van-dropdown-menu 
+                v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '3'">
+                <van-dropdown-item
+                  v-model="uploadData.next_userid" 
+                  disabled
+                  :options="fixedData.flowuser_memberList"/>
+              </van-dropdown-menu>
             </div>
           </div>
         </div>
@@ -272,20 +240,19 @@ import { workflowsList,transact } from "@/api/process_new.js"
 export default {
   data() {
     return {
+      aaa: '',
       fullscreenLoading: false,
       tosstype: '1', // 1:同意；2:拒绝；3:退回
       tossname: '同意流程',
       workname: '',
       // 流程信息
       fixedData: {
-        members: [],
         is_last: '',
-        now_workFlows: {
-          flownum: 1,
-          flowname: "当前步骤名",
-          flowuser: "刘芳菲"
-        },
+        now_workFlows: {},
         next_workFlows:[],
+        next_workFlowsList: [], // 下一步骤列表
+        next_memberList: [], //下一步人员列表(所有)
+        flowuser_memberList: [], //下一步人员列表(返回值)
         memberMsg: "请选择主办人员",
         msgs: [
           { label: "同意", value: 0 },
@@ -331,38 +298,24 @@ export default {
       this.uploadData.workid =  this.$route.query.workid
       this.workname = this.$route.query.workname?this.$route.query.workname:'申请单'
     },
-    checkNextFlow() {
-      if (this.fixedData.next_workFlows.length !== 0) {
-        // 获取指定下标（默认选中的下一步骤）的主办人员信息
-        this.fixedData.next_workFlows.forEach( (item, index) => {
-          if (item.fid == this.uploadData.next_flowid) {
-            // 获取下标
-            this.showData.nextInfo_index = index
-            // 默认选中审批人列表的第一个审批人
-            // changeType：0（取用后端返回人员列表作为下一步备选）/   1 （取用所有公司人员列表作为作为下一步备选）
-            if (this.fixedData.next_workFlows[index].changetype !== '1') {
-              if (this.fixedData.next_workFlows[index].flowuser.length > 0) {
-                this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
-              }
-            } else {
-              this.uploadData.next_userid = this.fixedData.members[0].id;
-              this.showData.oaa04_show = this.fixedData.members[0].name;
-            }
-          }
-        })
-      }
-    },
     // 获取基础数据
     getUsers(){
+      this.fixedData.next_memberList = []
       usersList().then(res=>{
         if(res.status == 200){
-          this.fixedData.members = res.data
+          res.data.forEach(item => {
+            this.fixedData.next_memberList.push({
+              text: item.name,
+              value: item.id
+            })
+          })
         }else{
           this.$message.error("获取用户列表失败：" + result.error.message);
         }
       })
     },
     getworkflows(){
+      this.fixedData.next_workFlowsList = []
       const loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -379,7 +332,24 @@ export default {
         if(res.status == 200){
           this.fixedData.is_last = res.data.workclass_personnel.perid.is_last // 是否最终步
           this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
-          this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 下一步骤
+          // 下一步骤
+          if (this.tosstype == '1') {
+            this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 同意流程
+          } else if (this.tosstype == '2') {
+            this.fixedData.next_workFlows = [] // 拒绝流程
+          } else {
+            this.fixedData.next_workFlows = res.data.workclass_personnel.pre_perid // 退回流程
+          }
+          // 赋值下一步骤列表
+          this.fixedData.next_workFlows.forEach( item => {
+            this.fixedData.next_workFlowsList.push({
+              text: item.flowname,
+              value: item.fid
+            })
+            console.log('1', this.fixedData.next_workFlows)
+            console.log('2', this.fixedData.next_workFlowsList)
+          })
+          this.fixedData.flowuser_memberList
           // 如果下一步骤只有一个可选项，则赋值步骤id
           if (this.fixedData.next_workFlows.length == 1) {
             this.uploadData.next_flowid = this.fixedData.next_workFlows[0].fid
@@ -390,6 +360,36 @@ export default {
           this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
+    },
+    checkNextFlow() {
+      this.flowuser_memberList = []
+      if (this.fixedData.next_workFlows.length !== 0) {
+        // 获取指定下标（默认选中的下一步骤）的主办人员信息
+        this.fixedData.next_workFlows.forEach( (item, index) => {
+          if (item.fid == this.uploadData.next_flowid) {
+            // 获取下标
+            this.showData.nextInfo_index = index
+            // 赋值下一步人员列表
+            this.fixedData.next_workFlows[index].flowuser.forEach( item => {
+              this.fixedData.flowuser_memberList.push({
+                text: item.name,
+                value: item.id
+              })
+            })
+            console.log('3', this.fixedData.flowuser_memberList)
+            // 默认选中审批人列表的第一个审批人
+            // changeType：0（取用后端返回人员列表作为下一步备选）/   1 （取用所有公司人员列表作为作为下一步备选）
+            if (this.fixedData.next_workFlows[index].changetype !== '1') {
+              if (this.fixedData.next_workFlows[index].flowuser.length > 0) {
+                this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
+              }
+            } else {
+              this.uploadData.next_userid = this.fixedData.next_memberList[0].value;
+              this.showData.oaa04_show = this.fixedData.next_memberList[0].text;
+            }
+          }
+        })
+      }
     },
     
     handleClick() {},

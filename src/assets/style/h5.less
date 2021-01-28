@@ -187,93 +187,29 @@
           box-sizing: content-box;
           flex-shrink: 0;
 
-          .el-select {
-            width: 4.08rem;
-            height: 0.48rem;
-            padding: 0 0.2rem;
-          }
-
-          .el-select /deep/ .el-input__inner {
-            border: none;
-            width: 4.08rem;
-            height: 0.48rem;
-            background: #FFFFFF;
-          }
-
-          .el-dropdown-link {
-            cursor: pointer;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            width: 228px;
-            height: 26px;
-            line-height: 28px;
-            background: #f5f5f5;
-            padding: 0 15px;
-            font-size: 16px;
-            color: #333333;
-
-            span {
-              width: 100%;
-              color: #333333;
+          .van-dropdown-menu{
+            width: 4.46rem;
+            height: 0.52rem;
+            border-radius: 0.08rem;
+            /deep/ .van-dropdown-menu__bar{
+              width: 4.46rem;
+              height: 0.52rem;
+              border-radius: 0.08rem;
+              justify-content: left;
+              /deep/ .van-dropdown-menu__title{
+                width: 4.44rem;
+                height: 0.52rem;
+              }
+              /deep/ .van-dropdown-menu__title::after{
+                right: 0.4rem;
+              }
             }
-
-            img {
-              width: 20px;
-              height: 20px;
+            /deep/ .van-dropdown-item .van-cell__title span{
+              width: 4.6rem
             }
-          }
-
-          .selector {
-            cursor: pointer;
-            width: 4.08rem;
-            height: 0.48rem;
-            line-height: 0.48rem;
-            padding: 0 0.2rem 0 0.2rem;
-            box-sizing: border-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            background: url("../img/search.png") 95% center no-repeat;
-            background-size: 0.36rem;
-            background-color: #fff;
-          }
-          .selectorInfo{
-            width: 100%;
-            height: 0.48rem;
-            line-height: 0.48rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            background-color: #fff;
           }
         }
 
-        .memeberSelect {
-          .el-input {
-
-            // width: 258px;
-            .el-select__caret {
-              color: #409efd;
-              font-weight: bold;
-            }
-          }
-
-          .el-input__inner {
-            height: 26px;
-            line-height: 26px;
-            background: #f5f5f5;
-          }
-
-          .el-input__icon {
-            line-height: 26px;
-          }
-
-          .el-input__suffix {
-            width: 56px;
-          }
-        }
       }
     }
 
