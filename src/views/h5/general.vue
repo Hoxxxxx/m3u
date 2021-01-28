@@ -89,12 +89,18 @@
                       clearable
                       :required="td.required"
                       :readonly="!td.editable"
-                      :placeholder="`请输入${item.label}`"
+                      :placeholder="`请输入${td.label}`"
                     />
                   </van-collapse-item>
                 </van-collapse>
               </div>
             </van-cell-group>
+            <ul class="files" v-if="group.sub_title == '附件信息'">
+              <li class="file" v-for="(file,file_index) in group.groups" :key="file_index">
+                <van-icon name="orders-o" size="30" />
+                <span @click="download(file.id, file.filename)">{{file.filename}}</span>
+              </li>
+            </ul>
             <van-steps
               v-if="group.sub_title == '流程信息'"
               direction="vertical"
@@ -113,7 +119,9 @@
                   <h5 class="stepState">
                     <template>
                       <span v-if="step.pertype == '99'">通过</span>
-                      <span v-if="step.pertype == '0'" class="handling">审批中</span>
+                      <span v-if="step.pertype == '0'" class="handling"
+                        >审批中</span
+                      >
                       <span v-if="step.pertype == '2'">拒绝</span>
                       <span v-if="step.pertype == '3'">退回</span>
                       <span v-if="step.pertype == '5'">审批结束</span>
@@ -127,74 +135,79 @@
         </van-tabs>
       </div>
       <footer>
-        <van-popover v-model="showMore" trigger="click" placement="top-start">
-          <div
-            class="linkBox"
-            v-for="(link, link_index) in actions"
-            :key="link_index"
+        <!-- 审核/查看显示按钮 -->
+        <div class="btn_check" v-if="type != 2">
+          <van-popover v-model="showMore" trigger="click" placement="top-start">
+            <div
+              class="linkBox"
+              v-for="(link, link_index) in actions"
+              :key="link_index"
+            >
+              <van-cell :title="link.title" is-link @click="toLink(link.url)" />
+            </div>
+            <template #reference>
+              <van-button
+                class="btn_operation"
+                size="small"
+                color=""
+                plain
+                type="info"
+                >其他
+              </van-button>
+            </template>
+          </van-popover>
+          <van-button
+            class="btn_operation"
+            size="small"
+            color="#F56C6C"
+            type="default"
+            >退回</van-button
           >
-            <van-cell :title="link.title" is-link @click="toLink(link.url)" />
-          </div>
-          <template #reference>
-            <van-button
-              class="btn_operation"
-              size="small"
-              color=""
-              plain
-              type="info"
-              >其他
-            </van-button>
-          </template>
-        </van-popover>
-        <van-button
-          class="btn_operation"
-          size="small"
-          color="#F56C6C"
-          type="default"
-          >退回</van-button
-        >
-        <van-button
-          class="btn_operation"
-          size="small"
-          color="#FBD951"
-          type="warning"
-          >拒绝</van-button
-        >
-        <van-button
-          class="btn_operation"
-          size="small"
-          color="#6DD400"
-          type="danger"
-          @click="agree()"
-          >同意</van-button
-        >
+          <van-button
+            class="btn_operation"
+            size="small"
+            color="#FBD951"
+            type="warning"
+            >拒绝</van-button
+          >
+          <van-button
+            class="btn_operation"
+            size="small"
+            color="#6DD400"
+            type="danger"
+            @click="agree()"
+            >同意</van-button
+          >
+        </div>
+        <!-- 新增显示按钮 -->
+        <div class="btn_add" v-else>
+          <van-button
+            class="btn_operation w2rem"
+            size="small"
+            color="#409EFF"
+            type="warning"
+            >保存</van-button
+          >
+          <van-button
+            class="btn_operation w2rem"
+            size="small"
+            color="#6DD400"
+            type="danger"
+            @click="agree()"
+            >下一步</van-button
+          >
+        </div>
       </footer>
     </van-skeleton>
   </div>
 </template>
 
 <script>
-import { h5Data } from "@/api/process_new";
-import { Toast } from "vant";
+import { h5Data, h5DataAdd } from "@/api/process_new";
 export default {
   data() {
     return {
-      formData: {
-        // workName: "出差申请单",
-        // tplid: "8950",
-        // work_type: "unique",
-        // subTitles: [
-        //   "基本信息",
-        //   "财务信息",
-        //   "教育信息",
-        //   "学历信息",
-        //   "工作信息",
-        //   "交际信息",
-        //   "附件信息",
-        //   "流程信息",
-        // ],
-        // grops: [],
-      },
+      formData: {},
       // 底部操作栏
       showMore: false, //其他
       actions: [
@@ -211,17 +224,21 @@ export default {
           url: "https://www.baidu.com/",
         },
       ],
-      type: "check",
-      noDATA: true,
+      type: null, //当前页面类型：查看、新增、审核  type=1就是审核  type=2 新增  type=3 查看
+      noDATA: true, //控制显示骨架屏
     };
   },
   created() {
-    this.geth5Data();
+    this.type = this.$route.query.type;
+    console.log(this.type);
+    if (this.type == 2) {
+      this.geth5DataAdd();
+    } else {
+      this.geth5Data();
+    }
   },
-  mounted() {},
-  watch: {},
   methods: {
-    // 获取当前页面数据
+    // 获取审核/查看页面数据
     geth5Data() {
       let params = {
         workid: 5908,
@@ -234,20 +251,49 @@ export default {
       h5Data(params).then((res) => {
         if (res.status == 200) {
           this.noDATA = false;
+          let flow1 = {
+            sub_title: "附件信息",
+            groups: [],
+          };
+          flow1.groups = res.data.file;
+          res.data.form_layout.push(flow1);
           let flow = {
             sub_title: "流程信息",
             groups: [],
           };
           flow.groups = res.data.workclass_perflow;
           res.data.form_layout.push(flow);
-          let copy = JSON.parse(JSON.stringify(res.data.form_layout[3].groups[0]))
-          res.data.form_layout[3].groups.push(copy)
           this.formData = res.data;
-          console.log(this.formData)
+          console.log(this.formData);
         } else {
-          Notify({ type: "danger", message: "数据获取失败" });
+          this.$toast({
+            type: "fail",
+            message: "数据获取失败！",
+          });
         }
-        Toast.clear();
+        this.$toast.clear();
+      });
+    },
+    // 获取新增流程信息
+    geth5DataAdd() {
+      let params = {
+        tplid: 8950,
+      };
+      this.$toast.loading({
+        message: "加载中...",
+        duration: 0,
+      });
+      h5DataAdd(params).then((res) => {
+        if (res.status == 200) {
+          this.noDATA = false;
+          this.formData = res.data;
+        } else {
+          this.$toast({
+            type: "fail",
+            message: "数据获取失败！",
+          });
+        }
+        this.$toast.clear();
       });
     },
     formatDate(date) {
@@ -280,6 +326,43 @@ export default {
     },
     agree() {
       console.log(this.formData);
+    },
+
+    async download(id, filename) {
+      const { data: res } = await this.axios({
+          method: 'get',
+          url: `files/download/${id}`,
+          responseType: "blob",
+      })
+      let fileName = filename;
+      let fileType = {
+        doc: 'application/msword',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        xls: 'application/vnd.ms-excel',
+        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ppt: 'application/vnd.ms-powerpoint',
+        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        pdf: 'application/pdf',
+        txt: 'text/plain',
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        zip: 'application/zip',
+        rar: 'application/x-rar',
+      }
+      let type=fileName.split('.')[1];//获取文件后缀名
+      let blob = new Blob([res],{
+        type:fileType.type
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
     },
   },
 };
