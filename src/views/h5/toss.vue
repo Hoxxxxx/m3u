@@ -3,7 +3,10 @@
     <!-- 头部区域 -->
     <div class="head">
       <header>{{ workname }}</header>
-      <div class="tossname agree">{{tossname}}</div>
+      <div class="tossname"
+              :class="tosstype=='1'?'agree':tosstype=='2'?'reject':'back' ">
+        {{tossname}}
+      </div>
     </div>
     <!-- 内容区域 -->
     <div class="cont_toss">
@@ -61,12 +64,20 @@
             </div>
             <div v-if="uploadData.next_flowid !== ''">
               <!-- 可选所有 -->
-              <div 
+              <el-select
                 v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '1'"
-                class="selector" 
-                @click="selectDialog('SQR')">
-                  {{showData.oaa04_show}}
-              </div>
+                v-model="uploadData.next_userid"
+                class="memeberSelect"
+                placeholder="请选择主办人员"
+              >
+                <el-option
+                  v-for="(item,index) in fixedData.members"
+                  :key="index"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
               <!-- 条件内可选 -->
               <el-select
                 v-if="fixedData.next_workFlows[showData.nextInfo_index].changetype == '2'"
@@ -260,8 +271,9 @@ export default {
   data() {
     return {
       fullscreenLoading: false,
-      workname: '',
+      tosstype: '1', // 1:同意；2:拒绝；3:退回
       tossname: '同意流程',
+      workname: '',
       // 流程信息
       fixedData: {
         members: [],
@@ -312,6 +324,8 @@ export default {
     //********* Content *********
     // 初始化数据
     initData() {
+      this.tosstype = this.$route.query.tosstype?this.$route.query.tosstype:''
+      this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
       this.uploadData.workid =  this.$route.query.workid
       this.workname = this.$route.query.workname?this.$route.query.workname:'申请单'
     },
@@ -354,7 +368,8 @@ export default {
         background: "rgba(0, 0, 0, 0.7)",
       });
       const params = {
-        workid: this.uploadData.workid
+        workid: this.uploadData.workid,
+        type: '1' //手机端
       }
       workflowsList(params)
       .then(res=>{
@@ -373,47 +388,6 @@ export default {
           this.$message.error('获取流程信息失败：', res.error.message);
         }
       })
-    },
-    // 数据选择
-    selectDialog(type,rowIndex) {
-      this.rowIndex = rowIndex;
-      this.dataSelect.dialogVisible = true;
-      this.dataSelect.cur_input = type;
-      this.dataSelect.choosedData = [];
-      switch (type) {
-        case "SQR":
-          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
-          this.dataSelect.filter = filter_SQR;
-          this.dataSelect.searchApi = "oa/users";
-          this.selectLoading = false;
-          this.dataSelect.headList = this.tableHead.head_SQR;
-          this.dataSelect.dialogTitle = "员工列表";
-          break;
-        default:
-          return;
-          break;
-      }
-    },
-    selectCancel(val) {
-      this.dataSelect.dialogVisible = false;
-      this.dataSelect.bodyData = val;
-      this.dataSelect.choosedData = val;
-    },
-    selectSure(val) {
-      this.dataSelect.dialogVisible = false;
-      this.dataSelect.bodyData = [];
-      this.dataSelect.choosedData = val;
-      if (val.length > 0) {
-        switch (this.dataSelect.cur_input) {
-          case "SQR":
-            this.uploadData.next_userid = val[0].id;
-            this.showData.oaa04_show = val[0].name;
-            break;
-          default:
-            return;
-            break;
-        }
-      }
     },
     
     handleClick() {},

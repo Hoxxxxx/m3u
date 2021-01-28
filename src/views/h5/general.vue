@@ -149,14 +149,14 @@
         <van-button
           class="btn_operation"
           size="small"
-          color="#F56C6C"
+          color="#FBD951"
           type="default"
           >退回</van-button
         >
         <van-button
           class="btn_operation"
           size="small"
-          color="#FBD951"
+          color="#F56C6C"
           type="warning"
           >拒绝</van-button
         >
