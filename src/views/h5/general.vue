@@ -96,9 +96,15 @@
               </div>
             </van-cell-group>
             <ul class="files" v-if="group.sub_title == '附件信息'">
-              <li class="file" v-for="(file,file_index) in group.groups" :key="file_index">
+              <li
+                class="file"
+                v-for="(file, file_index) in group.groups"
+                :key="file_index"
+              >
                 <van-icon name="orders-o" size="30" />
-                <span @click="download(file.id, file.filename)">{{file.filename}}</span>
+                <span @click="download(file.id, file.filename)">{{
+                  file.filename
+                }}</span>
               </li>
             </ul>
             <van-steps
@@ -327,42 +333,54 @@ export default {
     agree() {
       console.log(this.formData);
     },
-
-    async download(id, filename) {
-      const { data: res } = await this.axios({
-          method: 'get',
+    async download(id, filename) {
+      let u = navigator.userAgent;
+      if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+        //安卓手机
+        const { data: res } = await this.axios({
+          method: "get",
           url: `files/download/${id}`,
-          responseType: "blob",
-      })
-      let fileName = filename;
-      let fileType = {
-        doc: 'application/msword',
-        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        xls: 'application/vnd.ms-excel',
-        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        ppt: 'application/vnd.ms-powerpoint',
-        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        pdf: 'application/pdf',
-        txt: 'text/plain',
-        png: 'image/png',
-        jpg: 'image/jpeg',
-        jpeg: 'image/jpeg',
-        zip: 'application/zip',
-        rar: 'application/x-rar',
-      }
-      let type=fileName.split('.')[1];//获取文件后缀名
-      let blob = new Blob([res],{
-        type:fileType.type
-      });
-      let url = window.URL.createObjectURL(blob);
-      let link = document.createElement("a");
-      link.style.display = "none";
-      link.href = url;
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+          responseType: "blob",
+        });
+        let fileName = filename;
+        let fileType = {
+          doc: "application/msword",
+          docx:
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          xls: "application/vnd.ms-excel",
+          xlsx:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          ppt: "application/vnd.ms-powerpoint",
+          pptx:
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          pdf: "application/pdf",
+          txt: "text/plain",
+          png: "image/png",
+          jpg: "image/jpeg",
+          jpeg: "image/jpeg",
+          zip: "application/zip",
+          rar: "application/x-rar",
+        };
+        let type = fileName.split(".")[1]; //获取文件后缀名
+        let blob = new Blob([res], {
+          type: fileType.type,
+        });
+        let url = window.URL.createObjectURL(blob);
+        let link = document.createElement("a");
+        link.style.display = "none";
+        link.href = url;
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } else if (u.indexOf("iPhone") > -1) {
+        //苹果手机
+        this.$toast({
+          type: "fail",
+          message: "不支持苹果手机下载文件，请到PC端处理！",
+        });
+      }
     },
   },
 };
