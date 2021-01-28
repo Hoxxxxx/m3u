@@ -312,8 +312,6 @@ export default {
     initData() {
       this.uploadData.workid =  this.$route.query.workid
       this.workname = this.$route.query.workname?this.$route.query.workname:'申请单'
-      this.oaa01 =  this.$route.query.oaa01
-      this.oaa02 =  this.$route.query.oaa02
     },
     checkNextFlow() {
       if (this.fixedData.next_workFlows.length !== 0) {
