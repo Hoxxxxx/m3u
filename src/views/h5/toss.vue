@@ -271,7 +271,7 @@ export default {
         sms_box: 1, //内部短消息
         sms_phone: "", //手机短信
         sms_mail: "", //邮件
-        pertype: 1, //审批类型，1：通过，2：拒绝，3：驳回
+        pertype: "", //审批类型，1：通过，2：拒绝，3：驳回
         next_userid:"",//下一步审批人id
         next_flowid:"",//下一步流程id
       },
@@ -297,6 +297,7 @@ export default {
       this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
       this.uploadData.workid =  this.$route.query.workid
       this.workname = this.$route.query.workname?this.$route.query.workname:'申请单'
+      this.uploadData.pertype = this.tosstype=='1'?'1':this.tosstype=='2'?'2':'3'
     },
     // 获取基础数据
     getUsers(){
