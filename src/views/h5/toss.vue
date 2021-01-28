@@ -241,23 +241,25 @@
     </div>
     <!-- 底部区域 -->
     <footer>
-      <van-button
-        class="btn_return"
-        plain
-        size="small"
-        color="#409EFD"
-        type="info"
-        >返回</van-button
-      >
-      <van-button
-        class="btn_nextUp"
-        size="small"
-        color="#409EFD"
-        type="info"
-        v-loading.fullscreen.lock="fullscreenLoading"
-        @click="submit()"
-        >提交</van-button
-      >
+      <div class="btn_add">
+        <van-button
+          class="btn_return"
+          plain
+          size="small"
+          color="#409EFD"
+          type="info"
+          >返回</van-button
+        >
+        <van-button
+          class="btn_nextUp"
+          size="small"
+          color="#409EFD"
+          type="info"
+          v-loading.fullscreen.lock="fullscreenLoading"
+          @click="submit()"
+          >提交</van-button
+        >
+      </div>
     </footer>
   </div>
 </template>
