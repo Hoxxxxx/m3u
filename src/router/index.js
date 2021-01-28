@@ -27,6 +27,12 @@ const routes = [{
     path: '/error',
     component: error,
   },
+  // 申请人签批
+  {
+    path: '/apply',
+    name: 'apply',
+    component: apply
+  },
   // 审批人同意
   {
     path: '/agree',

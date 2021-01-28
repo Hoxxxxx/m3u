@@ -243,6 +243,8 @@
         size="small"
         color="#409EFD"
         type="info"
+        v-loading.fullscreen.lock="fullscreenLoading"
+        @click="submit()"
         >提交</van-button
       >
     </footer>
