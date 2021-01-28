@@ -40,3 +40,10 @@ export const h5Data = (params) => {
     params
   })
 }
+
+// 获取h5新增流程时的数据
+export const h5DataAdd = (params) => {
+  return request.get(`oa/workflows/template/${params.tplid}`, {}, {
+    params
+  })
+}
