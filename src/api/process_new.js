@@ -33,3 +33,10 @@ export const transfer = (params) => {
   return request.post(`oa/workflows/transfer`,
     params)
 }
+
+//获取页面数据移动端
+export const h5Data = (params) => {
+  return request.get(`oa/workflows/${params.workid}`, {}, {
+    params
+  })
+}
