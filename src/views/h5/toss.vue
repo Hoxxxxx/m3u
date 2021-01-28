@@ -2,8 +2,8 @@
   <div class="h5Home">
     <!-- 头部区域 -->
     <div class="head">
-      <header>{{ formData.workName }}</header>
-      <div class="tossName agree">{{tossName}}</div>
+      <header>{{ workname }}</header>
+      <div class="tossname agree">{{tossname}}</div>
     </div>
     <!-- 内容区域 -->
     <div class="cont_toss">
@@ -250,13 +250,16 @@
 </template>
 
 <script>
+import SelectData from "@/components/selectData";
+import { usersList,  } from "@/api/basic.js"
+import { workflowsList,transact } from "@/api/process_new.js"
+
 export default {
   data() {
     return {
-      tossName: '同意流程',
-      formData: {
-        workName: "出差申请单",
-      },
+      fullscreenLoading: false,
+      workname: '',
+      tossname: '同意流程',
       // 流程信息
       fixedData: {
         members: [],
@@ -294,33 +297,152 @@ export default {
         nextInfo_index: ''
       },
       // 底部操作栏
-      showMore: false, //其他
-      actions: [
-        {
-          title: "查看申请单详细信息1",
-          url: "https://www.baidu.com/",
-        },
-        {
-          title: "查看申请单详细信息2",
-          url: "https://www.baidu.com/",
-        },
-        {
-          title: "查看申请单详细信息3",
-          url: "https://www.baidu.com/",
-        },
-      ],
     };
   },
   created() {
+    this.initData()
+    this.getUsers()
+    this.getworkflows()
   },
   watch: {
   },
   methods: {
     //********* Content *********
+    // 初始化数据
+    initData() {
+      this.uploadData.workid =  this.$route.query.workid
+      this.workname = this.$route.query.workname?this.$route.query.workname:'申请单'
+      this.oaa01 =  this.$route.query.oaa01
+      this.oaa02 =  this.$route.query.oaa02
+    },
+    checkNextFlow() {
+      if (this.fixedData.next_workFlows.length !== 0) {
+        // 获取指定下标（默认选中的下一步骤）的主办人员信息
+        this.fixedData.next_workFlows.forEach( (item, index) => {
+          if (item.fid == this.uploadData.next_flowid) {
+            // 获取下标
+            this.showData.nextInfo_index = index
+            // 默认选中审批人列表的第一个审批人
+            // changeType：0（取用后端返回人员列表作为下一步备选）/   1 （取用所有公司人员列表作为作为下一步备选）
+            if (this.fixedData.next_workFlows[index].changetype !== '1') {
+              if (this.fixedData.next_workFlows[index].flowuser.length > 0) {
+                this.uploadData.next_userid = this.fixedData.next_workFlows[index].flowuser[0].id
+              }
+            } else {
+              this.uploadData.next_userid = this.fixedData.members[0].id;
+              this.showData.oaa04_show = this.fixedData.members[0].name;
+            }
+          }
+        })
+      }
+    },
+    // 获取基础数据
+    getUsers(){
+      usersList().then(res=>{
+        if(res.status == 200){
+          this.fixedData.members = res.data
+        }else{
+          this.$message.error("获取用户列表失败：" + result.error.message);
+        }
+      })
+    },
+    getworkflows(){
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      const params = {
+        workid: this.uploadData.workid
+      }
+      workflowsList(params)
+      .then(res=>{
+        loading.close()
+        if(res.status == 200){
+          this.fixedData.is_last = res.data.workclass_personnel.perid.is_last // 是否最终步
+          this.fixedData.now_workFlows = res.data.workclass_personnel.perid // 当前步骤
+          this.fixedData.next_workFlows = res.data.workclass_personnel.next_perid // 下一步骤
+          // 如果下一步骤只有一个可选项，则赋值步骤id
+          if (this.fixedData.next_workFlows.length == 1) {
+            this.uploadData.next_flowid = this.fixedData.next_workFlows[0].fid
+            this.checkNextFlow()
+          }
+          this.uploadData.sms_content = `您有新的流程需要办理，流水号：${res.data.workclass_info.number}，流程名称：${res.data.workclass_info.title}`
+        }else{
+          this.$message.error('获取流程信息失败：', res.error.message);
+        }
+      })
+    },
+    // 数据选择
+    selectDialog(type,rowIndex) {
+      this.rowIndex = rowIndex;
+      this.dataSelect.dialogVisible = true;
+      this.dataSelect.cur_input = type;
+      this.dataSelect.choosedData = [];
+      switch (type) {
+        case "SQR":
+          let filter_SQR = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_SQR;
+          this.dataSelect.searchApi = "oa/users";
+          this.selectLoading = false;
+          this.dataSelect.headList = this.tableHead.head_SQR;
+          this.dataSelect.dialogTitle = "员工列表";
+          break;
+        default:
+          return;
+          break;
+      }
+    },
+    selectCancel(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = val;
+      this.dataSelect.choosedData = val;
+    },
+    selectSure(val) {
+      this.dataSelect.dialogVisible = false;
+      this.dataSelect.bodyData = [];
+      this.dataSelect.choosedData = val;
+      if (val.length > 0) {
+        switch (this.dataSelect.cur_input) {
+          case "SQR":
+            this.uploadData.next_userid = val[0].id;
+            this.showData.oaa04_show = val[0].name;
+            break;
+          default:
+            return;
+            break;
+        }
+      }
+    },
+    
     handleClick() {},
     // 常用语选择
     handleCommand(command) {
       this.uploadData.content = command.label;
+    },
+
+    submit() {
+      this.fullscreenLoading = true;
+      transact(this.uploadData).then(res=>{
+        if(res.status == 200){
+          this.fullscreenLoading = false;
+          this.$message({
+            message: '提交成功！',
+            type: 'success'
+          })
+          this.$router.push({
+            path: `${this.$route.query.url_type}/check`,
+            query: {
+              workname: this.workname,
+              workid: this.uploadData.workid
+            },
+          });
+        }else{
+          this.fullscreenLoading = false;
+          this.$message.error('提交失败：'+res.error.message);
+        }
+      })
     },
     // 底部操作按钮区域
     
