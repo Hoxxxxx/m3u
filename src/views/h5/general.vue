@@ -102,9 +102,7 @@
                 :key="file_index"
               >
                 <van-icon name="orders-o" size="30" />
-                <span @click="download(file.id, file.filename)">{{
-                  file.filename
-                }}</span>
+                <span @click="download(file)">{{ file.filename }}</span>
               </li>
             </ul>
             <van-steps
@@ -209,7 +207,8 @@
 </template>
 
 <script>
-import { h5Data, h5DataAdd } from "@/api/process_new";
+import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
+import {getUrlParams} from "@/utils/utils.js"
 export default {
   data() {
     return {
@@ -232,11 +231,15 @@ export default {
       ],
       type: null, //当前页面类型：查看、新增、审核  type=1就是审核  type=2 新增  type=3 查看
       noDATA: true, //控制显示骨架屏
+      type:null,
+      workid:"",
     };
   },
   created() {
-    this.type = this.$route.query.type;
-    console.log(this.type);
+    let params = getUrlParams(window.location.href)
+    this.type = params.type ? params.type : 1;
+    this.workid = params.workid
+    alert(window.location.href)
     if (this.type == 2) {
       this.geth5DataAdd();
     } else {
@@ -247,8 +250,8 @@ export default {
     // 获取审核/查看页面数据
     geth5Data() {
       let params = {
-        workid: 5908,
-        type: 1,
+        workid: this.workid,
+        type: this.type,
       };
       this.$toast.loading({
         message: "加载中...",
@@ -327,53 +330,96 @@ export default {
       this.showMore = true;
     },
     toLink(link) {
-      console.log(123);
       window.open(link);
     },
     agree() {
-      console.log(this.formData);
+      let param = {
+        annexurlid: [],
+        from_data: {},
+        tplid: 8950,
+      };
+      this.formData.form_layout.forEach((item) => {
+        item.groups.forEach((group) => {
+          if (group.form_type != "table") {
+            param.from_data[group.name] = group.show;
+          } else {
+            let arrSon = [];
+            let arr = {};
+            group.son.forEach((ele) => {
+              arr[ele.name] = ele.show;
+            });
+            arrSon.push(arr);
+            param.from_data[group.name] = arrSon;
+          }
+        });
+      });
+      h5NewProcess(param).then((res) => {
+        if (res.status == 200) {
+          this.$toast({
+            type: "success",
+            message: "成功！",
+          });
+        } else {
+          this.$toast({
+            type: "fail",
+            message: "失败",
+          });
+        }
+      });
     },
-    async download(id, filename) {
+    // 文件下载
+    async download(file) {
       let u = navigator.userAgent;
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
-        const { data: res } = await this.axios({
-          method: "get",
-          url: `files/download/${id}`,
-          responseType: "blob",
-        });
-        let fileName = filename;
-        let fileType = {
-          doc: "application/msword",
-          docx:
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          xls: "application/vnd.ms-excel",
-          xlsx:
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          ppt: "application/vnd.ms-powerpoint",
-          pptx:
-            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-          pdf: "application/pdf",
-          txt: "text/plain",
-          png: "image/png",
-          jpg: "image/jpeg",
-          jpeg: "image/jpeg",
-          zip: "application/zip",
-          rar: "application/x-rar",
-        };
-        let type = fileName.split(".")[1]; //获取文件后缀名
-        let blob = new Blob([res], {
-          type: fileType.type,
-        });
-        let url = window.URL.createObjectURL(blob);
-        let link = document.createElement("a");
-        link.style.display = "none";
-        link.href = url;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
+        if (this.formData.work_type == "unique") {
+          let url = file.fileaddr; // 绝对地址
+          let a = document.createElement("a");
+          a.download = file.filename;
+          a.href = url;
+          a.target = "_blank";
+          document.appendChild(a);
+          a.click();
+          document.removeChild(a);
+        } else {
+          const { data: res } = await this.axios({
+            method: "get",
+            url: `files/download/${file.id}`,
+            responseType: "blob",
+          });
+          let fileName = file.filename;
+          let fileType = {
+            doc: "application/msword",
+            docx:
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            xls: "application/vnd.ms-excel",
+            xlsx:
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            ppt: "application/vnd.ms-powerpoint",
+            pptx:
+              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            pdf: "application/pdf",
+            txt: "text/plain",
+            png: "image/png",
+            jpg: "image/jpeg",
+            jpeg: "image/jpeg",
+            zip: "application/zip",
+            rar: "application/x-rar",
+          };
+          let type = fileName.split(".")[1]; //获取文件后缀名
+          let blob = new Blob([res], {
+            type: fileType[type],
+          });
+          let url = window.URL.createObjectURL(blob);
+          let link = document.createElement("a");
+          link.style.display = "none";
+          link.href = url;
+          link.setAttribute("download", fileName);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+        }
       } else if (u.indexOf("iPhone") > -1) {
         //苹果手机
         this.$toast({

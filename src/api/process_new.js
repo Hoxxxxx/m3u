@@ -33,7 +33,6 @@ export const transfer = (params) => {
   return request.post(`oa/workflows/transfer`,
     params)
 }
-
 //获取页面数据移动端
 export const h5Data = (params) => {
   return request.get(`oa/workflows/${params.workid}`, {}, {
@@ -47,3 +46,9 @@ export const h5DataAdd = (params) => {
     params
   })
 }
+
+export const h5NewProcess = (params) => {
+  return request.post(`oa/workflows`,
+    params)
+}
+// /v2/workflows
