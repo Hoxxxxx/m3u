@@ -37,7 +37,7 @@
         <div class="processName">
           <img src="../../assets/img/step.png" />
           <span>下一步骤：</span>
-          <div class="">
+          <div class="mainSelect">
             <van-dropdown-menu>
               <van-dropdown-item
                 v-model="uploadData.next_flowid"
@@ -50,7 +50,7 @@
         <div class="processPeo">
           <img src="../../assets/img/person.png" />
           <span>主办人员：</span>
-          <div class="">
+          <div class="mainSelect">
             <!-- 未选择流程 -->
             <div v-if="uploadData.next_flowid == ''">
               <van-dropdown-menu>
