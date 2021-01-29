@@ -141,13 +141,13 @@
       <footer>
         <!-- 审核/查看显示按钮 -->
         <div class="btn_check" v-if="type != 2">
-          <van-popover v-model="showMore" trigger="click" placement="top-start">
+          <van-popover class="others" v-model="showMore" trigger="click" placement="top-start" v-if="actions.length > 0">
             <div
               class="linkBox"
               v-for="(link, link_index) in actions"
               :key="link_index"
             >
-              <van-cell :title="link.title" is-link @click="toLink(link.url)" />
+              <van-cell :title="link.name" is-link @click="toLink(link.url)" />
             </div>
             <template #reference>
               <van-button
@@ -216,20 +216,7 @@ export default {
       formData: {},
       // 底部操作栏
       showMore: false, //其他
-      actions: [
-        {
-          title: "查看申请单详细信息1",
-          url: "https://www.baidu.com/",
-        },
-        {
-          title: "查看申请单详细信息2",
-          url: "https://www.baidu.com/",
-        },
-        {
-          title: "查看申请单详细信息3",
-          url: "https://www.baidu.com/",
-        },
-      ],
+      actions: [],
       type: null, //当前页面类型：查看、新增、审核  type=1就是审核  type=2 新增  type=3 查看
       noDATA: true, //控制显示骨架屏
       type: null,
@@ -271,6 +258,7 @@ export default {
           };
           flow.groups = res.data.workclass_perflow;
           res.data.form_layout.push(flow);
+          this.actions = res.data.workclass_info.more
           this.formData = res.data;
           console.log(this.formData);
         } else {
@@ -372,14 +360,6 @@ export default {
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
         if (this.formData.work_type == "usual") {
-          // let url = file.fileaddr; // 绝对地址
-          // let a = document.createElement("a");
-          // a.download = file.filename;
-          // a.href = url;
-          // a.target = "_blank";
-          // document.appendChild(a);
-          // a.click();
-          // document.removeChild(a);
           window.open(file.fileaddr)
         } else {
           const { data: res } = await this.axios({
