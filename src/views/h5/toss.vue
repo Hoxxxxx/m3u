@@ -52,15 +52,15 @@
           <span>主办人员：</span>
           <div class="mainSelect">
             <!-- 未选择流程 -->
-            <div v-if="uploadData.next_flowid == ''">
-              <van-dropdown-menu>
+            <!-- <div v-if="uploadData.next_flowid == ''"> -->
+              <van-dropdown-menu v-if="uploadData.next_flowid == ''">
                 <van-dropdown-item
                   v-model="uploadData.next_userid"
                   title="请先选择下一步骤"
                   disabled
                 />
               </van-dropdown-menu>
-            </div>
+            <!-- </div> -->
             <div v-if="uploadData.next_flowid !== ''">
               <!-- 可选所有 -->
               <van-dropdown-menu
@@ -225,6 +225,7 @@
           size="small"
           color="#409EFD"
           type="info"
+          @click="back()"
           >返回</van-button
         >
         <van-button
@@ -465,6 +466,16 @@ export default {
           this.$message.error("提交失败：" + res.error.message);
         }
       });
+    },
+    back() {
+      // this.$router.push({
+      //   path: "/h5/general",
+      //   query: {
+      //     workid: this.uploadData.workid,
+      //     type: 3,
+      //   },
+      // });
+      history.go(-1)
     },
     // 底部操作按钮区域
   },
