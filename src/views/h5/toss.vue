@@ -96,11 +96,11 @@
         </div>
         <!-- 文字区域 -->
         <div class="note">
-          <el-input
-            placeholder="请输入流程审批意见"
+          <van-field
             v-model="uploadData.content"
-          >
-          </el-input>
+            placeholder="请输入流程审批意见"
+            type="textarea"
+          />
         </div>
       </div>
       <hr  style="border:1px solid #F9F9F9;" />
