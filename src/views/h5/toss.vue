@@ -283,12 +283,7 @@ export default {
     };
   },
   created() {
-    this.tosstype = this.$route.query.tosstype?this.$route.query.tosstype:''
-      this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
-      this.uploadData.workid =  this.$route.query.workid
-      this.workname = this.$route.query.workname?this.$route.query.workname:'申请单1'
-      this.uploadData.pertype = this.tosstype=='1'?'1':this.tosstype=='2'?'2':'3'
-    // this.initData()
+    this.initData()
     this.getUsers()
     this.getworkflows()
   },
