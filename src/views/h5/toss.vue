@@ -86,19 +86,13 @@
       <div class="sugg">
         <div class="top">
           <div class="opinionName">审批意见</div>
-          <el-dropdown trigger="click" @command="handleCommand">
-            <span class="el-dropdown-link">
-              常用语<img src="../../assets/img/more.png" class="moreImg" />
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                v-for="(item, index) in fixedData.msgs"
-                :key="index"
-                :command="item"
-                >{{ item.label }}</el-dropdown-item
-              >
-            </el-dropdown-menu>
-          </el-dropdown>
+          <van-dropdown-menu active-color="#1989fa">
+            <van-dropdown-item 
+                v-model="fixedData.content_value" 
+                :options="fixedData.msgs"
+                title="常用语"
+                @change="handleCommand" />
+          </van-dropdown-menu>
         </div>
         <!-- 文字区域 -->
         <div class="note">
@@ -115,44 +109,32 @@
         <div class="remindMember">
           <div class="opinionName">提醒相关人员</div>
           <div class="checks">
-            <el-checkbox
-              v-model="uploadData.sms_next"
-              class="check"
-              size="mini"
-              :true-label="1"
-              :false-label="0"
-              label="下一步办理人员"
-              border
-            ></el-checkbox>
-            <el-checkbox
-              v-model="uploadData.sms_notice_user"
-              size="mini"
-              class="check"
-              :true-label="1"
-              :false-label="0"
-              label="当前步骤通知人员"
-              border
+            <van-checkbox 
+              v-model="uploadData.sms_next" 
+              shape="square"
+              checked-color="#409EFD"
+              font-size="0.4rem"
+              @change="transValue()">下一步办理人员</van-checkbox>
+            <van-checkbox 
+              v-model="uploadData.sms_notice_user" 
+              shape="square"
+              checked-color="#409EFD"
+              font-size="0.4rem"
               style="margin-left: 0.2rem"
-            ></el-checkbox>
-            <el-checkbox
-              v-model="uploadData.sms_user"
-              size="mini"
-              class="check"
-              :true-label="1"
-              :false-label="0"
-              label="发起人"
-              border
-            ></el-checkbox>
-            <el-checkbox
-              v-model="uploadData.sms_mana"
-              size="mini"
-              class="check"
-              :true-label="1"
-              :false-label="0"
-              label="当前步骤办理人员"
-              border
+              @change="transValue()">当前步骤通知人员</van-checkbox>
+            <van-checkbox 
+              v-model="uploadData.sms_user" 
+              shape="square"
+              checked-color="#409EFD"
+              font-size="0.4rem"
+              @change="transValue()">发起人</van-checkbox>
+            <van-checkbox 
+              v-model="uploadData.sms_mana" 
+              shape="square"
+              checked-color="#409EFD"
+              font-size="0.4rem"
               style="margin-left: 0.2rem"
-            ></el-checkbox>
+              @change="transValue()">当前步骤办理人员</van-checkbox>
           </div>
         </div>
       </div>
@@ -162,35 +144,25 @@
         <div class="remindMember">
           <div class="opinionName">提醒方式</div>
           <div class="checks">
-            <el-checkbox
-              v-model="uploadData.sms_box"
-              size="mini"
-              class="check"
-              :true-label="1"
-              :false-label="0"
-              label="内部短消息"
-              border
-              
-            ></el-checkbox>
-            <el-checkbox
-              v-model="uploadData.sms_phone"
-              size="mini"
-              class="check"
-              :true-label="1"
-              :false-label="0"
-              label="手机短信"
-              border
+            <van-checkbox 
+              v-model="uploadData.sms_box" 
+              shape="square"
+              checked-color="#409EFD"
+              font-size="0.4rem"
+              @change="transValue()">内部短消息</van-checkbox>
+            <van-checkbox 
+              v-model="uploadData.sms_phone" 
+              shape="square"
+              checked-color="#409EFD"
+              font-size="0.4rem"
               style="margin-left: 0.2rem"
-            ></el-checkbox>
-            <el-checkbox
-              v-model="uploadData.sms_mail"
-              size="mini"
-              class="check"
-              :true-label="1"
-              :false-label="0"
-              label="邮件"
-              border
-            ></el-checkbox>
+              @change="transValue()">手机短信</van-checkbox>
+            <van-checkbox 
+              v-model="uploadData.sms_mail" 
+              shape="square"
+              checked-color="#409EFD"
+              font-size="0.4rem"
+              @change="transValue()">邮件</van-checkbox>
           </div>
         </div>
       </div>
@@ -255,9 +227,10 @@ export default {
         flowuser_memberList: [], //下一步人员列表(返回值)
         memberMsg: "请选择主办人员",
         msgs: [
-          { label: "同意", value: 0 },
-          { label: "拒绝", value: 1 },
+          { text: "同意", value: 0 },
+          { text: "拒绝", value: 1 },
         ],
+        content_value: '',
       },
       // 需上传的数据
       uploadData: {
@@ -285,7 +258,7 @@ export default {
   created() {
     this.initData()
     this.getUsers()
-    this.getworkflows()
+    // this.getworkflows()
   },
   watch: {
   },
@@ -396,7 +369,16 @@ export default {
     handleClick() {},
     // 常用语选择
     handleCommand(command) {
-      this.uploadData.content = command.label;
+      this.uploadData.content = this.fixedData.msgs[command].text;
+    },
+    transValue(column) {
+      this.uploadData.sms_next==true?this.uploadData.sms_next=1:this.uploadData.sms_next=0
+      this.uploadData.sms_notice_user==true?this.uploadData.sms_notice_user=1:this.uploadData.sms_notice_user=0
+      this.uploadData.sms_user==true?this.uploadData.sms_user=1:this.uploadData.sms_user=0
+      this.uploadData.sms_mana==true?this.uploadData.sms_mana=1:this.uploadData.sms_mana=0
+      this.uploadData.sms_box==true?this.uploadData.sms_box=1:this.uploadData.sms_box=0
+      this.uploadData.sms_phone==true?this.uploadData.sms_phone=1:this.uploadData.sms_phone=0
+      this.uploadData.sms_mail==true?this.uploadData.sms_mail=1:this.uploadData.sms_mail=0
     },
 
     submit() {

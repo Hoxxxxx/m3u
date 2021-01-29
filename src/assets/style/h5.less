@@ -196,6 +196,7 @@
               height: 0.52rem;
               border-radius: 0.08rem;
               justify-content: left;
+              box-shadow: none;
               /deep/ .van-dropdown-menu__title{
                 width: 4.44rem;
                 height: 0.52rem;
@@ -237,19 +238,20 @@
         font-size: 0.28rem;
         margin-bottom: 0.2rem;
 
-        .opinionName {
-          margin-right: 0.2rem;
-          font-weight: bold;
-        }
-        .el-dropdown{
-          width: 1.38rem;
-          /deep/ .el-dropdown-link{
-            font-size: 0.28rem;
-            color: #409efd;
-
-            /deep/ img {
-              width: 0.26rem;
-              vertical-align: text-top;
+        .van-dropdown-menu{
+          width: 1.3rem;
+          height: 0.4rem;
+          .van-dropdown-menu__bar{
+            width: 1.3rem;
+            height: 0.4rem;
+            box-shadow: none;
+            .van-dropdown-menu__title{
+              color: #409EFD;
+              font-size: 0.28rem;
+              line-height: 0.4rem;
+            }
+            .van-dropdown-menu__title::after{
+              border-color: transparent transparent #409EFD #409EFD
             }
           }
         }
@@ -281,16 +283,20 @@
 
         .checks {
           width: 100%;
+          display: flex;
+          flex-wrap: wrap;
 
-          .check {
-            margin-right: 0;
-            margin-left: 0;
+          .van-checkbox{
             width: 3.3rem;
             height: 0.64rem;
+            line-height: 3.3rem;
+            border: 1px solid #DCDFE6;
+            border-radius: 0.08rem;
+            box-sizing: border-box;
+            padding-left: 0.2rem;
+            flex-shrink: 0;
             margin-bottom: 0.2rem;
-
-            /deep/ .el-checkbox__label {
-              line-height: 0.5rem;
+            .van-checkbox__label{
               font-size: 0.28rem;
             }
           }
@@ -323,6 +329,7 @@
       }
 
       // 提醒方式
+      
     }
 
     // 消息内容
