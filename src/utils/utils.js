@@ -210,3 +210,24 @@ export function getFilterTplid(type){
     }
   }
 }
+
+export function getUrlParams(href) {
+  if (href.indexOf("?") == -1) {
+      return {};
+  }
+  href = decodeURIComponent(href);
+  var queryString = href.substring(href.indexOf("?") + 1);
+  var parameters = queryString.split("&");
+  var all = {};
+  var pos, paraName, paraValue;
+  for (var i = 0; i < parameters.length; i++) {
+      pos = parameters[i].indexOf('=');
+      if (pos == -1) {
+          continue;
+      }
+      paraName = parameters[i].substring(0, pos);
+      paraValue = parameters[i].substring(pos + 1);
+      all[paraName] = paraValue;
+  }
+  return all;
+}
