@@ -208,7 +208,6 @@
 import SelectData from "@/components/selectData";
 import { usersList,  } from "@/api/basic.js"
 import { workflowsList,transact } from "@/api/process_new.js"
-import {getUrlParams} from "@/utils/utils.js"
 
 export default {
   data() {
@@ -267,17 +266,11 @@ export default {
     //********* Content *********
     // 初始化数据
     initData() {
-      let params = getUrlParams(window.location.href)
-      this.tosstype = params.tosstype?params.tosstype:''
+      this.tosstype = this.$route.query.tosstype?this.$route.query.tosstype:''
       this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
-      this.uploadData.workid =  params.workid
-      this.workname = params.workname?params.workname:'申请单'
+      this.uploadData.workid =  this.$route.query.workid
+      this.workname = this.$route.query.workname?this.$route.query.workname:'申请单'
       this.uploadData.pertype = this.tosstype=='1'?'1':this.tosstype=='2'?'2':'3'
-      // this.tosstype = this.$route.query.tosstype?this.$route.query.tosstype:''
-      // this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
-      // this.uploadData.workid =  this.$route.query.workid
-      // this.workname = this.$route.query.workname?this.$route.query.workname:'申请单'
-      // this.uploadData.pertype = this.tosstype=='1'?'1':this.tosstype=='2'?'2':'3'
     },
     // 获取基础数据
     getUsers(){

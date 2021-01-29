@@ -210,7 +210,6 @@
 
 <script>
 import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
-import {getUrlParams} from "@/utils/utils.js"
 export default {
   data() {
     return {
@@ -238,9 +237,8 @@ export default {
     };
   },
   created() {
-    let params = getUrlParams(window.location.href)
-    this.type = params.type ? params.type : 1;
-    this.workid = params.workid
+    this.type = this.$route.query.type ? this.$route.query.type : 1;
+    this.workid = this.$route.query.workid
     if (this.type == 2) {
       this.geth5DataAdd();
     } else {
