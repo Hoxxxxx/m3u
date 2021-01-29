@@ -209,6 +209,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant';
 import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
 export default {
   data() {
@@ -239,9 +240,15 @@ export default {
         workid: this.workid,
         type: this.type,
       };
-      this.$toast.loading({
-        message: "加载中...",
-        duration: 0,
+      // this.$toast.loading({
+      //   message: "加载中...",
+      //   duration: 0,
+      // });
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
       });
       h5Data(params).then((res) => {
         if (res.status == 200) {
@@ -260,14 +267,10 @@ export default {
           res.data.form_layout.push(flow);
           this.actions = res.data.workclass_info.more
           this.formData = res.data;
-          console.log(this.formData);
         } else {
-          this.$toast({
-            type: "fail",
-            message: "数据获取失败！",
-          });
+          Toast.fail('数据获取失败，请刷新！');
         }
-        this.$toast.clear();
+        loading.close()
       });
     },
     // 获取新增流程信息
