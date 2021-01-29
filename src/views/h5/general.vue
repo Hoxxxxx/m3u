@@ -165,6 +165,7 @@
             size="small"
             color="#F56C6C"
             type="default"
+            @click="next(3)"
             >退回</van-button
           >
           <van-button
@@ -172,6 +173,7 @@
             size="small"
             color="#FBD951"
             type="warning"
+            @click="next(2)"
             >拒绝</van-button
           >
           <van-button
@@ -179,7 +181,7 @@
             size="small"
             color="#6DD400"
             type="danger"
-            @click="agree()"
+            @click="next(1)"
             >同意</van-button
           >
         </div>
@@ -239,7 +241,6 @@ export default {
     let params = getUrlParams(window.location.href)
     this.type = params.type ? params.type : 1;
     this.workid = params.workid
-    alert(window.location.href)
     if (this.type == 2) {
       this.geth5DataAdd();
     } else {
@@ -428,6 +429,16 @@ export default {
         });
       }
     },
+    // 同意拒绝退回
+    next(val){
+      this.$router.push({
+        path:'/h5/toss',
+        query:{
+          tosstype:val,
+          workid:this.workid
+        }
+      })
+    }
   },
 };
 </script>

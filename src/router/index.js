@@ -439,6 +439,7 @@ import jwtDecode from 'jwt-decode'
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem("token")
   let curUrl = window.location.href
+  console.log(curUrl)
   if (token) {
     const code = jwtDecode(token)
     let now = Math.round(new Date() / 1000)
@@ -459,6 +460,7 @@ router.beforeEach((to, from, next) => {
         let val = item.split('=')[1]
         allParams[key] = val
       })
+      console.log(allParams)
       let params = {
         code: allParams.code
       }
@@ -483,15 +485,18 @@ router.beforeEach((to, from, next) => {
           console.log('token获取失败！')
           delete allParams.code
           let paraStr = ''
+          console.log(111,allParams)
           for(let key in allParams){
             paraStr += `&${key}=${allParams[key]}`
           }
           let urlStr = window.location.href.split('?')[0]
           let nowUrl = `${urlStr}?${paraStr.substring(1)}`
+          console.log(nowUrl)
           window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${nowUrl}`
         }
       })
     } else {
+      console.log('无token，无code：',curUrl)
       window.sessionStorage.clear()
       window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
       // 通过判断path防止出现死循环
