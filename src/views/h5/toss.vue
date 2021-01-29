@@ -259,7 +259,7 @@ export default {
   created() {
     this.initData()
     this.getUsers()
-    // this.getworkflows()
+    this.getworkflows()
   },
   watch: {
   },
