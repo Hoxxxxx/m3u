@@ -449,7 +449,7 @@ router.beforeEach((to, from, next) => {
     } else {
       window.sessionStorage.clear()
       // next('/error')
-      window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}` 
+      window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${encodeURIComponent(curUrl)}` 
     }
   } else {
     if (window.location.href.includes('code')) {
@@ -492,13 +492,13 @@ router.beforeEach((to, from, next) => {
           let urlStr = window.location.href.split('?')[0]
           let nowUrl = `${urlStr}?${paraStr.substring(1)}`
           console.log(nowUrl)
-          window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${nowUrl}`
+          window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${encodeURIComponent(curUrl)}`
         }
       })
     } else {
       console.log('无token，无code：',curUrl)
       window.sessionStorage.clear()
-      window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
+      window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${encodeURIComponent(curUrl)}`
       // 通过判断path防止出现死循环
       // if (to.path === '/error') {
       //   next()
