@@ -296,10 +296,11 @@ export default {
     initData() {
       let params = getUrlParams(window.location.href)
       console.log(params)
+      this.$toast(`${window.location.href}`)
       this.tosstype = params.tosstype?params.tosstype:''
       this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
       this.uploadData.workid =  params.workid
-      this.workname = params.workname?params.workname:'申请单1'
+      this.workname = params.workname?params.workname:'申请单'
       this.uploadData.pertype = this.tosstype=='1'?'1':this.tosstype=='2'?'2':'3'
       // this.tosstype = this.$route.query.tosstype?this.$route.query.tosstype:''
       // this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
