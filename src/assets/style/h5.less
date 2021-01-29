@@ -197,12 +197,20 @@
               border-radius: 0.08rem;
               justify-content: left;
               box-shadow: none;
-              /deep/ .van-dropdown-menu__title{
-                width: 4.44rem;
+              .van-dropdown-menu__item{
+                width: 4.46rem;
                 height: 0.52rem;
-              }
-              /deep/ .van-dropdown-menu__title::after{
-                right: 0.4rem;
+                /deep/ .van-dropdown-menu__title{
+                  width: 4.44rem;
+                  height: 0.52rem;
+                  .van-ellipsis{
+                    width: 4.44rem;
+                    height: 0.52rem;
+                  }
+                }
+                /deep/ .van-dropdown-menu__title::after{
+                  right: 0.4rem;
+                }
               }
             }
             /deep/ .van-dropdown-item .van-cell__title span{
