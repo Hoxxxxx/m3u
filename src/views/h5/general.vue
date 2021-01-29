@@ -372,14 +372,15 @@ export default {
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
         if (this.formData.work_type == "usual") {
-          let url = file.fileaddr; // 绝对地址
-          let a = document.createElement("a");
-          a.download = file.filename;
-          a.href = url;
-          a.target = "_blank";
-          document.appendChild(a);
-          a.click();
-          document.removeChild(a);
+          // let url = file.fileaddr; // 绝对地址
+          // let a = document.createElement("a");
+          // a.download = file.filename;
+          // a.href = url;
+          // a.target = "_blank";
+          // document.appendChild(a);
+          // a.click();
+          // document.removeChild(a);
+          window.open(file.fileaddr)
         } else {
           const { data: res } = await this.axios({
             method: "get",
