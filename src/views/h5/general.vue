@@ -232,13 +232,13 @@ export default {
       ],
       type: null, //当前页面类型：查看、新增、审核  type=1就是审核  type=2 新增  type=3 查看
       noDATA: true, //控制显示骨架屏
-      type:null,
-      workid:"",
+      type: null,
+      workid: "",
     };
   },
   created() {
     this.type = this.$route.query.type ? this.$route.query.type : 1;
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid;
     if (this.type == 2) {
       this.geth5DataAdd();
     } else {
@@ -372,14 +372,18 @@ export default {
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
         if (this.formData.work_type == "usual") {
-          let url = file.fileaddr; // 绝对地址
-          let a = document.createElement("a");
-          a.download = file.filename;
-          a.href = url;
-          a.target = "_blank";
-          document.appendChild(a);
-          a.click();
-          document.removeChild(a);
+          // let url = file.fileaddr; // 绝对地址
+          // let a = document.createElement("a");
+          // a.download = file.filename;
+          // a.href = url;
+          // a.target = "_blank";
+          // document.appendChild(a);
+          // a.click();
+          // document.removeChild(a);
+          var myFrame = document.createElement("iframe");
+          myFrame.src = file.fileaddr; //服务器路径
+          myFrame.style.display = "none";
+          document.body.appendChild(myFrame);
         } else {
           const { data: res } = await this.axios({
             method: "get",
@@ -428,15 +432,15 @@ export default {
       }
     },
     // 同意拒绝退回
-    next(val){
+    next(val) {
       this.$router.push({
-        path:'/h5/toss',
-        query:{
-          tosstype:val,
-          workid:this.workid
-        }
-      })
-    }
+        path: "/h5/toss",
+        query: {
+          tosstype: val,
+          workid: this.workid,
+        },
+      });
+    },
   },
 };
 </script>
