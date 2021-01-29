@@ -56,9 +56,10 @@
               <van-dropdown-menu v-if="uploadData.next_flowid == ''">
                 <van-dropdown-item
                   v-model="uploadData.next_userid"
-                  title="请先选择下一步骤1"
+                  title="请1"
                   disabled
                 />
+                <!-- 先选择下一步骤 -->
               </van-dropdown-menu>
             <!-- </div> -->
             <div v-if="uploadData.next_flowid !== ''">
