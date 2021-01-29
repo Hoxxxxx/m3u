@@ -52,21 +52,18 @@
           <span>主办人员：</span>
           <div class="mainSelect">
             <!-- 未选择流程 -->
-            <!-- <div v-if="uploadData.next_flowid == ''">
-              <van-dropdown-menu>
+            <div class="w100" v-if="uploadData.next_flowid == ''">
+              <van-dropdown-menu class="w100">
                 <van-dropdown-item
                   v-model="uploadData.next_userid"
                   title="请先选择下一步骤"
                   disabled
                 />
               </van-dropdown-menu>
-            </div> -->
-            <div v-if="uploadData.next_flowid == ''">
-              请先选择下一步骤
             </div>
-            <div v-if="uploadData.next_flowid !== ''">
+            <div class="w100" v-if="uploadData.next_flowid !== ''">
               <!-- 可选所有 -->
-              <van-dropdown-menu
+              <van-dropdown-menu class="w100"
                 v-if="
                   fixedData.next_workFlows[showData.nextInfo_index]
                     .changetype == '1'
