@@ -230,10 +230,13 @@ export default {
       ],
       type: null, //当前页面类型：查看、新增、审核  type=1就是审核  type=2 新增  type=3 查看
       noDATA: true, //控制显示骨架屏
+      type:null,
+      workid:"",
     };
   },
   created() {
-    this.type = this.$route.query.type;
+    this.type = this.$route.query.type ? this.$route.query.type : 1;
+    this.workid = this.$route.query.workid
     if (this.type == 2) {
       this.geth5DataAdd();
     } else {
@@ -244,8 +247,8 @@ export default {
     // 获取审核/查看页面数据
     geth5Data() {
       let params = {
-        workid: 5908,
-        type: 1,
+        workid: this.workid,
+        type: this.type,
       };
       this.$toast.loading({
         message: "加载中...",
