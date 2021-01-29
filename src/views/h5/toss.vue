@@ -296,6 +296,7 @@ export default {
     initData() {
       let params = getUrlParams(window.location.href)
       console.log(params)
+      alert(window.location.href)
       this.$toast(`${window.location.href}`)
       this.tosstype = params.tosstype?params.tosstype:''
       this.tossname = this.tosstype=='1'?'同意流程':this.tosstype=='2'?'拒绝流程':'退回流程'
