@@ -371,7 +371,7 @@ export default {
       let u = navigator.userAgent;
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
-        if (this.formData.work_type == "unique") {
+        if (this.formData.work_type == "usual") {
           let url = file.fileaddr; // 绝对地址
           let a = document.createElement("a");
           a.download = file.filename;
