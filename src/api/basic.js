@@ -179,8 +179,17 @@ export const userInfo = (uid) => {
 }
 
 // 获取客户详情 1.30
-export const custInfo = (uid) => {
+export const custInfo = (code) => {
   return request.get(`oa/occs/${code}`,
   {},
   {})
+}
+
+// 获取gja（业务大类 项目列表） 1.30
+export const gjaList = (params) => {
+  return request.get(`meta/gja`,
+  {},
+  {
+    params
+  })
 }

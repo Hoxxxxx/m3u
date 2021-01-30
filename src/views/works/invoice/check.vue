@@ -53,29 +53,21 @@
               <!-- 合同信息 -->
               <div class="title_line">合同信息</div>
               <div class="form_line">
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oay01') ? 'redPot' : ''">合同名称</span>
-                </div>
+                <div class="titlebox">合同名称</div>
                 <div class="infobox selectbox middlebox">
                   {{ tableData.oay01 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oay02') ? 'redPot' : ''">合同编号</span>
-                </div>
+                <div class="titlebox">合同编号</div>
                 <div class="infobox middlebox editNot last_row">
                   {{ tableData.oay02 }}
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oay03') ? 'redPot' : ''">合同金额</span>
-                </div>
+                <div class="titlebox">合同金额</div>
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa01') ? 'redPot' : ''">合同状态</span>
-                </div>
+                <div class="titlebox">合同状态</div>
                 <div class="infobox middlebox editNot last_row">
                   {{ tableData.oay_status }}
                 </div>
@@ -101,6 +93,24 @@
                 <div class="titlebox">税额</div>
                 <div class="infobox last_row middlebox">
                   {{tableData.oaa14 }}
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">业务大类</div>
+                <div class="infobox selectbox middlebox">
+                  <el-select v-model="tableData.oaa40" class="select"
+                    disabled>
+                    <el-option
+                      v-for="item in fixedData.gjaList"
+                      :key="item.gja01"
+                      :label="item.gja02"
+                      :value="item.gja01">
+                    </el-option>
+                  </el-select>
+                </div>
+                <div class="titlebox">业务明细</div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.oaa41_show }}
                 </div>
               </div>
               <div class="form_line">
@@ -137,95 +147,6 @@
                     show-word-limit
                   >
                   </el-input>
-                </div>
-              </div>
-              <!-- 应收明细 -->
-              <div class="title_line">应收明细</div>
-              <div>
-                <el-table
-                  :data="tableData.oab"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#fff', color: '#666666' }"
-                >
-                  <el-table-column
-                    prop="oab01_show"
-                    label="会计科目"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab02_show"
-                    label="项目"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab03_show"
-                    label="项目WBS"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab04"
-                    label="摘要"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab05"
-                    label="金额"
-                    min-width="180px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab06"
-                    label="数量"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab07"
-                    label="单价"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab11"
-                    label="核算项一"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oab12"
-                    label="核算项二"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                </el-table>
-                <div class="form_line last_line">
-                  <div class="titlebox">是否开票</div>
-                  <div class="infobox longbox">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa16"
-                    >
-                      <el-radio :label="1" disabled>是</el-radio>
-                      <el-radio :label="2" disabled>否</el-radio>
-                    </el-radio-group>
-                  </div>
                 </div>
               </div>
               <!-- 开票信息 -->
@@ -273,15 +194,6 @@
                     </el-radio-group>
                   </div>
                 </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">开票金额</div>
-                  <div
-                    class="infobox last_row longbox selectbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa28}}
-                  </div>
-                </div>
                 <div class="title_line">发票明细</div>
                 <el-table
                   :data="tableData.oac"
@@ -292,13 +204,6 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <el-table-column
-                    prop="oac01"
-                    label="序号"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
                   <el-table-column
                     prop="oac02_show"
                     label="商品名称"
@@ -394,22 +299,101 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox">是否签订合同</div>
-                  <div class="infobox middlebox" style="width: 100%">
+                  <div class="titlebox">发票号码</div>
+                  <div
+                    class="infobox last_row longbox selectbox"
+                    style="width: 100%"
+                  >
+                    {{tableData.oaa36}}
+                  </div>
+                </div>
+              </div>
+              <!-- 应收明细 -->
+              <div class="title_line">应收明细</div>
+              <div>
+                <el-table
+                  :data="tableData.oab"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                >
+                  <el-table-column
+                    prop="oab01_show"
+                    label="会计科目"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab02_show"
+                    label="项目"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab03_show"
+                    label="项目WBS"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab04"
+                    label="摘要"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab05"
+                    label="金额"
+                    min-width="180px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab06"
+                    label="数量"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab07"
+                    label="单价"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab11"
+                    label="核算项一"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oab12"
+                    label="核算项二"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                </el-table>
+                <div class="form_line last_line">
+                  <div class="titlebox">是否开票</div>
+                  <div class="infobox longbox">
                     <el-radio-group
                       class="radioGroup"
-                      v-model="tableData.oaa35"
+                      v-model="tableData.oaa16"
                     >
                       <el-radio :label="1" disabled>是</el-radio>
                       <el-radio :label="2" disabled>否</el-radio>
                     </el-radio-group>
-                  </div>
-                  <div class="titlebox">发票号码</div>
-                  <div
-                    class="infobox last_row middlebox selectbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa36}}
                   </div>
                 </div>
               </div>
@@ -512,6 +496,9 @@
 <script>
 import { workflowsList, } from "@/api/process_new.js"
 import { number_chinese, OpenLoading } from "@/utils/utils.js";
+import {
+  gjaList,
+} from "@/api/basic.js";
 
 export default {
   data() {
@@ -551,13 +538,11 @@ export default {
         oaa25:"",//开户行
         oaa26:"",//电话
         oaa27:"",//开票种类
-        oaa28:"",//开票金额
         oac: [], // 发票明细
         oaa31:"",//货款回收情况
         oaa32:"",//回款日期
         oaa33:"",//回款方式
         oaa34:"",//发货时间
-        oaa35:"",//是否签订合同
         oaa36:"",//发票号码
       },
       oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
@@ -567,6 +552,10 @@ export default {
         annexurlid: [],
         tplid: 8952
       },
+      fixedData: {
+        // gja
+        gjaList: [],
+      },
       // 当前流程列表
       workclass_perflow: [],
     };
@@ -575,8 +564,22 @@ export default {
     this.workid = this.$route.query.workid ? this.$route.query.workid : 4512
     // this.workid = 4512
     this.getworkflows()
+    this.getGja()
   },
   methods: {
+    // gja列表
+    getGja() {
+      const params = {
+        keyword: ''
+      }
+      gjaList(params).then((res) => {
+        if (res.status == 200) {
+          this.fixedData.gjaList = res.data;
+        } else {
+          this.$message.error(res.error.message);
+        }
+      });
+    },
     goPrint() {
       let routeUrl = this.$router.resolve({
         path: "printPage",

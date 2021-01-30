@@ -61,33 +61,18 @@
             <div class="infobox middlebox last_row">{{tableData.oaa14}}</div>
           </div>
           <div class="form_line">
+            <div class="titlebox">业务大类</div>
+            <div class="infobox selectbox middlebox">{{tableData.oaa40}}</div>
+            <div class="titlebox">业务明细</div>
+            <div class="infobox middlebox">{{ tableData.oaa41_show }}</div>
+          </div>
+          <div class="form_line">
             <div class="titlebox">备注</div>
             <div class="infobox longbox" style="width: 100%">{{tableData.oaa15}}</div>
           </div>
           <div class="form_line">
             <div class="titlebox">说明</div>
             <div class="infobox longbox" style="width: 100%">{{tableData.oaa98}}</div>
-          </div>
-          <!-- 应收明细 -->
-          <div class="title_line">应收明细</div>
-          <!-- 拆分成几组表格 -->
-          <div class="inner_Table" v-for="(F_item, F_index) in tableBox_invoice" :key="'oab'+F_index">
-            <!-- 有几个表头 -->
-            <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
-              <div class="thead">{{S_item.label}}</div>
-              <!-- 有几组内容 -->
-              <div class="tdata" v-if="tableData.oab.length == 0"></div>
-              <div class="tdata" v-for="(content_item, content_index) in tableData.oab" :key="content_index">
-                {{content_item[S_item.value]}}
-              </div>
-            </div>
-          </div>
-          <div class="form_line">
-            <div class="titlebox">是否开票</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa16==1">是</span>
-              <span class="radioItem" v-if="tableData.oaa16==2">否</span>
-            </div>
           </div>
           <!-- 开票信息 -->
           <div v-if="tableData.oaa16 == 1">
@@ -127,15 +112,6 @@
                     <span class="radioItem" v-if="tableData.oaa27==2">普通发票</span>
                     <span class="radioItem" v-if="tableData.oaa27==3">服务发票</span>
                     <span class="radioItem" v-if="tableData.oaa27==4">资金往来发票</span>
-                  </div>
-                </div>
-                <div class="form_line ">
-                  <div class="titlebox">开票金额</div>
-                  <div
-                    class="infobox last_row longbox selectbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa28}}
                   </div>
                 </div>
                 <div class="title_line">发票明细</div>
@@ -180,22 +156,37 @@
                     {{tableData.oaa34}}
                   </div>
                 </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">是否签订合同</div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <span class="radioItem" v-if="tableData.oaa35==1">是</span>
-                    <span class="radioItem" v-if="tableData.oaa35==2">否</span>
-                  </div>
+                <div class="form_line">
                   <div class="titlebox">发票号码</div>
                   <div
-                    class="infobox last_row middlebox selectbox"
+                    class="infobox last_row longbox selectbox"
                     style="width: 100%"
                   >
                     {{tableData.oaa36}}
                   </div>
                 </div>
           </div>
-
+          <!-- 应收明细 -->
+          <div class="title_line">应收明细</div>
+          <!-- 拆分成几组表格 -->
+          <div class="inner_Table" v-for="(F_item, F_index) in tableBox_invoice" :key="'oab'+F_index">
+            <!-- 有几个表头 -->
+            <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
+              <div class="thead">{{S_item.label}}</div>
+              <!-- 有几组内容 -->
+              <div class="tdata" v-if="tableData.oab.length == 0"></div>
+              <div class="tdata" v-for="(content_item, content_index) in tableData.oab" :key="content_index">
+                {{content_item[S_item.value]}}
+              </div>
+            </div>
+          </div>
+          <div class="form_line last_line">
+            <div class="titlebox">是否开票</div>
+            <div class="infobox longbox">
+              <span class="radioItem" v-if="tableData.oaa16==1">是</span>
+              <span class="radioItem" v-if="tableData.oaa16==2">否</span>
+            </div>
+          </div>
           <!-- 财务信息 -->
           <div v-if="oazShow == 1">
             <div class="title_line">
@@ -302,10 +293,6 @@ export default {
         {
           theadList: [
             {
-              label: '序号',
-              value: 'oac01'
-            },
-            {
               label: '商品名称',
               value: 'oac02_show'
             },
@@ -359,13 +346,11 @@ export default {
         oaa25:"",//开户行
         oaa26:"",//电话
         oaa27:"",//开票种类
-        oaa28:"",//开票金额
         oac: [], // 发票明细
         oaa31:"",//货款回收情况
         oaa32:"",//回款日期
         oaa33:"",//回款方式
         oaa34:"",//发货时间
-        oaa35:"",//是否签订合同
         oaa36:"",//发票号码
       },
       oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是

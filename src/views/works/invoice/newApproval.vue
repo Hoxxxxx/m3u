@@ -239,6 +239,35 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa40') ? 'redPot' : ''">业务大类</span>
+                </div>
+                <div class="infobox selectbox middlebox">
+                  <el-select v-model="tableData.oaa40" class="select"
+                    :disabled="!table_able.includes('oaa40')">
+                    <el-option
+                      v-for="item in fixedData.gjaList"
+                      :key="item.gja01"
+                      :label="item.gja02"
+                      :value="item.gja01">
+                    </el-option>
+                  </el-select>
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa41') ? 'redPot' : ''">业务明细</span>
+                </div>
+                <div class="infobox middlebox editNot"
+                  v-if="!table_able.includes('oaa41')" >
+                  {{ tableData.oaa41_show }}
+                </div>
+                <div class="infobox last_row middlebox selectbox"
+                  v-if="table_able.includes('oaa41')">
+                  <div class="selector" @click="selectDialog('YWMX')">
+                    {{ showData.oaa41_show }}
+                  </div>
+                </div>
+              </div>
+              <div class="form_line">
+                <div class="titlebox">
                   <span :class="form_must_able.includes('oaa15') ? 'redPot' : ''">备注</span>
                 </div>
                 <div
@@ -275,6 +304,389 @@
                     :disabled="table_able.includes('oaa98') ? false : true"
                   >
                   </el-input>
+                </div>
+              </div>
+              <!-- 开票信息 -->
+              <div v-if="tableData.oaa16 == 1">
+                <div class="title_line">开票信息</div>
+                <div class="form_line">
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa21') ? 'redPot' : ''">名称</span>
+                  </div>
+                  <div class="infobox selectbox" :class="table_able.includes('oaa21')?'':'disabledbox'">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa21"
+                      placeholder="请输入名称"
+                      :disabled="table_able.includes('oaa21') ? false : true"
+                    />
+                  </div>
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa22') ? 'redPot' : ''">纳税人识别号</span>
+                  </div>
+                  <div class="infobox selectbox" :class="table_able.includes('oaa22')?'':'disabledbox'">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa22"
+                      placeholder="请输入纳税人识别号"
+                      :disabled="table_able.includes('oaa22') ? false : true"
+                    />
+                  </div>
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa23') ? 'redPot' : ''">地址</span>
+                  </div>
+                  <div
+                    class="infobox selectbox last_row"
+                    :class="table_able.includes('oaa23') ? '' : 'disabledbox'"
+                  >
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa23"
+                      placeholder="请输入地址"
+                      :disabled="table_able.includes('oaa23') ? false : true"
+                    />
+                  </div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa24') ? 'redPot' : ''">银行账号</span>
+                  </div>
+                  <div class="infobox selectbox" :class="table_able.includes('oaa24')?'':'disabledbox'">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa24"
+                      placeholder="请输入银行账号"
+                      :disabled="table_able.includes('oaa24') ? false : true"
+                    />
+                  </div>
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa25') ? 'redPot' : ''">开户行</span>
+                  </div>
+                  <div class="infobox selectbox" :class="table_able.includes('oaa25')?'':'disabledbox'">
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa25"
+                      placeholder="请输入开户行"
+                      :disabled="table_able.includes('oaa25') ? false : true"
+                    />
+                  </div>
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa26') ? 'redPot' : ''">电话</span>
+                  </div>
+                  <div
+                    class="infobox selectbox last_row"
+                    :class="table_able.includes('oaa26') ? '' : 'disabledbox'"
+                  >
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa26"
+                      placeholder="请输入电话"
+                      :disabled="table_able.includes('oaa26') ? false : true"
+                    />
+                  </div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa27') ? 'redPot' : ''">开票种类</span>
+                  </div>
+                  <div class="infobox longbox selectbox" style="width: 100%">
+                    <el-radio-group
+                      class="radioGroup"
+                      v-model="tableData.oaa27"
+                    >
+                      <el-radio
+                        :label="1"
+                        :disabled="table_able.includes('oaa27') ? false : true"
+                        >增值税发票</el-radio
+                      >
+                      <el-radio
+                        :label="2"
+                        :disabled="table_able.includes('oaa27') ? false : true"
+                        >普通发票</el-radio
+                      >
+                      <el-radio
+                        :label="3"
+                        :disabled="table_able.includes('oaa27') ? false : true"
+                        >服务发票</el-radio
+                      >
+                      <el-radio
+                        :label="4"
+                        :disabled="table_able.includes('oaa27') ? false : true"
+                        >资金往来发票</el-radio
+                      >
+                    </el-radio-group>
+                  </div>
+                </div>
+                <div class="title_line">发票明细</div>
+                <el-table
+                  v-if="!table_able.includes('oac')"
+                  :data="tableData.oac"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                >
+                  <el-table-column
+                    prop="oac02_show"
+                    label="商品名称"
+                    min-width="200px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac03"
+                    label="规格"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac04"
+                    label="数量"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac05"
+                    label="含税单价"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac06"
+                    label="金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                  </el-table-column>
+                </el-table>
+                <el-table
+                  v-if="table_able.includes('oac')"
+                  :data="tableData.oac"
+                  v-loading="false"
+                  element-loading-background="rgba(0, 0, 0, 0.5)"
+                  element-loading-text="数据正在加载中"
+                  element-loading-spinner="el-icon-loading"
+                  style="width: 100%"
+                  :cell-style="{ background: '#fff', color: '#666666' }"
+                  :header-cell-class-name="must_oac"
+                >
+                  <el-table-column
+                    prop="id"
+                    label="增 / 删"
+                    fixed="left"
+                    width="100px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div style="font-size: 24px; width: 100%; height: 100%">
+                          <i
+                            v-if="scope.$index == tableData.oac.length - 1"
+                            @click="addRow1()"
+                            class="el-icon-circle-plus"
+                            style="color: #409efd; width: 30px; cursor: pointer"
+                          ></i>
+                          <i
+                            @click="deleteRow1(scope.$index)"
+                            class="el-icon-remove"
+                            style="color: #f56c6c; width: 30px; cursor: pointer"
+                          ></i>
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac02_show"
+                    label="商品名称"
+                    min-width="200px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <div
+                          class="selector selectBorder"
+                          @click="selectDialog('SPMC', scope.$index)"
+                        >
+                          {{ scope.row.oac02_show }}
+                        </div>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac03"
+                    label="规格"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oac03"
+                          placeholder="规格"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac04"
+                    label="数量"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oac04"
+                          placeholder="数量"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac05"
+                    label="含税单价"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oac05"
+                          placeholder="含税单价"
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="oac06"
+                    label="金额"
+                    min-width="150px"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <div>
+                        <el-input
+                          v-model="scope.row.oac06"
+                          placeholder="金额"
+                          disabled
+                        ></el-input>
+                      </div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <div class="form_line">
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa31') ? 'redPot' : ''">货款回收情况</span>
+                  </div>
+                  <div class="infobox middlebox" style="width: 100%">
+                    <el-radio-group
+                      class="radioGroup"
+                      v-model="tableData.oaa31"
+                    >
+                      <el-radio
+                        :label="1"
+                        :disabled="table_able.includes('oaa31') ? false : true"
+                        >货款已收</el-radio
+                      >
+                      <el-radio
+                        :label="2"
+                        :disabled="table_able.includes('oaa31') ? false : true"
+                        >尚未回款</el-radio
+                      >
+                    </el-radio-group>
+                  </div>
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa32') ? 'redPot' : ''">回款日期</span>
+                  </div>
+                  <div
+                    class="infobox last_row middlebox selectbox"
+                    style="width: 100%"
+                    :class="table_able.includes('oaa32') ? '' : 'disabledbox'"
+                  >
+                    <el-date-picker
+                      v-model="tableData.oaa32"
+                      style="width: 100%"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
+                      placeholder=""
+                      :disabled="table_able.includes('oaa32') ? false : true"
+                    >
+                    </el-date-picker>
+                  </div>
+                </div>
+                <div class="form_line">
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa33') ? 'redPot' : ''">回款方式</span>
+                  </div>
+                  <div class="infobox middlebox" style="width: 100%">
+                    <el-radio-group
+                      class="radioGroup"
+                      v-model="tableData.oaa33"
+                    >
+                      <el-radio
+                        :label="1"
+                        :disabled="table_able.includes('oaa33') ? false : true"
+                        >现金</el-radio
+                      >
+                      <el-radio
+                        :label="2"
+                        :disabled="table_able.includes('oaa33') ? false : true"
+                        >转账支票</el-radio
+                      >
+                      <el-radio
+                        :label="3"
+                        :disabled="table_able.includes('oaa33') ? false : true"
+                        >电汇</el-radio
+                      >
+                      <el-radio
+                        :label="4"
+                        :disabled="table_able.includes('oaa33') ? false : true"
+                        >汇票</el-radio
+                      >
+                    </el-radio-group>
+                  </div>
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa34') ? 'redPot' : ''">发货时间</span>
+                  </div>
+                  <div
+                    class="infobox last_row middlebox selectbox"
+                    style="width: 100%"
+                    :class="table_able.includes('oaa34') ? '' : 'disabledbox'"
+                  >
+                    <el-date-picker
+                      v-model="tableData.oaa34"
+                      style="width: 100%"
+                      type="date"
+                      format="yyyy/MM/dd"
+                      value-format="yyyy/MM/dd"
+                      placeholder=""
+                      :disabled="table_able.includes('oaa34') ? false : true"
+                    >
+                    </el-date-picker>
+                  </div>
+                </div>
+                <div class="form_line last_line">
+                  <div class="titlebox">
+                    <span :class="form_must_able.includes('oaa36') ? 'redPot' : ''">发票号码</span>
+                  </div>
+                  <div
+                    class="infobox last_row longbox selectbox"
+                    style="width: 100%"
+                    :class="table_able.includes('oaa36') ? '' : 'disabledbox'"
+                  >
+                    <input
+                      class="abstracInput"
+                      v-model="tableData.oaa36"
+                      placeholder="请输入发票号码"
+                      :disabled="table_able.includes('oaa36') ? false : true"
+                    />
+                  </div>
                 </div>
               </div>
               <!-- 应收明细 -->
@@ -576,448 +988,6 @@
                   </div>
                 </div>
               </div>
-              <!-- 开票信息 -->
-              <div v-if="tableData.oaa16 == 1">
-                <div class="title_line">开票信息</div>
-                <div class="form_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa21') ? 'redPot' : ''">名称</span>
-                  </div>
-                  <div class="infobox selectbox" :class="table_able.includes('oaa21')?'':'disabledbox'">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa21"
-                      placeholder="请输入名称"
-                      :disabled="table_able.includes('oaa21') ? false : true"
-                    />
-                  </div>
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa22') ? 'redPot' : ''">纳税人识别号</span>
-                  </div>
-                  <div class="infobox selectbox" :class="table_able.includes('oaa22')?'':'disabledbox'">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa22"
-                      placeholder="请输入纳税人识别号"
-                      :disabled="table_able.includes('oaa22') ? false : true"
-                    />
-                  </div>
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa23') ? 'redPot' : ''">地址</span>
-                  </div>
-                  <div
-                    class="infobox selectbox last_row"
-                    :class="table_able.includes('oaa23') ? '' : 'disabledbox'"
-                  >
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa23"
-                      placeholder="请输入地址"
-                      :disabled="table_able.includes('oaa23') ? false : true"
-                    />
-                  </div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa24') ? 'redPot' : ''">银行账号</span>
-                  </div>
-                  <div class="infobox selectbox" :class="table_able.includes('oaa24')?'':'disabledbox'">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa24"
-                      placeholder="请输入银行账号"
-                      :disabled="table_able.includes('oaa24') ? false : true"
-                    />
-                  </div>
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa25') ? 'redPot' : ''">开户行</span>
-                  </div>
-                  <div class="infobox selectbox" :class="table_able.includes('oaa25')?'':'disabledbox'">
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa25"
-                      placeholder="请输入开户行"
-                      :disabled="table_able.includes('oaa25') ? false : true"
-                    />
-                  </div>
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa26') ? 'redPot' : ''">电话</span>
-                  </div>
-                  <div
-                    class="infobox selectbox last_row"
-                    :class="table_able.includes('oaa26') ? '' : 'disabledbox'"
-                  >
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa26"
-                      placeholder="请输入电话"
-                      :disabled="table_able.includes('oaa26') ? false : true"
-                    />
-                  </div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa27') ? 'redPot' : ''">开票种类</span>
-                  </div>
-                  <div class="infobox longbox selectbox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa27"
-                    >
-                      <el-radio
-                        :label="1"
-                        :disabled="table_able.includes('oaa27') ? false : true"
-                        >增值税发票</el-radio
-                      >
-                      <el-radio
-                        :label="2"
-                        :disabled="table_able.includes('oaa27') ? false : true"
-                        >普通发票</el-radio
-                      >
-                      <el-radio
-                        :label="3"
-                        :disabled="table_able.includes('oaa27') ? false : true"
-                        >服务发票</el-radio
-                      >
-                      <el-radio
-                        :label="4"
-                        :disabled="table_able.includes('oaa27') ? false : true"
-                        >资金往来发票</el-radio
-                      >
-                    </el-radio-group>
-                  </div>
-                </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa28') ? 'redPot' : ''">开票金额</span>
-                  </div>
-                  <div
-                    class="infobox last_row longbox selectbox"
-                    style="width: 100%"
-                    :class="table_able.includes('oaa28') ? '' : 'disabledbox'"
-                  >
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa28"
-                      placeholder="请输入开票金额"
-                      :disabled="table_able.includes('oaa28') ? false : true"
-                    />
-                  </div>
-                </div>
-                <div class="title_line">发票明细</div>
-                <el-table
-                  v-if="!table_able.includes('oac')"
-                  :data="tableData.oac"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#fff', color: '#666666' }"
-                >
-                  <el-table-column
-                    prop="oac01"
-                    label="序号"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac02_show"
-                    label="商品名称"
-                    min-width="200px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac03"
-                    label="规格"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac04"
-                    label="数量"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac05"
-                    label="含税单价"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac06"
-                    label="金额"
-                    min-width="150px"
-                    align="center"
-                  >
-                  </el-table-column>
-                </el-table>
-                <el-table
-                  v-if="table_able.includes('oac')"
-                  :data="tableData.oac"
-                  v-loading="false"
-                  element-loading-background="rgba(0, 0, 0, 0.5)"
-                  element-loading-text="数据正在加载中"
-                  element-loading-spinner="el-icon-loading"
-                  style="width: 100%"
-                  :cell-style="{ background: '#fff', color: '#666666' }"
-                  :header-cell-class-name="must_oac"
-                >
-                  <el-table-column
-                    prop="id"
-                    label="增 / 删"
-                    fixed="left"
-                    width="100px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div style="font-size: 24px; width: 100%; height: 100%">
-                          <i
-                            v-if="scope.$index == tableData.oac.length - 1"
-                            @click="addRow1()"
-                            class="el-icon-circle-plus"
-                            style="color: #409efd; width: 30px; cursor: pointer"
-                          ></i>
-                          <i
-                            @click="deleteRow1(scope.$index)"
-                            class="el-icon-remove"
-                            style="color: #f56c6c; width: 30px; cursor: pointer"
-                          ></i>
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac01"
-                    label="序号"
-                    min-width="130px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac01"
-                          placeholder="序号"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac02_show"
-                    label="商品名称"
-                    min-width="200px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <div
-                          class="selector selectBorder"
-                          @click="selectDialog('SPMC', scope.$index)"
-                        >
-                          {{ scope.row.oac02_show }}
-                        </div>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac03"
-                    label="规格"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac03"
-                          placeholder="规格"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac04"
-                    label="数量"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac04"
-                          placeholder="数量"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac05"
-                    label="含税单价"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac05"
-                          placeholder="含税单价"
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="oac06"
-                    label="金额"
-                    min-width="150px"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <div>
-                        <el-input
-                          v-model="scope.row.oac06"
-                          placeholder="金额"
-                          disabled
-                        ></el-input>
-                      </div>
-                    </template>
-                  </el-table-column>
-                </el-table>
-                <div class="form_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa31') ? 'redPot' : ''">货款回收情况</span>
-                  </div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa31"
-                    >
-                      <el-radio
-                        :label="1"
-                        :disabled="table_able.includes('oaa31') ? false : true"
-                        >货款已收</el-radio
-                      >
-                      <el-radio
-                        :label="2"
-                        :disabled="table_able.includes('oaa31') ? false : true"
-                        >尚未回款</el-radio
-                      >
-                    </el-radio-group>
-                  </div>
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa32') ? 'redPot' : ''">回款日期</span>
-                  </div>
-                  <div
-                    class="infobox last_row middlebox selectbox"
-                    style="width: 100%"
-                    :class="table_able.includes('oaa32') ? '' : 'disabledbox'"
-                  >
-                    <el-date-picker
-                      v-model="tableData.oaa32"
-                      style="width: 100%"
-                      type="date"
-                      format="yyyy/MM/dd"
-                      value-format="yyyy/MM/dd"
-                      placeholder=""
-                      :disabled="table_able.includes('oaa32') ? false : true"
-                    >
-                    </el-date-picker>
-                  </div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa33') ? 'redPot' : ''">回款方式</span>
-                  </div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa33"
-                    >
-                      <el-radio
-                        :label="1"
-                        :disabled="table_able.includes('oaa33') ? false : true"
-                        >现金</el-radio
-                      >
-                      <el-radio
-                        :label="2"
-                        :disabled="table_able.includes('oaa33') ? false : true"
-                        >转账支票</el-radio
-                      >
-                      <el-radio
-                        :label="3"
-                        :disabled="table_able.includes('oaa33') ? false : true"
-                        >电汇</el-radio
-                      >
-                      <el-radio
-                        :label="4"
-                        :disabled="table_able.includes('oaa33') ? false : true"
-                        >汇票</el-radio
-                      >
-                    </el-radio-group>
-                  </div>
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa34') ? 'redPot' : ''">发货时间</span>
-                  </div>
-                  <div
-                    class="infobox last_row middlebox selectbox"
-                    style="width: 100%"
-                    :class="table_able.includes('oaa34') ? '' : 'disabledbox'"
-                  >
-                    <el-date-picker
-                      v-model="tableData.oaa34"
-                      style="width: 100%"
-                      type="date"
-                      format="yyyy/MM/dd"
-                      value-format="yyyy/MM/dd"
-                      placeholder=""
-                      :disabled="table_able.includes('oaa34') ? false : true"
-                    >
-                    </el-date-picker>
-                  </div>
-                </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa35') ? 'redPot' : ''">是否签订合同</span>
-                  </div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa35"
-                    >
-                      <el-radio
-                        :label="1"
-                        :disabled="table_able.includes('oaa35') ? false : true"
-                        >是</el-radio
-                      >
-                      <el-radio
-                        :label="2"
-                        :disabled="table_able.includes('oaa35') ? false : true"
-                        >否</el-radio
-                      >
-                    </el-radio-group>
-                  </div>
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa36') ? 'redPot' : ''">发票号码</span>
-                  </div>
-                  <div
-                    class="infobox last_row middlebox selectbox"
-                    style="width: 100%"
-                    :class="table_able.includes('oaa36') ? '' : 'disabledbox'"
-                  >
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa36"
-                      placeholder="请输入发票号码"
-                      :disabled="table_able.includes('oaa36') ? false : true"
-                    />
-                  </div>
-                </div>
-              </div>
               <!-- 财务信息 -->
               <div v-if="oazShow == 1">
                 <div class="title_line">
@@ -1184,6 +1154,7 @@ import {
   aagsList,
   pjasList,
   custInfo,
+  gjaList,
 } from "@/api/basic.js";
 
 export default {
@@ -1231,13 +1202,11 @@ export default {
         oaa25: "", //开户行
         oaa26: "", //电话
         oaa27: "", //开票种类
-        oaa28: "", //开票金额
         oac: [], // 发票明细
         oaa31: "", //货款回收情况
         oaa32: "", //回款日期
         oaa33: "", //回款方式
         oaa34: "", //发货时间
-        oaa35: "", //是否签订合同
         oaa36: "", //发票号码
       },
       oabType: "", //核算项类型
@@ -1246,6 +1215,8 @@ export default {
         cointypes: [],
         //支付方式
         payTypes: [],
+        // gja
+        gjaList: [],
       },
       table_able: [], //表格可编辑项
       oab_must:[],//差旅明细必填项
@@ -1403,6 +1374,7 @@ export default {
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
+    this.getGja()
   },
   watch: {
     // 税别
@@ -1832,7 +1804,6 @@ export default {
     // 费用明细行项目表格
     addRow1() {
       let data = {
-        oac01: "", //序号
         oac02: "", //商品id
         oac02_show: "", //商品名称
         oac03: "", //规格
@@ -1905,6 +1876,19 @@ export default {
         }
       });
     },
+    // gja列表
+    getGja() {
+      const params = {
+        keyword: ''
+      }
+      gjaList(params).then((res) => {
+        if (res.status == 200) {
+          this.fixedData.gjaList = res.data;
+        } else {
+          this.$message.error(res.error.message);
+        }
+      });
+    },
     // ******************
     // 数据选择
     selectDialog(type, rowIndex) {
@@ -1966,6 +1950,15 @@ export default {
           this.dataSelect.searchApi = "meta/pjbs";
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
+          break;
+        case "YWMX":
+          let filter_YWMX = [{ label: "", model_key_search: "keyword" }];
+          this.dataSelect.filter = filter_YWMX;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/pjbs";
+          this.dataSelect.headList = this.tableHead.head_WBS;
+          this.dataSelect.dialogTitle = "业务明细";
           break;
         case "KH":
           let filter_KH = [{ label: "", model_key_search: "keyword" }];
@@ -2121,6 +2114,10 @@ export default {
           case "WBS":
             this.tableData.oab[this.rowIndex].oab03 = val[0].pjb02;
             this.tableData.oab[this.rowIndex].oab03_show = val[0].pjb03;
+            break;
+          case "YWMX":
+            this.tableData.oaa41 = val[0].pjb02;
+            this.showData.oaa41_show = val[0].pjb03;
             break;
           case "KH":
             this.tableData.oaa11 = val[0].occ01;
