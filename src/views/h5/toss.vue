@@ -4,7 +4,6 @@
     <div class="head">
       <van-nav-bar
           :title="workname"
-          left-text="返回"
           left-arrow
           @click-left="back()"
         />
