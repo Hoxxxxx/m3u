@@ -1040,7 +1040,7 @@ export default {
               label: "",
               model_key_search: "opposite_type",
               disabled: true,
-              value: "",
+              value: "1",
               hide: true,
             }];
           this.dataSelect.filter = filter_HT;
@@ -1107,6 +1107,13 @@ export default {
             this.tableData.oay02 = val[0].number;
             this.tableData.oay03 = val[0].contract_value;
             this.showData.oaa_status = val[0].status;
+            let code = val[0].opposite_id
+            pmcInfo(code).then(res=>{
+              if(res.status == 200){
+                this.tableData.oaa11 = res.data.pmc01
+                this.showData.oaa11_show = res.data.name;
+              }
+            })
             break;
           default:
           return;
