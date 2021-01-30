@@ -274,7 +274,7 @@ export default {
   methods: {
     //顶部返回 
     onClickLeft(){
-      let url = "http://test.oa.hualumedia.com/pmobile/index.php?fileurl=workclass&u=m&t=index&type=1"
+      let url = `${process.env.VUE_APP_URL}/pmobile/index.php?fileurl=workclass&u=m&t=index&type=1`
       window.location.href = url
     },
     // 获取审核/查看页面数据
