@@ -187,7 +187,7 @@ export const custInfo = (code) => {
 
 // 获取gja（业务大类 项目列表） 1.30
 export const gjaList = (params) => {
-  return request.get(`meta/gja`,
+  return request.get(`meta/gjas`,
   {},
   {
     params

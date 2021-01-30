@@ -242,7 +242,7 @@
                   <span :class="form_must_able.includes('oaa40') ? 'redPot' : ''">业务大类</span>
                 </div>
                 <div class="infobox selectbox middlebox">
-                  <el-select v-model="tableData.oaa40" class="select"
+                  <el-select v-model="tableData.oaa40" class="select" @change="YWDLchange"
                     :disabled="!table_able.includes('oaa40')">
                     <el-option
                       v-for="item in fixedData.gjaList"
@@ -725,7 +725,7 @@
                   <el-table-column
                     prop="oab04"
                     label="摘要"
-                    min-width="150px"
+                    min-width="260px"
                     align="center"
                   >
                   </el-table-column>
@@ -870,7 +870,7 @@
                   <el-table-column
                     prop="oab04"
                     label="摘要"
-                    min-width="150px"
+                    min-width="260px"
                     align="center"
                   >
                     <template slot-scope="scope">
@@ -1170,6 +1170,14 @@ export default {
         oaa04_show: "", //申请人
         expenseMoneyF: "", //报销金额大写
         oaa13_rate: 0, //税率
+        oab04_show: "", //默认摘要
+        oab02_default: "0000", //默认项目
+        oab02_show_default: "公用项目",
+        oab03_default: "0000-0000", //默认WBS
+        oab03_show_default: "0000",
+        oab07_show: "", //单价
+        oab11_show: "", //核算项一
+        oab12_show: "", //核算项一
       },
       form_must_able: [],
       tableData: {
@@ -1377,6 +1385,29 @@ export default {
     this.getGja()
   },
   watch: {
+    // 摘要
+    "tableData.oaa11_show": {
+      handler(newval, oldval) {
+        this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
+        // this.tableData.oab.forEach( item => {
+        //   if (item.oab04 !== this.showData.oab04_show) {
+        //     item.oab04 = this.showData.oab04_show
+        //   }
+        // })
+      },
+      deep: true,
+    },
+    "showData.oaa41_show": {
+      handler(newval, oldval) {
+        this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
+        // this.tableData.oab.forEach( item => {
+        //   if (item.oab04 !== this.showData.oab04_show) {
+        //     item.oab04 = this.showData.oab04_show
+        //   }
+        // })
+      },
+      deep: true,
+    },
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
@@ -1385,9 +1416,27 @@ export default {
             return prev + Number(cur.oab05);
           }, 0);
           this.tableData.oaa14 = Number(this.firstLoad.oaa14) 
+          // 单价
+          this.showData.oab07_show = (
+            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
+          ).toFixed(2);
+          // this.tableData.oab.forEach( item => {
+          //   if(item.oab07 !== this.showData.oab07_show){
+          //     item.oab07 = this.showData.oab07_show
+          //   }
+          // })
         }else{
           this.tableData.oaa14 = (
           ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate / 100)) * this.showData.oaa13_rate) /100).toFixed(2);
+          // 单价
+          this.showData.oab07_show = (
+            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
+          ).toFixed(2);
+          // this.tableData.oab.forEach( item => {
+          //   if(item.oab07 !== this.showData.oab07_show){
+          //     item.oab07 = this.showData.oab07_show
+          //   }
+          // })
         }
       },
       deep: true,
@@ -1400,6 +1449,15 @@ export default {
             return prev + Number(cur.oab05);
           }, 0);
           this.tableData.oaa14 = Number(this.firstLoad.oaa14) 
+          // 单价
+          this.showData.oab07_show = (
+            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
+          ).toFixed(2);
+          // this.tableData.oab.forEach( item => {
+          //   if(item.oab07 !== this.showData.oab07_show){
+          //     item.oab07 = this.showData.oab07_show
+          //   }
+          // })
         }else{
           this.tableData.oaa14 = (
             ((Number(this.tableData.oaa12) /
@@ -1407,6 +1465,15 @@ export default {
               this.showData.oaa13_rate) /
             100
           ).toFixed(2);
+          // 单价
+          this.showData.oab07_show = (
+            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
+          ).toFixed(2);
+          // this.tableData.oab.forEach( item => {
+          //   if(item.oab07 !== this.showData.oab07_show){
+          //     item.oab07 = this.showData.oab07_show
+          //   }
+          // })
         }
       },
       deep: true,
@@ -1441,6 +1508,14 @@ export default {
     },
     handleClick() {
       // console.log(this.activeTab);
+    },
+    YWDLchange() {
+      this.showData.oab11_show = this.tableData.oaa40
+      // this.tableData.oab.forEach( item => {
+      //   if (item.oab11 !== this.tableData.oaa40){
+      //     item.oab11 = this.tableData.oaa40
+      //   }
+      // })
     },
     // 查看更多
     seeMore(url) {
@@ -1630,32 +1705,12 @@ export default {
           });
         });
       }
-      let sum = this.tableData.oab.reduce((prev, cur) => {
-        return prev + Number(cur.oab05);
+      let sum = this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac06);
       }, 0);
-      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
       if (this.tableData.oaa16 == 1) {
-        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
-          this.$message.warning("开票金额与总金额不相等，请重新填写！");
-        } else {
-          if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
-          } else {
-            const loading = OpenLoading(this, 1)
-            editFlow(this.addParams).then((result) => {
-              if (result.status == 200) {
-                this.$message.success("编辑成功！");
-              } else {
-                this.$message.error("编辑失败：" + result.error.message);
-              }
-              loading.close();
-        clearTimeout(this.overloading)
-            });
-          }
-        }
-      } else {
-        if (Number(this.tableData.oaa12) != sums) {
-          this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+        if (Number(this.tableData.oaa12) != sum) {
+          this.$message.warning("总金额有误：总金额 = 发票明细中的金额之和");
         } else {
           const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
@@ -1665,7 +1720,22 @@ export default {
               this.$message.error("编辑失败：" + result.error.message);
             }
             loading.close();
-        clearTimeout(this.overloading)
+            clearTimeout(this.overloading)
+          });
+        }
+      } else {
+        if (Number(this.tableData.oaa12) != sum) {
+          this.$message.warning("总金额有误：总金额 = 发票明细中的金额之和");
+        } else {
+          const loading = OpenLoading(this, 1)
+          editFlow(this.addParams).then((result) => {
+            if (result.status == 200) {
+              this.$message.success("编辑成功！");
+            } else {
+              this.$message.error("编辑失败：" + result.error.message);
+            }
+            loading.close();
+            clearTimeout(this.overloading)
           });
         }
       }
@@ -1708,42 +1778,12 @@ export default {
           });
         });
       }
-      let sum = this.tableData.oab.reduce((prev, cur) => {
-        return prev + Number(cur.oab05);
+      let sum = this.tableData.oac.reduce((prev, cur) => {
+        return prev + Number(cur.oac06);
       }, 0);
-      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
       if (this.tableData.oaa16 == 1) {
-        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
-          this.$message.warning("开票金额与总金额不相等，请重新填写！");
-        } else {
-          if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
-          } else {
-            const loading = OpenLoading(this, 1)
-            editFlow(this.addParams).then((result) => {
-              if (result.status == 200) {
-                this.$message.success("编辑成功！");
-                this.$router.push({
-                  path: url,
-                  query: {
-                    url_type: "invoice",
-                    workid: this.workid,
-                    workName: this.workName,
-                    oaa01: this.tableData.oaa01,
-                    oaa02: this.tableData.oaa02,
-                  },
-                });
-              } else {
-                this.$message.error("编辑失败：" + result.error.message);
-              }
-              loading.close();
-        clearTimeout(this.overloading)
-            });
-          }
-        }
-      } else {
-        if (Number(this.tableData.oaa12) != sums) {
-          this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+        if (Number(this.tableData.oaa12) != sum) {
+          this.$message.warning("总金额有误：总金额 = 发票明细中的金额之和");
         } else {
           const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
@@ -1763,7 +1803,32 @@ export default {
               this.$message.error("编辑失败：" + result.error.message);
             }
             loading.close();
-        clearTimeout(this.overloading)
+            clearTimeout(this.overloading)
+          });
+        }
+      } else {
+        if (Number(this.tableData.oaa12) != sum) {
+          this.$message.warning("总金额有误：总金额 = 发票明细中的金额之和");
+        } else {
+          const loading = OpenLoading(this, 1)
+          editFlow(this.addParams).then((result) => {
+            if (result.status == 200) {
+              this.$message.success("编辑成功！");
+              this.$router.push({
+                path: url,
+                query: {
+                  url_type: "invoice",
+                  workid: this.workid,
+                  workName: this.workName,
+                  oaa01: this.tableData.oaa01,
+                  oaa02: this.tableData.oaa02,
+                },
+              });
+            } else {
+              this.$message.error("编辑失败：" + result.error.message);
+            }
+            loading.close();
+            clearTimeout(this.overloading)
           });
         }
       }
@@ -1829,16 +1894,20 @@ export default {
     addRow2() {
       let data = {
         oab01: "", //会计科目
-        oab02: "0000", //项目
-        oab02_show:"公用项目",//
-        oab03: "0000-0000", //项目wbs
-        oab03_show:"0000",//
-        oab04: "", //摘要
+        oab02: this.showData.oab02_default, //项目
+        oab02_show: this.showData.oab02_show_default,//
+        oab03: this.showData.oab03_default, //项目wbs
+        oab03_show: this.showData.oab03_show_default,//
+        oab04: this.showData.oab04_show, //摘要
         oab05: "", //金额
         oab06: 1, //数量
-        oab07: "", //单价
-        oab11: "", //核算项1
-        oab12: "", //核算项2
+        oab07: this.showData.oab07_show, //单价
+        oab11: this.showData.oab11_show, //核算项1
+        oab12: this.showData.oab12_show, //核算项2
+        oab01_aag15: "N23",
+        oab01_aag151: "3",
+        oab01_aag16: "N24",
+        oab01_aag161: "3",
       };
       this.tableData.oab.push(data);
     },
@@ -2094,6 +2163,13 @@ export default {
                 this.tableData.oaa13 = res.data.tax_number
                 this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
+                // 开票信息
+                this.tableData.oaa21 = res.data.invoice_name
+                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa23 = res.data.address
+                this.tableData.oaa24 = res.data.bank_code
+                this.tableData.oaa25 = res.data.bank
+                this.tableData.oaa26 = res.data.phone
               } else {
                 this.$message.warning('获取客户详情失败')
               }
@@ -2118,6 +2194,28 @@ export default {
           case "YWMX":
             this.tableData.oaa41 = val[0].pjb02;
             this.showData.oaa41_show = val[0].pjb03;
+            // 项目
+            this.showData.oab02_default = val[0].pjb01;
+            this.showData.oab02_show_default  = val[0].pja02;
+            //wbs
+            this.showData.oab03_default = val[0].pjb02;
+            this.showData.oab03_show_default  = val[0].pjb03;
+            // 核算项二
+            this.showData.oab12_show = val[0].pjb02
+            
+            // this.tableData.oab.forEach( item => {
+            //   if (item.oab03 !== val[0].pjb02){
+            //     item.oab02 = val[0].pjb01,
+            //     item.oab02_show = val[0].pja02
+            //     item.oab03 = val[0].pjb02,
+            //     item.oab03_show = val[0].pjb03
+            //   }
+            // })
+            // this.tableData.oab.forEach( item => {
+            //   if (item.oab12 !== val[0].pjb02){
+            //     item.oab12 = val[0].pjb02
+            //   }
+            // })
             break;
           case "KH":
             this.tableData.oaa11 = val[0].occ01;
@@ -2128,6 +2226,13 @@ export default {
                 this.tableData.oaa13 = res.data.tax_number
                 this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
+                // 开票信息
+                this.tableData.oaa21 = res.data.invoice_name
+                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa23 = res.data.address
+                this.tableData.oaa24 = res.data.bank_code
+                this.tableData.oaa25 = res.data.bank
+                this.tableData.oaa26 = res.data.phone
               } else {
                 this.$message.warning('获取客户详情失败')
               }

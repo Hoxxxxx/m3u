@@ -154,10 +154,10 @@
                 <div class="titlebox required">
                   <span :class="form_must_able.includes('oaa13') ? 'redPot' : ''">签约方</span>
                 </div>
-                <div class="infobox middlebox selectbox">
+                <div class="infobox selectbox">
                   <el-radio-group
                     class="radioGroup"
-                    style="margin-right: 120px"
+                    style="margin-right: 15px"
                     v-model="tableData.oaa13"
                   >
                     <el-radio
@@ -175,7 +175,7 @@
                 <div class="titlebox required">
                   <span :class="form_must_able.includes('oaa14') ? 'redPot' : ''">签约方名称</span>
                 </div>
-                <div class="infobox selectbox middlebox last_row">
+                <div class="infobox selectbox">
                   <div
                     class=""
                     style="background-position: 99%"
@@ -192,6 +192,8 @@
                     {{ tableData.oaa14_show }}
                   </div>
                 </div>
+                <div class="titlebox required"></div>
+                <div class="infobox selectbox last_row"></div>
               </div>
               <div class="form_line">
                 <div class="titlebox">
