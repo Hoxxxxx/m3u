@@ -198,14 +198,14 @@
                     min-width="150px"
                     align="center"
                   >
-                    <template slot-scope="scope">
+                    <!-- <template slot-scope="scope">
                       <div>
                         <el-input
                           v-model="scope.row.oaf05"
                           placeholder="本次开票金额"
                         ></el-input>
                       </div>
-                    </template>
+                    </template> -->
                   </el-table-column>
               </el-table>
               <div class="form_line ">
