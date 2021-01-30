@@ -1626,7 +1626,7 @@ export default {
                 this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
-                this.tableData.oaa21 = res.data.invoice_name
+                this.tableData.oaa21 = res.data.bank_account
                 this.tableData.oaa22 = res.data.tax_number
                 this.tableData.oaa23 = res.data.address
                 this.tableData.oaa24 = res.data.bank_code
@@ -1689,7 +1689,7 @@ export default {
                 this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
-                this.tableData.oaa21 = res.data.invoice_name
+                this.tableData.oaa21 = res.data.bank_account
                 this.tableData.oaa22 = res.data.tax_number
                 this.tableData.oaa23 = res.data.address
                 this.tableData.oaa24 = res.data.bank_code
