@@ -130,15 +130,6 @@
                     <span class="radioItem" v-if="tableData.oaa27==4">资金往来发票</span>
                   </div>
                 </div>
-                <div class="form_line ">
-                  <div class="titlebox">开票金额</div>
-                  <div
-                    class="infobox last_row longbox selectbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa28}}
-                  </div>
-                </div>
                 <div class="title_line">发票明细</div>
                 <div class="inner_Table" v-for="(F_item, F_index) in tableBox_oac" :key="'oac'+F_index">
                   <!-- 有几个表头 -->
@@ -182,14 +173,9 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox">是否签订合同</div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <span class="radioItem" v-if="tableData.oaa35==1">是</span>
-                    <span class="radioItem" v-if="tableData.oaa35==2">否</span>
-                  </div>
                   <div class="titlebox">发票号码</div>
                   <div
-                    class="infobox last_row middlebox selectbox"
+                    class="infobox last_row longbox selectbox"
                     style="width: 100%"
                   >
                     {{tableData.oaa36}}
@@ -302,10 +288,6 @@ export default {
       tableBox_oac:[
         {
           theadList: [
-            {
-              label: '序号',
-              value: 'oac01'
-            },
             {
               label: '商品名称',
               value: 'oac02_show'

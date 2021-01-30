@@ -43,7 +43,10 @@
             <div class="titlebox">合同金额</div>
             <div class="infobox middlebox">{{ tableData.oay03 }}</div>
             <div class="titlebox">合同状态</div>
-            <div class="infobox middlebox last_row">{{ tableData.oay_status }}</div>
+            <div class="infobox middlebox last_row">
+              <span v-if="tableData.oay_status=='1'">进行中</span>
+              <span v-if="tableData.oay_status=='2'">已结束</span>
+            </div>
           </div>
           <!-- 发货信息 -->
           <div class="title_line">发货信息</div>

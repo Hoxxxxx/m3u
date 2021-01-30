@@ -159,7 +159,8 @@
                   <span :class="form_must_able.includes('oaa01') ? 'redPot' : ''">合同状态</span>
                 </div>
                 <div class="infobox middlebox editNot last_row">
-                  {{ tableData.oay_status }}
+                  <span v-if="tableData.oay_status=='1'" style="color: #6DD400">进行中</span>
+                  <span v-if="tableData.oay_status=='2'" style="color: #F56C6C">已结束</span>
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -1380,7 +1381,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 5400;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 6029;
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式

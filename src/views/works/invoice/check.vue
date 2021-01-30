@@ -69,7 +69,8 @@
                 </div>
                 <div class="titlebox">合同状态</div>
                 <div class="infobox middlebox editNot last_row">
-                  {{ tableData.oay_status }}
+                  <span v-if="tableData.oay_status=='1'" style="color: #6DD400">进行中</span>
+                  <span v-if="tableData.oay_status=='2'" style="color: #F56C6C">已结束</span>
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -562,7 +563,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4512
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 6029
     // this.workid = 4512
     this.getworkflows()
     this.getGja()

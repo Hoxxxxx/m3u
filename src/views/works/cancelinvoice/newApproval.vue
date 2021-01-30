@@ -170,28 +170,26 @@
                 </div>
                 <div
                   class="infobox selectbox middlebox editNot"
-                  v-if="!table_able.includes('oaa11')"
                 >
                   {{ tableData.oaa11_show }}
                 </div>
-                <div
+                <!-- <div
                   class="infobox selectbox middlebox"
                   v-if="table_able.includes('oaa11')"
                 >
                   <div class="selector" @click="selectDialog('KH')">
                     {{ tableData.oaa11_show }}
                   </div>
-                </div>
+                </div> -->
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa12') ? 'redPot' : ''">总金额</span>
                 </div>
                 <div
                   class="infobox middlebox editNot last_row"
-                  v-if="!table_able.includes('oaa12')"
                 >
                   {{ tableData.oaa12 }}
                 </div>
-                <div
+                <!-- <div
                   class="infobox selectbox middlebox last_row"
                   v-if="table_able.includes('oaa12')"
                 >
@@ -200,7 +198,7 @@
                     v-model="tableData.oaa12"
                     placeholder="请输入总金额"
                   />
-                </div>
+                </div> -->
               </div>
               <div class="form_line">
                 <div class="titlebox">
@@ -208,33 +206,31 @@
                 </div>
                 <div
                   class="infobox selectbox middlebox editNot"
-                  v-if="!table_able.includes('oaa13')"
                 >
                   {{ tableData.oaa13 }}
                 </div>
-                <div
+                <!-- <div
                   class="infobox selectbox middlebox"
                   v-if="table_able.includes('oaa13')"
                 >
                   <div class="selector" @click="selectDialog('SB')">
                     {{ tableData.oaa13 }}
                   </div>
-                </div>
+                </div> -->
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa14') ? 'redPot' : ''">税额</span>
                 </div>
                 <div
                   class="infobox last_row middlebox editNot"
-                  v-if="!table_able.includes('oaa14')"
                 >
                   {{ tableData.oaa14 }}
                 </div>
-                <div
+                <!-- <div
                   class="infobox last_row middlebox"
                   v-if="table_able.includes('oaa14')"
                 >
                   <input v-model="tableData.oaa14" placeholder="请输入税额" />
-                </div>
+                </div> -->
               </div>
               <div class="form_line">
                 <div class="titlebox">
@@ -251,7 +247,6 @@
                     placeholder="请输入备注"
                     maxlength="255"
                     show-word-limit
-                    :disabled="table_able.includes('oaa15') ? false : true"
                   >
                   </el-input>
                 </div>
@@ -271,14 +266,13 @@
                     placeholder="请输入说明"
                     maxlength="255"
                     show-word-limit
-                    :disabled="table_able.includes('oaa98') ? false : true"
                   >
                   </el-input>
                 </div>
               </div>
               <!-- 应收明细 -->
               <div class="title_line">应收明细</div>
-              <div v-if="!table_able.includes('oab')">
+              <div>
                 <el-table
                   :data="tableData.oab"
                   v-loading="false"
@@ -367,7 +361,7 @@
                   </div>
                 </div>
               </div>
-              <div v-if="table_able.includes('oab')">
+              <!-- <div v-if="table_able.includes('oab')">
                 <el-table
                   :data="tableData.oab"
                   v-loading="false"
@@ -574,7 +568,7 @@
                     </el-radio-group>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- 开票信息 -->
               <div v-if="tableData.oaa16 == 1">
                 <div class="title_line">开票信息</div>
@@ -586,8 +580,7 @@
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa21"
-                      placeholder="请输入名称"
-                      :disabled="table_able.includes('oaa21') ? false : true"
+                      disabled
                     />
                   </div>
                   <div class="titlebox">
@@ -597,8 +590,7 @@
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa22"
-                      placeholder="请输入纳税人识别号"
-                      :disabled="table_able.includes('oaa22') ? false : true"
+                      disabled
                     />
                   </div>
                   <div class="titlebox">
@@ -611,8 +603,7 @@
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa23"
-                      placeholder="请输入地址"
-                      :disabled="table_able.includes('oaa23') ? false : true"
+                      disabled
                     />
                   </div>
                 </div>
@@ -624,8 +615,7 @@
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa24"
-                      placeholder="请输入银行账号"
-                      :disabled="table_able.includes('oaa24') ? false : true"
+                      disabled
                     />
                   </div>
                   <div class="titlebox">
@@ -635,8 +625,7 @@
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa25"
-                      placeholder="请输入开户行"
-                      :disabled="table_able.includes('oaa25') ? false : true"
+                      disabled
                     />
                   </div>
                   <div class="titlebox">
@@ -649,8 +638,7 @@
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa26"
-                      placeholder="请输入电话"
-                      :disabled="table_able.includes('oaa26') ? false : true"
+                      disabled
                     />
                   </div>
                 </div>
@@ -665,47 +653,29 @@
                     >
                       <el-radio
                         :label="1"
-                        :disabled="table_able.includes('oaa27') ? false : true"
+                        disabled
                         >增值税发票</el-radio
                       >
                       <el-radio
                         :label="2"
-                        :disabled="table_able.includes('oaa27') ? false : true"
+                        disabled
                         >普通发票</el-radio
                       >
                       <el-radio
                         :label="3"
-                        :disabled="table_able.includes('oaa27') ? false : true"
+                        disabled
                         >服务发票</el-radio
                       >
                       <el-radio
                         :label="4"
-                        :disabled="table_able.includes('oaa27') ? false : true"
+                        disabled
                         >资金往来发票</el-radio
                       >
                     </el-radio-group>
                   </div>
                 </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa28') ? 'redPot' : ''">开票金额</span>
-                  </div>
-                  <div
-                    class="infobox last_row longbox selectbox"
-                    style="width: 100%"
-                    :class="table_able.includes('oaa28') ? '' : 'disabledbox'"
-                  >
-                    <input
-                      class="abstracInput"
-                      v-model="tableData.oaa28"
-                      placeholder="请输入开票金额"
-                      :disabled="table_able.includes('oaa28') ? false : true"
-                    />
-                  </div>
-                </div>
                 <div class="title_line">发票明细</div>
                 <el-table
-                  v-if="!table_able.includes('oac')"
                   :data="tableData.oac"
                   v-loading="false"
                   element-loading-background="rgba(0, 0, 0, 0.5)"
@@ -714,13 +684,6 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <el-table-column
-                    prop="oac01"
-                    label="序号"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
                   <el-table-column
                     prop="oac02_show"
                     label="商品名称"
@@ -757,7 +720,7 @@
                   >
                   </el-table-column>
                 </el-table>
-                <el-table
+                <!-- <el-table
                   v-if="table_able.includes('oac')"
                   :data="tableData.oac"
                   v-loading="false"
@@ -886,7 +849,7 @@
                       </div>
                     </template>
                   </el-table-column>
-                </el-table>
+                </el-table> -->
                 <div class="form_line">
                   <div class="titlebox">
                     <span :class="form_must_able.includes('oaa31') ? 'redPot' : ''">货款回收情况</span>
@@ -898,12 +861,12 @@
                     >
                       <el-radio
                         :label="1"
-                        :disabled="table_able.includes('oaa31') ? false : true"
+                        disabled
                         >货款已收</el-radio
                       >
                       <el-radio
                         :label="2"
-                        :disabled="table_able.includes('oaa31') ? false : true"
+                        disabled
                         >尚未回款</el-radio
                       >
                     </el-radio-group>
@@ -923,7 +886,7 @@
                       format="yyyy/MM/dd"
                       value-format="yyyy/MM/dd"
                       placeholder=""
-                      :disabled="table_able.includes('oaa32') ? false : true"
+                      disabled
                     >
                     </el-date-picker>
                   </div>
@@ -939,22 +902,22 @@
                     >
                       <el-radio
                         :label="1"
-                        :disabled="table_able.includes('oaa33') ? false : true"
+                        disabled
                         >现金</el-radio
                       >
                       <el-radio
                         :label="2"
-                        :disabled="table_able.includes('oaa33') ? false : true"
+                        disabled
                         >转账支票</el-radio
                       >
                       <el-radio
                         :label="3"
-                        :disabled="table_able.includes('oaa33') ? false : true"
+                        disabled
                         >电汇</el-radio
                       >
                       <el-radio
                         :label="4"
-                        :disabled="table_able.includes('oaa33') ? false : true"
+                        disabled
                         >汇票</el-radio
                       >
                     </el-radio-group>
@@ -974,45 +937,24 @@
                       format="yyyy/MM/dd"
                       value-format="yyyy/MM/dd"
                       placeholder=""
-                      :disabled="table_able.includes('oaa34') ? false : true"
+                      disabled
                     >
                     </el-date-picker>
                   </div>
                 </div>
                 <div class="form_line last_line">
                   <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa35') ? 'redPot' : ''">是否签订合同</span>
-                  </div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa35"
-                    >
-                      <el-radio
-                        :label="1"
-                        :disabled="table_able.includes('oaa35') ? false : true"
-                        >是</el-radio
-                      >
-                      <el-radio
-                        :label="2"
-                        :disabled="table_able.includes('oaa35') ? false : true"
-                        >否</el-radio
-                      >
-                    </el-radio-group>
-                  </div>
-                  <div class="titlebox">
                     <span :class="form_must_able.includes('oaa36') ? 'redPot' : ''">发票号码</span>
                   </div>
                   <div
-                    class="infobox last_row middlebox selectbox"
+                    class="infobox last_row longbox selectbox"
                     style="width: 100%"
                     :class="table_able.includes('oaa36') ? '' : 'disabledbox'"
                   >
                     <input
                       class="abstracInput"
                       v-model="tableData.oaa36"
-                      placeholder="请输入发票号码"
-                      :disabled="table_able.includes('oaa36') ? false : true"
+                      disabled
                     />
                   </div>
                 </div>

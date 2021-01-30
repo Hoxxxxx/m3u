@@ -266,15 +266,6 @@
                     </el-radio-group>
                   </div>
                 </div>
-                <div class="form_line last_line">
-                  <div class="titlebox">开票金额</div>
-                  <div
-                    class="infobox last_row longbox selectbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa28}}
-                  </div>
-                </div>
                 <div class="title_line">发票明细</div>
                 <el-table
                   :data="tableData.oac"
@@ -285,13 +276,6 @@
                   style="width: 100%"
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
-                  <el-table-column
-                    prop="oac01"
-                    label="序号"
-                    min-width="130px"
-                    align="center"
-                  >
-                  </el-table-column>
                   <el-table-column
                     prop="oac02_show"
                     label="商品名称"
@@ -387,19 +371,9 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox">是否签订合同</div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa35"
-                    >
-                      <el-radio :label="1" disabled>是</el-radio>
-                      <el-radio :label="2" disabled>否</el-radio>
-                    </el-radio-group>
-                  </div>
                   <div class="titlebox">发票号码</div>
                   <div
-                    class="infobox last_row middlebox selectbox"
+                    class="infobox last_row longbox selectbox"
                     style="width: 100%"
                   >
                     {{tableData.oaa36}}

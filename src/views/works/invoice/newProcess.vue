@@ -96,10 +96,10 @@
                   {{ tableData.oay03 }}
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa01') ? 'redPot' : ''">合同状态</span>
+                  <!-- <span :class="form_must.includes('oaa01') ? 'redPot' : ''">合同状态</span> -->
                 </div>
                 <div class="infobox middlebox editNot last_row">
-                  {{ showData.oay_status }}
+                  <!-- {{ showData.oay_status }} -->
                 </div>
               </div>
               <!-- 发货信息 -->
