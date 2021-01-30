@@ -1067,7 +1067,7 @@ export default {
           oac06_sum = oac06_sum + item.oac06
         });
         this.tableData.oaa12 = oac06_sum
-        console.log(this.tableData.oaa12)
+        // console.log(this.tableData.oaa12)
       },
       deep: true,
     },
