@@ -305,7 +305,7 @@ export default {
     return {
       overloading: "", //加载定时器
       workid: "",
-      workname: "新增签约方申请单",
+      workname: "供应商和客户维护申请单",
       activeTab: "firTab",
       tableData: {},
       fileList_user: [],

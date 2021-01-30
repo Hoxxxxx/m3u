@@ -177,3 +177,10 @@ export const userInfo = (uid) => {
   {},
   {})
 }
+
+// 获取客户详情 1.30
+export const custInfo = (uid) => {
+  return request.get(`oa/occs/${code}`,
+  {},
+  {})
+}

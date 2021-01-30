@@ -50,6 +50,36 @@
                   {{ tableData.oaa04_gen04 }}
                 </div>
               </div>
+              <!-- 合同信息 -->
+              <div class="title_line">合同信息</div>
+              <div class="form_line">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oay01') ? 'redPot' : ''">合同名称</span>
+                </div>
+                <div class="infobox selectbox middlebox">
+                  {{ tableData.oay01 }}
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oay02') ? 'redPot' : ''">合同编号</span>
+                </div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ tableData.oay02 }}
+                </div>
+              </div>
+              <div class="form_line lastline">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oay03') ? 'redPot' : ''">合同金额</span>
+                </div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.oay03 }}
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa01') ? 'redPot' : ''">合同状态</span>
+                </div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ tableData.oay_status }}
+                </div>
+              </div>
               <!-- 发货信息 -->
               <div class="title_line">发货信息</div>
               <!-- 1 -->

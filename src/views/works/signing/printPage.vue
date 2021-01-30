@@ -144,7 +144,7 @@ export default {
       timeNow: timeFmt(),
       overloading: "", //加载定时器
       workid: "",
-      workname: "借款申请",
+      workname: "供应商和客户维护申请单",
       activeTab: "firTab",
       tableData: {},
       // 当前流程列表

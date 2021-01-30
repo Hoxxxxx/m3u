@@ -233,7 +233,7 @@ export default {
     return {
       overloading: "", //加载定时器
       workid: "",
-      workname: "借款申请",
+      workname: "合同申请",
       activeTab: "firTab",
       tableData: {},
       // 汇率数据

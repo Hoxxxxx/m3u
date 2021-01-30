@@ -198,15 +198,15 @@ export default {
           path: "/contract/check",
         },
         {
-          name: "退货申请单——申请",
+          name: "退票申请单——申请",
           path: "/cancelinvoice",
         },
         {
-          name: "退货申请单——审核",
+          name: "退票申请单——审核",
           path: "/cancelinvoice/approval",
         },
         {
-          name: "退货申请单——查看",
+          name: "退票申请单——查看",
           path: "/cancelinvoice/check",
         },
         {
@@ -222,15 +222,15 @@ export default {
           path: "/redinvoice/check",
         },
         {
-          name: "新增签约方申请单——申请",
+          name: "供应商和客户维护申请单——申请",
           path: "/signing",
         },
         {
-          name: "新增签约方申请单——审核",
+          name: "供应商和客户维护申请单——审核",
           path: "/signing/approval",
         },
         {
-          name: "新增签约方申请单——查看",
+          name: "供应商和客户维护申请单——查看",
           path: "/signing/check",
         },
       ]

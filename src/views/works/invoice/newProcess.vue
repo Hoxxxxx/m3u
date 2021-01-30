@@ -66,8 +66,40 @@
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa04') ? 'redPot' : ''">所属部门</span>
                 </div>
-                <div class="infobox editNot">
+                <div class="infobox editNot last_row">
                   {{ showData.oaa04_gen04 }}
+                </div>
+              </div>
+              <!-- 合同信息 -->
+              <div class="title_line">合同信息</div>
+              <div class="form_line">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oay01') ? 'redPot' : ''">合同名称</span>
+                </div>
+                <div class="infobox selectbox middlebox">
+                  <div class="selector" @click="selectDialog('HT')">
+                    {{ tableData.oay01 }}
+                  </div>
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oay02') ? 'redPot' : ''">合同编号</span>
+                </div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ tableData.oay02 }}
+                </div>
+              </div>
+              <div class="form_line lastline">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oay03') ? 'redPot' : ''">合同金额</span>
+                </div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.oay03 }}
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa01') ? 'redPot' : ''">合同状态</span>
+                </div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ showData.oay_status }}
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -755,7 +787,8 @@ import {
   pjbsList,
   aagsList,
   pjasList,
-  userInfo
+  userInfo,
+  custInfo
 } from "@/api/basic.js";
 
 export default {
@@ -768,8 +801,9 @@ export default {
       workName: "发货单", //流程名
       showData: {
         oaa04_show: "", //申请人
+        oay_status: "", //合同状态
         expenseMoneyF: "", //报销金额大写
-        oaa13_rate: 0, //税率
+        oaa13_rate: 1, //税率
       },
       tableData: {
         // 基本信息
@@ -778,11 +812,16 @@ export default {
         oaa03: "", //经办人
         oaa04: "", //申请人id
         oaa05: "", //联系电话
-
+        // 合同信息
+        oay01: "", //名称
+        oay02: "", //编号
+        oay03: "", //金额
         //发货信息
-        oaa11: "", //客户名称
+        oaa11: "", //客户编号
+        oaa11_show: "", //客户名称
         oaa12: "", //总金额
         oaa13: "", //税别
+        oaa13_show: "",
         oaa14: "", //税额
         oaa15: "", //备注
         oaa98: "", //说明
@@ -856,6 +895,12 @@ export default {
           { name: "gen02", title: "员工名称" },
           { name: "gen03", title: "所属部门编号" },
           { name: "gen04", title: "所属部门" },
+        ],
+        head_HT: [
+          { name: "title", title: "合同名称" },
+          { name: "number", title: "合同编号" },
+          { name: "contract_value", title: "合同金额" },
+          { name: "status", title: "合同状态" },
         ],
         head_KJKM: [
           { name: "aag01", title: "科目编号" },
@@ -1004,9 +1049,10 @@ export default {
           if(res.status == 200){
             this.tableData.oaa05 = res.data.phone
             this.tableData.oaa04 = res.data.employee_code
-            this.tableData.oaa04_show = res.data.employee_show
+            this.showData.oaa04_show = res.data.employee_show
             this.showData.oaa04_gen01 = res.data.employee_code
             this.showData.oaa04_gen04 = res.data.department_show
+          } else {
             this.$message.warning("用户信息获取失败！" + res.error.message);
           }
         })
@@ -1326,6 +1372,15 @@ export default {
           this.dataSelect.headList = this.tableHead.head_SQR;
           this.dataSelect.dialogTitle = "员工列表";
           break;
+        case "HT":
+          let filter_HT = [{ label: "", model_key_search: "filter[number]" }];
+          this.dataSelect.filter = filter_HT;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/contracts";
+          this.dataSelect.headList = this.tableHead.head_HT;
+          this.dataSelect.dialogTitle = "合同列表";
+          break;
         case "KJKM":
           let filter_KJKM = [
             { label: "科目名称", model_key_search: "keyword" },
@@ -1363,18 +1418,11 @@ export default {
           this.dataSelect.dialogTitle = "WBS列表";
           break;
         case "KH":
-          let filter_KH = [{ label: "", model_key_search: "keyword" },
-          {
-              label: "",
-              model_key_search: "occ06",
-              disabled: true,
-              value: "1",
-              hide: true,
-            },];
+          let filter_KH = [{ label: "", model_key_search: "keyword" }];
           this.dataSelect.filter = filter_KH;
           this.dataSelect.searchType = "mixed";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/occs";
+          this.dataSelect.searchApi = "oa/occs";
           this.dataSelect.headList = this.tableHead.head_KH;
           this.dataSelect.dialogTitle = "客户列表";
           break;
@@ -1490,6 +1538,24 @@ export default {
             this.showData.oaa04_gen01 = val[0].gen01;
             this.showData.oaa04_gen04 = val[0].gen04;
             break;
+          case "HT":
+            this.tableData.oay01 = val[0].title;
+            this.tableData.oay02 = val[0].number;
+            this.tableData.oay03 = val[0].contract_value;
+            this.showData.oaa_status = val[0].status;
+            custInfo(val[0].opposite_id)
+            .then( res=> {
+              if (res.status == 200) {
+                this.tableData.oaa11 = res.data.occ01
+                this.tableData.oaa11_show = res.data.occ02
+                this.tableData.oaa13 = res.data.tax_number
+                this.tableData.oaa13_show = res.data.tax_name
+                this.showData.oaa13_rate = res.data.tax_value
+              } else {
+                this.$message.warning('获取客户详情失败')
+              }
+            })
+            break;
           case "KJKM":
             this.tableData.oab[this.rowIndex].oab01 = val[0].aag01;
             this.tableData.oab[this.rowIndex].oab01_show = val[0].aag02;
@@ -1509,6 +1575,16 @@ export default {
           case "KH":
             this.tableData.oaa11 = val[0].occ01;
             this.tableData.oaa11_show = val[0].occ02;
+            custInfo(val[0].code)
+            .then( res=> {
+              if (res.status == 200) {
+                this.tableData.oaa13 = res.data.tax_number
+                this.tableData.oaa13_show = res.data.tax_name
+                this.showData.oaa13_rate = res.data.tax_value
+              } else {
+                this.$message.warning('获取客户详情失败')
+              }
+            })
             break;
           case "SB":
             this.tableData.oaa13 = val[0].gec01;

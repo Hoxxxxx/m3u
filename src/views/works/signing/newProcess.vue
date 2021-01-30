@@ -32,47 +32,41 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox required">
-                  <span :class="form_must.includes('oaa03') ? 'redPot' : ''"
-                    >经办人</span
-                  >
+                <div class="titlebox required"><span>经办人</span></div>
+                <div class="infobox middlebox editNot">
+                  {{ showData.oaa03_show }}
                 </div>
-                <div class="infobox selectbox">
-                  <div class="selector" @click="selectDialog('JBR')">
-                    {{ showData.oaa03_show }}
-                  </div>
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa05') ? 'redPot' : ''">联系电话</span>
                 </div>
+                <div class="infobox selectbox middlebox last_row">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa05"
+                    placeholder="请输入联系电话"
+                  />
+                </div>
+              </div>
+              <div class="form_line lastline">
                 <div class="titlebox required">
-                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''"
-                    >申请人</span
-                  >
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">申请人</span>
                 </div>
                 <div class="infobox selectbox">
                   <div class="selector" @click="selectDialog('SQR')">
                     {{ showData.oaa04_show }}
                   </div>
                 </div>
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">员工编号</span>
+                </div>
+                <div class="infobox editNot">
+                  {{ showData.oaa04_gen01 }}
+                </div>
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa06') ? 'redPot' : ''"
-                    >所属部门</span
-                  >
+                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">所属部门</span>
                 </div>
-                <div class="infobox selectbox last_row">
-                    {{ showData.oaa04_gen04 }}
-                </div>
-              </div>
-              <div class="form_line lastline">
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa05') ? 'redPot' : ''"
-                    >联系电话</span
-                  >
-                </div>
-                <div class="infobox selectbox longbox last_row">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa05"
-                    placeholder="请输入联系电话"
-                  />
+                <div class="infobox editNot last_row">
+                  {{ showData.oaa04_gen04 }}
                 </div>
               </div>
               <!-- 签约方信息 -->
@@ -89,9 +83,20 @@
                     style="margin-right: 120px"
                     v-model="tableData.oaa10"
                   >
-                    <el-radio :label="1">供应商</el-radio>
-                    <el-radio :label="2">客户</el-radio>
+                    <el-radio :label="1">新增供应商</el-radio>
+                    <el-radio :label="2">新增客户</el-radio>
+                    <el-radio :label="3">修改供应商</el-radio>
+                    <el-radio :label="4">修改客户</el-radio>
                   </el-radio-group>
+                </div>
+                <!-- 修改供应商/客户 -->
+                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox selectbox" style="border-left: 1px solid #CCCCCC">
+                  <div v-if="tableData.oaa10==3" class="selector" @click="selectDialog('GYS')">
+                    {{ showData.oaa14_show }}
+                  </div>
+                  <div v-if="tableData.oaa10==4" class="selector" @click="selectDialog('KH')">
+                    {{ showData.oaa14_show }}
+                  </div>
                 </div>
               </div>
               <div>
@@ -456,7 +461,7 @@ export default {
     return {
       activeTab: "firTab",
       workid: "",
-      workName: "新增签约方申请单", //流程名
+      workName: "供应商和客户维护申请单", //流程名
       tableData: {
         oaa01: "",
         oaa02: "",
@@ -603,7 +608,7 @@ export default {
           if(res.status == 200){
             this.tableData.oaa05 = res.data.phone
             this.tableData.oaa04 = res.data.employee_code
-            this.tableData.oaa04_show = res.data.employee_show
+            this.showData.oaa04_show = res.data.employee_show
             this.showData.oaa04_gen01 = res.data.employee_code
             this.showData.oaa04_gen04 = res.data.department_show
           }else{

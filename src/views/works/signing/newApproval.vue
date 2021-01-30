@@ -69,69 +69,38 @@
               <!-- 基本信息 -->
               <div class="title_line">基本信息</div>
               <div class="form_line">
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa03') ? 'redPot' : ''">经办人</span>
-                </div>
-                <div
-                  class="infobox middlebox editNot"
-                  v-if="!table_able.includes('oaa03')"
-                >
-                  {{ tableData.oaa03_show }}
-                </div>
-                <div
-                  class="infobox selectbox"
-                  v-if="table_able.includes('oaa03')"
-                >
-                  <div class="selector" @click="selectDialog('JBR')">
-                    {{ tableData.oaa03_show }}
-                  </div>
-                </div>
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">申请人</span>
-                </div>
-                <div
-                  class="infobox selectbox editNot"
-                  v-if="!table_able.includes('oaa04')"
-                >
-                  {{ tableData.oaa04_show }}
-                </div>
-                <div
-                  class="infobox selectbox"
-                  v-if="table_able.includes('oaa04')"
-                >
-                  <div class="selector" @click="selectDialog('SQR')">
-                    {{ tableData.oaa04_show }}
-                  </div>
-                </div>
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa06') ? 'redPot' : ''">所属部门</span>
-                </div>
-                <div
-                  class="infobox selectbox editNot last_row"
-                >
-                  {{ tableData.oaa04_gen04 }}
-                </div>
-              </div>
-              <div class="form_line lastline">
+                <div class="titlebox">经办人</div>
+                <div class="infobox middlebox editNot">{{ tableData.oaa03_show }}</div>
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa05') ? 'redPot' : ''">联系电话</span>
                 </div>
-                <div
-                  class="infobox selectbox longbox editNot"
-                  v-if="!table_able.includes('oaa05')"
-                >
-                  {{ tableData.oaa05 }}
-                </div>
-                <div
-                  class="infobox selectbox longbox last_row"
-                  v-if="table_able.includes('oaa05')"
-                >
+                <div class="infobox selectbox middlebox last_row editNot" v-if="!table_able.includes('oaa05')">{{ tableData.oaa05 }}</div>
+                <div class="infobox selectbox middlebox last_row" v-if="table_able.includes('oaa05')">
                   <input
                     class="abstracInput"
                     v-model="tableData.oaa05"
                     placeholder="请输入联系电话"
                   />
                 </div>
+              </div>
+              <div class="form_line lastline">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">申请人</span>
+                </div>
+                <div class="infobox selectbox editNot" v-if="!table_able.includes('oaa04')">{{ tableData.oaa04_show }}</div>
+                <div class="infobox selectbox" v-if="table_able.includes('oaa04')">
+                  <div class="selector" @click="selectDialog('SQR')">
+                    {{ tableData.oaa04_show }}
+                  </div>
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">员工编号</span>
+                </div>
+                <div class="infobox editNot">{{ tableData.oaa04 }}</div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">所属部门</span>
+                </div>
+                <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
               <!-- 签约方信息 -->
               <div class="title_line">签约方信息</div>
@@ -658,7 +627,7 @@ export default {
     return {
       overloading: "", //加载定时器
       workid: "",
-      workName: "新增签约方申请单",
+      workName: "供应商和客户维护申请单",
       more: [], //查看更多
       activeTab: "firTab",
       form_must_able: [],
