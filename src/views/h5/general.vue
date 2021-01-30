@@ -296,7 +296,7 @@ export default {
           this.actions = res.data.workclass_info.more;
           this.formData = res.data;
         } else {
-          Toast.fail("数据获取失败，请刷新！");
+          Toast.fail("数据获取失败，请重新加载！");
         }
         loading.close();
       });
