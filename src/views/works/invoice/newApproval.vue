@@ -200,6 +200,7 @@
                     class="abstracInput"
                     v-model="tableData.oaa12"
                     placeholder="请输入总金额"
+                    @input="oaa12Input"
                   />
                 </div>
               </div>
@@ -1225,6 +1226,7 @@ export default {
         payTypes: [],
         // gja
         gjaList: [],
+        oaa12_type: 1
       },
       table_able: [], //表格可编辑项
       oab_must:[],//差旅明细必填项
@@ -1417,21 +1419,16 @@ export default {
           }, 0);
           this.tableData.oaa14 = Number(this.firstLoad.oaa14) 
           // 单价
-          this.showData.oab07_show = (
-            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
-          ).toFixed(2);
+          this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
           // this.tableData.oab.forEach( item => {
           //   if(item.oab07 !== this.showData.oab07_show){
           //     item.oab07 = this.showData.oab07_show
           //   }
           // })
         }else{
-          this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate / 100)) * this.showData.oaa13_rate) /100).toFixed(2);
+          this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
           // 单价
-          this.showData.oab07_show = (
-            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
-          ).toFixed(2);
+          this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
           // this.tableData.oab.forEach( item => {
           //   if(item.oab07 !== this.showData.oab07_show){
           //     item.oab07 = this.showData.oab07_show
@@ -1450,25 +1447,16 @@ export default {
           }, 0);
           this.tableData.oaa14 = Number(this.firstLoad.oaa14) 
           // 单价
-          this.showData.oab07_show = (
-            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
-          ).toFixed(2);
+          this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
           // this.tableData.oab.forEach( item => {
           //   if(item.oab07 !== this.showData.oab07_show){
           //     item.oab07 = this.showData.oab07_show
           //   }
           // })
         }else{
-          this.tableData.oaa14 = (
-            ((Number(this.tableData.oaa12) /
-              (1 + this.showData.oaa13_rate / 100)) *
-              this.showData.oaa13_rate) /
-            100
-          ).toFixed(2);
+          this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
           // 单价
-          this.showData.oab07_show = (
-            Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
-          ).toFixed(2);
+          this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
           // this.tableData.oab.forEach( item => {
           //   if(item.oab07 !== this.showData.oab07_show){
           //     item.oab07 = this.showData.oab07_show
@@ -1500,6 +1488,9 @@ export default {
     },
   },
   methods: {
+    oaa12Input(){
+      this.fixedData.oaa12_type = 2
+    },
     must_oab(obj) {
       if (this.oab_must.includes(obj.column.property)) {
         return "must";
@@ -1728,8 +1719,8 @@ export default {
           });
         }
       } else {
-        if (Number(this.tableData.oaa12) != sum) {
-          this.$message.warning("总金额有误：总金额 = 发票明细中的金额之和");
+        if (this.tableData.oaa12 == "" && this.tableData.oaa12 == "0") {
+          this.$message.warning("总金额不能为空！");
         } else {
           const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
@@ -1811,8 +1802,8 @@ export default {
           });
         }
       } else {
-        if (Number(this.tableData.oaa12) != sum) {
-          this.$message.warning("总金额有误：总金额 = 发票明细中的金额之和");
+        if (this.tableData.oaa12 == "" && this.tableData.oaa12 == "0") {
+          this.$message.warning("总金额不能为空！");
         } else {
           const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
