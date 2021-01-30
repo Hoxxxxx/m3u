@@ -81,6 +81,45 @@
                 </div>
                 <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
               </div>
+              <!-- 合同信息 -->
+              <div class="title_line">合同信息</div>
+              <div class="form_line">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oay01') ? 'redPot' : ''">合同名称</span>
+                </div>
+                <div
+                  class="infobox selectbox middlebox editNot"
+                  v-if="!table_able.includes('oay01')"
+                >
+                  {{ tableData.oay01 }}
+                </div>
+                <div class="infobox selectbox middlebox"
+                  v-if="table_able.includes('oay01')">
+                  <div class="selector" @click="selectDialog('HT')">
+                    {{ tableData.oay01 }}
+                  </div>
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oay02') ? 'redPot' : ''">合同编号</span>
+                </div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ tableData.oay02 }}
+                </div>
+              </div>
+              <div class="form_line lastline">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oay03') ? 'redPot' : ''">合同金额</span>
+                </div>
+                <div class="infobox middlebox editNot">
+                  {{ tableData.oay03 }}
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa01') ? 'redPot' : ''">合同状态</span>
+                </div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ tableData.oay_status }}
+                </div>
+              </div>
               <!-- 付款信息 -->
               <div class="title_line">付款信息</div>
               <!-- 1 -->
@@ -1395,6 +1434,12 @@ export default {
           { name: "gja01", title: "项目编号" },
           { name: "gja02", title: "项目名称" },
         ],
+        head_HT: [
+          { name: "title", title: "合同名称" },
+          { name: "number", title: "合同编号" },
+          { name: "contract_value", title: "合同金额" },
+          { name: "status", title: "合同状态" },
+        ],
       },
     };
   },
@@ -1958,6 +2003,22 @@ export default {
           this.dataSelect.headList = this.tableHead.head_WBS;
           this.dataSelect.dialogTitle = "WBS列表";
           break;
+        case "HT":
+          let filter_HT = [{ label: "", model_key_search: "number" },
+          {
+              label: "",
+              model_key_search: "opposite_type",
+              disabled: true,
+              value: "",
+              hide: true,
+            }];
+          this.dataSelect.filter = filter_HT;
+          this.dataSelect.searchType = "single";
+          this.dataSelect.editType = "entry";
+          this.dataSelect.searchApi = "meta/contracts";
+          this.dataSelect.headList = this.tableHead.head_HT;
+          this.dataSelect.dialogTitle = "合同列表";
+          break;
         default:
         return;
         break;
@@ -2105,8 +2166,13 @@ export default {
               this.tableData.oac[this.rowIndex].oac12 = val[0].pjb02;
             }
             break;
+          case "HT":
+            this.tableData.oay01 = val[0].title;
+            this.tableData.oay02 = val[0].number;
+            this.tableData.oay03 = val[0].contract_value;
+            this.showData.oaa_status = val[0].status;
+            break;
           default:
-          return;
           break;
         }
       }

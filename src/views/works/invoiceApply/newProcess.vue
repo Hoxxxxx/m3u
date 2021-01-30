@@ -288,14 +288,16 @@
                     <span :class="form_must.includes('oaa28') ? 'redPot' : ''">开票金额</span>
                   </div>
                   <div
-                    class="infobox last_row longbox selectbox"
+                    class="infobox last_row longbox selectbox editNot"
                     style="width: 100%"
                   >
-                    <input
+                  {{tableData.oaa28}}
+                    <!-- <input
                       class="abstracInput"
                       v-model="tableData.oaa28"
-                      placeholder="请输入开票金额"
-                    />
+                      disabled
+                      placeholder=""
+                    /> -->
                   </div>
                 </div>
                 <div class="title_line">发票明细</div>
@@ -594,7 +596,7 @@
 import SelectData from "@/components/selectData";
 import { dateFmt, number_chinese,OpenLoading } from "@/utils/utils.js";
 import { addFlow, editFlow, workflows, openitems } from "@/api/process_new";
-import {  mustItem } from "@/api/basic";
+import {  mustItem,occInfo } from "@/api/basic";
 import {
   gensList,
   azisList,
@@ -711,6 +713,14 @@ export default {
         this.tableData.oac.forEach((item) => {
           item.oac06 = Number(item.oac04) * Number(item.oac05);
         });
+      },
+      deep: true,
+    },
+    "tableData.oaf": {
+      handler(newval, oldval) {
+        this.tableData.oaa28 = this.tableData.oaf.reduce((prev,cur)=>{
+          return prev + Number(cur.oaf05);
+        },0)
       },
       deep: true,
     },
@@ -1008,7 +1018,10 @@ export default {
             break;
           case "FHD":
             let data = [];
+            let names = [];
+            let out = false
             val.forEach(item=>{
+              names.push(item.fhd05)
               let obj = {
                 oaf01:item.fhd00,
                 oaf02:item.fhd05,
@@ -1018,7 +1031,28 @@ export default {
               }
               data.push(obj)
             })
-            this.tableData.oaf = data
+            for(let i = 0,len=names.length;i<len;i++){
+              if(names[0] != names[i]){
+                this.tableData.oaf = []
+                out = false 
+              }else{
+                out = true
+              }
+            }
+            if(out){
+              this.tableData.oaf = data
+              let code = this.tableData.oaf[0].oaf02
+              occInfo(code).then(res=>{
+                this.tableData.oaa21 = res.data.full_name;
+                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa23 = res.data.address
+                this.tableData.oaa24 = res.data.bank_code
+                this.tableData.oaa25 = res.data.bank
+                this.tableData.oaa26 = res.data.phone
+              })
+            }else{
+              this.$message.warning('请选择相同客户的发货单！')
+            }
             break;
           default:
             return;

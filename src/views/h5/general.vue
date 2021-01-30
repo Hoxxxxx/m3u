@@ -2,7 +2,13 @@
   <div class="h5Home">
     <van-skeleton round :row="20" animate :loading="noDATA">
       <div class="head">
-        <header>{{ formData.work_name }}</header>
+        <van-nav-bar
+          :title="formData.work_name"
+          left-text="返回"
+          left-arrow
+          @click-left="onClickLeft"
+        />
+        <!-- <header>{{ formData.work_name }}</header> -->
       </div>
       <div class="cont">
         <van-tabs
@@ -11,7 +17,7 @@
           :offset-top="'0.8rem'"
           :color="'#409EFD'"
           :title-active-color="'#409EFD'"
-          :class="type == 3 ? 'padding_bottom_none':''"
+          :class="type == 3 ? 'padding_bottom_none' : ''"
         >
           <div class="serial">
             <div>
@@ -266,6 +272,11 @@ export default {
     }
   },
   methods: {
+    //顶部返回 
+    onClickLeft(){
+      let url = `${process.env.VUE_APP_URL}/pmobile/index.php?fileurl=workclass&u=m&t=index&type=1`
+      window.location.href = url
+    },
     // 获取审核/查看页面数据
     geth5Data() {
       let params = {

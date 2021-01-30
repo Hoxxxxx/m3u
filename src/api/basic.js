@@ -203,7 +203,7 @@ export const pmcInfo = (code) => {
 
 // 获取客户详情occ
 export const occInfo = (code) => {
-  return request.get(`oa/pmcs/${code}`,
+  return request.get(`oa/occs/${code}`,
   {},
   {})
 }

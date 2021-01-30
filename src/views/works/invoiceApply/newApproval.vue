@@ -758,12 +758,7 @@ import SelectData from "@/components/selectData";
 import { workflowsList, transfer,editFlow,addFlow,} from "@/api/process_new.js"
 import { number_chinese, dateFmt, OpenLoading } from "@/utils/utils.js";
 import {
-  gensList,
-  azisList,
-  pmasList,
-  pjbsList,
-  aagsList,
-  pjasList,
+  occInfo
 } from "@/api/basic.js";
 
 export default {
@@ -885,6 +880,14 @@ export default {
         })
       },
       deep:true
+    },
+    "tableData.oaf": {
+      handler(newval, oldval) {
+        this.tableData.oaa28 = this.tableData.oaf.reduce((prev,cur)=>{
+          return prev + Number(cur.oaf05);
+        },0)
+      },
+      deep: true,
     },
   },
   computed: {
@@ -1215,7 +1218,10 @@ export default {
             break;
           case "FHD":
             let data = [];
+            let names = [];
+            let out = false
             val.forEach(item=>{
+              names.push(item.fhd05)
               let obj = {
                 oaf01:item.fhd00,
                 oaf02:item.fhd05,
@@ -1225,7 +1231,28 @@ export default {
               }
               data.push(obj)
             })
-            this.tableData.oaf = data
+            for(let i = 0,len=names.length;i<len;i++){
+              if(names[0] != names[i]){
+                this.tableData.oaf = []
+                out = false 
+              }else{
+                out = true
+              }
+            }
+            if(out){
+              this.tableData.oaf = data
+              let code = this.tableData.oaf[0].oaf02
+              occInfo(code).then(res=>{
+                this.tableData.oaa21 = res.data.full_name;
+                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa23 = res.data.address
+                this.tableData.oaa24 = res.data.bank_code
+                this.tableData.oaa25 = res.data.bank
+                this.tableData.oaa26 = res.data.phone
+              })
+            }else{
+              this.$message.warning('请选择相同客户的发货单！')
+            }
             break;
           default:
             return;

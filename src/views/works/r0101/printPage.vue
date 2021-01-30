@@ -31,6 +31,20 @@
             <div class="titlebox">所属部门</div>
             <div class="infobox last_row">{{ tableData.oaa04_gen04 }}</div>
           </div>
+          <!-- 合同信息 -->
+          <div class="title_line">合同信息</div>
+          <div class="form_line">
+            <div class="titlebox">合同名称</div>
+            <div class="infobox middlebox">{{ tableData.oay01 }}</div>
+            <div class="titlebox">合同编号</div>
+            <div class="infobox middlebox last_row">{{ tableData.oay02 }}</div>
+          </div>
+          <div class="form_line lastline">
+            <div class="titlebox">合同金额</div>
+            <div class="infobox middlebox">{{ tableData.oay03 }}</div>
+            <div class="titlebox">合同状态</div>
+            <div class="infobox middlebox last_row">{{ tableData.oay_status }}</div>
+          </div>
           <!-- 预付信息 -->
           <div class="title_line">预付信息</div>
           <!-- 1 -->
