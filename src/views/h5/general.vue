@@ -11,6 +11,7 @@
           :offset-top="'0.8rem'"
           :color="'#409EFD'"
           :title-active-color="'#409EFD'"
+          :class="type == 3 ? 'padding_bottom_none':''"
         >
           <div class="serial">
             <div>
@@ -73,13 +74,15 @@
                 </van-popup>
               </div>
               <div v-if="item.form_type == 'table'" class="table">
-                <van-collapse v-model="item.son">
+                <van-collapse v-model="item.name" accordion>
                   <van-collapse-item
-                    :title="`${group.sub_title}表${index + 1}`"
-                    :name="`${index + 1}`"
+                    v-for="(coll, coll_index) in item.son"
+                    :key="coll_index"
+                    :title="`${group.sub_title}表（${coll_index + 1}）`"
+                    :name="`${coll_index}`"
                   >
                     <van-field
-                      v-for="(td, td_index) in item.son"
+                      v-for="(td, td_index) in coll"
                       :key="td_index"
                       v-model="td.show"
                       :name="td.name"
@@ -95,16 +98,39 @@
                 </van-collapse>
               </div>
             </van-cell-group>
-            <ul class="files" v-if="group.sub_title == '附件信息'">
-              <li
-                class="file"
-                v-for="(file, file_index) in group.groups"
-                :key="file_index"
-              >
-                <van-icon name="orders-o" size="30" />
-                <span @click="download(file)">{{ file.filename }}</span>
-              </li>
-            </ul>
+            <div
+              v-if="
+                group.groups.length > 0 && group.groups[0].form_type == 'table'
+              "
+            >
+              <van-cell-group>
+                <van-cell
+                  v-for="(son, son_index) in group.groups[0].son_total"
+                  :key="son_index"
+                  :title="son.label"
+                  :value="son.value"
+                />
+              </van-cell-group>
+            </div>
+            <div v-if="group.sub_title == '附件信息'" class="whiteBG">
+              <van-empty
+                v-if="group.groups.length == 0"
+                class="custom-image"
+                image-size="0.8rem"
+                image="https://img.yzcdn.cn/vant/custom-empty-image.png"
+                description="暂无附件"
+              />
+              <ul class="files" v-else>
+                <li
+                  class="file"
+                  v-for="(file, file_index) in group.groups"
+                  :key="file_index"
+                >
+                  <van-icon name="orders-o" size="30" />
+                  <span @click="download(file)">{{ file.filename }}</span>
+                </li>
+              </ul>
+            </div>
             <van-steps
               v-if="group.sub_title == '流程信息'"
               direction="vertical"
@@ -138,16 +164,22 @@
           </van-tab>
         </van-tabs>
       </div>
-      <footer>
+      <footer v-if="type != 3">
         <!-- 审核/查看显示按钮 -->
-        <div class="btn_check" v-if="type != 2">
-          <van-popover v-model="showMore" trigger="click" placement="top-start">
+        <div class="btn_check" v-if="type == 1">
+          <van-popover
+            class="others"
+            v-model="showMore"
+            trigger="click"
+            placement="top-start"
+            v-if="actions.length > 0"
+          >
             <div
               class="linkBox"
               v-for="(link, link_index) in actions"
               :key="link_index"
             >
-              <van-cell :title="link.title" is-link @click="toLink(link.url)" />
+              <van-cell :title="link.name" is-link @click="toLink(link.url)" />
             </div>
             <template #reference>
               <van-button
@@ -165,6 +197,7 @@
             size="small"
             color="#F56C6C"
             type="default"
+            @click="next(3)"
             >退回</van-button
           >
           <van-button
@@ -172,6 +205,7 @@
             size="small"
             color="#FBD951"
             type="warning"
+            @click="next(2)"
             >拒绝</van-button
           >
           <van-button
@@ -179,12 +213,12 @@
             size="small"
             color="#6DD400"
             type="danger"
-            @click="agree()"
+            @click="next(1)"
             >同意</van-button
           >
         </div>
         <!-- 新增显示按钮 -->
-        <div class="btn_add" v-else>
+        <div class="btn_add" v-if="type == 2">
           <van-button
             class="btn_operation w2rem"
             size="small"
@@ -207,39 +241,24 @@
 </template>
 
 <script>
+import { Toast } from "vant";
 import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
-import {getUrlParams} from "@/utils/utils.js"
 export default {
   data() {
     return {
       formData: {},
       // 底部操作栏
       showMore: false, //其他
-      actions: [
-        {
-          title: "查看申请单详细信息1",
-          url: "https://www.baidu.com/",
-        },
-        {
-          title: "查看申请单详细信息2",
-          url: "https://www.baidu.com/",
-        },
-        {
-          title: "查看申请单详细信息3",
-          url: "https://www.baidu.com/",
-        },
-      ],
+      actions: [],
       type: null, //当前页面类型：查看、新增、审核  type=1就是审核  type=2 新增  type=3 查看
       noDATA: true, //控制显示骨架屏
-      type:null,
-      workid:"",
+      type: null,
+      workid: "",
     };
   },
   created() {
-    let params = getUrlParams(window.location.href)
-    this.type = params.type ? params.type : 1;
-    this.workid = params.workid
-    alert(window.location.href)
+    this.type = this.$route.query.type ? this.$route.query.type : 1;
+    this.workid = this.$route.query.workid;
     if (this.type == 2) {
       this.geth5DataAdd();
     } else {
@@ -253,9 +272,11 @@ export default {
         workid: this.workid,
         type: this.type,
       };
-      this.$toast.loading({
-        message: "加载中...",
-        duration: 0,
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
       });
       h5Data(params).then((res) => {
         if (res.status == 200) {
@@ -272,15 +293,12 @@ export default {
           };
           flow.groups = res.data.workclass_perflow;
           res.data.form_layout.push(flow);
+          this.actions = res.data.workclass_info.more;
           this.formData = res.data;
-          console.log(this.formData);
         } else {
-          this.$toast({
-            type: "fail",
-            message: "数据获取失败！",
-          });
+          Toast.fail("数据获取失败，请重新加载！");
         }
-        this.$toast.clear();
+        loading.close();
       });
     },
     // 获取新增流程信息
@@ -372,15 +390,8 @@ export default {
       let u = navigator.userAgent;
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
-        if (this.formData.work_type == "unique") {
-          let url = file.fileaddr; // 绝对地址
-          let a = document.createElement("a");
-          a.download = file.filename;
-          a.href = url;
-          a.target = "_blank";
-          document.appendChild(a);
-          a.click();
-          document.removeChild(a);
+        if (this.formData.work_type == "usual") {
+          window.open(file.fileaddr);
         } else {
           const { data: res } = await this.axios({
             method: "get",
@@ -427,6 +438,16 @@ export default {
           message: "不支持苹果手机下载文件，请到PC端处理！",
         });
       }
+    },
+    // 同意拒绝退回
+    next(val) {
+      this.$router.push({
+        path: "/h5/toss",
+        query: {
+          tosstype: val,
+          workid: this.workid,
+        },
+      });
     },
   },
 };

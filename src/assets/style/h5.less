@@ -11,12 +11,15 @@
     z-index: 999;
 
     header {
-      width: 100%;
       font-size: 0.32rem;
       line-height: 0.8rem;
       text-align: center;
+      padding: 0 0.2rem;
       background: #19a9eb;
       color: #fff;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
     // 抛转名称
@@ -65,12 +68,12 @@
     }
 
     .store-list-group-title {
+      background: #E9F4FF;
       font-size: 0.2rem;
       height: 0.5rem;
       line-height: 0.5rem;
       text-align: center;
-      background: #f9f9f9;
-      color: #999;
+      color: #409EFD;
     }
 
     .storeList {
@@ -384,12 +387,11 @@
       align-items: center;
     }
 
+    .others{
+      margin-right: 1rem;
+    }
     .btn_operation {
       width: 1.4rem;
-
-      &:nth-child(1) {
-        margin-right: 1rem;
-      }
     }
 
     .btn_return,
@@ -403,6 +405,9 @@
 
 .van-tabs {
   padding-bottom: 0.98rem !important;
+  &.padding_bottom_none{
+    padding-bottom: 0!important;
+  }
 }
 
 .van-cell__title {
@@ -427,3 +432,7 @@
 .w2rem{
   width: 2rem!important;
 }
+.whiteBG{
+  background: #fff!important;
+}
+

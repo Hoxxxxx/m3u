@@ -29,7 +29,7 @@ axios.interceptors.request.use(
 			if (now > exp) {
 				sessionStorage.clear()
 				// window.location = '/error'
-				window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${curUrl}`
+				window.location.href = `${process.env.VUE_APP_URL}/admin.php?ac=apply&fileurl=applylist&type=sso&redirect=${encodeURIComponent(curUrl)}`
 			} else {
 				config.headers.Authorization = 'Bearer ' + token,
 					config.headers['Org-Id'] = orgid
