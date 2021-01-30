@@ -52,8 +52,8 @@
           <span>主办人员：</span>
           <div class="mainSelect">
             <!-- 未选择流程 -->
-            <div class="w100" v-if="uploadData.next_flowid == ''">
-              <van-dropdown-menu class="w100">
+            <div v-if="uploadData.next_flowid == ''">
+              <van-dropdown-menu>
                 <van-dropdown-item
                   v-model="uploadData.next_userid"
                   title="请先选择下一步骤"
@@ -61,9 +61,9 @@
                 />
               </van-dropdown-menu>
             </div>
-            <div class="w100" v-if="uploadData.next_flowid !== ''">
+            <div v-if="uploadData.next_flowid !== ''">
               <!-- 可选所有 -->
-              <van-dropdown-menu class="w100"
+              <van-dropdown-menu
                 v-if="
                   fixedData.next_workFlows[showData.nextInfo_index]
                     .changetype == '1'
@@ -313,9 +313,6 @@ export default {
           ? "拒绝流程"
           : "退回流程";
       this.uploadData.workid = this.$route.query.workid;
-      this.workname = this.$route.query.workname
-        ? this.$route.query.workname
-        : "申请单";
       this.uploadData.pertype =
         this.tosstype == "1" ? "1" : this.tosstype == "2" ? "2" : "3";
     },
@@ -350,6 +347,7 @@ export default {
       workflowsList(params).then((res) => {
         loading.close();
         if (res.status == 200) {
+          this.workname = res.data.work_name
           this.fixedData.is_last = res.data.workclass_personnel.perid.is_last; // 是否最终步
           this.fixedData.now_workFlows = res.data.workclass_personnel.perid; // 当前步骤
           // 下一步骤
