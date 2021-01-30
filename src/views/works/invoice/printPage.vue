@@ -76,95 +76,95 @@
           </div>
           <!-- 开票信息 -->
           <div v-if="tableData.oaa16 == 1">
-                <div class="title_line">开票信息</div>
-                <div class="form_line">
-                  <div class="titlebox">名称</div>
-                  <div class="infobox selectbox">
-                    {{tableData.oaa21}}
-                  </div>
-                  <div class="titlebox">纳税人识别号</div>
-                  <div class="infobox selectbox">
-                    {{tableData.oaa22}}
-                  </div>
-                  <div class="titlebox">地址</div>
-                  <div class="infobox selectbox last_row">
-                    {{tableData.oaa23}}
-                  </div>
+            <div class="title_line">开票信息</div>
+            <div class="form_line">
+              <div class="titlebox">名称</div>
+              <div class="infobox selectbox">
+                {{tableData.oaa21}}
+              </div>
+              <div class="titlebox">纳税人识别号</div>
+              <div class="infobox selectbox">
+                {{tableData.oaa22}}
+              </div>
+              <div class="titlebox">地址</div>
+              <div class="infobox selectbox last_row">
+                {{tableData.oaa23}}
+              </div>
+            </div>
+            <div class="form_line">
+              <div class="titlebox">银行账号</div>
+              <div class="infobox selectbox">
+                {{tableData.oaa24}}
+              </div>
+              <div class="titlebox">开户行</div>
+              <div class="infobox selectbox">
+                {{tableData.oaa25}}
+              </div>
+              <div class="titlebox">电话</div>
+              <div class="infobox selectbox last_row">
+                {{tableData.oaa26}}
+              </div>
+            </div>
+            <div class="form_line">
+              <div class="titlebox">开票种类</div>
+              <div class="infobox longbox selectbox" style="width: 100%">
+                <span class="radioItem" v-if="tableData.oaa27==1">增值税发票</span>
+                <span class="radioItem" v-if="tableData.oaa27==2">普通发票</span>
+                <span class="radioItem" v-if="tableData.oaa27==3">服务发票</span>
+                <span class="radioItem" v-if="tableData.oaa27==4">资金往来发票</span>
+              </div>
+            </div>
+            <div class="title_line">发票明细</div>
+            <div class="inner_Table" v-for="(F_item, F_index) in tableBox_oac" :key="'oac'+F_index">
+              <!-- 有几个表头 -->
+              <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
+                <div class="thead">{{S_item.label}}</div>
+                <!-- 有几组内容 -->
+                <div class="tdata" v-if="tableData.oac.length == 0"></div>
+                <div class="tdata" v-for="(content_item, content_index) in tableData.oac" :key="content_index">
+                  {{content_item[S_item.value]}}
                 </div>
-                <div class="form_line">
-                  <div class="titlebox">银行账号</div>
-                  <div class="infobox selectbox">
-                    {{tableData.oaa24}}
-                  </div>
-                  <div class="titlebox">开户行</div>
-                  <div class="infobox selectbox">
-                    {{tableData.oaa25}}
-                  </div>
-                  <div class="titlebox">电话</div>
-                  <div class="infobox selectbox last_row">
-                    {{tableData.oaa26}}
-                  </div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">开票种类</div>
-                  <div class="infobox longbox selectbox" style="width: 100%">
-                    <span class="radioItem" v-if="tableData.oaa27==1">增值税发票</span>
-                    <span class="radioItem" v-if="tableData.oaa27==2">普通发票</span>
-                    <span class="radioItem" v-if="tableData.oaa27==3">服务发票</span>
-                    <span class="radioItem" v-if="tableData.oaa27==4">资金往来发票</span>
-                  </div>
-                </div>
-                <div class="title_line">发票明细</div>
-                <div class="inner_Table" v-for="(F_item, F_index) in tableBox_oac" :key="'oac'+F_index">
-                  <!-- 有几个表头 -->
-                  <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
-                    <div class="thead">{{S_item.label}}</div>
-                    <!-- 有几组内容 -->
-                    <div class="tdata" v-if="tableData.oac.length == 0"></div>
-                    <div class="tdata" v-for="(content_item, content_index) in tableData.oac" :key="content_index">
-                      {{content_item[S_item.value]}}
-                    </div>
-                  </div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">货款回收情况</div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <span class="radioItem" v-if="tableData.oaa31==1">货款已收</span>
-                    <span class="radioItem" v-if="tableData.oaa31==2">尚未回款</span>
-                  </div>
-                  <div class="titlebox">回款日期</div>
-                  <div
-                    class="infobox last_row middlebox selectbox disabledbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa32}}
-                  </div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">回款方式</div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <span class="radioItem" v-if="tableData.oaa33==1">现金</span>
-                    <span class="radioItem" v-if="tableData.oaa33==2">转账支票</span>
-                    <span class="radioItem" v-if="tableData.oaa33==3">电汇</span>
-                    <span class="radioItem" v-if="tableData.oaa33==4">汇票</span>
-                  </div>
-                  <div class="titlebox">发货时间</div>
-                  <div
-                    class="infobox last_row middlebox selectbox disabledbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa34}}
-                  </div>
-                </div>
-                <div class="form_line">
-                  <div class="titlebox">发票号码</div>
-                  <div
-                    class="infobox last_row longbox selectbox"
-                    style="width: 100%"
-                  >
-                    {{tableData.oaa36}}
-                  </div>
-                </div>
+              </div>
+            </div>
+            <div class="form_line">
+              <div class="titlebox">货款回收情况</div>
+              <div class="infobox middlebox" style="width: 100%">
+                <span class="radioItem" v-if="tableData.oaa31==1">货款已收</span>
+                <span class="radioItem" v-if="tableData.oaa31==2">尚未回款</span>
+              </div>
+              <div class="titlebox">回款日期</div>
+              <div
+                class="infobox last_row middlebox selectbox disabledbox"
+                style="width: 100%"
+              >
+                {{tableData.oaa32}}
+              </div>
+            </div>
+            <div class="form_line">
+              <div class="titlebox">回款方式</div>
+              <div class="infobox middlebox" style="width: 100%">
+                <span class="radioItem" v-if="tableData.oaa33==1">现金</span>
+                <span class="radioItem" v-if="tableData.oaa33==2">转账支票</span>
+                <span class="radioItem" v-if="tableData.oaa33==3">电汇</span>
+                <span class="radioItem" v-if="tableData.oaa33==4">汇票</span>
+              </div>
+              <div class="titlebox">发货时间</div>
+              <div
+                class="infobox last_row middlebox selectbox disabledbox"
+                style="width: 100%"
+              >
+                {{tableData.oaa34}}
+              </div>
+            </div>
+            <div class="form_line">
+              <div class="titlebox">发票号码</div>
+              <div
+                class="infobox last_row longbox selectbox"
+                style="width: 100%"
+              >
+                {{tableData.oaa36}}
+              </div>
+            </div>
           </div>
           <!-- 应收明细 -->
           <div class="title_line">应收明细</div>
@@ -320,6 +320,7 @@ export default {
         oaa04_show: "", //申请人
         expenseMoneyF: "", //报销金额大写
         oaa13_rate:0,//税率
+        oab04_show: "", //默认摘要
       },
       tableData: {
         // 基本信息

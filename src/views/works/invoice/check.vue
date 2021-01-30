@@ -344,7 +344,7 @@
                   <el-table-column
                     prop="oab04"
                     label="摘要"
-                    min-width="150px"
+                    min-width="260px"
                     align="center"
                   >
                   </el-table-column>
@@ -511,6 +511,7 @@ export default {
         oaa04_show: "", //申请人
         expenseMoneyF: "", //报销金额大写
         oaa13_rate:0,//税率
+        oab04_show: "", //默认摘要
       },
       tableData: {
         // 基本信息

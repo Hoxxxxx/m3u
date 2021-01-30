@@ -28,20 +28,26 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox editNot">
+                <div class="infobox middlebox ">
                   {{ tableData.oaa03_show }}
                 </div>
-                <div class="titlebox">申请人</div>
-                <div class="infobox selectbox">{{ tableData.oaa04_show }}</div>
-                <div class="titlebox">所属部门</div>
+                <div class="titlebox">联系电话</div>
                 <div class="infobox selectbox middlebox last_row">
-                  {{ tableData.oaa06_show }}
+                  {{tableData.oaa05}}
                 </div>
               </div>
               <div class="form_line lastline">
-                <div class="titlebox">联系电话</div>
-                <div class="infobox selectbox longbox last_row">
-                  {{ tableData.oaa05 }}
+                <div class="titlebox">申请人</div>
+                <div class="infobox selectbox">
+                    {{ tableData.oaa04_show }}
+                </div>
+                <div class="titlebox">员工编号</div>
+                <div class="infobox ">
+                  {{ tableData.oaa04_gen01 }}
+                </div>
+                <div class="titlebox">所属部门</div>
+                <div class="infobox ">
+                  {{ tableData.oaa04_gen04 }}
                 </div>
               </div>
               <!-- 合同信息 -->
@@ -56,10 +62,10 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">签约方</div>
-                <div class="infobox middlebox selectbox">
+                <div class="infobox selectbox">
                   <el-radio-group
                     class="radioGroup"
-                    style="margin-right: 120px"
+                    style="margin-right: 15px"
                     v-model="tableData.oaa13"
                   >
                     <el-radio :label="1" disabled>供应商</el-radio>
@@ -67,7 +73,9 @@
                   </el-radio-group>
                 </div>
                 <div class="titlebox">签约方名称</div>
-                <div class="infobox middlebox last_row">{{ tableData.oaa14_show }}</div>
+                <div class="infobox">{{ tableData.oaa14_show }}</div>
+                <div class="titlebox required"></div>
+                <div class="infobox selectbox last_row"></div>
               </div>
               <div class="form_line">
                 <div class="titlebox">合同类型</div>
