@@ -78,7 +78,7 @@
                   <van-collapse-item
                     v-for="(coll, coll_index) in item.son"
                     :key="coll_index"
-                    :title="`${group.sub_title}表-${coll_index + 1}`"
+                    :title="`${group.sub_title}表（${coll_index + 1}）`"
                     :name="`${coll_index}`"
                   >
                     <van-field
