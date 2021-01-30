@@ -2,7 +2,13 @@
   <div class="h5Home">
     <!-- 头部区域 -->
     <div class="head">
-      <header>{{ workname }}</header>
+      <van-nav-bar
+          :title="workname"
+          left-text="返回"
+          left-arrow
+          @click-left="back()"
+        />
+      <!-- <header>{{ workname }}</header> -->
       <div
         class="tossname"
         :class="tosstype == '1' ? 'agree' : tosstype == '2' ? 'reject' : 'back'"
