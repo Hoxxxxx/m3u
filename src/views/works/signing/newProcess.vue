@@ -100,7 +100,7 @@
                 </div>
               </div>
               <div>
-                <div v-if="tableData.oaa10 == 1">
+                <div v-if="tableData.oaa10 == 1 || tableData.oaa10 == 3">
                   <div class="title_line">供应商信息</div>
                   <div class="form_line">
                     <div class="titlebox">
@@ -451,7 +451,7 @@
 <script>
 import SelectData from "@/components/selectData";
 // api
-import { htList, mustItem, userInfo } from "@/api/basic";
+import { htList, mustItem, userInfo , pmcInfo , occInfo} from "@/api/basic";
 import { addFlow, editFlow } from "@/api/process_new";
 import { OpenLoading } from "@/utils/utils";
 
@@ -560,6 +560,10 @@ export default {
         head_KH: [
           { name: "occ01", title: "客户编号" },
           { name: "occ02", title: "客户名称" },
+          { name: "occ14", title: "税号" },
+          { name: "name", title: "客户简称" },
+          { name: "full_name", title: "客户全称" },
+          { name: "code", title: "编号" },
         ],
         head_SB: [
           { name: "gec01", title: "税别编号" },
@@ -902,7 +906,7 @@ export default {
           this.dataSelect.filter = filter_GYS;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/pmcs";
+          this.dataSelect.searchApi = "oa/pmcs";
           this.dataSelect.headList = this.tableHead.head_GYS;
           this.dataSelect.dialogTitle = "供应商列表";
           break;
@@ -911,7 +915,7 @@ export default {
           this.dataSelect.filter = filter_KH;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/occs";
+          this.dataSelect.searchApi = "oa/occs";
           this.dataSelect.headList = this.tableHead.head_KH;
           this.dataSelect.dialogTitle = "客户列表";
           break;
@@ -934,7 +938,6 @@ export default {
           this.dataSelect.dialogTitle = "税别列表";
           break;
         default:
-          return;
           break;
       }
     },
@@ -966,10 +969,20 @@ export default {
           case "GYS":
             this.tableData.oaa14 = val[0].pmc01;
             this.showData.oaa14_show = val[0].pmc03;
+            let code_gys = val[0].code
+            pmcInfo(code_gys).then(res=>{
+              this.tableData.oab01 = res.data.name
+              this.tableData.oab02 = res.data.full_name
+            })
             break;
           case "KH":
             this.tableData.oaa14 = val[0].occ01;
             this.showData.oaa14_show = val[0].occ02;
+            let code_kh = val[0].code;
+            occInfo(code_kh).then(res=>{
+              this.tableData.oad01 = res.data.name
+              this.tableData.oad02 = res.data.full_name
+            })
             break;
           case "SZ_GYS":
             this.tableData.oab03 = val[0].gec01;

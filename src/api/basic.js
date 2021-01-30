@@ -193,3 +193,17 @@ export const gjaList = (params) => {
     params
   })
 }
+
+// 获取供应商详情pmc
+export const pmcInfo = (code) => {
+  return request.get(`oa/pmcs/${code}`,
+  {},
+  {})
+}
+
+// 获取客户详情occ
+export const occInfo = (code) => {
+  return request.get(`oa/pmcs/${code}`,
+  {},
+  {})
+}

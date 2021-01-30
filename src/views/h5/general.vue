@@ -40,7 +40,7 @@
                 clearable
                 :required="item.required"
                 :readonly="!item.editable"
-                :placeholder="`请输入${item.label}`"
+                :placeholder="`请输入${item.label == '' ? '' : item.label}`"
               />
               <div v-if="item.form_type == 'datetime'">
                 <van-cell
@@ -92,7 +92,7 @@
                       clearable
                       :required="td.required"
                       :readonly="!td.editable"
-                      :placeholder="`请输入${td.label}`"
+                      :placeholder="td.label == '' ? `请输入${td.label}` : ''"
                     />
                   </van-collapse-item>
                 </van-collapse>
