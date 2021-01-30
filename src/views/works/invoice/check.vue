@@ -131,7 +131,7 @@
                   </el-input>
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">说明</div>
                 <div
                   class="infobox last_row longbox areabox"
@@ -147,6 +147,18 @@
                     show-word-limit
                   >
                   </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">是否开票</div>
+                <div class="infobox longbox">
+                  <el-radio-group
+                    class="radioGroup"
+                    v-model="tableData.oaa16"
+                  >
+                    <el-radio :label="1" disabled>是</el-radio>
+                    <el-radio :label="2" disabled>否</el-radio>
+                  </el-radio-group>
                 </div>
               </div>
               <!-- 开票信息 -->
@@ -384,18 +396,6 @@
                   >
                   </el-table-column>
                 </el-table>
-                <div class="form_line last_line">
-                  <div class="titlebox">是否开票</div>
-                  <div class="infobox longbox">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa16"
-                    >
-                      <el-radio :label="1" disabled>是</el-radio>
-                      <el-radio :label="2" disabled>否</el-radio>
-                    </el-radio-group>
-                  </div>
-                </div>
               </div>
               <!-- 财务信息 -->
               <div>

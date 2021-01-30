@@ -179,7 +179,7 @@
                   </el-input>
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa98') ? 'redPot' : ''">说明</span>
                 </div>
@@ -196,6 +196,20 @@
                     show-word-limit
                   >
                   </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa16') ? 'redPot' : ''">是否开票</span>
+                </div>
+                <div class="infobox longbox">
+                  <el-radio-group
+                    class="radioGroup"
+                    v-model="tableData.oaa16"
+                  >
+                    <el-radio :label="1">是</el-radio>
+                    <el-radio :label="2">否</el-radio>
+                  </el-radio-group>
                 </div>
               </div>
               <!-- 开票信息 -->
@@ -672,20 +686,6 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                  <div class="form_line last_line">
-                    <div class="titlebox">
-                      <span :class="form_must.includes('oaa16') ? 'redPot' : ''">是否开票</span>
-                    </div>
-                    <div class="infobox longbox">
-                      <el-radio-group
-                        class="radioGroup"
-                        v-model="tableData.oaa16"
-                      >
-                        <el-radio :label="1">是</el-radio>
-                        <el-radio :label="2">否</el-radio>
-                      </el-radio-group>
-                    </div>
-                  </div>
                 </div>
 
 
