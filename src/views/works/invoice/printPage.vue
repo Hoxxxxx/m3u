@@ -42,10 +42,8 @@
           <div class="form_line lastline">
             <div class="titlebox">合同金额</div>
             <div class="infobox middlebox">{{ tableData.oay03 }}</div>
-            <div class="titlebox">合同状态</div>
+            <div class="titlebox"></div>
             <div class="infobox middlebox last_row">
-              <span v-if="tableData.oay_status=='1'">进行中</span>
-              <span v-if="tableData.oay_status=='2'">已结束</span>
             </div>
           </div>
           <!-- 发货信息 -->
@@ -59,7 +57,7 @@
           </div>
           <div class="form_line">
             <div class="titlebox">税别</div>
-            <div class="infobox middlebox">{{tableData.oaa13}}</div>
+            <div class="infobox middlebox">{{tableData.oaa13_show}}</div>
             <div class="titlebox">税额</div>
             <div class="infobox middlebox last_row">{{tableData.oaa14}}</div>
           </div>
@@ -369,7 +367,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid ? this.$route.query.workid: 6035
     // this.workid = 4512
     this.getworkflows()
   },

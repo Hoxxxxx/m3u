@@ -156,11 +156,10 @@
                   {{ tableData.oay03 }}
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa01') ? 'redPot' : ''">合同状态</span>
+                  <span :class="form_must_able.includes('oay01') ? 'redPot' : ''">合同状态</span>
                 </div>
                 <div class="infobox middlebox editNot last_row">
-                  <span v-if="tableData.oay_status=='1'" style="color: #6DD400">进行中</span>
-                  <span v-if="tableData.oay_status=='2'" style="color: #F56C6C">已结束</span>
+                  {{showData.oay_status}}
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -264,7 +263,7 @@
                 <div class="infobox last_row middlebox selectbox"
                   v-if="table_able.includes('oaa41')">
                   <div class="selector" @click="selectDialog('YWMX')">
-                    {{ showData.oaa41_show }}
+                    {{ tableData.oaa41_show }}
                   </div>
                 </div>
               </div>
@@ -1170,6 +1169,7 @@ export default {
       more: [], //查看更多
       showData: {
         oaa04_show: "", //申请人
+        oay_status: "", //合同状态
         expenseMoneyF: "", //报销金额大写
         oaa13_rate: 0, //税率
         oab04_show: "", //默认摘要
@@ -1293,7 +1293,7 @@ export default {
           { name: "title", title: "合同名称" },
           { name: "number", title: "合同编号" },
           { name: "contract_value", title: "合同金额" },
-          { name: "status", title: "合同状态" },
+          { name: "status_show", title: "合同状态" },
         ],
         head_KJKM: [
           { name: "aag01", title: "科目编号" },
@@ -1381,7 +1381,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 6029;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 6035;
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
@@ -1391,6 +1391,7 @@ export default {
     // 摘要
     "tableData.oaa11_show": {
       handler(newval, oldval) {
+        console.log('A, 01')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         // this.tableData.oab.forEach( item => {
         //   if (item.oab04 !== this.showData.oab04_show) {
@@ -1402,6 +1403,7 @@ export default {
     },
     "showData.oaa41_show": {
       handler(newval, oldval) {
+        console.log('A, 02')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         // this.tableData.oab.forEach( item => {
         //   if (item.oab04 !== this.showData.oab04_show) {
@@ -1414,7 +1416,9 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
+        console.log('A, 03')
         if(this.firstLoad.oaa13 == this.tableData.oaa13){
+          console.log('A, 03 01')
           let sum = this.tableData.oab.reduce((prev, cur) => {
             return prev + Number(cur.oab05);
           }, 0);
@@ -1427,6 +1431,7 @@ export default {
           //   }
           // })
         }else{
+          console.log('A, 03 02')
           this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
           // 单价
           this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
@@ -1443,6 +1448,7 @@ export default {
     "tableData.oaa12": {
       handler(newval, oldval) {
         if(this.firstLoad.oaa12 == this.tableData.oaa12){
+          console.log('A, 04 01')
           let sum = this.tableData.oab.reduce((prev, cur) => {
             return prev + Number(cur.oab05);
           }, 0);
@@ -1455,6 +1461,7 @@ export default {
           //   }
           // })
         }else{
+          console.log('A, 04 02')
           this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
           // 单价
           this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
@@ -1469,6 +1476,7 @@ export default {
     },
     "tableData.oab": {
       handler(newval, oldval) {
+        console.log('A, 05')
         this.tableData.oab.forEach((item) => {
           item.oab05 = Number(item.oab06) * Number(item.oab07);
         });
@@ -1477,12 +1485,16 @@ export default {
     },
     "tableData.oac": {
       handler(newval, oldval) {
+        console.log('A, 06')
         let oac06_sum = 0
         this.tableData.oac.forEach((item) => {
           item.oac06 = Number(item.oac04) * Number(item.oac05);
           oac06_sum = oac06_sum + item.oac06
         });
-        this.tableData.oaa12 = oac06_sum
+        if (this.fixedData.oaa12_type == 1) {
+          this.tableData.oaa12 = oac06_sum
+          this.fixedData.oaa12_type = 1
+        }
         // console.log(this.tableData.oaa12)
       },
       deep: true,
@@ -2150,7 +2162,7 @@ export default {
             this.tableData.oay01 = val[0].title;
             this.tableData.oay02 = val[0].number;
             this.tableData.oay03 = val[0].contract_value;
-            this.showData.oaa_status = val[0].status;
+            this.showData.oay_status = val[0].status_show;
             custInfo(val[0].opposite_id)
             .then( res=> {
               if (res.status == 200) {

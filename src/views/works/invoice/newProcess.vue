@@ -898,7 +898,7 @@ export default {
           { name: "title", title: "合同名称" },
           { name: "number", title: "合同编号" },
           { name: "contract_value", title: "合同金额" },
-          { name: "status", title: "合同状态" },
+          { name: "status_show", title: "合同状态" },
         ],
         head_KJKM: [
           { name: "aag01", title: "科目编号" },
@@ -989,6 +989,7 @@ export default {
     // 摘要
     "tableData.oaa11_show": {
       handler(newval, oldval) {
+        console.log('P, 01')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         this.tableData.oab.forEach( item => {
           if (item.oab04 !== this.showData.oab04_show) {
@@ -1000,6 +1001,7 @@ export default {
     },
     "showData.oaa41_show": {
       handler(newval, oldval) {
+        console.log('P, 02')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         this.tableData.oab.forEach( item => {
           if (item.oab04 !== this.showData.oab04_show) {
@@ -1012,6 +1014,7 @@ export default {
     // 总金额
     "tableData.oaa12": {
       handler(newval, oldval) {
+        console.log('P, 03')
         this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
         // 单价
         this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
@@ -1026,6 +1029,7 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
+        console.log('P, 04')
         this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
         // 单价
         this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
@@ -1040,6 +1044,7 @@ export default {
     
     "tableData.oab": {
       handler(newval, oldval) {
+        console.log('P, 05')
         this.tableData.oab.forEach((item) => {
           item.oab05 = Number(item.oab06) * Number(item.oab07);
         });
@@ -1048,6 +1053,7 @@ export default {
     },
     "tableData.oac": {
       handler(newval, oldval) {
+        console.log('P, 06')
         let oac06_sum = 0
         this.tableData.oac.forEach((item) => {
           item.oac06 = Number(item.oac04) * Number(item.oac05);
@@ -1236,7 +1242,6 @@ export default {
                     path: "/apply",
                     query: {
                       url_type: "invoice",
-                      workName: this.workName,
                       workid: this.workid,
                       workName: this.workName,
                       oaa01: this.tableData.oaa01,
@@ -1268,7 +1273,6 @@ export default {
                     path: "/apply",
                     query: {
                       url_type: "invoice",
-                      workName: this.workName,
                       workid: this.workid,
                       workName: this.workName,
                       oaa01: this.tableData.oaa01,
@@ -1296,7 +1300,6 @@ export default {
                 path: "/apply",
                 query: {
                   url_type: "invoice",
-                  workName: this.workName,
                   workid: this.workid,
                   workName: this.workName,
                   oaa01: this.tableData.oaa01,
@@ -1609,7 +1612,7 @@ export default {
             this.tableData.oay01 = val[0].title;
             this.tableData.oay02 = val[0].number;
             this.tableData.oay03 = val[0].contract_value;
-            this.showData.oaa_status = val[0].status;
+            this.showData.oaa_status = val[0].status_show;
             custInfo(val[0].opposite_id)
             .then( res=> {
               if (res.status == 200) {
