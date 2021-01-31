@@ -1156,6 +1156,7 @@ import {
   pjasList,
   custInfo,
   gjaList,
+  contracsInfo,
 } from "@/api/basic.js";
 
 export default {
@@ -1415,7 +1416,6 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
-        console.log('A, 03')
         if(this.firstLoad.oaa13 == this.tableData.oaa13){
           console.log('A, 03 01')
           let sum = this.tableData.oab.reduce((prev, cur) => {
@@ -1490,9 +1490,13 @@ export default {
           item.oac06 = Number(item.oac04) * Number(item.oac05);
           oac06_sum = oac06_sum + item.oac06
         });
-        if (this.fixedData.oaa12_type == 1) {
-          this.tableData.oaa12 = oac06_sum
-          this.fixedData.oaa12_type = 1
+        if(this.firstLoad.oaa12 == this.tableData.oaa12){
+          this.tableData.oaa12 = this.firstLoad.oaa12
+        } else {
+          if (this.fixedData.oaa12_type == 1) {
+            this.tableData.oaa12 = oac06_sum
+            this.fixedData.oaa12_type = 1
+          }
         }
         // console.log(this.tableData.oaa12)
       },
@@ -1500,6 +1504,20 @@ export default {
     },
   },
   methods: {
+    getContracsInfo(id) {
+      const params = {
+        'filter[number]' : id,
+        'filter[opposite_type]' : 2,
+      }
+      contracsInfo(params)
+      .then( res => {
+        if (res.status == 200) {
+          this.showData.oay_status = res.data[0].status_show
+        } else {
+          this.$message.warning('获取合同状态失败')
+        }
+      })
+    },
     oaa12Input(){
       this.fixedData.oaa12_type = 2
     },
@@ -1555,6 +1573,7 @@ export default {
           }
           this.showData.oaa13_rate =
             res.data.workclass_info.from_data.oaa13_show;
+          this.getContracsInfo(this.tableData.oay02)
           this.oaz = {
             oaz03: res.data.workclass_info.from_data.oaz03
               ? res.data.workclass_info.from_data.oaz03

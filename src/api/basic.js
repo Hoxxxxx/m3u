@@ -207,3 +207,12 @@ export const occInfo = (code) => {
   {},
   {})
 }
+
+// 获取合同列表（信息）
+export const contracsInfo = (params) => {
+  return request.get(`meta/contracts`,
+  {},
+  {
+    params
+  })
+}
