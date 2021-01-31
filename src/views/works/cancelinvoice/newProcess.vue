@@ -950,24 +950,24 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) /
-            (1 + this.showData.oaa13_rate / 100)) *
-            this.showData.oaa13_rate) /
-          100
-        ).toFixed(2);
+        // this.tableData.oaa14 = (
+        //   ((Number(this.tableData.oaa12) /
+        //     (1 + this.showData.oaa13_rate / 100)) *
+        //     this.showData.oaa13_rate) /
+        //   100
+        // ).toFixed(2);
       },
       deep: true,
     },
     // 总金额
     "tableData.oaa12": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) /
-            (1 + this.showData.oaa13_rate / 100)) *
-            this.showData.oaa13_rate) /
-          100
-        ).toFixed(2);
+        // this.tableData.oaa14 = (
+        //   ((Number(this.tableData.oaa12) /
+        //     (1 + this.showData.oaa13_rate / 100)) *
+        //     this.showData.oaa13_rate) /
+        //   100
+        // ).toFixed(2);
       },
       deep: true,
     },
