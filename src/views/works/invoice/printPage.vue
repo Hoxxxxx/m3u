@@ -42,9 +42,7 @@
           <div class="form_line lastline">
             <div class="titlebox">合同金额</div>
             <div class="infobox middlebox">{{ tableData.oay03 }}</div>
-            <div class="titlebox"></div>
-            <div class="infobox middlebox last_row">
-            </div>
+            <div class="infobox middlebox last_row" style="width: 536.5px; flex-grow: 0;"></div>
           </div>
           <!-- 发货信息 -->
           <div class="title_line">发货信息</div>

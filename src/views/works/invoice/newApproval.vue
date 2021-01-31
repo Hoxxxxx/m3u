@@ -155,11 +155,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oay01') ? 'redPot' : ''">合同状态</span>
-                </div>
-                <div class="infobox middlebox editNot last_row">
-                  {{showData.oay_status}}
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0; display: block; text-align: center">
+                  {{showData.status_human}}
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -780,20 +777,6 @@
                   >
                   </el-table-column>
                 </el-table>
-                <div class="form_line last_line">
-                  <div class="titlebox">
-                    <span :class="form_must_able.includes('oaa16') ? 'redPot' : ''">是否开票</span>
-                  </div>
-                  <div class="infobox longbox">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa16"
-                    >
-                      <el-radio :label="1" disabled>是</el-radio>
-                      <el-radio :label="2" disabled>否</el-radio>
-                    </el-radio-group>
-                  </div>
-                </div>
               </div>
               <div v-if="table_able.includes('oab')">
                 <el-table
@@ -1170,7 +1153,7 @@ export default {
       more: [], //查看更多
       showData: {
         oaa04_show: "", //申请人
-        oay_status: "", //合同状态
+        status_human: "", //合同状态
         expenseMoneyF: "", //报销金额大写
         oaa13_rate: 0, //税率
         oab04_show: "", //默认摘要
@@ -1512,7 +1495,7 @@ export default {
       contracsInfo(params)
       .then( res => {
         if (res.status == 200) {
-          this.showData.oay_status = res.data[0].status_show
+          this.showData.status_human = res.data[0].status_human
         } else {
           this.$message.warning('获取合同状态失败')
         }
@@ -2180,7 +2163,7 @@ export default {
             this.tableData.oay01 = val[0].title;
             this.tableData.oay02 = val[0].number;
             this.tableData.oay03 = val[0].contract_value;
-            this.showData.oay_status = val[0].status_show;
+            this.showData.status_human = val[0].status_human;
             custInfo(val[0].opposite_id)
             .then( res=> {
               if (res.status == 200) {

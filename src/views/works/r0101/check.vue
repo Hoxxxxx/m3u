@@ -58,9 +58,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">合同状态</div>
-                <div class="infobox middlebox editNot last_row">
-                  {{ tableData.oay_status }}
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0">
+                  <!-- {{showData.status_human}} -->
                 </div>
               </div>
               <!-- 预付信息 -->

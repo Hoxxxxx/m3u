@@ -92,11 +92,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa01') ? 'redPot' : ''">合同状态</span>
-                </div>
-                <div class="infobox middlebox editNot last_row">
-                  {{ showData.oay_status }}
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0">
+                  <!-- {{ showData.status_human }} -->
                 </div>
               </div>
               <!-- 付款信息 -->

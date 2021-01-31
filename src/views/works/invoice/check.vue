@@ -67,9 +67,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox"></div>
-                <div class="infobox middlebox editNot last_row">
-                  <!-- {{showData.oay_status}} -->
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0">
+                  <!-- {{showData.status_human}} -->
                 </div>
               </div>
               <!-- 发货信息 -->

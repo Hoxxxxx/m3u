@@ -95,11 +95,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">
-                  <!-- <span :class="form_must.includes('oaa01') ? 'redPot' : ''">合同状态</span> -->
-                </div>
-                <div class="infobox middlebox editNot last_row">
-                  <!-- {{ showData.oay_status }} -->
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0">
+                  <!-- {{ showData.status_human }} -->
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -786,7 +783,7 @@ export default {
       workName: "发货单", //流程名
       showData: {
         oaa04_show: "", //申请人
-        oay_status: "", //合同状态
+        status_human: "", //合同状态
         oaa41_show: "", //业务明细
         expenseMoneyF: "", //报销金额大写
         oaa13_rate: 1, //税率
