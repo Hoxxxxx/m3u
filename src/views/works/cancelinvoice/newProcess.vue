@@ -1157,17 +1157,17 @@ export default {
       this.tableData = { ...this.tableData, ...this.oaz };
       this.addParams.from_data = this.tableData;
       if (this.workid == "") {
-        let sum = this.tableData.oab.reduce((prev, cur) => {
-          return prev + Number(cur.oab05);
-        }, 0);
-        let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2);
+        // let sum = this.tableData.oab.reduce((prev, cur) => {
+        //   return prev + Number(cur.oab05);
+        // }, 0);
+        // let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2);
         if (this.tableData.oaa16 == 1) {
-          if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
-            this.$message.warning("开票金额与总金额不相等，请重新填写！");
-          } else {
-            if (Number(this.tableData.oaa12) != sums) {
-              this.$message.warning("退货金额有误：退货金额 = 税额 + 应收明细中的金额之和");
-            } else {
+          // if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
+          //   this.$message.warning("开票金额与总金额不相等，请重新填写！");
+          // } else {
+            // if (Number(this.tableData.oaa12) != sums) {
+            //   this.$message.warning("退货金额有误：退货金额 = 税额 + 应收明细中的金额之和");
+            // } else {
               const loading = OpenLoading(this, 1)
               addFlow(this.addParams).then((result) => {
                 if (result.status == 200) {
@@ -1192,16 +1192,16 @@ export default {
                   this.$message.error("保存失败：" + result.error.message);
                 }
                 loading.close();
-        clearTimeout(this.overloading)
+                clearTimeout(this.overloading)
               });
-            }
-          }
+            // }
+          // }
         } else {
-          if (Number(this.tableData.oaa12) != sums) {
-              console.log('0', this.tableData.oaa12)
-              console.log('1', sums)
-            this.$message.warning("退货金额有误：退货金额 = 税额 + 应收明细中的金额之和");
-          } else {
+          // if (Number(this.tableData.oaa12) != sums) {
+          //     console.log('0', this.tableData.oaa12)
+          //     console.log('1', sums)
+          //   this.$message.warning("退货金额有误：退货金额 = 税额 + 应收明细中的金额之和");
+          // } else {
             const loading = OpenLoading(this, 1)
             addFlow(this.addParams).then((result) => {
               if (result.status == 200) {
@@ -1226,9 +1226,9 @@ export default {
                 this.$message.error("保存失败：" + result.error.message);
               }
               loading.close();
-        clearTimeout(this.overloading)
+              clearTimeout(this.overloading)
             });
-          }
+          // }
         }
       } else {
         this.addParams.workid = this.workid;

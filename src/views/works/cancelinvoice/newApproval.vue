@@ -1627,17 +1627,17 @@ export default {
           });
         });
       }
-      let sum = this.tableData.oab.reduce((prev, cur) => {
-        return prev + Number(cur.oab05);
-      }, 0);
-      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
+      // let sum = this.tableData.oab.reduce((prev, cur) => {
+      //   return prev + Number(cur.oab05);
+      // }, 0);
+      // let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
       if (this.tableData.oaa16 == 1) {
-        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
-          this.$message.warning("开票金额与总金额不相等，请重新填写！");
-        } else {
-          if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
-          } else {
+        // if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
+        //   this.$message.warning("开票金额与总金额不相等，请重新填写！");
+        // } else {
+          // if (Number(this.tableData.oaa12) != sums) {
+          //   this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+          // } else {
             const loading = OpenLoading(this, 1)
             editFlow(this.addParams).then((result) => {
               if (result.status == 200) {
@@ -1646,14 +1646,14 @@ export default {
                 this.$message.error("编辑失败：" + result.error.message);
               }
               loading.close();
-        clearTimeout(this.overloading)
+              clearTimeout(this.overloading)
             });
-          }
-        }
+          // }
+        // }
       } else {
-        if (Number(this.tableData.oaa12) != sums) {
-          this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
-        } else {
+        // if (Number(this.tableData.oaa12) != sums) {
+        //   this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+        // } else {
           const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
             if (result.status == 200) {
@@ -1662,9 +1662,9 @@ export default {
               this.$message.error("编辑失败：" + result.error.message);
             }
             loading.close();
-        clearTimeout(this.overloading)
+            clearTimeout(this.overloading)
           });
-        }
+        // }
       }
     },
     // 下一步
@@ -1705,17 +1705,17 @@ export default {
           });
         });
       }
-      let sum = this.tableData.oab.reduce((prev, cur) => {
-        return prev + Number(cur.oab05);
-      }, 0);
-      let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
+      // let sum = this.tableData.oab.reduce((prev, cur) => {
+      //   return prev + Number(cur.oab05);
+      // }, 0);
+      // let sums = (Number(this.tableData.oaa14) + Number(sum)).toFixed(2)
       if (this.tableData.oaa16 == 1) {
-        if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
-          this.$message.warning("开票金额与总金额不相等，请重新填写！");
-        } else {
-          if (Number(this.tableData.oaa12) != sums) {
-            this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
-          } else {
+        // if (Number(this.tableData.oaa28) != Number(this.tableData.oaa12)) {
+        //   this.$message.warning("开票金额与总金额不相等，请重新填写！");
+        // } else {
+          // if (Number(this.tableData.oaa12) != sums) {
+          //   this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+          // } else {
             const loading = OpenLoading(this, 1)
             editFlow(this.addParams).then((result) => {
               if (result.status == 200) {
@@ -1734,14 +1734,14 @@ export default {
                 this.$message.error("编辑失败：" + result.error.message);
               }
               loading.close();
-        clearTimeout(this.overloading)
+              clearTimeout(this.overloading)
             });
-          }
-        }
+          // }
+        // }
       } else {
-        if (Number(this.tableData.oaa12) != sums) {
-          this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
-        } else {
+        // if (Number(this.tableData.oaa12) != sums) {
+        //   this.$message.warning("总金额有误：总金额 = 税额 + 应收明细中的金额之和");
+        // } else {
           const loading = OpenLoading(this, 1)
           editFlow(this.addParams).then((result) => {
             if (result.status == 200) {
@@ -1760,9 +1760,9 @@ export default {
               this.$message.error("编辑失败：" + result.error.message);
             }
             loading.close();
-        clearTimeout(this.overloading)
+            clearTimeout(this.overloading)
           });
-        }
+        // }
       }
     },
     // *******************************************
