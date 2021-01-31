@@ -1617,11 +1617,11 @@ export default {
               if (res.status == 200) {
                 this.tableData.oaa11 = res.data.occ01
                 this.tableData.oaa11_show = res.data.occ02
-                this.tableData.oaa13 = res.data.tax_number
+                this.tableData.oaa13 = res.data.tax_code
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.bank_account
-                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa22 = res.data.tax_code
                 this.tableData.oaa23 = res.data.address
                 this.tableData.oaa24 = res.data.bank_code
                 this.tableData.oaa25 = res.data.bank
@@ -1679,11 +1679,11 @@ export default {
             custInfo(val[0].code)
             .then( res=> {
               if (res.status == 200) {
-                this.tableData.oaa13 = res.data.tax_number
+                this.tableData.oaa13 = res.data.tax_code
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.bank_account
-                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa22 = res.data.tax_code
                 this.tableData.oaa23 = res.data.address
                 this.tableData.oaa24 = res.data.bank_code
                 this.tableData.oaa25 = res.data.bank
