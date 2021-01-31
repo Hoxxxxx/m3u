@@ -86,7 +86,7 @@
                   <span :class="form_must.includes('oaa44') ? 'redPot' : ''">开票金额</span>
                 </div>
                 <div class="infobox selectbox middlebox last_row editNot">
-                  {{ tableData.oaa40 }}
+                  {{ tableData.oaa44 }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -136,9 +136,9 @@
                 </div>
                 <div class="infobox selectbox middlebox editNot">
                   <!-- <div class="selector" @click="selectDialog('SB')">
-                    {{ tableData.oaa13_show }}
+                    {{ tableData.oaa13 }}
                   </div> -->
-                  {{ tableData.oaa13_show }}
+                  {{ tableData.oaa13 }}
                 </div>
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa14') ? 'redPot' : ''">税额</span>
@@ -782,6 +782,7 @@ export default {
         oaa41: "", //发货单号
         oaa42: "", //发货单日期
         oaa43: "", //总金额
+        oaa44: "", //开票金额
         //退货信息
         oaa11: "", //客户名称
         oaa12: "", //退货金额
@@ -940,7 +941,7 @@ export default {
           { name: "fhd00", title: "发货单号" },
           { name: "fhd05_show", title: "客户名称" },
           { name: "fhd02", title: "发货单日期" },
-          { name: "fhd11", title: "未开票金额" },
+          { name: "fhd13", title: "开票金额" },
         ],
       },
     };
@@ -1366,7 +1367,7 @@ export default {
           this.dataSelect.filter = filter_FHD;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "finance/receivables/uncovered";
+          this.dataSelect.searchApi = "finance/receivables/return-receivables";
           this.dataSelect.headList = this.tableHead.head_FHD;
           this.dataSelect.dialogTitle = "发货单列表";
           break;
@@ -1524,7 +1525,7 @@ export default {
             this.tableData.oaa41 = val[0].fhd00;
             this.tableData.oaa42 = val[0].fhd02;
             this.tableData.oaa43 = val[0].fhd07;
-            this.tableData.oaa44 = val[0].fhd08;
+            this.tableData.oaa44 = val[0].fhd13;
             this.getInvoicesInfo(val[0].fhd10)
             break;
           case "WBS":
@@ -1537,7 +1538,6 @@ export default {
             break;
           case "SB":
             this.tableData.oaa13 = val[0].gec01;
-            this.tableData.oaa13_show = val[0].gec02;
             this.showData.oaa13_rate = val[0].gec04;
             break;
           case "SPMC":

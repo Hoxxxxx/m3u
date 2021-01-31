@@ -55,8 +55,12 @@
               <!-- 1 -->
               <div class="form_line">
                 <div class="titlebox">发货单</div>
-                <div class="infobox longbox editNot">
+                <div class="infobox middlebox editNot">
                   {{ tableData.oaa40 }}
+                </div>
+                <div class="titlebox">开票金额</div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ tableData.oaa44 }}
                 </div>
               </div>
               <div class="form_line lastline">

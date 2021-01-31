@@ -130,15 +130,21 @@
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa40') ? 'redPot' : ''">发货单</span>
                 </div>
-                <div class="infobox selectbox longbox"
+                <div class="infobox selectbox middlebox"
                   v-if="!table_able.includes('oaa40')">
                   {{ tableData.oaa40 }}
                 </div>
-                <div class="infobox selectbox longbox"
+                <div class="infobox selectbox middlebox"
                         v-if="table_able.includes('oaa40')">
                   <div class="selector" style="background-position: right center;" @click="selectDialog('FHD')">
                     {{ tableData.oaa40 }}
                   </div>
+                </div>
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa44') ? 'redPot' : ''">开票金额</span>
+                </div>
+                <div class="infobox middlebox editNot last_row">
+                  {{ tableData.oaa44 }}
                 </div>
               </div>
               <div class="form_line lastline">
@@ -146,19 +152,19 @@
                   <span :class="form_must_able.includes('oaa41') ? 'redPot' : ''">发货单号</span>
                 </div>
                 <div class="infobox editNot">
-                  {{ showData.oaa41 }}
+                  {{ tableData.oaa41 }}
                 </div>
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa42') ? 'redPot' : ''">发货日期</span>
                 </div>
                 <div class="infobox editNot">
-                  {{ showData.oaa42 }}
+                  {{ tableData.oaa42 }}
                 </div>
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa43') ? 'redPot' : ''">总金额</span>
                 </div>
                 <div class="infobox last_row editNot">
-                  {{ showData.oaa43 }}
+                  {{ tableData.oaa43 }}
                 </div>
               </div>
               <!-- 退货信息 -->
@@ -1148,6 +1154,7 @@ export default {
         oaa41: "", //客户名称
         oaa42: "", //总金额
         oaa43: "", //税别
+        oaa44: "", //开票金额
         //退货信息
         oaa11: "", //客户名称
         oaa12: "", //总金额
@@ -1268,7 +1275,7 @@ export default {
           { name: "fhd00", title: "发货单号" },
           { name: "fhd05_show", title: "客户名称" },
           { name: "fhd02", title: "发货单日期" },
-          { name: "fhd11", title: "未开票金额" },
+          { name: "fhd13", title: "开票金额" },
         ],
         head_WQX: [
           { name: "id", title: "待抵账款编号" },
@@ -1348,7 +1355,7 @@ export default {
           this.tableData.oaa14 = Number(this.firstLoad.oaa14) 
         }else{
           this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate / 100)) * this.showData.oaa13_rate) /100).toFixed(2);
+          ((Number(this.tableData.oaa12) / (1 + this.tableData.oaa13_rate / 100)) * this.tableData.oaa13_rate) /100).toFixed(2);
         }
       },
       deep: true,
@@ -1364,8 +1371,8 @@ export default {
         }else{
           this.tableData.oaa14 = (
             ((Number(this.tableData.oaa12) /
-              (1 + this.showData.oaa13_rate / 100)) *
-              this.showData.oaa13_rate) /
+              (1 + this.tableData.oaa13_rate / 100)) *
+              this.tableData.oaa13_rate) /
             100
           ).toFixed(2);
         }
@@ -1461,7 +1468,7 @@ export default {
             oaa13:res.data.workclass_info.from_data.oaa13,
             oaa14:res.data.workclass_info.from_data.oaa14
           }
-          this.showData.oaa13_rate =
+          this.tableData.oaa13_rate =
             res.data.workclass_info.from_data.oaa13_show;
           this.oaz = {
             oaz03: res.data.workclass_info.from_data.oaz03
@@ -2002,7 +2009,7 @@ export default {
         this.dataSelect.filter = filter_FHD;
         this.dataSelect.searchType = "single";
         this.dataSelect.editType = "entry";
-        this.dataSelect.searchApi = "finance/receivables/uncovered";
+        this.dataSelect.searchApi = "finance/receivables/return-receivables";
         this.dataSelect.headList = this.tableHead.head_FHD;
         this.dataSelect.dialogTitle = "发货单列表";
         break;
@@ -2027,13 +2034,14 @@ export default {
             this.tableData.oaa41 = val[0].fhd00;
             this.tableData.oaa42 = val[0].fhd02;
             this.tableData.oaa43 = val[0].fhd07;
+            this.tableData.oaa44 = val[0].fhd13;
             this.getInvoicesInfo(val[0].fhd10)
             break;
           case "SQR":
             this.tableData.oaa04 = val[0].gen01;
-            this.showData.oaa04_show = val[0].gen02;
-            this.showData.oaa04_gen01 = val[0].gen01;
-            this.showData.oaa04_gen04 = val[0].gen04;
+            this.tableData.oaa04_show = val[0].gen02;
+            this.tableData.oaa04_gen01 = val[0].gen01;
+            this.tableData.oaa04_gen04 = val[0].gen04;
             break;
           case "KJKM":
             this.tableData.oab[this.rowIndex].oab01 = val[0].aag01;
@@ -2057,8 +2065,7 @@ export default {
             break;
           case "SB":
             this.tableData.oaa13 = val[0].gec01;
-            this.tableData.oaa13_show = val[0].gec02;
-            this.showData.oaa13_rate = val[0].gec04;
+            this.tableData.oaa13_rate = val[0].gec04;
             break;
           case "SPMC":
             this.tableData.oac[this.rowIndex].oac02 = val[0].id;

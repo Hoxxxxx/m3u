@@ -36,7 +36,9 @@
           <!-- 1 -->
           <div class="form_line">
             <div class="titlebox">发货单</div>
-            <div class="infobox longbox">{{ tableData.oaa40 }}</div>
+            <div class="infobox middlebox">{{ tableData.oaa40 }}</div>
+            <div class="titlebox">开票金额</div>
+            <div class="infobox middlebox last_row">{{ tableData.oaa44 }}</div>
           </div>
           <div class="form_line lastline">
             <div class="titlebox">发货单号</div>
