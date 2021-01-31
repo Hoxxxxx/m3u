@@ -127,7 +127,7 @@
                 </div>
                 <div class="infobox selectbox middlebox">
                   <div class="selector" @click="selectDialog('SB')">
-                    {{ tableData.oaa13_show }}
+                    {{ tableData.oaa13}}
                   </div>
                 </div>
                 <div class="titlebox">
@@ -815,7 +815,6 @@ export default {
         oaa11_show: "", //客户名称
         oaa12: "", //总金额
         oaa13: "", //税别
-        oaa13_show: "",
         oaa14: "", //税额
         oaa40: "", //业务大类
         oaa41: "", //业务明细
@@ -1619,7 +1618,6 @@ export default {
                 this.tableData.oaa11 = res.data.occ01
                 this.tableData.oaa11_show = res.data.occ02
                 this.tableData.oaa13 = res.data.tax_number
-                this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.bank_account
@@ -1682,7 +1680,6 @@ export default {
             .then( res=> {
               if (res.status == 200) {
                 this.tableData.oaa13 = res.data.tax_number
-                this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.bank_account
@@ -1698,7 +1695,6 @@ export default {
             break;
           case "SB":
             this.tableData.oaa13 = val[0].gec01;
-            this.tableData.oaa13_show = val[0].gec02;
             this.showData.oaa13_rate = val[0].gec04;
             break;
           case "SPMC":

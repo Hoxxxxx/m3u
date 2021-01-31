@@ -212,14 +212,14 @@
                   class="infobox selectbox middlebox editNot"
                   v-if="!table_able.includes('oaa13')"
                 >
-                  {{ tableData.oaa13_show }}
+                  {{ tableData.oaa13 }}
                 </div>
                 <div
                   class="infobox selectbox middlebox"
                   v-if="table_able.includes('oaa13')"
                 >
                   <div class="selector" @click="selectDialog('SB')">
-                    {{ tableData.oaa13_show }}
+                    {{ tableData.oaa13 }}
                   </div>
                 </div>
                 <div class="titlebox">
@@ -1197,7 +1197,6 @@ export default {
         oaa11: "", //客户名称
         oaa12: "", //总金额
         oaa13: "", //税别
-        oaa13_show: "",
         oaa14: "", //税额
         oaa15: "", //备注
         oaa98: "", //说明
@@ -2169,7 +2168,6 @@ export default {
                 this.tableData.oaa11 = res.data.occ01
                 this.tableData.oaa11_show = res.data.occ02
                 this.tableData.oaa13 = res.data.tax_number
-                this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.invoice_name
@@ -2232,7 +2230,6 @@ export default {
             .then( res=> {
               if (res.status == 200) {
                 this.tableData.oaa13 = res.data.tax_number
-                this.tableData.oaa13_show = res.data.tax_name
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.invoice_name
@@ -2248,7 +2245,6 @@ export default {
             break;
           case "SB":
             this.tableData.oaa13 = val[0].gec01;
-            this.tableData.oaa13_show = val[0].gec02;
             this.showData.oaa13_rate = val[0].gec04;
             break;
           case "SPMC":

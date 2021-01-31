@@ -57,7 +57,7 @@
           </div>
           <div class="form_line">
             <div class="titlebox">税别</div>
-            <div class="infobox middlebox">{{tableData.oaa13_show}}</div>
+            <div class="infobox middlebox">{{tableData.oaa13}}</div>
             <div class="titlebox">税额</div>
             <div class="infobox middlebox last_row">{{tableData.oaa14}}</div>
           </div>
