@@ -1229,8 +1229,23 @@ export default {
             this.showData.oaa14_show = val[0].pmc03;
             let code_gys = val[0].code
             pmcInfo(code_gys).then(res=>{
-              this.tableData.oab01 = res.data.name
-              this.tableData.oab02 = res.data.full_name
+              if(res.status == 200){
+                this.tableData.oab01 = res.data.name
+                this.tableData.oab02 = res.data.full_name
+                let info = []
+                res.data.banks.forEach(item=>{
+                  let line = {
+                    oac01: item.bank_account,
+                    oac02: item.bank_code,
+                    oac03: item.bank,
+                  };
+                  info.push(line);
+                  console.log(this.tableData.oac)
+                })
+                this.tableData.oac = info
+              }else{
+                console.log('数据获取失败！')
+              }
             })
             break;
           case "KH":
@@ -1240,6 +1255,12 @@ export default {
             occInfo(code_kh).then(res=>{
               this.tableData.oad01 = res.data.name
               this.tableData.oad02 = res.data.full_name
+              this.tableData.oad04 = res.data.bank_account
+              this.tableData.oad05 = res.data.tax_number
+              this.tableData.oad06 = res.data.address
+              this.tableData.oad07 = res.data.bank_code
+              this.tableData.oad08 = res.data.bank
+              this.tableData.oad09 = res.data.phone
             })
             break;
           case "SZ_GYS":
