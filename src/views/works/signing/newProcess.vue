@@ -473,6 +473,8 @@ export default {
         oaa11: "",
         oaa12: "",
         oaa13: "",
+        oaa14:"",
+        oaa05:"",
         oab01:"",
         oab02:"",
         oab03:"J07",
