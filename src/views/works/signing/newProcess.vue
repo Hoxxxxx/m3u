@@ -77,10 +77,9 @@
                     >签约方</span
                   >
                 </div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox middlebox selectbox">
                   <el-radio-group
                     class="radioGroup"
-                    style="margin-right: 120px"
                     v-model="tableData.oaa10"
                   >
                     <el-radio :label="1">新增供应商</el-radio>
@@ -90,12 +89,12 @@
                   </el-radio-group>
                 </div>
                 <!-- 修改供应商/客户 -->
-                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox selectbox" style="border-left: 1px solid #CCCCCC">
+                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox middlebox selectbox last_row" style="border-left: 1px solid #CCCCCC">
                   <div v-if="tableData.oaa10==3" class="selector" @click="selectDialog('GYS')">
-                    {{ tableData.oaa14_show }}
+                    {{ tableData.oaa14_show ? tableData.oaa14_show : '请选择供应商' }}
                   </div>
                   <div v-if="tableData.oaa10==4" class="selector" @click="selectDialog('KH')">
-                    {{ tableData.oaa15_show }}
+                    {{ tableData.oaa15_show ? tableData.oaa15_show : '请选择客户'}}
                   </div>
                 </div>
               </div>
@@ -601,6 +600,20 @@ export default {
         this.tableData.oad04 = newVal
       },
       deep:true
+    },
+    'tableData.oaa10':{
+      handler(newVal,oldVal){
+        let self =this
+        if(newVal == 3){
+          setTimeout(()=>{
+            self.selectDialog('GYS')
+          },500)
+        } else if(newVal == 4){
+          setTimeout(()=>{
+            self.selectDialog('KH')
+          },500)
+        }
+      }
     }
   },
   methods: {
