@@ -606,13 +606,15 @@ export default {
     'tableData.oaa10':{
       handler(newVal,oldVal){
         let self =this
-        setTimeout(()=>{
-            if(newVal == 3){
-              self.selectDialog('GYS')
-            }else{
-              self.selectDialog('KH')
-            }
+        if(newVal == 3){
+          setTimeout(()=>{
+            self.selectDialog('GYS')
           },500)
+        } else if(newVal == 4){
+          setTimeout(()=>{
+            self.selectDialog('KH')
+          },500)
+        }
       }
     }
   },
