@@ -113,11 +113,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa01') ? 'redPot' : ''">合同状态</span>
-                </div>
-                <div class="infobox middlebox editNot last_row">
-                  {{ tableData.oay_status }}
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0; display: block; text-align: center">
+                  {{showData.status_human}}
                 </div>
               </div>
               <!-- 付款信息 -->
@@ -1240,7 +1237,7 @@
 import SelectData from "@/components/selectData";
 // api
 import { workflowsList, editFlow, transfer, addFlow } from "@/api/process_new";
-import { azisList, pmasList,pmcInfo } from "@/api/basic";
+import { azisList, pmasList, contracsInfo,pmcInfo } from "@/api/basic";
 import { dateFmt, OpenLoading } from '@/utils/utils'
 
 export default {
@@ -1252,6 +1249,16 @@ export default {
       workid: '',
       workName:"付款申请单",//流程名
       more:[],//查看更多
+      showData: {
+        status_human: "", //合同状态
+        oaa04_show: "", //申请人
+        oaa04_gen01: "", //申请人编号
+        oaa04_gen04: "", //申请人部门
+        oaa11_show: "", //厂商简称
+        oaa15_show: "", //税率
+        expenseMoney: "", //报销金额
+        expenseMoneyF: "", //报销金额大写
+      },
       form_must_able: [],
       oaf_must:[],//差旅明细必填项
       oac_must:[],//费用明细必填项
@@ -1514,6 +1521,20 @@ export default {
     },
   },
   methods: {
+    getContracsInfo(id) {
+      const params = {
+        'filter[number]' : id,
+        'filter[opposite_type]' : 2,
+      }
+      contracsInfo(params)
+      .then( res => {
+        if (res.status == 200) {
+          this.showData.status_human = res.data[0].status_human
+        } else {
+          this.$message.warning('获取合同状态失败')
+        }
+      })
+    },
     handleClick() {
       // console.log(this.activeTab);
     },
@@ -1533,6 +1554,7 @@ export default {
           clearTimeout(this.overloading)
           this.form_must_able = res.data.workclass_info.form_must_able
           this.tableData = res.data.workclass_info.from_data
+          this.getContracsInfo(this.tableData.oay02)
           this.table_able = res.data.workclass_info.form_able
           this.tableData.oaf.forEach((item, index) => {
             this.change_HSJE(index)

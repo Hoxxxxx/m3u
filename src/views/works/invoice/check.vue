@@ -67,9 +67,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">合同状态</div>
-                <div class="infobox middlebox editNot last_row">
-                  {{ tableData.oay_status }}
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0">
+                  <!-- {{showData.status_human}} -->
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -131,7 +130,7 @@
                   </el-input>
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">说明</div>
                 <div
                   class="infobox last_row longbox areabox"
@@ -147,6 +146,18 @@
                     show-word-limit
                   >
                   </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">是否开票</div>
+                <div class="infobox longbox">
+                  <el-radio-group
+                    class="radioGroup"
+                    v-model="tableData.oaa16"
+                  >
+                    <el-radio :label="1" disabled>是</el-radio>
+                    <el-radio :label="2" disabled>否</el-radio>
+                  </el-radio-group>
                 </div>
               </div>
               <!-- 开票信息 -->
@@ -384,18 +395,6 @@
                   >
                   </el-table-column>
                 </el-table>
-                <div class="form_line last_line">
-                  <div class="titlebox">是否开票</div>
-                  <div class="infobox longbox">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa16"
-                    >
-                      <el-radio :label="1" disabled>是</el-radio>
-                      <el-radio :label="2" disabled>否</el-radio>
-                    </el-radio-group>
-                  </div>
-                </div>
               </div>
               <!-- 财务信息 -->
               <div>
@@ -562,7 +561,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 4512
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 6035
     // this.workid = 4512
     this.getworkflows()
     this.getGja()

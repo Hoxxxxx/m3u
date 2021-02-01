@@ -95,11 +95,8 @@
                 <div class="infobox middlebox editNot">
                   {{ tableData.oay03 }}
                 </div>
-                <div class="titlebox">
-                  <span :class="form_must.includes('oaa01') ? 'redPot' : ''">合同状态</span>
-                </div>
-                <div class="infobox middlebox editNot last_row">
-                  {{ showData.oay_status }}
+                <div class="infobox middlebox editNot last_row" style="width: 619px; flex-grow: 0">
+                  <!-- {{ showData.status_human }} -->
                 </div>
               </div>
               <!-- 发货信息 -->
@@ -118,7 +115,7 @@
                   <span :class="form_must.includes('oaa12') ? 'redPot' : ''">总金额</span>
                 </div>
                 <div class="infobox last_row middlebox">
-                  <input v-model="tableData.oaa12" placeholder="请输入总金额" />
+                  <input v-model="tableData.oaa12" placeholder="请输入总金额" @input="oaa12Input" />
                 </div>
               </div>
               <div class="form_line">
@@ -127,7 +124,7 @@
                 </div>
                 <div class="infobox selectbox middlebox">
                   <div class="selector" @click="selectDialog('SB')">
-                    {{ tableData.oaa13_show }}
+                    {{ tableData.oaa13}}
                   </div>
                 </div>
                 <div class="titlebox">
@@ -179,7 +176,7 @@
                   </el-input>
                 </div>
               </div>
-              <div class="form_line last_line">
+              <div class="form_line">
                 <div class="titlebox">
                   <span :class="form_must.includes('oaa98') ? 'redPot' : ''">说明</span>
                 </div>
@@ -196,6 +193,20 @@
                     show-word-limit
                   >
                   </el-input>
+                </div>
+              </div>
+              <div class="form_line last_line">
+                <div class="titlebox">
+                  <span :class="form_must.includes('oaa16') ? 'redPot' : ''">是否开票</span>
+                </div>
+                <div class="infobox longbox">
+                  <el-radio-group
+                    class="radioGroup"
+                    v-model="tableData.oaa16"
+                  >
+                    <el-radio :label="1">是</el-radio>
+                    <el-radio :label="2">否</el-radio>
+                  </el-radio-group>
                 </div>
               </div>
               <!-- 开票信息 -->
@@ -672,20 +683,6 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                  <div class="form_line last_line">
-                    <div class="titlebox">
-                      <span :class="form_must.includes('oaa16') ? 'redPot' : ''">是否开票</span>
-                    </div>
-                    <div class="infobox longbox">
-                      <el-radio-group
-                        class="radioGroup"
-                        v-model="tableData.oaa16"
-                      >
-                        <el-radio :label="1">是</el-radio>
-                        <el-radio :label="2">否</el-radio>
-                      </el-radio-group>
-                    </div>
-                  </div>
                 </div>
 
 
@@ -786,7 +783,7 @@ export default {
       workName: "发货单", //流程名
       showData: {
         oaa04_show: "", //申请人
-        oay_status: "", //合同状态
+        status_human: "", //合同状态
         oaa41_show: "", //业务明细
         expenseMoneyF: "", //报销金额大写
         oaa13_rate: 1, //税率
@@ -815,7 +812,6 @@ export default {
         oaa11_show: "", //客户名称
         oaa12: "", //总金额
         oaa13: "", //税别
-        oaa13_show: "",
         oaa14: "", //税额
         oaa40: "", //业务大类
         oaa41: "", //业务明细
@@ -860,6 +856,7 @@ export default {
         payTypes: [],
         // gja
         gjaList: [],
+        oaa12_type: 1,  // 1:自动填入； 2：用户填入
       },
       fileList: [],
       addParams: {
@@ -897,7 +894,7 @@ export default {
           { name: "title", title: "合同名称" },
           { name: "number", title: "合同编号" },
           { name: "contract_value", title: "合同金额" },
-          { name: "status", title: "合同状态" },
+          { name: "status_show", title: "合同状态" },
         ],
         head_KJKM: [
           { name: "aag01", title: "科目编号" },
@@ -988,6 +985,7 @@ export default {
     // 摘要
     "tableData.oaa11_show": {
       handler(newval, oldval) {
+        console.log('P, 01')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         this.tableData.oab.forEach( item => {
           if (item.oab04 !== this.showData.oab04_show) {
@@ -999,6 +997,7 @@ export default {
     },
     "showData.oaa41_show": {
       handler(newval, oldval) {
+        console.log('P, 02')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         this.tableData.oab.forEach( item => {
           if (item.oab04 !== this.showData.oab04_show) {
@@ -1011,16 +1010,10 @@ export default {
     // 总金额
     "tableData.oaa12": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) /
-            (1 + this.showData.oaa13_rate / 100)) *
-            this.showData.oaa13_rate) /
-          100
-        ).toFixed(2);
+        console.log('P, 03')
+        this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
         // 单价
-        this.showData.oab07_show = (
-          Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
-        ).toFixed(2);
+        this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
         this.tableData.oab.forEach( item => {
           if(item.oab07 !== this.showData.oab07_show){
             item.oab07 = this.showData.oab07_show
@@ -1032,16 +1025,10 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
-        this.tableData.oaa14 = (
-          ((Number(this.tableData.oaa12) /
-            (1 + this.showData.oaa13_rate / 100)) *
-            this.showData.oaa13_rate) /
-          100
-        ).toFixed(2);
+        console.log('P, 04')
+        this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
         // 单价
-        this.showData.oab07_show = (
-          Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate)
-        ).toFixed(2);
+        this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
         this.tableData.oab.forEach( item => {
           if(item.oab07 !== this.showData.oab07_show){
             item.oab07 = this.showData.oab07_show
@@ -1053,6 +1040,7 @@ export default {
     
     "tableData.oab": {
       handler(newval, oldval) {
+        console.log('P, 05')
         this.tableData.oab.forEach((item) => {
           item.oab05 = Number(item.oab06) * Number(item.oab07);
         });
@@ -1061,12 +1049,16 @@ export default {
     },
     "tableData.oac": {
       handler(newval, oldval) {
+        console.log('P, 06')
         let oac06_sum = 0
         this.tableData.oac.forEach((item) => {
           item.oac06 = Number(item.oac04) * Number(item.oac05);
           oac06_sum = oac06_sum + item.oac06
         });
-        this.tableData.oaa12 = oac06_sum
+        if (this.fixedData.oaa12_type == 1) {
+          this.tableData.oaa12 = oac06_sum
+          this.fixedData.oaa12_type = 1
+        }
         // console.log(this.tableData.oaa12)
       },
       deep: true,
@@ -1083,6 +1075,9 @@ export default {
     this.getMustItem()
   },
   methods: {
+    oaa12Input(){
+      this.fixedData.oaa12_type = 2
+    },
     initOAuserInfo() {
       let oauserinfo = JSON.parse(sessionStorage.getItem('oauserinfo'))
       this.tableData.oaa03 = oauserinfo.oauserid ? oauserinfo.oauserid : ''
@@ -1243,7 +1238,6 @@ export default {
                     path: "/apply",
                     query: {
                       url_type: "invoice",
-                      workName: this.workName,
                       workid: this.workid,
                       workName: this.workName,
                       oaa01: this.tableData.oaa01,
@@ -1259,8 +1253,8 @@ export default {
             });
           }
         } else {
-          if (Number(this.tableData.oaa12) !== sum) {
-            this.$message.warning("总金额有误：总金额 = 发票明细中的金额之和");
+          if (this.tableData.oaa12 == "" && this.tableData.oaa12 == "0") {
+            this.$message.warning("总金额不能为空！");
           } else {
             const loading = OpenLoading(this, 1)
             addFlow(this.addParams).then((result) => {
@@ -1275,7 +1269,6 @@ export default {
                     path: "/apply",
                     query: {
                       url_type: "invoice",
-                      workName: this.workName,
                       workid: this.workid,
                       workName: this.workName,
                       oaa01: this.tableData.oaa01,
@@ -1303,7 +1296,6 @@ export default {
                 path: "/apply",
                 query: {
                   url_type: "invoice",
-                  workName: this.workName,
                   workid: this.workid,
                   workName: this.workName,
                   oaa01: this.tableData.oaa01,
@@ -1616,18 +1608,17 @@ export default {
             this.tableData.oay01 = val[0].title;
             this.tableData.oay02 = val[0].number;
             this.tableData.oay03 = val[0].contract_value;
-            this.showData.oaa_status = val[0].status;
+            this.showData.oaa_status = val[0].status_show;
             custInfo(val[0].opposite_id)
             .then( res=> {
               if (res.status == 200) {
                 this.tableData.oaa11 = res.data.occ01
                 this.tableData.oaa11_show = res.data.occ02
-                this.tableData.oaa13 = res.data.tax_number
-                this.tableData.oaa13_show = res.data.tax_name
+                this.tableData.oaa13 = res.data.tax_code
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.bank_account
-                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa22 = res.data.tax_code
                 this.tableData.oaa23 = res.data.address
                 this.tableData.oaa24 = res.data.bank_code
                 this.tableData.oaa25 = res.data.bank
@@ -1685,12 +1676,11 @@ export default {
             custInfo(val[0].code)
             .then( res=> {
               if (res.status == 200) {
-                this.tableData.oaa13 = res.data.tax_number
-                this.tableData.oaa13_show = res.data.tax_name
+                this.tableData.oaa13 = res.data.tax_code
                 this.showData.oaa13_rate = res.data.tax_value
                 // 开票信息
                 this.tableData.oaa21 = res.data.bank_account
-                this.tableData.oaa22 = res.data.tax_number
+                this.tableData.oaa22 = res.data.tax_code
                 this.tableData.oaa23 = res.data.address
                 this.tableData.oaa24 = res.data.bank_code
                 this.tableData.oaa25 = res.data.bank
@@ -1702,7 +1692,6 @@ export default {
             break;
           case "SB":
             this.tableData.oaa13 = val[0].gec01;
-            this.tableData.oaa13_show = val[0].gec02;
             this.showData.oaa13_rate = val[0].gec04;
             break;
           case "SPMC":

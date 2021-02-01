@@ -42,8 +42,7 @@
           <div class="form_line lastline">
             <div class="titlebox">合同金额</div>
             <div class="infobox middlebox">{{ tableData.oay03 }}</div>
-            <div class="titlebox">合同状态</div>
-            <div class="infobox middlebox last_row">{{ tableData.oay_status }}</div>
+            <div class="infobox middlebox last_row" style="width: 536.5px; flex-grow: 0;"></div>
           </div>
           <!-- 发货信息 -->
           <div class="title_line">发货信息</div>
@@ -64,7 +63,7 @@
             <div class="titlebox">业务大类</div>
             <div class="infobox selectbox middlebox">{{tableData.oaa40}}</div>
             <div class="titlebox">业务明细</div>
-            <div class="infobox middlebox">{{ tableData.oaa41_show }}</div>
+            <div class="infobox middlebox last_row">{{ tableData.oaa41_show }}</div>
           </div>
           <div class="form_line">
             <div class="titlebox">备注</div>
@@ -73,6 +72,13 @@
           <div class="form_line">
             <div class="titlebox">说明</div>
             <div class="infobox longbox" style="width: 100%">{{tableData.oaa98}}</div>
+          </div>
+          <div class="form_line">
+            <div class="titlebox">是否开票</div>
+            <div class="infobox longbox">
+              <span class="radioItem" v-if="tableData.oaa16==1">是</span>
+              <span class="radioItem" v-if="tableData.oaa16==2">否</span>
+            </div>
           </div>
           <!-- 开票信息 -->
           <div v-if="tableData.oaa16 == 1">
@@ -178,13 +184,6 @@
               <div class="tdata" v-for="(content_item, content_index) in tableData.oab" :key="content_index">
                 {{content_item[S_item.value]}}
               </div>
-            </div>
-          </div>
-          <div class="form_line last_line">
-            <div class="titlebox">是否开票</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa16==1">是</span>
-              <span class="radioItem" v-if="tableData.oaa16==2">否</span>
             </div>
           </div>
           <!-- 财务信息 -->
@@ -366,7 +365,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid
+    this.workid = this.$route.query.workid ? this.$route.query.workid: 6035
     // this.workid = 4512
     this.getworkflows()
   },
