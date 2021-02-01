@@ -429,7 +429,7 @@ export default {
           };
           let type = fileName.split(".")[1]; //获取文件后缀名
           let blob = new Blob([res], {
-            type: fileType[type],
+            type: fileType.type,
           });
           let url = window.URL.createObjectURL(blob);
           let link = document.createElement("a");
