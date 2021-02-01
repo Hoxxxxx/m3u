@@ -438,8 +438,12 @@ export default {
           link.setAttribute("download", fileName);
           document.body.appendChild(link);
           link.click();
-          document.body.removeChild(link);
-          window.URL.revokeObjectURL(url);
+          // document.body.removeChild(link);
+          // window.URL.revokeObjectURL(url);
+          setTimeout(() => {
+            window.URL.revokeObjectURL(url); // 释放URL 对象
+            document.body.removeChild(link);	//移除a标签
+          }, 1000);
         }
       } else if (u.indexOf("iPhone") > -1) {
         //苹果手机
