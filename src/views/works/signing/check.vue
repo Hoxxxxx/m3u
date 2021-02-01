@@ -78,7 +78,7 @@
                 </div>
               </div>
               <div>
-                <div v-if="tableData.oaa10 == 1">
+                <div v-if="tableData.oaa10 == 1 || tableData.oaa10 == 3">
                   <div class="title_line">供应商信息</div>
                   <div class="form_line">
                     <div class="titlebox">厂商简称</div>
