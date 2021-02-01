@@ -741,27 +741,27 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 6076;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 6093;
     this.getworkflows();
   },
   watch:{
-    'tableData.oab02':{
-      handler(newVal,oldVal){
-        // let first_oac = this.firstLoad.oac;
-        // let table_oac = this.tableData.oac
-        // for(let i=0,len=first_oac.length;i<len;i++){
-        //     if(first_oac[i].oac01 == table_oac[i].oac01){
-        //       table_oac[i].oac01 = table_oac[i].oac01
-        //     }else{
-        //       table_oac[i].oac01 = this.tableData.oab02
-        //     }
-        // }
-        this.tableData.oac.forEach(item=>{
-          item.oac01 = newVal
-        })
-      },
-      deep:true
-    },
+    // 'tableData.oab02':{
+    //   handler(newVal,oldVal){
+    //     // let first_oac = this.firstLoad.oac;
+    //     // let table_oac = this.tableData.oac
+    //     // for(let i=0,len=first_oac.length;i<len;i++){
+    //     //     if(first_oac[i].oac01 == table_oac[i].oac01){
+    //     //       table_oac[i].oac01 = table_oac[i].oac01
+    //     //     }else{
+    //     //       table_oac[i].oac01 = this.tableData.oab02
+    //     //     }
+    //     // }
+    //     this.tableData.oac.forEach(item=>{
+    //       item.oac01 = newVal
+    //     })
+    //   },
+    //   deep:true
+    // },
     'tableData.oad02':{
       handler(newVal,oldVal){
         if(this.firstLoad.oad04 == this.tableData.oad04){

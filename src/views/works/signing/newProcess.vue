@@ -588,14 +588,14 @@ export default {
     this.getMustItem();
   },
   watch:{
-    'tableData.oab02':{
-      handler(newVal,oldVal){
-        this.tableData.oac.forEach(item=>{
-          item.oac01 = newVal
-        })
-      },
-      deep:true
-    },
+    // 'tableData.oab02':{
+    //   handler(newVal,oldVal){
+    //     this.tableData.oac.forEach(item=>{
+    //       item.oac01 = newVal
+    //     })
+    //   },
+    //   deep:true
+    // },
     'tableData.oad02':{
       handler(newVal,oldVal){
         this.tableData.oad04 = newVal
