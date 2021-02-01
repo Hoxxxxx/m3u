@@ -61,9 +61,20 @@
                     style="margin-right: 120px"
                     v-model="tableData.oaa10"
                   >
-                    <el-radio :label="1" disabled>供应商</el-radio>
-                    <el-radio :label="2" disabled>客户</el-radio>
+                    <el-radio :label="1" disabled>新增供应商</el-radio>
+                    <el-radio :label="2" disabled>新增客户</el-radio>
+                    <el-radio :label="3" disabled>修改供应商</el-radio>
+                    <el-radio :label="4" disabled>修改客户</el-radio>
                   </el-radio-group>
+                </div>
+                <!-- 修改供应商/客户 -->
+                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox selectbox last_row" style="border-left: 1px solid #CCCCCC">
+                  <div v-if="tableData.oaa10==3">
+                    {{ tableData.oaa14_show }}
+                  </div>
+                  <div v-if="tableData.oaa10==4">
+                    {{ tableData.oaa15_show }}
+                  </div>
                 </div>
               </div>
               <div>
@@ -327,7 +338,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 5519;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 6076;
     this.getworkflows();
   },
   methods: {

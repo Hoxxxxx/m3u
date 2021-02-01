@@ -92,10 +92,10 @@
                 <!-- 修改供应商/客户 -->
                 <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox selectbox" style="border-left: 1px solid #CCCCCC">
                   <div v-if="tableData.oaa10==3" class="selector" @click="selectDialog('GYS')">
-                    {{ showData.oaa14_show }}
+                    {{ tableData.oaa14_show }}
                   </div>
                   <div v-if="tableData.oaa10==4" class="selector" @click="selectDialog('KH')">
-                    {{ showData.oaa15_show }}
+                    {{ tableData.oaa15_show }}
                   </div>
                 </div>
               </div>
@@ -968,7 +968,7 @@ export default {
             break;
           case "GYS":
             this.tableData.oaa14 = val[0].pmc01;
-            this.showData.oaa14_show = val[0].pmc03;
+            this.tableData.oaa14_show = val[0].pmc03;
             let code_gys = val[0].code
             pmcInfo(code_gys).then(res=>{
               if(res.status == 200){
@@ -992,7 +992,7 @@ export default {
             break;
           case "KH":
             this.tableData.oaa15 = val[0].occ01;
-            this.showData.oaa15_show = val[0].occ02;
+            this.tableData.oaa15_show = val[0].occ02;
             let code_kh = val[0].code;
             occInfo(code_kh).then(res=>{
               this.tableData.oad01 = res.data.name
