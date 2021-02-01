@@ -110,7 +110,7 @@
                     >签约方</span
                   >
                 </div>
-                <div class="infobox middlebox selectbox">
+                <div class="infobox middlebox selectbox last_row">
                   <el-radio-group
                     class="radioGroup"
                     v-model="tableData.oaa10"
@@ -122,7 +122,8 @@
                   </el-radio-group>
                 </div>
                 <!-- 修改供应商/客户 -->
-                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox middlebox selectbox last_row" style="border-left: 1px solid #CCCCCC">
+                <div class="titlebox" style="background: #fff;" v-if="tableData.oaa10!==1&&tableData.oaa10!==2"></div>
+                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox middlebox selectbox last_row">
                   <div v-if="tableData.oaa10==3" class="selector" @click="selectDialog('GYS')">
                     {{ tableData.oaa14_show ? tableData.oaa14_show : '请选择供应商' }}
                   </div>

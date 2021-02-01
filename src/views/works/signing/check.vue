@@ -55,10 +55,9 @@
               <div class="form_line">
                 <div class="titlebox ">签约方
                 </div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox middlebox selectbox last_row">
                   <el-radio-group
                     class="radioGroup"
-                    style="margin-right: 120px"
                     v-model="tableData.oaa10"
                   >
                     <el-radio :label="1" disabled>新增供应商</el-radio>
@@ -68,7 +67,8 @@
                   </el-radio-group>
                 </div>
                 <!-- 修改供应商/客户 -->
-                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox selectbox last_row" style="border-left: 1px solid #CCCCCC">
+                <div class="titlebox" style="background: #fff;" v-if="tableData.oaa10!==1&&tableData.oaa10!==2"></div>
+                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox middlebox selectbox last_row" >
                   <div v-if="tableData.oaa10==3">
                     {{ tableData.oaa14_show }}
                   </div>
