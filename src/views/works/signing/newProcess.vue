@@ -95,7 +95,7 @@
                     {{ showData.oaa14_show }}
                   </div>
                   <div v-if="tableData.oaa10==4" class="selector" @click="selectDialog('KH')">
-                    {{ showData.oaa14_show }}
+                    {{ showData.oaa15_show }}
                   </div>
                 </div>
               </div>
@@ -991,8 +991,8 @@ export default {
             })
             break;
           case "KH":
-            this.tableData.oaa14 = val[0].occ01;
-            this.showData.oaa14_show = val[0].occ02;
+            this.tableData.oaa15 = val[0].occ01;
+            this.showData.oaa15_show = val[0].occ02;
             let code_kh = val[0].code;
             occInfo(code_kh).then(res=>{
               this.tableData.oad01 = res.data.name
