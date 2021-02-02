@@ -55,19 +55,30 @@
               <div class="form_line">
                 <div class="titlebox ">签约方
                 </div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox middlebox selectbox last_row">
                   <el-radio-group
                     class="radioGroup"
-                    style="margin-right: 120px"
                     v-model="tableData.oaa10"
                   >
-                    <el-radio :label="1" disabled>供应商</el-radio>
-                    <el-radio :label="2" disabled>客户</el-radio>
+                    <el-radio :label="1" disabled>新增供应商</el-radio>
+                    <el-radio :label="2" disabled>新增客户</el-radio>
+                    <el-radio :label="3" disabled>修改供应商</el-radio>
+                    <el-radio :label="4" disabled>修改客户</el-radio>
                   </el-radio-group>
+                </div>
+                <!-- 修改供应商/客户 -->
+                <div class="titlebox" style="background: #fff;" v-if="tableData.oaa10!==1&&tableData.oaa10!==2"></div>
+                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox middlebox selectbox last_row" >
+                  <div v-if="tableData.oaa10==3">
+                    {{ tableData.oaa14_show }}
+                  </div>
+                  <div v-if="tableData.oaa10==4">
+                    {{ tableData.oaa15_show }}
+                  </div>
                 </div>
               </div>
               <div>
-                <div v-if="tableData.oaa10 == 1">
+                <div v-if="tableData.oaa10 == 1 || tableData.oaa10 == 3">
                   <div class="title_line">供应商信息</div>
                   <div class="form_line">
                     <div class="titlebox">厂商简称</div>
@@ -327,7 +338,7 @@ export default {
     };
   },
   created() {
-    this.workid = this.$route.query.workid ? this.$route.query.workid : 5519;
+    this.workid = this.$route.query.workid ? this.$route.query.workid : 6076;
     this.getworkflows();
   },
   methods: {

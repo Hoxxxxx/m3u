@@ -873,7 +873,8 @@ import {
   pjbsList,
   aagsList,
   pjasList,
-  userInfo
+  userInfo,
+  pmcInfo
 } from "@/api/basic.js";
 
 export default {
@@ -1647,6 +1648,13 @@ export default {
           this.tableData.oaa21 = val[0].pmc03;
           this.tableData.oaa22 = val[0].pmcud01;
           this.tableData.oaa23 = val[0].pmc56;
+          let code_YFCS = val[0].pmc01
+          pmcInfo(code_YFCS).then(res=>{
+            if(res.status == 200){
+              this.showData.oaa15_show = res.data.tax_value
+              this.tableData.oaa15 = res.data.tax_name
+            }
+          })
           break;
           case "SB":
           this.tableData.oaa15 = val[0].gec01;
@@ -1759,8 +1767,8 @@ export default {
               if(res.status == 200){
                 this.tableData.oaa11 = res.data.pmc01
                 this.showData.oaa11_show = res.data.name;
-                this.showData.oaa15_show = res.data.tax_name
-                this.tableData.oaa15 = res.data.tax_value
+                this.showData.oaa15_show = res.data.tax_value
+                this.tableData.oaa15 = res.data.tax_name
                 this.tableData.oaa21 = res.data.bank_account
                 this.tableData.oaa22 = res.data.bank
                 this.tableData.oaa23 = res.data.bank_code

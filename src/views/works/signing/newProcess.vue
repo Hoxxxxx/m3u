@@ -77,10 +77,9 @@
                     >签约方</span
                   >
                 </div>
-                <div class="infobox longbox selectbox">
+                <div class="infobox middlebox selectbox last_row">
                   <el-radio-group
                     class="radioGroup"
-                    style="margin-right: 120px"
                     v-model="tableData.oaa10"
                   >
                     <el-radio :label="1">新增供应商</el-radio>
@@ -90,12 +89,13 @@
                   </el-radio-group>
                 </div>
                 <!-- 修改供应商/客户 -->
-                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox selectbox" style="border-left: 1px solid #CCCCCC">
+                <div class="titlebox" style="background: #fff;" v-if="tableData.oaa10!==1&&tableData.oaa10!==2"></div>
+                <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox middlebox selectbox last_row">
                   <div v-if="tableData.oaa10==3" class="selector" @click="selectDialog('GYS')">
-                    {{ showData.oaa14_show }}
+                    {{ tableData.oaa14_show ? tableData.oaa14_show : '请选择供应商' }}
                   </div>
                   <div v-if="tableData.oaa10==4" class="selector" @click="selectDialog('KH')">
-                    {{ showData.oaa14_show }}
+                    {{ tableData.oaa15_show ? tableData.oaa15_show : '请选择客户'}}
                   </div>
                 </div>
               </div>
@@ -300,7 +300,7 @@
                       />
                     </div>
                     <div class="titlebox required">
-                      <span :class="form_must.includes('oad08') ? 'redPot' : ''"
+                      <span :class="form_must.includes('oad09') ? 'redPot' : ''"
                         >电话</span
                       >
                     </div>
@@ -473,6 +473,8 @@ export default {
         oaa11: "",
         oaa12: "",
         oaa13: "",
+        oaa14:"",
+        oaa15:"",
         oab01:"",
         oab02:"",
         oab03:"J07",
@@ -586,19 +588,34 @@ export default {
     this.getMustItem();
   },
   watch:{
-    'tableData.oab02':{
-      handler(newVal,oldVal){
-        this.tableData.oac.forEach(item=>{
-          item.oac01 = newVal
-        })
-      },
-      deep:true
-    },
+    // 'tableData.oab02':{
+    //   handler(newVal,oldVal){
+    //     this.tableData.oac.forEach(item=>{
+    //       item.oac01 = newVal
+    //     })
+    //   },
+    //   deep:true
+    // },
     'tableData.oad02':{
       handler(newVal,oldVal){
         this.tableData.oad04 = newVal
       },
       deep:true
+    },
+    // 自动触发弹框
+    'tableData.oaa10':{
+      handler(newVal,oldVal){
+        let self =this
+        if(newVal == 3){
+          setTimeout(()=>{
+            self.selectDialog('GYS')
+          },500)
+        } else if(newVal == 4){
+          setTimeout(()=>{
+            self.selectDialog('KH')
+          },500)
+        }
+      }
     }
   },
   methods: {
@@ -968,20 +985,41 @@ export default {
             break;
           case "GYS":
             this.tableData.oaa14 = val[0].pmc01;
-            this.showData.oaa14_show = val[0].pmc03;
+            this.tableData.oaa14_show = val[0].pmc03;
             let code_gys = val[0].code
             pmcInfo(code_gys).then(res=>{
-              this.tableData.oab01 = res.data.name
-              this.tableData.oab02 = res.data.full_name
+              if(res.status == 200){
+                this.tableData.oab01 = res.data.name
+                this.tableData.oab02 = res.data.full_name
+                let info = []
+                res.data.banks.forEach(item=>{
+                  let line = {
+                    oac01: item.bank_account,
+                    oac02: item.bank_code,
+                    oac03: item.bank,
+                  };
+                  info.push(line);
+                  console.log(this.tableData.oac)
+                })
+                this.tableData.oac = info
+              }else{
+                console.log('数据获取失败！')
+              }
             })
             break;
           case "KH":
-            this.tableData.oaa14 = val[0].occ01;
-            this.showData.oaa14_show = val[0].occ02;
+            this.tableData.oaa15 = val[0].occ01;
+            this.tableData.oaa15_show = val[0].occ02;
             let code_kh = val[0].code;
             occInfo(code_kh).then(res=>{
               this.tableData.oad01 = res.data.name
               this.tableData.oad02 = res.data.full_name
+              this.tableData.oad04 = res.data.bank_account
+              this.tableData.oad05 = res.data.tax_number
+              this.tableData.oad06 = res.data.address
+              this.tableData.oad07 = res.data.bank_code
+              this.tableData.oad08 = res.data.bank
+              this.tableData.oad09 = res.data.phone
             })
             break;
           case "SZ_GYS":

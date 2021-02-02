@@ -34,13 +34,25 @@
           <div class="title_line">签约方信息</div>
           <div class="form_line">
             <div class="titlebox">签约方</div>
-            <div class="infobox longbox">
-              <span class="radioItem" v-if="tableData.oaa10 == 1">供应商</span>
-              <span class="radioItem" v-if="tableData.oaa10 == 2">客户</span>
+            <div class="infobox middlebox last_row">
+              <span class="radioItem" v-if="tableData.oaa10 == 1">新增供应商</span>
+              <span class="radioItem" v-if="tableData.oaa10 == 2">新增客户</span>
+              <span class="radioItem" v-if="tableData.oaa10 == 3">修改供应商</span>
+              <span class="radioItem" v-if="tableData.oaa10 == 4">修改客户</span>
+            </div>
+            <!-- 修改供应商/客户 -->
+            <div class="titlebox" v-if="tableData.oaa10!==1&&tableData.oaa10!==2"></div>
+            <div v-if="tableData.oaa10!==1&&tableData.oaa10!==2" class="infobox middlebox selectbox last_row">
+              <div v-if="tableData.oaa10==3">
+                {{ tableData.oaa14_show }}
+              </div>
+              <div v-if="tableData.oaa10==4">
+                {{ tableData.oaa15_show }}
+              </div>
             </div>
           </div>
           <div>
-            <div v-if="tableData.oaa10 == 1">
+            <div v-if="tableData.oaa10 == 1 || tableData.oaa10 == 3">
               <div class="title_line">供应商信息</div>
               <div class="form_line">
                 <div class="titlebox">厂商简称</div>
