@@ -81,7 +81,8 @@
         <right-Container :addCount="addCount" 
                                     :addBtn="addBtn"
                                     :layoutCount="layoutCount"
-                                    :layoutBtn="layoutBtn">
+                                    :layoutBtn="layoutBtn"
+                                    :chooseInfo="chooseInfo">
         </right-Container>
       </div>
       <!-- 中间内容栏 -->
@@ -92,6 +93,7 @@
           :addBtn="addBtn"
           :layoutCount="layoutCount"
           :layoutBtn="layoutBtn"
+          @choose_Form="get_Form_choose"
         ></main-Container>
       </div>
     </div>
@@ -117,8 +119,19 @@ export default {
       addBtn: "", //用户点击的按钮值
       layoutCount: 0, //布局控件计数
       layoutBtn: "", //布局控件类型值
+      // 中间传入数据
+      chooseInfo: {},
       // 右侧传入数据
     };
+  },
+
+  watch: {
+    // 'choose_areaItem': {
+    //   handler(newVal) {
+    //     console.log(choose_areaItem)
+    //   },
+    //   deep: true
+    // }
   },
 
   methods: {
@@ -130,6 +143,14 @@ export default {
       this.layoutBtn = btn;
       this.layoutCount++;
     },
+    // ********layout_Form********
+    // 获取选中区域
+    get_Form_choose(data) {
+      // console.log(data)
+      this.chooseInfo = data
+    },
+    // ******************************
+
   },
 };
 </script>
