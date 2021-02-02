@@ -7,9 +7,7 @@ export default {
   watch:{
     tag:{
       handler(newVal){
-        console.log(newVal)
-        // this.$render(newVal)
-        this.$forceUpdate();
+        console.log('新数据进入',newVal)
       },
       deep:true
     }

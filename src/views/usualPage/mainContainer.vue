@@ -284,30 +284,38 @@ export default {
     addCount(newVal) {
       // 此处判断用户添加的按钮类型
       // 依据类型向containList（内容列表）中添加其格式的预设参数
+      // 当前选中
+      let form_Index = this.choosedTd.form_Index,
+        area_Index = this.choosedTd.area_Index,
+        line_Index = this.choosedTd.line_Index,
+        td_Index = this.choosedTd.td_Index;
+      let obj = this.containList.layouts[form_Index].form_areas[area_Index].form_lines[line_Index].form_tds;
       switch (this.addBtn) {
         // *****基础控件*****
         // 输入框
         case "basic_Input":
-          // this.containList.layouts.push({
-          //   type: "basic_Input",
-          // });
-          // console.log(this.form)
-          
-          let area_Index = this.choosedTd.area_Index,
-            form_Index = this.choosedTd.form_Index,
-            line_Index = this.choosedTd.line_Index,
-            td_Index = this.choosedTd.td_Index;
-          console.log('start',area_Index,this.containList.layouts);
-          this.containList.layouts[area_Index].form_areas[
-            form_Index
-          ].form_lines[line_Index].form_tds[td_Index] = {
+          let data_basic_Input = {
             active_status: true, // 此行被选中状态
-            item_title: "1", //单项label
+            item_title: "输入label", //单项label
             item_tag: "el-input", //组件标签
             prop_name: "one", //model属性名称
             item_prop: "", //model属性值
           };
-          // this.$forceUpdate();
+          this.$set(obj, td_Index, data_basic_Input); //不采用push方法添加数据，避免v-model失效
+          this.$forceUpdate(); //强制更新DOM
+          break;
+        // 日期选择
+        case "basic_DatePicker":
+          let data_basic_DatePicker = {
+            active_status: true, // 此行被选中状态
+            item_title: "日期选择label", //单项label
+            item_tag: "el-date-picker", //组件标签
+            prop_name: "two", //model属性名称
+            item_prop: "", //model属性值
+            prop_val: "2021-01-01",
+          };
+          this.$set(obj, td_Index, data_basic_DatePicker);
+          this.$forceUpdate();
           break;
         default:
           break;
@@ -454,10 +462,10 @@ export default {
     },
     // 选择表格行
     choose_FormLine(index, area_Index, line_Index) {
-      if(this.containList.layouts[index].form_areas[area_Index]){
-        this.cleanActive_areaItem()
-        this.cleanActive_FormLine()
-        this.cleanActive_layout_td()
+      if (this.containList.layouts[index].form_areas[area_Index]) {
+        this.cleanActive_areaItem();
+        this.cleanActive_FormLine();
+        this.cleanActive_layout_td();
         // 选中行赋值
         this.containList.layouts[index].form_areas[area_Index].form_lines[
           line_Index
@@ -494,13 +502,18 @@ export default {
     },
     // 删除表格行
     del_FormLine(params) {
-      const index = params.index
-      const area_Index = params.sec_Index
-      const line_Index = params.thr_Index
-      if (this.containList.layouts[index].form_areas[area_Index].form_lines.length > 1) {
-        this.containList.layouts[index].form_areas[area_Index].form_lines.splice(line_Index, 1);
+      const index = params.index;
+      const area_Index = params.sec_Index;
+      const line_Index = params.thr_Index;
+      if (
+        this.containList.layouts[index].form_areas[area_Index].form_lines
+          .length > 1
+      ) {
+        this.containList.layouts[index].form_areas[
+          area_Index
+        ].form_lines.splice(line_Index, 1);
       } else {
-        this.del_areaItem(params)
+        this.del_areaItem(params);
       }
     },
     //***** 单个表格td *****
@@ -539,10 +552,7 @@ export default {
         td_Index: td_key
       })
     },
-
   },
-
-
 };
 </script>
 
