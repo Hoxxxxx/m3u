@@ -54,6 +54,8 @@ export default {
   props: {
     addCount: Number,
     addBtn: String,
+    layoutCount: Number,
+    layoutBtn: String,
   },
   data() {
     return {
@@ -71,6 +73,26 @@ export default {
     }
   },
   methods: {
+    //表格控件
+    init_layout_Form() {
+      // 更新赋值属性列表
+      this.formItems.push({
+        label: '表格行标题',
+        type: 'input',
+        name: 'line_title',
+        value: '',
+      },{
+        label: '表格分栏',
+        type: 'slider',
+        name: 'cols',
+        value: 3,
+        max: 3,
+      })
+      // 根据属性列表赋值设置表单
+      this.formItems.forEach( item => {
+        this.$set(this.basic_form, item.name, item.value)
+      })
+    },
     
   },
   watch: {
@@ -82,32 +104,29 @@ export default {
       // 依据添加的按钮类型向containList（内容列表）中添加其格式的预设参数
       switch (this.addBtn) {
         // *****基础控件*****
-
-        // *****布局控件*****
-        // 表格控件
-        case 'layout_Form':
-          // 更新赋值属性列表
-          this.formItems.push({
-            label: '表格行标题',
-            type: 'input',
-            name: 'line_title',
-            value: '',
-          },{
-            label: '表格分栏',
-            type: 'slider',
-            name: 'cols',
-            value: 3,
-            max: 3,
-          })
-          // 根据属性列表赋值设置表单
-          this.formItems.forEach( item => {
-            this.$set(this.basic_form, item.name, item.value)
-          })
-        break;
+      
         default:
         break;
       }
-    }
+    },
+
+    layoutCount(newVal) {
+      // 重置属性及表单
+      this.formItems = []
+      this.basic_form = {}
+      // 依据添加的按钮类型向containList（内容列表）中添加其格式的预设参数
+      switch (this.layoutBtn) {
+        // *****布局控件*****
+        // 表格控件
+        case 'layout_Form':
+          this.init_layout_Form()
+        break;
+
+        default:
+        break;
+      }
+    },
+    
   }
 }
 </script>

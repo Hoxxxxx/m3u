@@ -78,7 +78,10 @@
       </div>
       <!-- 右侧边栏 -->
       <div class="RIGHT">
-        <right-Container :addCount="addCount" :addBtn="addBtn">
+        <right-Container :addCount="addCount" 
+                                    :addBtn="addBtn"
+                                    :layoutCount="layoutCount"
+                                    :layoutBtn="layoutBtn">
         </right-Container>
       </div>
       <!-- 中间内容栏 -->
@@ -88,7 +91,7 @@
           :addCount="addCount"
           :addBtn="addBtn"
           :layoutCount="layoutCount"
-          :layout="layout"
+          :layoutBtn="layoutBtn"
         ></main-Container>
       </div>
     </div>
@@ -113,7 +116,7 @@ export default {
       addCount: 0, //添加按钮计数
       addBtn: "", //用户点击的按钮值
       layoutCount: 0, //布局控件计数
-      layout: "", //布局控件类型值
+      layoutBtn: "", //布局控件类型值
       // 右侧传入数据
     };
   },
@@ -124,7 +127,7 @@ export default {
       this.addCount++;
     },
     getActiveLayOut(btn) {
-      this.layout = btn;
+      this.layoutBtn = btn;
       this.layoutCount++;
     },
   },

@@ -125,7 +125,7 @@ export default {
     addCount: Number,
     addBtn: String,
     layoutCount: Number,
-    layout: String,
+    layoutBtn: String,
   },
   components: {
     render,
@@ -138,149 +138,149 @@ export default {
         formRef: "elForm",
         formModel: "formData",
         layouts: [
-          {
-            type: "layout_Form", //布局控件类型
-            form_areas: [
-              {
-                title: "基本信息（内容区域1）",
-                active_status: false, // 此行被选中状态
-                form_lines: [
-                  {
-                    active_status: false, // 此行被选中状态
-                    layout: 3,
-                    form_tds: [
-                      //当前行组件集合
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "1", //单项label
-                        item_tag: "el-input", //组件标签
-                        prop_name: "one", //model属性名称
-                        item_prop: "", //model属性值
-                      },
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "2", //单项label
-                        item_tag: "el-date-picker", //组件标签
-                        prop_name: "two", //model属性名称
-                        item_prop: "", //model属性值
-                        prop_val: "2021-01-01",
-                      },
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "3", //单项label
-                        item_tag: "el-select", //组件标签
-                        prop_name: "three", //model属性名称
-                        item_prop: "", //model属性值
-                        prop_val: 1,
-                        options: [
-                          {
-                            value: 1,
-                            label: "黄金糕123456",
-                          },
-                          {
-                            value: "2",
-                            label: "双皮奶789456",
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    active_status: false, // 此行被选中状态
-                    layout: 3,
-                    form_tds: [
-                      //当前行组件集合
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "1", //单项label
-                        item_tag: "el-input", //组件标签
-                        prop_name: "one", //model属性名称
-                        item_prop: "", //model属性值
-                      },
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "2", //单项label
-                        item_tag: "el-date-picker", //组件标签
-                        prop_name: "two", //model属性名称
-                        item_prop: "", //model属性值
-                        prop_val: "2021-01-31",
-                      },
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "3", //单项label
-                        item_tag: "el-select", //组件标签
-                        prop_name: "three", //model属性名称
-                        item_prop: "", //model属性值
-                        prop_val: 1,
-                        options: [
-                          {
-                            value: 1,
-                            label: "黄金糕",
-                          },
-                          {
-                            value: "2",
-                            label: "双皮奶",
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                title: "学历信息（内容区域2）",
-                active_status: false, // 此行被选中状态
-                form_lines: [
-                  {
-                    active_status: false, // 此行被选中状态
-                    layout: 3,
-                    form_tds: [
-                      //当前行组件集合
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "1", //单项label
-                        item_tag: "el-input", //组件标签
-                        prop_name: "one", //model属性名称
-                        item_prop: "", //model属性值
-                      },
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "2", //单项label
-                        item_tag: "el-date-picker", //组件标签
-                        prop_name: "two", //model属性名称
-                        item_prop: "", //model属性值
-                        prop_val: "2021-01-01",
-                      },
-                      {
-                        active_status: false, // 此行被选中状态
-                        item_title: "3", //单项label
-                        item_tag: "el-select", //组件标签
-                        prop_name: "three", //model属性名称
-                        item_prop: "", //model属性值
-                        prop_val: 1,
-                        options: [
-                          {
-                            value: 1,
-                            label: "黄金糕123456",
-                          },
-                          {
-                            value: "2",
-                            label: "双皮奶789456",
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
+          // {
+          //   type: "layout_Form", //布局控件类型
+          //   form_areas: [
+          //     {
+          //       title: "基本信息（内容区域1）",
+          //       active_status: false, // 此行被选中状态
+          //       form_lines: [
+          //         {
+          //           active_status: false, // 此行被选中状态
+          //           layout: 3,
+          //           form_tds: [
+          //             //当前行组件集合
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "1", //单项label
+          //               item_tag: "el-input", //组件标签
+          //               prop_name: "one", //model属性名称
+          //               item_prop: "", //model属性值
+          //             },
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "2", //单项label
+          //               item_tag: "el-date-picker", //组件标签
+          //               prop_name: "two", //model属性名称
+          //               item_prop: "", //model属性值
+          //               prop_val: "2021-01-01",
+          //             },
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "3", //单项label
+          //               item_tag: "el-select", //组件标签
+          //               prop_name: "three", //model属性名称
+          //               item_prop: "", //model属性值
+          //               prop_val: 1,
+          //               options: [
+          //                 {
+          //                   value: 1,
+          //                   label: "黄金糕123456",
+          //                 },
+          //                 {
+          //                   value: "2",
+          //                   label: "双皮奶789456",
+          //                 },
+          //               ],
+          //             },
+          //           ],
+          //         },
+          //         {
+          //           active_status: false, // 此行被选中状态
+          //           layout: 3,
+          //           form_tds: [
+          //             //当前行组件集合
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "1", //单项label
+          //               item_tag: "el-input", //组件标签
+          //               prop_name: "one", //model属性名称
+          //               item_prop: "", //model属性值
+          //             },
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "2", //单项label
+          //               item_tag: "el-date-picker", //组件标签
+          //               prop_name: "two", //model属性名称
+          //               item_prop: "", //model属性值
+          //               prop_val: "2021-01-31",
+          //             },
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "3", //单项label
+          //               item_tag: "el-select", //组件标签
+          //               prop_name: "three", //model属性名称
+          //               item_prop: "", //model属性值
+          //               prop_val: 1,
+          //               options: [
+          //                 {
+          //                   value: 1,
+          //                   label: "黄金糕",
+          //                 },
+          //                 {
+          //                   value: "2",
+          //                   label: "双皮奶",
+          //                 },
+          //               ],
+          //             },
+          //           ],
+          //         },
+          //       ],
+          //     },
+          //     {
+          //       title: "学历信息（内容区域2）",
+          //       active_status: false, // 此行被选中状态
+          //       form_lines: [
+          //         {
+          //           active_status: false, // 此行被选中状态
+          //           layout: 3,
+          //           form_tds: [
+          //             //当前行组件集合
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "1", //单项label
+          //               item_tag: "el-input", //组件标签
+          //               prop_name: "one", //model属性名称
+          //               item_prop: "", //model属性值
+          //             },
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "2", //单项label
+          //               item_tag: "el-date-picker", //组件标签
+          //               prop_name: "two", //model属性名称
+          //               item_prop: "", //model属性值
+          //               prop_val: "2021-01-01",
+          //             },
+          //             {
+          //               active_status: false, // 此行被选中状态
+          //               item_title: "3", //单项label
+          //               item_tag: "el-select", //组件标签
+          //               prop_name: "three", //model属性名称
+          //               item_prop: "", //model属性值
+          //               prop_val: 1,
+          //               options: [
+          //                 {
+          //                   value: 1,
+          //                   label: "黄金糕123456",
+          //                 },
+          //                 {
+          //                   value: "2",
+          //                   label: "双皮奶789456",
+          //                 },
+          //               ],
+          //             },
+          //           ],
+          //         },
+          //       ],
+          //     },
+          //   ],
+          // },
         ],
       },
     };
   },
   watch: {
-    // 用户每点击一次按钮，都触发添加组件动作
+    // 用户每点击一次基础控件，都触发添加组件动作
     addCount(newVal) {
       // 此处判断用户添加的按钮类型
       // 依据类型向containList（内容列表）中添加其格式的预设参数
@@ -309,14 +309,13 @@ export default {
           };
           // this.$forceUpdate();
           break;
-          break;
         default:
           break;
       }
     },
     // *****布局控件*****
     layoutCount(newVal) {
-      switch (this.layout) {
+      switch (this.layoutBtn) {
         // 表格控件
         case "layout_Form":
           this.init_layout_Form();
@@ -419,7 +418,7 @@ export default {
         this.containList.layouts[index].form_areas[
           area_Index
         ].active_status = true;
-      }
+      } 
     },
     // 复制内容区域
     add_areaItem(params) {
@@ -516,6 +515,9 @@ export default {
     },
     // 选中单个td
     choose_layout_td(index, area_Index, line_Index, td_key) {
+      this.cleanActive_areaItem()
+      this.cleanActive_FormLine()
+      this.cleanActive_layout_td()
       this.containList.layouts.forEach((item) => {
         item.form_areas.forEach((ele) => {
           ele.form_lines.forEach((line) => {
@@ -540,31 +542,6 @@ export default {
   },
 
 
-  watch: {
-    // 用户每点击一次按钮，都触发添加组件动作
-    addCount(newVal) {
-      // 此处判断用户添加的按钮类型
-      // 依据类型向containList（内容列表）中添加其格式的预设参数
-      switch (this.addBtn) {
-        // *****基础控件*****
-        // 输入框
-        case "basic_Input":
-          // this.containList.layouts.push({
-          //   type: "basic_Input",
-          // });
-          // console.log(this.form)
-          break;
-        // *****布局控件*****
-        // 表格控件
-        case "layout_Form":
-          this.init_layout_Form();
-          break;
-        default:
-          break;
-      }
-      // return result;
-    },
-  },
 };
 </script>
 

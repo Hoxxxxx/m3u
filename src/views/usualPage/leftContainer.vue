@@ -95,8 +95,8 @@ export default {
         this.$emit("activeBtn", this.activeBtn);
       }
     },
-    chooseLayOut(val) {
-      this.activeLayOut = val;
+    chooseLayOut(btn) {
+      this.activeLayOut = btn;
       this.$emit("activeLayOut", this.activeLayOut);
     },
   },
