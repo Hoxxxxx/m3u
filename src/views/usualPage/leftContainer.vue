@@ -42,18 +42,18 @@ export default {
       // 基础控件
       basicBtns: [
         {
-          icon: "el-icon-copy-document",
+          icon: "el-icon-edit-outline",
           label: "输入框",
           value: "basic_Input",
         },
         {
-          icon: "el-icon-copy-document",
-          label: "按钮全名称",
-          value: "basic_InputText",
+          icon: "el-icon-date",
+          label: "日期选择器",
+          value: "basic_DatePicker",
         },
         {
-          icon: "el-icon-copy-document",
-          label: "下拉选框",
+          icon: "el-icon-arrow-down",
+          label: "Select选择器",
           value: "basic_Select",
         },
         {
