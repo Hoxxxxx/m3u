@@ -132,7 +132,7 @@
                   :key="file_index"
                 >
                   <van-icon name="orders-o" size="30" />
-                  <span @click="download(file)">{{ file.filename }}</span>
+                  <span @click="download(file)">{{ file.filename.split('.')[0] }}</span>
                 </li>
               </ul>
             </div>
@@ -396,11 +396,13 @@ export default {
       });
     },
     // 文件下载
-    async download(file) {
+    download(file) {
       let u = navigator.userAgent;
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
-        window.open(file.fileaddr);
+        let name = file.filename.split('.')[0]
+        window.android.downloadFile(file.fileaddr,name)
+        // window.open(file.fileaddr);
         // if (this.formData.work_type == "usual") {
         //   window.open(file.fileaddr);
         // } else {
