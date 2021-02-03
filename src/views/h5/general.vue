@@ -266,7 +266,6 @@ import { h5OpenLoading } from "@/utils/utils.js";
 export default {
   data() {
     return {
-      options: [1, 2, 3],
       formData: {},
       // 底部操作栏
       showMore: false, //其他
