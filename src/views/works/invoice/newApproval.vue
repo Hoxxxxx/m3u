@@ -239,7 +239,7 @@
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa40') ? 'redPot' : ''">业务大类</span>
                 </div>
-                <div class="infobox selectbox middlebox">
+                <div class="infobox selectbox middlebox" :style="!table_able.includes('oaa40')?'background: #FCFDFF;':''">
                   <el-select v-model="tableData.oaa40" class="select" @change="YWDLchange"
                     :disabled="!table_able.includes('oaa40')">
                     <el-option

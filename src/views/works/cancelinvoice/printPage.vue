@@ -42,11 +42,11 @@
           </div>
           <div class="form_line lastline">
             <div class="titlebox">发货单号</div>
-            <div class="infobox">{{ showData.oaa41 }}</div>
+            <div class="infobox">{{ tableData.oaa41 }}</div>
             <div class="titlebox">发货日期</div>
-            <div class="infobox">{{ showData.oaa42 }}</div>
+            <div class="infobox">{{ tableData.oaa42 }}</div>
             <div class="titlebox">总金额</div>
-            <div class="infobox last_row">{{ showData.oaa43 }}</div>
+            <div class="infobox last_row">{{ tableData.oaa43 }}</div>
           </div>
           <!-- 退货信息 -->
           <div class="title_line">退货信息</div>
@@ -248,39 +248,45 @@ export default {
         {
           theadList: [
             {
-              label: '退货单号',
+              label: '会计科目',
               value: 'oab01_show'
             },
             {
-              label: '客户名称',
+              label: '项目',
               value: 'oab02_show'
             },
             {
-              label: '退货单日期',
+              label: '项目WBS',
               value: 'oab03_show'
             },
             {
-              label: '未开票金额',
+              label: '摘要',
               value: 'oab04'
             },
             {
-              label: '本次开票金额',
+              label: '金额',
               value: 'oab05'
             },
             {
-              label: '本次开票金额',
+              label: '数量',
               value: 'oab06'
             },
+          ],
+          tData: []
+        },
+        // 表格二
+        {
+          theadList: [
             {
-              label: '本次开票金额',
+              label: '单价',
               value: 'oab07'
             },
             {
-              label: '本次开票金额',
+              label: '核算项一',
               value: 'oab11'
             },
             {
-              label: '本次开票金额',
+              label: '核算项二',
               value: 'oab12'
             },
           ],

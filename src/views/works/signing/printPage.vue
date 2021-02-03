@@ -69,7 +69,7 @@
                 :key="index"
                 style="position: relative"
               >
-                <div class="titlebox">账户名称></div>
+                <div class="titlebox">账户名称</div>
                 <div class="infobox">{{ line.oac01 }}</div>
                 <div class="titlebox">银行账号</div>
                 <div class="infobox">{{ line.oac02 }}</div>

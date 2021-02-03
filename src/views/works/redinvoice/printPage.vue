@@ -170,8 +170,8 @@ export default {
         {
           theadList: [
             {
-              label: '商品名',
-              value: 'oab01'
+              label: '商品名称',
+              value: 'oab01_show'
             },
             {
               label: '数量',
@@ -183,7 +183,7 @@ export default {
             },
             {
               label: '税前金额',
-              value: 'oab03_show'
+              value: 'oab07'
             },
             {
               label: '税别',
@@ -193,14 +193,6 @@ export default {
               label: '税率',
               value: 'oab05_show'
             },
-            {
-              label: '税额',
-              value: 'oab06'
-            },
-            {
-              label: '含税金额',
-              value: 'oab07'
-            }
           ],
           tData: []
         },
@@ -208,21 +200,13 @@ export default {
         {
           theadList: [
             {
-              label: '含税金额（原币）',
-              value: 'oab07'
+              label: '税额',
+              value: 'oab06'
             },
             {
-              label: '税前金额（本币）',
-              value: 'sqjeBB'
-            },
-            {
-              label: '税额（本币）',
-              value: 'seBB'
-            },
-            {
-              label: '含税金额（本币）',
-              value: 'hsjeBB'
-            },
+              label: '税前金额',
+              value: 'oab04'
+            }
           ],
           tData: []
         },

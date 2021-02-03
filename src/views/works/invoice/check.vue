@@ -96,7 +96,7 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">业务大类</div>
-                <div class="infobox selectbox middlebox">
+                <div class="infobox selectbox middlebox" style="background: #FCFDFF;">
                   <el-select v-model="tableData.oaa40" class="select"
                     disabled>
                     <el-option
