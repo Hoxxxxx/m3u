@@ -60,7 +60,8 @@
                 />
               </div>
               <div v-if="item.form_type == 'select'">
-                <van-field
+                <div v-if="item.editable">
+                  <van-field
                   readonly
                   clickable
                   label-class="label"
@@ -70,15 +71,25 @@
                   is-link
                   placeholder="选择部门"
                   @click="openSelect(item)"
-                />
-                <van-popup v-model="item.showSelect" round position="bottom">
+                  />
+                  <van-popup v-model="item.showSelect" round position="bottom" >
                   <van-picker
                     show-toolbar
                     :columns="item.options"
                     @cancel="item.showSelect = false"
                     @confirm="onConfirm_select(item, $event)"
                   />
-                </van-popup>
+                  </van-popup>
+                </div>
+                <div v-else>
+                  <van-field
+                    v-model="item.show"
+                    :label="item.label"
+                    input-align="right"
+                    label-class="label"
+                    readonly
+                  />
+                </div>
               </div>
               <div v-if="item.form_type == 'table'" class="table">
                 <van-collapse v-model="item.name" accordion>
@@ -253,6 +264,7 @@ import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
 export default {
   data() {
     return {
+      options:[1,2,3],
       formData: {},
       // 底部操作栏
       showMore: false, //其他
