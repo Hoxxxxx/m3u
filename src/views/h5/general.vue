@@ -401,7 +401,7 @@ export default {
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
         alert(JSON.stringify(file))
-        window.android.downloadFile(file.fileaddr,file.filename)
+        window.androidLLCallback.downloadFile(file.fileaddr,file.filename)
         // window.open(file.fileaddr);
         // if (this.formData.work_type == "usual") {
         //   window.open(file.fileaddr);
