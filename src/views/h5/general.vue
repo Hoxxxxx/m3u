@@ -1,14 +1,13 @@
 <template>
   <div class="h5Home">
+    <div class="head">
+      <van-nav-bar
+        :title="formData.work_name"
+        left-arrow
+        @click-left="onClickLeft"
+      />
+    </div>
     <van-skeleton round :row="20" animate :loading="noDATA">
-      <div class="head">
-        <van-nav-bar
-          :title="formData.work_name"
-          left-arrow
-          @click-left="onClickLeft"
-        />
-        <!-- <header>{{ formData.work_name }}</header> -->
-      </div>
       <div class="cont">
         <van-tabs
           scrollspy
@@ -49,41 +48,54 @@
               />
               <div v-if="item.form_type == 'datetime'">
                 <van-cell
-                  :title="item.column_label"
-                  :value="item.default"
+                  :title="item.label"
+                  :value="item.value"
                   @click="openDate(item)"
                 />
                 <van-calendar
-                  v-model="item.show"
+                  v-model="item.showDate"
                   @confirm="onConfirm(item, $event)"
                   color="#409EFD"
                 />
               </div>
               <div v-if="item.form_type == 'select'">
-                <van-field
-                  readonly
-                  clickable
-                  label="部门"
-                  :value="item.default"
-                  is-link
-                  placeholder="选择部门"
-                  @click="openSelect(item)"
-                />
-                <van-popup v-model="item.show" round position="bottom">
-                  <van-picker
-                    show-toolbar
-                    :columns="item.options"
-                    @cancel="item.show = false"
-                    @confirm="onConfirm_select(item, $event)"
+                <div v-if="item.editable">
+                  <van-field
+                    readonly
+                    clickable
+                    label-class="label"
+                    input-align="right"
+                    :label="item.label"
+                    :value="item.value"
+                    is-link
+                    placeholder="选择部门"
+                    @click="openSelect(item)"
                   />
-                </van-popup>
+                  <van-popup v-model="item.showSelect" round position="bottom">
+                    <van-picker
+                      show-toolbar
+                      :columns="item.options"
+                      @cancel="item.showSelect = false"
+                      @confirm="onConfirm_select(item, $event)"
+                    />
+                  </van-popup>
+                </div>
+                <div v-else>
+                  <van-field
+                    v-model="item.show"
+                    :label="item.label"
+                    input-align="right"
+                    label-class="label"
+                    readonly
+                  />
+                </div>
               </div>
               <div v-if="item.form_type == 'table'" class="table">
                 <van-collapse v-model="item.name" accordion>
                   <van-collapse-item
                     v-for="(coll, coll_index) in item.son"
                     :key="coll_index"
-                    :title="`${group.sub_title}表（${coll_index + 1}）`"
+                    :title="`${item.label}表（${coll_index + 1}）`"
                     :name="`${coll_index}`"
                   >
                     <van-field
@@ -132,7 +144,9 @@
                   :key="file_index"
                 >
                   <van-icon name="orders-o" size="30" />
-                  <span @click="download(file)">{{ file.filename }}</span>
+                  <span @click="download(file)">{{
+                    file.filename.split(".")[0]
+                  }}</span>
                 </li>
               </ul>
             </div>
@@ -251,6 +265,7 @@ import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
 export default {
   data() {
     return {
+      options: [1, 2, 3],
       formData: {},
       // 底部操作栏
       showMore: false, //其他
@@ -271,10 +286,10 @@ export default {
     }
   },
   methods: {
-    //顶部返回 
-    onClickLeft(){
-      let url = `${process.env.VUE_APP_URL}/pmobile/index.php?fileurl=workclass&u=m&t=index&type=1`
-      window.location.href = url
+    //顶部返回
+    onClickLeft() {
+      let url = `${process.env.VUE_APP_URL}/pmobile/index.php?fileurl=workclass&u=m&t=index&type=1`;
+      window.location.href = url;
     },
     // 获取审核/查看页面数据
     geth5Data() {
@@ -338,19 +353,19 @@ export default {
     },
     //********* 内容区域操作 *****
     openDate(val) {
-      this.$set(val, "show", true);
+      this.$set(val, "showDate", true);
     },
     // 日期选择确认
     onConfirm(item, $event) {
-      item.show = false;
+      item.showDate = false;
       item.default = this.formatDate($event);
     },
     // 单选框
     openSelect(val) {
-      this.$set(val, "show", true);
+      this.$set(val, "showSelect", true);
     },
     onConfirm_select(item, $event) {
-      item.show = false;
+      item.showSelect = false;
       item.default = $event;
     },
     // 底部操作按钮区域
@@ -396,57 +411,11 @@ export default {
       });
     },
     // 文件下载
-    async download(file) {
+    download(file) {
       let u = navigator.userAgent;
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
-        window.open(file.fileaddr);
-        // if (this.formData.work_type == "usual") {
-        //   window.open(file.fileaddr);
-        // } else {
-        //   const { data: res } = await this.axios({
-        //     method: "get",
-        //     url: `files/download/${file.id}`,
-        //     responseType: "blob",
-        //   });
-        //   alert(res)
-        //   let fileName = file.filename;
-        //   let fileType = {
-        //     doc: "application/msword",
-        //     docx:
-        //       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        //     xls: "application/vnd.ms-excel",
-        //     xlsx:
-        //       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        //     ppt: "application/vnd.ms-powerpoint",
-        //     pptx:
-        //       "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        //     pdf: "application/pdf",
-        //     txt: "text/plain",
-        //     png: "image/png",
-        //     jpg: "image/jpeg",
-        //     jpeg: "image/jpeg",
-        //     zip: "application/zip",
-        //     rar: "application/x-rar",
-        //   };
-        //   let type = fileName.split(".")[1]; //获取文件后缀名
-        //   let blob = new Blob([res], {
-        //     type: fileType.type,
-        //   });
-        //   let url = window.URL.createObjectURL(blob);
-        //   let link = document.createElement("a");
-        //   link.style.display = "none";
-        //   link.href = url;
-        //   link.setAttribute("download", fileName);
-        //   document.body.appendChild(link);
-        //   link.click();
-        //   // document.body.removeChild(link);
-        //   // window.URL.revokeObjectURL(url);
-        //   setTimeout(() => {
-        //     window.URL.revokeObjectURL(url); // 释放URL 对象
-        //     document.body.removeChild(link);	//移除a标签
-        //   }, 1000);
-        // }
+        window.androidLLCallback.downloadFile(file.fileaddr, file.filename);
       } else if (u.indexOf("iPhone") > -1) {
         //苹果手机
         this.$toast({
