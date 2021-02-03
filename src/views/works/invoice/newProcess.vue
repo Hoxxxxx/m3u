@@ -837,8 +837,8 @@ export default {
           sessionStorage.getItem('OrgId')==1?
           '0000-0000'
           :sessionStorage.getItem('OrgId')==2?
-          'LDHNF001-0001'
-          :'00000000-0000', //业务明细
+          '0000-0000'
+          :'0000-0000', //业务明细
         oaa15: "", //备注
         oaa98: "", //说明
         // 表格部分

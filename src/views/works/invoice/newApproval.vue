@@ -1210,7 +1210,7 @@ export default {
         oaa34: "", //发货时间
         oaa36: "", //发票号码
         oaa40_show: "", //业务大类
-        oaa41_show: "公用项目", //业务明细
+        oaa41_show: "", //业务明细
       },
       oabType: "", //核算项类型
       fixedData: {
