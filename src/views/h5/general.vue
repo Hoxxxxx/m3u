@@ -132,7 +132,7 @@
                   :key="file_index"
                 >
                   <van-icon name="orders-o" size="30" />
-                  <span @click="download(file)">{{ file.filename }}</span>
+                  <span @click="download(file)">{{ file.filename.split('.')[0] }}</span>
                 </li>
               </ul>
             </div>
