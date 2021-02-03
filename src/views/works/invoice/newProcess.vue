@@ -1432,6 +1432,24 @@ export default {
       linesList(params).then((res) => {
         if (res.status == 200) {
           this.fixedData.linesList = res.data;
+          // this.fixedData.linesList = [{
+          //   "code": "Y0001",
+          //   "name": "运营商业务",
+          //   "category_code": "0001",
+          //   "category_name": "全媒体版权发行业务"
+          // },
+          // {
+          //   "code": "Y0002",
+          //   "name": "新媒体业务",
+          //   "category_code": "0001",
+          //   "category_name": "全媒体版权发行业务"
+          // },
+          // {
+          //   "code": "Y0003",
+          //   "name": "外包业务",
+          //   "category_code": "0005",
+          //   "category_name": "其他服务"
+          // }]
         } else {
           this.$message.error(res.error.message);
         }
