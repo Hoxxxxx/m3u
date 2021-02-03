@@ -1,14 +1,13 @@
 <template>
   <div class="h5Home">
+    <div class="head">
+      <van-nav-bar
+        :title="formData.work_name"
+        left-arrow
+        @click-left="onClickLeft"
+      />
+    </div>
     <van-skeleton round :row="20" animate :loading="noDATA">
-      <div class="head">
-        <van-nav-bar
-          :title="formData.work_name"
-          left-arrow
-          @click-left="onClickLeft"
-        />
-        <!-- <header>{{ formData.work_name }}</header> -->
-      </div>
       <div class="cont">
         <van-tabs
           scrollspy
@@ -62,23 +61,23 @@
               <div v-if="item.form_type == 'select'">
                 <div v-if="item.editable">
                   <van-field
-                  readonly
-                  clickable
-                  label-class="label"
-                  input-align="right"
-                  :label="item.label"
-                  :value="item.value"
-                  is-link
-                  placeholder="选择部门"
-                  @click="openSelect(item)"
+                    readonly
+                    clickable
+                    label-class="label"
+                    input-align="right"
+                    :label="item.label"
+                    :value="item.value"
+                    is-link
+                    placeholder="选择部门"
+                    @click="openSelect(item)"
                   />
-                  <van-popup v-model="item.showSelect" round position="bottom" >
-                  <van-picker
-                    show-toolbar
-                    :columns="item.options"
-                    @cancel="item.showSelect = false"
-                    @confirm="onConfirm_select(item, $event)"
-                  />
+                  <van-popup v-model="item.showSelect" round position="bottom">
+                    <van-picker
+                      show-toolbar
+                      :columns="item.options"
+                      @cancel="item.showSelect = false"
+                      @confirm="onConfirm_select(item, $event)"
+                    />
                   </van-popup>
                 </div>
                 <div v-else>
@@ -145,7 +144,9 @@
                   :key="file_index"
                 >
                   <van-icon name="orders-o" size="30" />
-                  <span @click="download(file)">{{ file.filename.split('.')[0] }}</span>
+                  <span @click="download(file)">{{
+                    file.filename.split(".")[0]
+                  }}</span>
                 </li>
               </ul>
             </div>
@@ -264,7 +265,7 @@ import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
 export default {
   data() {
     return {
-      options:[1,2,3],
+      options: [1, 2, 3],
       formData: {},
       // 底部操作栏
       showMore: false, //其他
@@ -285,10 +286,10 @@ export default {
     }
   },
   methods: {
-    //顶部返回 
-    onClickLeft(){
-      let url = `${process.env.VUE_APP_URL}/pmobile/index.php?fileurl=workclass&u=m&t=index&type=1`
-      window.location.href = url
+    //顶部返回
+    onClickLeft() {
+      let url = `${process.env.VUE_APP_URL}/pmobile/index.php?fileurl=workclass&u=m&t=index&type=1`;
+      window.location.href = url;
     },
     // 获取审核/查看页面数据
     geth5Data() {
@@ -414,7 +415,7 @@ export default {
       let u = navigator.userAgent;
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
-        window.androidLLCallback.downloadFile(file.fileaddr,file.filename)
+        window.androidLLCallback.downloadFile(file.fileaddr, file.filename);
         // window.open(file.fileaddr);
         // if (this.formData.work_type == "usual") {
         //   window.open(file.fileaddr);
