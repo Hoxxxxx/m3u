@@ -95,20 +95,26 @@
                 </div>
               </div>
               <div class="form_line">
-                <div class="titlebox">业务大类</div>
-                <div class="infobox selectbox middlebox" style="background: #FCFDFF;">
-                  <el-select v-model="tableData.oaa40" class="select"
+                <div class="titlebox">业务线</div>
+                <div class="infobox selectbox" style="background: #FCFDFF;">
+                  <el-select 
+                    v-model="tableData.oaa42" 
+                    class="select"
                     disabled>
                     <el-option
-                      v-for="item in fixedData.gjaList"
-                      :key="item.gja01"
-                      :label="item.gja02"
-                      :value="item.gja01">
+                      v-for="item in fixedData.linesList"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code">
                     </el-option>
                   </el-select>
                 </div>
+                <div class="titlebox">业务大类</div>
+                <div class="infobox editNot">
+                  {{ tableData.oaa40_show }}
+                </div>
                 <div class="titlebox">业务明细</div>
-                <div class="infobox middlebox editNot">
+                <div class="infobox editNot">
                   {{ tableData.oaa41_show }}
                 </div>
               </div>
@@ -496,7 +502,8 @@
 import { workflowsList, } from "@/api/process_new.js"
 import { number_chinese, OpenLoading } from "@/utils/utils.js";
 import {
-  gjaList,
+  userInfo,
+  linesList,
 } from "@/api/basic.js";
 
 export default {
@@ -554,7 +561,7 @@ export default {
       },
       fixedData: {
         // gja
-        gjaList: [],
+        linesList: [],
       },
       // 当前流程列表
       workclass_perflow: [],
@@ -564,17 +571,16 @@ export default {
     this.workid = this.$route.query.workid ? this.$route.query.workid : 6035
     // this.workid = 4512
     this.getworkflows()
-    this.getGja()
   },
   methods: {
-    // gja列表
-    getGja() {
+    // Lines列表
+    getLines(D_id) {
       const params = {
-        keyword: ''
+        department_id: D_id
       }
-      gjaList(params).then((res) => {
+      linesList(params).then((res) => {
         if (res.status == 200) {
-          this.fixedData.gjaList = res.data;
+          this.fixedData.linesList = res.data;
         } else {
           this.$message.error(res.error.message);
         }
@@ -615,6 +621,12 @@ export default {
               })
             })
           }
+          userInfo(this.tableData.oaa03)
+          .then(res => {
+            if(res.status == 200){
+              this.getLines(res.data.department_id)
+            }
+          })
         }else{
           loading.close()
           clearTimeout(this.overloading)

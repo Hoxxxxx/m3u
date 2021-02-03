@@ -60,10 +60,12 @@
             <div class="infobox middlebox last_row">{{tableData.oaa14}}</div>
           </div>
           <div class="form_line">
+            <div class="titlebox">业务线</div>
+            <div class="infobox selectbox">{{showData.oaa42_show}}</div>
             <div class="titlebox">业务大类</div>
-            <div class="infobox selectbox middlebox">{{tableData.oaa40}}</div>
+            <div class="infobox selectbox">{{tableData.oaa40_show}}</div>
             <div class="titlebox">业务明细</div>
-            <div class="infobox middlebox last_row">{{ tableData.oaa41_show }}</div>
+            <div class="infobox last_row">{{ tableData.oaa41_show }}</div>
           </div>
           <div class="form_line">
             <div class="titlebox">备注</div>
@@ -235,6 +237,10 @@
 <script>
 import { workflowsList, } from "@/api/process_new.js"
 import { timeFmt, number_chinese, OpenLoading } from "@/utils/utils.js";
+import {
+  userInfo,
+  linesList,
+} from "@/api/basic.js";
 
 export default {
   data() {
@@ -324,6 +330,7 @@ export default {
         expenseMoneyF: "", //报销金额大写
         oaa13_rate:0,//税率
         oab04_show: "", //默认摘要
+        oaa42_show: "", //业务线
       },
       tableData: {
         // 基本信息
@@ -357,6 +364,9 @@ export default {
         oaa34:"",//发货时间
         oaa36:"",//发票号码
       },
+      fixedData: {
+        linesList: [],
+      },
       oazShow: 0, //是否显示财务信息（当前人是否是出纳）0：否 1：是
       fileList_user: [],
       addParams: {
@@ -370,10 +380,27 @@ export default {
   },
   created() {
     this.workid = this.$route.query.workid ? this.$route.query.workid: 6035
-    // this.workid = 4512
     this.getworkflows()
   },
   methods: {
+    // Lines列表
+    getLines(D_id) {
+      const params = {
+        department_id: D_id
+      }
+      linesList(params).then((res) => {
+        if (res.status == 200) {
+          this.fixedData.linesList = res.data;
+          this.fixedData.linesList.forEach( val => {
+            if (val.code == this.tableData.oaa42){
+              this.showData.oaa42_show = val.name
+            }
+          })
+        } else {
+          this.$message.error(res.error.message);
+        }
+      });
+    },
     goPrint() {
       let routeUrl = this.$router.resolve({
         path: "printPage",
@@ -409,6 +436,12 @@ export default {
               })
             })
           }
+          userInfo(this.tableData.oaa03)
+          .then(res => {
+            if(res.status == 200){
+              this.getLines(res.data.department_id)
+            }
+          })
           setTimeout(() => {
             // 打印
             window.print()

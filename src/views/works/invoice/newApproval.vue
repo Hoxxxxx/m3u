@@ -237,27 +237,34 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa40') ? 'redPot' : ''">业务大类</span>
+                  <span :class="form_must_able.includes('oaa42') ? 'redPot' : ''">业务线</span>
                 </div>
-                <div class="infobox selectbox middlebox" :style="!table_able.includes('oaa40')?'background: #FCFDFF;':''">
-                  <el-select v-model="tableData.oaa40" class="select" @change="YWDLchange"
-                    :disabled="!table_able.includes('oaa40')">
+                <div class="infobox selectbox" :style="!table_able.includes('oaa42')?'background: #FCFDFF;':''">
+                  <el-select 
+                    v-model="tableData.oaa42" 
+                    class="select" 
+                    @change="LineChange"
+                    :disabled="!table_able.includes('oaa42')">
                     <el-option
-                      v-for="item in fixedData.gjaList"
-                      :key="item.gja01"
-                      :label="item.gja02"
-                      :value="item.gja01">
+                      v-for="item in fixedData.linesList"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code">
                     </el-option>
                   </el-select>
                 </div>
                 <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa40') ? 'redPot' : ''">业务大类</span>
+                </div>
+                <div class="infobox editNot">{{ tableData.oaa40_show }}</div>
+                <div class="titlebox">
                   <span :class="form_must_able.includes('oaa41') ? 'redPot' : ''">业务明细</span>
                 </div>
-                <div class="infobox middlebox editNot"
+                <div class="infobox editNot last_row"
                   v-if="!table_able.includes('oaa41')" >
                   {{ tableData.oaa41_show }}
                 </div>
-                <div class="infobox last_row middlebox selectbox"
+                <div class="infobox last_row selectbox"
                   v-if="table_able.includes('oaa41')">
                   <div class="selector" @click="selectDialog('YWMX')">
                     {{ tableData.oaa41_show }}
@@ -1138,7 +1145,8 @@ import {
   aagsList,
   pjasList,
   custInfo,
-  gjaList,
+  userInfo,
+  linesList,
   contracsInfo,
 } from "@/api/basic.js";
 
@@ -1201,6 +1209,8 @@ export default {
         oaa33: "", //回款方式
         oaa34: "", //发货时间
         oaa36: "", //发票号码
+        oaa40_show: "", //业务大类
+        oaa41_show: "公用项目", //业务明细
       },
       oabType: "", //核算项类型
       fixedData: {
@@ -1208,8 +1218,8 @@ export default {
         cointypes: [],
         //支付方式
         payTypes: [],
-        // gja
-        gjaList: [],
+        // linesList
+        linesList: [],
         oaa12_type: 1
       },
       table_able: [], //表格可编辑项
@@ -1368,7 +1378,6 @@ export default {
     this.getworkflows();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
-    this.getGja()
   },
   watch: {
     // 摘要
@@ -1517,13 +1526,20 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
-    YWDLchange() {
-      this.showData.oab11_show = this.tableData.oaa40
-      // this.tableData.oab.forEach( item => {
-      //   if (item.oab11 !== this.tableData.oaa40){
-      //     item.oab11 = this.tableData.oaa40
-      //   }
-      // })
+    LineChange() {
+      this.fixedData.linesList.forEach( val => {
+        if (val.code == this.tableData.oaa42){
+          this.tableData.oaa40 = val.category_code
+          this.tableData.oaa40_show = val.category_name
+
+          this.showData.oab11_show = this.tableData.oaa40
+          // this.tableData.oab.forEach( item => {
+          //   if (item.oab11 !== this.tableData.oaa40){
+          //     item.oab11 = this.tableData.oaa40
+          //   }
+          // })
+        }
+      })
     },
     // 查看更多
     seeMore(url) {
@@ -1572,6 +1588,12 @@ export default {
               });
             });
           }
+          userInfo(this.tableData.oaa03)
+          .then(res => {
+            if(res.status == 200){
+              this.getLines(res.data.department_id)
+            }
+          })
         } else {
           loading.close();
           clearTimeout(this.overloading);
@@ -1955,13 +1977,13 @@ export default {
       });
     },
     // gja列表
-    getGja() {
+    getLines(D_id) {
       const params = {
-        keyword: ''
+        department_id: D_id
       }
-      gjaList(params).then((res) => {
+      linesList(params).then((res) => {
         if (res.status == 200) {
-          this.fixedData.gjaList = res.data;
+          this.fixedData.linesList = res.data;
         } else {
           this.$message.error(res.error.message);
         }
