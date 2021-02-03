@@ -6,13 +6,29 @@ export function OpenLoading(val, type,delay = 15000) { // type=1：普通请求�
     spinner: "el-icon-loading",
     background: "rgba(0, 0, 0, 0.2)",
   });
-  val.overloading = setTimeout(function () { // 设定定时器，超时5S后自动关闭遮罩层，避免请求失败时，遮罩层一直存在的问题
+  val.overloading = setTimeout(function () { // 设定定时器，超时15S后自动关闭遮罩层，避免请求失败时，遮罩层一直存在的问题
     loading.close(); // 关闭遮罩层
     if (type == 1) {
       val.$message.warning('网络问题，请稍候重试！');
     } else if (type == 2) {
       val.$message.warning('网络问题，请稍候刷新页面重试！');
     }
+  }, delay)
+  return loading;
+}
+export function h5OpenLoading(val,delay = 15000) {
+  const loading = val.$loading({
+    lock: true,
+    text: "加载中",
+    spinner: "el-icon-loading",
+    background: "rgba(0, 0, 0, 0.2)",
+  });
+  val.overloading = setTimeout(function () { // 设定定时器，超时15S后自动关闭遮罩层，避免请求失败时，遮罩层一直存在的问题
+    loading.close(); // 关闭遮罩层
+    val.$toast({
+      type: "fail",
+      message: "网络问题，请稍候刷新页面重试！",
+    });
   }, delay)
   return loading;
 }

@@ -262,6 +262,7 @@
 <script>
 import { Toast } from "vant";
 import { h5Data, h5DataAdd, h5NewProcess } from "@/api/process_new";
+import { h5OpenLoading } from "@/utils/utils.js";
 export default {
   data() {
     return {
@@ -272,8 +273,8 @@ export default {
       actions: [],
       type: null, //当前页面类型：查看、新增、审核  type=1就是审核  type=2 新增  type=3 查看
       noDATA: true, //控制显示骨架屏
-      type: null,
       workid: "",
+      overloading: null, //加载定时器
     };
   },
   created() {
@@ -297,14 +298,10 @@ export default {
         workid: this.workid,
         type: this.type,
       };
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+      const loading = h5OpenLoading(this);
       h5Data(params).then((res) => {
         if (res.status == 200) {
+          loading.close();
           this.noDATA = false;
           let flow1 = {
             sub_title: "附件信息",
@@ -321,9 +318,10 @@ export default {
           this.actions = res.data.workclass_info.more;
           this.formData = res.data;
         } else {
+          loading.close();
           Toast.fail("数据获取失败，请重新加载！");
         }
-        loading.close();
+        clearTimeout(this.overloading);
       });
     },
     // 获取新增流程信息
@@ -331,21 +329,20 @@ export default {
       let params = {
         tplid: 8950,
       };
-      this.$toast.loading({
-        message: "加载中...",
-        duration: 0,
-      });
+      const loading = h5OpenLoading(this);
       h5DataAdd(params).then((res) => {
         if (res.status == 200) {
+          loading.close();
           this.noDATA = false;
           this.formData = res.data;
         } else {
+          loading.close();
           this.$toast({
             type: "fail",
             message: "数据获取失败！",
           });
         }
-        this.$toast.clear();
+        clearTimeout(this.overloading);
       });
     },
     formatDate(date) {
