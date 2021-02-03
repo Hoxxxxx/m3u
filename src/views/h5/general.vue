@@ -132,7 +132,7 @@
                   :key="file_index"
                 >
                   <van-icon name="orders-o" size="30" />
-                  <span @click="download(file)">{{ file.filename.split('.')[0] }}</span>
+                  <span @click="download(file)">{{ file.filename }}</span>
                 </li>
               </ul>
             </div>
@@ -400,8 +400,7 @@ export default {
       let u = navigator.userAgent;
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
-        let name = file.filename.split('.')[0]
-        window.android.downloadFile(file.fileaddr,name)
+        window.android.downloadFile(file.fileaddr,file.filename)
         // window.open(file.fileaddr);
         // if (this.formData.work_type == "usual") {
         //   window.open(file.fileaddr);
