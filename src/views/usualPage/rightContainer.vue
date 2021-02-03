@@ -56,6 +56,7 @@ export default {
     addBtn: String,
     layoutCount: Number,
     layoutBtn: String,
+    chooseInfo: Object,
   },
   data() {
     return {
@@ -72,8 +73,32 @@ export default {
 
     }
   },
-  methods: {
-    //表格控件
+  watch: {
+    // 用户每选中一个元素
+    chooseInfo(newVal) {
+      // 重置属性及表单
+      this.formItems = []
+      this.basic_form = {}
+      // 检索选择类型
+      switch (this.chooseInfo.type) {
+        // ********layout_Form********
+        case 'area' :
+          console.log(this.chooseInfo)
+        break;
+        case 'line' :
+          console.log(this.chooseInfo)
+        break;
+        case 'td' :
+          console.log(this.chooseInfo)
+        break;
+      
+        default:
+        break;
+      }
+    },
+    
+    methods: {
+    // ********layout_Form********
     init_layout_Form() {
       // 更新赋值属性列表
       this.formItems.push({
@@ -95,37 +120,6 @@ export default {
     },
     
   },
-  watch: {
-    // 用户每点击一次左侧边栏按钮，都触发添加组件动作
-    addCount(newVal) {
-      // 重置属性及表单
-      this.formItems = []
-      this.basic_form = {}
-      // 依据添加的按钮类型向containList（内容列表）中添加其格式的预设参数
-      switch (this.addBtn) {
-        // *****基础控件*****
-      
-        default:
-        break;
-      }
-    },
-
-    layoutCount(newVal) {
-      // 重置属性及表单
-      this.formItems = []
-      this.basic_form = {}
-      // 依据添加的按钮类型向containList（内容列表）中添加其格式的预设参数
-      switch (this.layoutBtn) {
-        // *****布局控件*****
-        // 表格控件
-        case 'layout_Form':
-          this.init_layout_Form()
-        break;
-
-        default:
-        break;
-      }
-    },
     
   }
 }

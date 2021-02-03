@@ -413,19 +413,16 @@ export default {
     },
     // 选择内容区域
     choose_areaItem(index, area_Index) {
-      this.cleanActive_areaItem();
-      this.cleanActive_FormLine();
-      this.cleanActive_layout_td();
-      this.containList.layouts[index].form_areas[
-        area_Index
-      ].active_status = true;
-      if (this.containList.layouts[index].form_areas[area_Index]) {
-        this.cleanActive_areaItem();
-        this.cleanActive_FormLine();
-        this.cleanActive_layout_td();
-        this.containList.layouts[index].form_areas[
-          area_Index
-        ].active_status = true;
+      if(this.containList.layouts[index].form_areas[area_Index]){
+        this.cleanActive_areaItem()
+        this.cleanActive_FormLine()
+        this.cleanActive_layout_td()
+        this.containList.layouts[index].form_areas[area_Index].active_status = true;
+        this.$emit('choose_Form', {
+          type: 'area',
+          index: index,
+          area_Index: area_Index
+        })
       }
     },
     // 复制内容区域
@@ -474,6 +471,12 @@ export default {
           line_Index
         ].active_status = true;
         // console.log(index, area_Index, line_Index);
+        this.$emit('choose_Form', {
+          type: 'line',
+          index: index,
+          area_Index: area_Index,
+          line_Index: line_Index
+        })
       }
     },
     // 复制表格行
@@ -528,18 +531,9 @@ export default {
     },
     // 选中单个td
     choose_layout_td(index, area_Index, line_Index, td_key) {
-      this.cleanActive_areaItem();
-      this.cleanActive_FormLine();
-      this.cleanActive_layout_td();
-      this.containList.layouts.forEach((item) => {
-        item.form_areas.forEach((ele) => {
-          ele.form_lines.forEach((line) => {
-            line.form_tds.forEach((td) => {
-              td.active_status = false;
-            });
-          });
-        });
-      });
+      this.cleanActive_areaItem()
+      this.cleanActive_FormLine()
+      this.cleanActive_layout_td()
       this.containList.layouts[index].form_areas[area_Index].form_lines[
         line_Index
       ].form_tds[td_key].active_status = true;
@@ -550,6 +544,13 @@ export default {
         td_Index: td_key, //当前选中的单元格
       };
       this.CHANGE_CHOOSEDTD(data);
+      this.$emit('choose_Form', {
+        type: 'td',
+        index: index,
+        area_Index: area_Index,
+        line_Index: line_Index,
+        td_Index: td_key
+      })
     },
   },
 };
