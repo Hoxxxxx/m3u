@@ -802,8 +802,8 @@ export default {
           sessionStorage.getItem('OrgId')==1?
           '0000-0000'
           :sessionStorage.getItem('OrgId')==2?
-          'LDHNF001-0001'
-          :'00000000-0000', //默认WBS
+          '0000-0000'
+          :'0000-0000', //默认WBS
         oab03_show_default: "公用项目",
         oab07_show: "", // 单价
         oab11_show: "", //核算项一
@@ -811,8 +811,8 @@ export default {
           sessionStorage.getItem('OrgId')==1?
           '0000-0000'
           :sessionStorage.getItem('OrgId')==2?
-          'LDHNF001-0001'
-          :'00000000-0000', //核算项一
+          '0000-0000'
+          :'0000-0000', //核算项一
       },
       tableData: {
         // 基本信息
