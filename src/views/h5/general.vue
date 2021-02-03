@@ -95,7 +95,7 @@
                   <van-collapse-item
                     v-for="(coll, coll_index) in item.son"
                     :key="coll_index"
-                    :title="`${group.sub_title}表（${coll_index + 1}）`"
+                    :title="`${item.label}表（${coll_index + 1}）`"
                     :name="`${coll_index}`"
                   >
                     <van-field
@@ -416,53 +416,6 @@ export default {
       if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
         //安卓手机
         window.androidLLCallback.downloadFile(file.fileaddr, file.filename);
-        // window.open(file.fileaddr);
-        // if (this.formData.work_type == "usual") {
-        //   window.open(file.fileaddr);
-        // } else {
-        //   const { data: res } = await this.axios({
-        //     method: "get",
-        //     url: `files/download/${file.id}`,
-        //     responseType: "blob",
-        //   });
-        //   alert(res)
-        //   let fileName = file.filename;
-        //   let fileType = {
-        //     doc: "application/msword",
-        //     docx:
-        //       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        //     xls: "application/vnd.ms-excel",
-        //     xlsx:
-        //       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        //     ppt: "application/vnd.ms-powerpoint",
-        //     pptx:
-        //       "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        //     pdf: "application/pdf",
-        //     txt: "text/plain",
-        //     png: "image/png",
-        //     jpg: "image/jpeg",
-        //     jpeg: "image/jpeg",
-        //     zip: "application/zip",
-        //     rar: "application/x-rar",
-        //   };
-        //   let type = fileName.split(".")[1]; //获取文件后缀名
-        //   let blob = new Blob([res], {
-        //     type: fileType.type,
-        //   });
-        //   let url = window.URL.createObjectURL(blob);
-        //   let link = document.createElement("a");
-        //   link.style.display = "none";
-        //   link.href = url;
-        //   link.setAttribute("download", fileName);
-        //   document.body.appendChild(link);
-        //   link.click();
-        //   // document.body.removeChild(link);
-        //   // window.URL.revokeObjectURL(url);
-        //   setTimeout(() => {
-        //     window.URL.revokeObjectURL(url); // 释放URL 对象
-        //     document.body.removeChild(link);	//移除a标签
-        //   }, 1000);
-        // }
       } else if (u.indexOf("iPhone") > -1) {
         //苹果手机
         this.$toast({
