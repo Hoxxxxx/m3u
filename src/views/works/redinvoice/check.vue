@@ -68,7 +68,7 @@
                   :cell-style="{ background: '#fff', color: '#666666' }"
                 >
                   <el-table-column
-                    prop="oab01"
+                    prop="oab01_show"
                     label="商品名称"
                     min-width="130px"
                     align="center"

@@ -175,7 +175,7 @@
           <!-- 应收明细 -->
           <div class="title_line">应收明细</div>
           <!-- 拆分成几组表格 -->
-          <div class="inner_Table" v-for="(F_item, F_index) in tableBox_invoice" :key="'oab'+F_index">
+          <div class="inner_Table" v-for="(F_item, F_index) in tableBox_oab" :key="'oab'+F_index">
             <!-- 有几个表头 -->
             <div class="tDataBox" v-for="(S_item, S_index) in F_item.theadList" :key="S_index">
               <div class="thead">{{S_item.label}}</div>
@@ -244,49 +244,53 @@ export default {
       workid: '',
       workname: '发货申请单',
       activeTab: "firTab",
-      tableBox_invoice: [
+      tableBox_oab: [
         // 表格一
         {
           theadList: [
             {
-              label: '发货单号',
+              label: '会计科目',
               value: 'oab01_show'
             },
             {
-              label: '客户名称',
+              label: '项目',
               value: 'oab02_show'
             },
             {
-              label: '发货单日期',
+              label: '项目WBS',
               value: 'oab03_show'
             },
             {
-              label: '未开票金额',
+              label: '摘要',
               value: 'oab04'
             },
             {
-              label: '本次开票金额',
+              label: '金额',
               value: 'oab05'
             },
             {
-              label: '本次开票金额',
+              label: '数量',
               value: 'oab06'
-            },
-            {
-              label: '本次开票金额',
-              value: 'oab07'
-            },
-            {
-              label: '本次开票金额',
-              value: 'oab11'
-            },
-            {
-              label: '本次开票金额',
-              value: 'oab12'
             },
           ],
           tData: []
         },
+        {
+          theadList: [
+            {
+              label: '单价',
+              value: 'oab07'
+            },
+            {
+              label: '核算项一',
+              value: 'oab11'
+            },
+            {
+              label: '核算项二',
+              value: 'oab12'
+            },
+          ]
+        }
       ],
       tableBox_oac:[
         {
