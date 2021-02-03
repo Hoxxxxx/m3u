@@ -49,12 +49,12 @@
               />
               <div v-if="item.form_type == 'datetime'">
                 <van-cell
-                  :title="item.column_label"
-                  :value="item.default"
+                  :title="item.label"
+                  :value="item.value"
                   @click="openDate(item)"
                 />
                 <van-calendar
-                  v-model="item.show"
+                  v-model="item.showDate"
                   @confirm="onConfirm(item, $event)"
                   color="#409EFD"
                 />
@@ -63,17 +63,19 @@
                 <van-field
                   readonly
                   clickable
-                  label="部门"
-                  :value="item.default"
+                  label-class="label"
+                  input-align="right"
+                  :label="item.label"
+                  :value="item.value"
                   is-link
                   placeholder="选择部门"
                   @click="openSelect(item)"
                 />
-                <van-popup v-model="item.show" round position="bottom">
+                <van-popup v-model="item.showSelect" round position="bottom">
                   <van-picker
                     show-toolbar
                     :columns="item.options"
-                    @cancel="item.show = false"
+                    @cancel="item.showSelect = false"
                     @confirm="onConfirm_select(item, $event)"
                   />
                 </van-popup>
@@ -338,19 +340,19 @@ export default {
     },
     //********* 内容区域操作 *****
     openDate(val) {
-      this.$set(val, "show", true);
+      this.$set(val, "showDate", true);
     },
     // 日期选择确认
     onConfirm(item, $event) {
-      item.show = false;
+      item.showDate = false;
       item.default = this.formatDate($event);
     },
     // 单选框
     openSelect(val) {
-      this.$set(val, "show", true);
+      this.$set(val, "showSelect", true);
     },
     onConfirm_select(item, $event) {
-      item.show = false;
+      item.showSelect = false;
       item.default = $event;
     },
     // 底部操作按钮区域
