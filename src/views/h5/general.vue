@@ -314,6 +314,12 @@ export default {
           };
           flow.groups = res.data.workclass_perflow;
           res.data.form_layout.push(flow);
+          // erp_turn等于0时的财务信息不显示
+          if(res.data.workclass_flow.erp_turn == 0){
+            res.data.form_layout = res.data.form_layout.filter((item)=>{
+              return item.sub_title != "财务信息"
+            })
+          }
           this.actions = res.data.workclass_info.more;
           this.formData = res.data;
         } else {
