@@ -44,7 +44,7 @@
                 clearable
                 :required="item.required"
                 :readonly="!item.editable"
-                :placeholder="`请输入${item.label == '' ? '' : item.label}`"
+                :placeholder="item.editable ? `请输入${item.label == '' ? '' : item.label}` : '暂无数据'"
               />
               <div v-if="item.form_type == 'datetime'">
                 <van-cell
