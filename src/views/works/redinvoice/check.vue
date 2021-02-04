@@ -141,6 +141,12 @@
                   </ul>
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox required">说明</div>
+                <div class="infobox longbox" style="width: 100%">
+                  {{tableData.oaa17}}
+                </div>
+              </div>
               
               <!-- 财务信息 -->
               <div v-if="oazShow == 1">
