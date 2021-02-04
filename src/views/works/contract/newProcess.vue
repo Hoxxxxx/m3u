@@ -45,10 +45,12 @@
                   </div>
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa04') ? 'redPot' : ''">所属部门</span>
+                  <span :class="form_must.includes('oaa06') ? 'redPot' : ''">所属部门</span>
                 </div>
-                <div class="infobox editNot last_row">
-                  {{ showData.oaa04_gen04 }}
+                <div class="infobox selectbox last_row">
+                  <div class="selector" @click="selectDialog('BM')">
+                    {{ showData.oaa06_show }}
+                  </div>
                 </div>
               </div>
               <div class="form_line lastline">
@@ -366,10 +368,8 @@ export default {
       tableHead: {
         // 申请人
         head_SQR: [
-          { name: "gen01", title: "员工编号" },
-          { name: "gen02", title: "员工名称" },
-          { name: "gen03", title: "所属部门编号" },
-          { name: "gen04", title: "所属部门" },
+          { name: "id", title: "申请人ID" },
+          { name: "name", title: "申请人名称" },
         ],
         head_XM: [
           { name: "pja01", title: "项目编号" },
@@ -379,8 +379,8 @@ export default {
           { name: "pja13", title: "项目预计总额" },
         ],
         head_BM: [
+          { name: "id", title: "部门ID" },
           { name: "name", title: "部门名称" },
-          { name: "id", title: "ID" }
         ],
         head_GYS: [
           { name: "pmc01", title: "供应厂商编号" },
@@ -668,9 +668,9 @@ export default {
           this.dataSelect.filter = filter_SQR;
           this.dataSelect.searchType = "single";
           this.dataSelect.editType = "entry";
-          this.dataSelect.searchApi = "meta/gens";
+          this.dataSelect.searchApi = "oa/users";
           this.dataSelect.headList = this.tableHead.head_SQR;
-          this.dataSelect.dialogTitle = "员工列表";
+          this.dataSelect.dialogTitle = "申请人列表";
           break;
         case "JBR":
           let filter_JBR = [{ label: "", model_key_search: "keyword" }];
@@ -725,10 +725,8 @@ export default {
       if (val.length > 0) {
         switch (this.dataSelect.cur_input) {
           case "SQR":
-            this.tableData.oaa04 = val[0].gen01;
-            this.showData.oaa04_show = val[0].gen02;
-            this.showData.oaa04_gen01 = val[0].gen01;
-            this.showData.oaa04_gen04 = val[0].gen04;
+            this.tableData.oaa04 = val[0].id;
+            this.showData.oaa04_show = val[0].name;
             break;
           case "JBR":
             this.tableData.oaa03 = val[0].id;
