@@ -95,20 +95,16 @@
                 </div>
               </div>
               <div class="form_line">
+                <div class="titlebox">业务线</div>
+                <div class="infobox editNot">
+                  {{ tableData.oaa42_show }}
+                </div>
                 <div class="titlebox">业务大类</div>
-                <div class="infobox selectbox middlebox" style="background: #FCFDFF;">
-                  <el-select v-model="tableData.oaa40" class="select"
-                    disabled>
-                    <el-option
-                      v-for="item in fixedData.gjaList"
-                      :key="item.gja01"
-                      :label="item.gja02"
-                      :value="item.gja01">
-                    </el-option>
-                  </el-select>
+                <div class="infobox editNot">
+                  {{ tableData.oaa40_show }}
                 </div>
                 <div class="titlebox">业务明细</div>
-                <div class="infobox middlebox editNot">
+                <div class="infobox editNot">
                   {{ tableData.oaa41_show }}
                 </div>
               </div>
@@ -495,9 +491,6 @@
 <script>
 import { workflowsList, } from "@/api/process_new.js"
 import { number_chinese, OpenLoading } from "@/utils/utils.js";
-import {
-  gjaList,
-} from "@/api/basic.js";
 
 export default {
   data() {
@@ -552,10 +545,6 @@ export default {
         annexurlid: [],
         tplid: 8952
       },
-      fixedData: {
-        // gja
-        gjaList: [],
-      },
       // 当前流程列表
       workclass_perflow: [],
     };
@@ -564,22 +553,8 @@ export default {
     this.workid = this.$route.query.workid ? this.$route.query.workid : 6035
     // this.workid = 4512
     this.getworkflows()
-    this.getGja()
   },
   methods: {
-    // gja列表
-    getGja() {
-      const params = {
-        keyword: ''
-      }
-      gjaList(params).then((res) => {
-        if (res.status == 200) {
-          this.fixedData.gjaList = res.data;
-        } else {
-          this.$message.error(res.error.message);
-        }
-      });
-    },
     goPrint() {
       let routeUrl = this.$router.resolve({
         path: "printPage",

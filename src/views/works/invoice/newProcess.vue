@@ -136,22 +136,29 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">
-                  <span :class="form_must.includes('oaa40') ? 'redPot' : ''">业务大类</span>
+                  <span :class="form_must.includes('oaa42') ? 'redPot' : ''">业务线</span>
                 </div>
-                <div class="infobox selectbox middlebox">
-                  <el-select v-model="tableData.oaa40" class="select" @change="YWDLchange()">
+                <div class="infobox selectbox">
+                  <el-select 
+                    v-model="tableData.oaa42" 
+                    class="select"
+                    @change="LineChange()">
                     <el-option
-                      v-for="item in fixedData.gjaList"
-                      :key="item.gja01"
-                      :label="item.gja02"
-                      :value="item.gja01">
+                      v-for="item in fixedData.linesList"
+                      :key="item.code"
+                      :label="item.name"
+                      :value="item.code">
                     </el-option>
                   </el-select>
                 </div>
                 <div class="titlebox">
+                  <span :class="form_must.includes('oaa40') ? 'redPot' : ''">业务大类</span>
+                </div>
+                <div class="infobox selectbox editNot">{{showData.oaa40_show}}</div>
+                <div class="titlebox">
                   <span :class="form_must.includes('oaa41') ? 'redPot' : ''">业务明细</span>
                 </div>
-                <div class="infobox last_row middlebox selectbox">
+                <div class="infobox last_row selectbox">
                   <div class="selector" @click="selectDialog('YWMX')">
                     {{ showData.oaa41_show }}
                   </div>
@@ -770,7 +777,7 @@ import {
   pjasList,
   userInfo,
   custInfo,
-  gjaList,
+  linesList,
 } from "@/api/basic.js";
 
 export default {
@@ -784,17 +791,28 @@ export default {
       showData: {
         oaa04_show: "", //申请人
         status_human: "", //合同状态
-        oaa41_show: "", //业务明细
+        oaa40_show: "", //业务大类
+        oaa41_show: "公用项目", //业务明细
         expenseMoneyF: "", //报销金额大写
         oaa13_rate: 1, //税率
         oab04_show: "", //默认摘要
         oab02_default: "0000", //默认项目
         oab02_show_default: "公用项目",
-        oab03_default: "0000-0000", //默认WBS
-        oab03_show_default: "0000",
+        oab03_default: 
+          sessionStorage.getItem('OrgId')==1?
+          '0000-0000'
+          :sessionStorage.getItem('OrgId')==2?
+          '0000-0000'
+          :'0000-0000', //默认WBS
+        oab03_show_default: "公用项目",
         oab07_show: "", // 单价
         oab11_show: "", //核算项一
-        oab12_show: "", //核算项一
+        oab12_show: 
+          sessionStorage.getItem('OrgId')==1?
+          '0000-0000'
+          :sessionStorage.getItem('OrgId')==2?
+          '0000-0000'
+          :'0000-0000', //核算项一
       },
       tableData: {
         // 基本信息
@@ -813,8 +831,14 @@ export default {
         oaa12: "", //总金额
         oaa13: "", //税别
         oaa14: "", //税额
+        oaa42: "", // 业务线
         oaa40: "", //业务大类
-        oaa41: "", //业务明细
+        oaa41: 
+          sessionStorage.getItem('OrgId')==1?
+          '0000-0000'
+          :sessionStorage.getItem('OrgId')==2?
+          '0000-0000'
+          :'0000-0000', //业务明细
         oaa15: "", //备注
         oaa98: "", //说明
         // 表格部分
@@ -854,8 +878,8 @@ export default {
         cointypes: [],
         //支付方式
         payTypes: [],
-        // gja
-        gjaList: [],
+        // 业务线
+        linesList: [],
         oaa12_type: 1,  // 1:自动填入； 2：用户填入
       },
       fileList: [],
@@ -985,7 +1009,7 @@ export default {
     // 摘要
     "tableData.oaa11_show": {
       handler(newval, oldval) {
-        console.log('P, 01')
+        // console.log('P, 01')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         this.tableData.oab.forEach( item => {
           if (item.oab04 !== this.showData.oab04_show) {
@@ -997,7 +1021,7 @@ export default {
     },
     "showData.oaa41_show": {
       handler(newval, oldval) {
-        console.log('P, 02')
+        // console.log('P, 02')
         this.showData.oab04_show = this.tableData.oaa11_show.substring(0,6) + '-' + this.showData.oaa41_show
         this.tableData.oab.forEach( item => {
           if (item.oab04 !== this.showData.oab04_show) {
@@ -1010,7 +1034,7 @@ export default {
     // 总金额
     "tableData.oaa12": {
       handler(newval, oldval) {
-        console.log('P, 03')
+        // console.log('P, 03')
         this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
         // 单价
         this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
@@ -1025,7 +1049,7 @@ export default {
     // 税别
     "tableData.oaa13": {
       handler(newval, oldval) {
-        console.log('P, 04')
+        // console.log('P, 04')
         this.tableData.oaa14 = ((Number(this.tableData.oaa12) /(1 + this.showData.oaa13_rate / 100)) * (this.showData.oaa13_rate /100)).toFixed(2);
         // 单价
         this.showData.oab07_show = (Number(this.tableData.oaa12) / (1 + this.showData.oaa13_rate/100)).toFixed(2);
@@ -1040,7 +1064,7 @@ export default {
     
     "tableData.oab": {
       handler(newval, oldval) {
-        console.log('P, 05')
+        // console.log('P, 05')
         this.tableData.oab.forEach((item) => {
           item.oab05 = Number(item.oab06) * Number(item.oab07);
         });
@@ -1049,7 +1073,7 @@ export default {
     },
     "tableData.oac": {
       handler(newval, oldval) {
-        console.log('P, 06')
+        // console.log('P, 06')
         let oac06_sum = 0
         this.tableData.oac.forEach((item) => {
           item.oac06 = Number(item.oac04) * Number(item.oac05);
@@ -1071,7 +1095,6 @@ export default {
     this.addRow1();
     this.getAzi(); //币种列表
     this.getPma(); //支付方式
-    this.getGja()
     this.getMustItem()
   },
   methods: {
@@ -1091,6 +1114,7 @@ export default {
             this.showData.oaa04_show = res.data.employee_show
             this.showData.oaa04_gen01 = res.data.employee_code
             this.showData.oaa04_gen04 = res.data.department_show
+            this.getLines(res.data.department_id)
           } else {
             this.$message.warning("用户信息获取失败！" + res.error.message);
           }
@@ -1124,11 +1148,18 @@ export default {
     handleClick() {
       // console.log(this.activeTab);
     },
-    YWDLchange() {
-      this.showData.oab11_show = this.tableData.oaa40
-      this.tableData.oab.forEach( item => {
-        if (item.oab11 !== this.tableData.oaa40){
-          item.oab11 = this.tableData.oaa40
+    LineChange() {
+      this.fixedData.linesList.forEach( val => {
+        if (val.code == this.tableData.oaa42){
+          this.tableData.oaa40 = val.category_code
+          this.showData.oaa40_show = val.category_name
+
+          this.showData.oab11_show = val.category_code
+          this.tableData.oab.forEach( item => {
+            if (item.oab11 !== val.category_code){
+              item.oab11 = val.category_code
+            }
+          })
         }
       })
     },
@@ -1393,14 +1424,32 @@ export default {
         }
       });
     },
-    // gja列表
-    getGja() {
+    // 业务线列表
+    getLines(D_id) {
       const params = {
-        keyword: ''
+        department_id: D_id
       }
-      gjaList(params).then((res) => {
+      linesList(params).then((res) => {
         if (res.status == 200) {
-          this.fixedData.gjaList = res.data;
+          this.fixedData.linesList = res.data;
+          // this.fixedData.linesList = [{
+          //   "code": "Y0001",
+          //   "name": "运营商业务",
+          //   "category_code": "0001",
+          //   "category_name": "全媒体版权发行业务"
+          // },
+          // {
+          //   "code": "Y0002",
+          //   "name": "新媒体业务",
+          //   "category_code": "0001",
+          //   "category_name": "全媒体版权发行业务"
+          // },
+          // {
+          //   "code": "Y0003",
+          //   "name": "外包业务",
+          //   "category_code": "0005",
+          //   "category_name": "其他服务"
+          // }]
         } else {
           this.$message.error(res.error.message);
         }

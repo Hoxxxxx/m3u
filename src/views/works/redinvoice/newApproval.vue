@@ -397,6 +397,22 @@
                   </ul>
                 </div>
               </div>
+              <div class="form_line">
+                <div class="titlebox required">
+                  <span :class="form_must.includes('oaa17') ? 'redPot' : ''">说明</span>
+                </div>
+                <div class="infobox areabox longbox" style="width: 100%">
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    v-model="tableData.oaa17"
+                    maxlength="255"
+                    show-word-limit
+                    :disabled="!table_able.includes('oaa17')"
+                  >
+                  </el-input>
+                </div>
+              </div>
               <!-- 财务信息 -->
               <div v-if="oazShow == 1">
                 <div class="title_line">
