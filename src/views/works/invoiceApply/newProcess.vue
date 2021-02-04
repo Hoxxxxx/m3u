@@ -495,23 +495,11 @@
                   </div>
                 </div>
                 <div class="form_line last_line">
-                  <div class="titlebox required">
-                    <span :class="form_must.includes('oaa35') ? 'redPot' : ''">是否签订合同</span>
-                  </div>
-                  <div class="infobox middlebox" style="width: 100%">
-                    <el-radio-group
-                      class="radioGroup"
-                      v-model="tableData.oaa35"
-                    >
-                      <el-radio :label="1">是</el-radio>
-                      <el-radio :label="2">否</el-radio>
-                    </el-radio-group>
-                  </div>
                   <div class="titlebox">
                     <span :class="form_must.includes('oaa36') ? 'redPot' : ''">发票号码</span>
                   </div>
                   <div
-                    class="infobox last_row middlebox selectbox"
+                    class="infobox longbox selectbox"
                     style="width: 100%"
                   >
                     <input

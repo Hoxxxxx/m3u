@@ -137,14 +137,9 @@
           </div>
 
           <div class="form_line last_line">
-            <div class="titlebox">是否签订合同</div>
-            <div class="infobox middlebox" style="width: 100%">
-              <span class="radioItem" v-if="tableData.oaa35==1">是</span>
-              <span class="radioItem" v-if="tableData.oaa35==2">否</span>
-            </div>
             <div class="titlebox">发票号码</div>
             <div
-              class="infobox last_row middlebox selectbox"
+              class="infobox longbox selectbox"
               style="width: 100%"
             >
               {{tableData.oaa36}}
