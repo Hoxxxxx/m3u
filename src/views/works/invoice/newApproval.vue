@@ -239,12 +239,17 @@
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa42') ? 'redPot' : ''">业务线</span>
                 </div>
-                <div class="infobox selectbox" :style="!table_able.includes('oaa42')?'background: #FCFDFF;':''">
+                <div
+                  class="infobox editNot"
+                  v-if="!table_able.includes('oaa42')"
+                >
+                  {{ tableData.oaa42_show }}
+                </div>
+                <div class="infobox selectbox" v-if="table_able.includes('oaa42')">
                   <el-select 
                     v-model="tableData.oaa42" 
                     class="select" 
-                    @change="LineChange"
-                    :disabled="!table_able.includes('oaa42')">
+                    @change="LineChange">
                     <el-option
                       v-for="item in fixedData.linesList"
                       :key="item.code"

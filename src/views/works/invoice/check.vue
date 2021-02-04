@@ -96,18 +96,8 @@
               </div>
               <div class="form_line">
                 <div class="titlebox">业务线</div>
-                <div class="infobox selectbox" style="background: #FCFDFF;">
-                  <el-select 
-                    v-model="tableData.oaa42" 
-                    class="select"
-                    disabled>
-                    <el-option
-                      v-for="item in fixedData.linesList"
-                      :key="item.code"
-                      :label="item.name"
-                      :value="item.code">
-                    </el-option>
-                  </el-select>
+                <div class="infobox editNot">
+                  {{ tableData.oaa42_show }}
                 </div>
                 <div class="titlebox">业务大类</div>
                 <div class="infobox editNot">
@@ -501,10 +491,6 @@
 <script>
 import { workflowsList, } from "@/api/process_new.js"
 import { number_chinese, OpenLoading } from "@/utils/utils.js";
-import {
-  userInfo,
-  linesList,
-} from "@/api/basic.js";
 
 export default {
   data() {
@@ -559,10 +545,6 @@ export default {
         annexurlid: [],
         tplid: 8952
       },
-      fixedData: {
-        // gja
-        linesList: [],
-      },
       // 当前流程列表
       workclass_perflow: [],
     };
@@ -573,19 +555,6 @@ export default {
     this.getworkflows()
   },
   methods: {
-    // Lines列表
-    getLines(D_id) {
-      const params = {
-        department_id: D_id
-      }
-      linesList(params).then((res) => {
-        if (res.status == 200) {
-          this.fixedData.linesList = res.data;
-        } else {
-          this.$message.error(res.error.message);
-        }
-      });
-    },
     goPrint() {
       let routeUrl = this.$router.resolve({
         path: "printPage",
@@ -621,12 +590,6 @@ export default {
               })
             })
           }
-          userInfo(this.tableData.oaa03)
-          .then(res => {
-            if(res.status == 200){
-              this.getLines(res.data.department_id)
-            }
-          })
         }else{
           loading.close()
           clearTimeout(this.overloading)
