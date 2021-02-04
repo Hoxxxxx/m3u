@@ -70,20 +70,7 @@
               <div class="title_line">基本信息</div>
               <div class="form_line">
                 <div class="titlebox">经办人</div>
-                <div class="infobox middlebox editNot">{{ tableData.oaa03_show }}</div>
-                <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa05') ? 'redPot' : ''">联系电话</span>
-                </div>
-                <div class="infobox selectbox middlebox last_row editNot" v-if="!table_able.includes('oaa05')">{{ tableData.oaa05 }}</div>
-                <div class="infobox selectbox middlebox last_row" v-if="table_able.includes('oaa05')">
-                  <input
-                    class="abstracInput"
-                    v-model="tableData.oaa05"
-                    placeholder="请输入联系电话"
-                  />
-                </div>
-              </div>
-              <div class="form_line lastline">
+                <div class="infobox editNot">{{ tableData.oaa03_show }}</div>
                 <div class="titlebox">
                   <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">申请人</span>
                 </div>
@@ -94,13 +81,22 @@
                   </div>
                 </div>
                 <div class="titlebox">
-                  <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">员工编号</span>
-                </div>
-                <div class="infobox editNot">{{ tableData.oaa04 }}</div>
-                <div class="titlebox">
                   <span :class="form_must_able.includes('oaa04') ? 'redPot' : ''">所属部门</span>
                 </div>
                 <div class="infobox editNot last_row">{{ tableData.oaa04_gen04 }}</div>
+              </div>
+              <div class="form_line lastline">
+                <div class="titlebox">
+                  <span :class="form_must_able.includes('oaa05') ? 'redPot' : ''">联系电话</span>
+                </div>
+                <div class="infobox selectbox longbox editNot" v-if="!table_able.includes('oaa05')">{{ tableData.oaa05 }}</div>
+                <div class="infobox selectbox longbox" v-if="table_able.includes('oaa05')">
+                  <input
+                    class="abstracInput"
+                    v-model="tableData.oaa05"
+                    placeholder="请输入联系电话"
+                  />
+                </div>
               </div>
               <!-- 合同信息 -->
               <div class="title_line">合同信息</div>
