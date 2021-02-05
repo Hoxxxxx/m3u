@@ -851,59 +851,66 @@ export default {
     addNewFlow(type) {
       this.tableData = { ...this.tableData, ...this.oaz };
       this.addParams.from_data = this.tableData;
-      const loading = OpenLoading(this, 1)
-      if (this.workid == "") {
-        addFlow(this.addParams).then((result) => {
-          if (result.status == 200) {
-            this.workid = result.data.workid;
-            this.tableData.oaa01 = result.data.oaa01;
-            this.tableData.oaa02 = result.data.oaa02;
-            if (type == "add") {
-              this.$message.success("保存成功！");
-            } else if (type == "next") {
-              this.$router.push({
-                path: "/apply",
-                query: {
-                  url_type: "invoiceApply",
-                  workName: this.workName,
-                  workid: this.workid,
-                  workName: this.workName,
-                  oaa01: this.tableData.oaa01,
-                  oaa02: this.tableData.oaa02,
-                },
-              });
-            }
-          } else {
-            this.$message.error("保存失败：" + result.error.message);
-          }
-          loading.close();
-        clearTimeout(this.overloading)
-        });
+      const sum = this.tableData.oac.reduce((prev,cur)=>{
+        return prev + Number(cur.oac06);
+      },0)
+      if(this.tableData.oaa28 !== sum) {
+        this.$message.warning('开票金额与发票金额之和不相等！')
       } else {
-        this.addParams.workid = this.workid;
-        editFlow(this.addParams).then((result) => {
-          if (result.status == 200) {
-            if (type == "add") {
-              this.$message.success("保存成功！");
-            } else if (type == "next") {
-              this.$router.push({
-                path: "/apply",
-                query: {
-                  url_type: "invoiceApply",
-                  workName: this.workName,
-                  workid: this.workid,
-                  workName: this.workName,
-                  oaa01: this.tableData.oaa01,
-                  oaa02: this.tableData.oaa02,
-                },
-              });
+        const loading = OpenLoading(this, 1)
+        if (this.workid == "") {
+          addFlow(this.addParams).then((result) => {
+            if (result.status == 200) {
+              this.workid = result.data.workid;
+              this.tableData.oaa01 = result.data.oaa01;
+              this.tableData.oaa02 = result.data.oaa02;
+              if (type == "add") {
+                this.$message.success("保存成功！");
+              } else if (type == "next") {
+                this.$router.push({
+                  path: "/apply",
+                  query: {
+                    url_type: "invoiceApply",
+                    workName: this.workName,
+                    workid: this.workid,
+                    workName: this.workName,
+                    oaa01: this.tableData.oaa01,
+                    oaa02: this.tableData.oaa02,
+                  },
+                });
+              }
+            } else {
+              this.$message.error("保存失败：" + result.error.message);
             }
-          } else {
-            this.$message.error("保存失败：" + result.error.message);
-          }
-          loading.close();
-        clearTimeout(this.overloading)
-        });
+            loading.close();
+          clearTimeout(this.overloading)
+          });
+        } else {
+          this.addParams.workid = this.workid;
+          editFlow(this.addParams).then((result) => {
+            if (result.status == 200) {
+              if (type == "add") {
+                this.$message.success("保存成功！");
+              } else if (type == "next") {
+                this.$router.push({
+                  path: "/apply",
+                  query: {
+                    url_type: "invoiceApply",
+                    workName: this.workName,
+                    workid: this.workid,
+                    workName: this.workName,
+                    oaa01: this.tableData.oaa01,
+                    oaa02: this.tableData.oaa02,
+                  },
+                });
+              }
+            } else {
+              this.$message.error("保存失败：" + result.error.message);
+            }
+            loading.close();
+          clearTimeout(this.overloading)
+          });
+        }
       }
     },
     // *******************************************

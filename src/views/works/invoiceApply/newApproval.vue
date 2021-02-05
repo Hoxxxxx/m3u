@@ -1043,16 +1043,23 @@ export default {
         });
       });
       }
-      const loading = OpenLoading(this, 1)
-      editFlow(this.addParams).then((result) => {
-        if (result.status == 200) {
-          this.$message.success("编辑成功！");
-        } else {
-          this.$message.error("编辑失败：" + result.error.message);
-        }
-        loading.close();
-        clearTimeout(this.overloading)
-      });
+      const sum = this.tableData.oac.reduce((prev,cur)=>{
+        return prev + Number(cur.oac06);
+      },0)
+      if(this.tableData.oaa28 !== sum) {
+        this.$message.warning('开票金额与发票金额之和不相等！')
+      } else {
+        const loading = OpenLoading(this, 1)
+        editFlow(this.addParams).then((result) => {
+          if (result.status == 200) {
+            this.$message.success("编辑成功！");
+          } else {
+            this.$message.error("编辑失败：" + result.error.message);
+          }
+          loading.close();
+          clearTimeout(this.overloading)
+        });
+      }
     },
     // 下一步
     nextStep(url) {
