@@ -1171,7 +1171,7 @@ export default {
         oaa13_rate: 0, //税率
         oab04_show: "", //默认摘要
         oab02_default: "0000", //默认项目
-        oab02_show_default: "公用项目",
+        oab02_show_default: "0000",
         oab03_default: "0000-0000", //默认WBS
         oab03_show_default: "0000",
         oab07_show: "", //单价

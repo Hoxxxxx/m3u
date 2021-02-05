@@ -792,19 +792,19 @@ export default {
         oaa04_show: "", //申请人
         status_human: "", //合同状态
         oaa40_show: "", //业务大类
-        oaa41_show: "公用项目", //业务明细
+        oaa41_show: "0000", //业务明细
         expenseMoneyF: "", //报销金额大写
         oaa13_rate: 1, //税率
         oab04_show: "", //默认摘要
         oab02_default: "0000", //默认项目
-        oab02_show_default: "公用项目",
+        oab02_show_default: "0000",
         oab03_default: 
           sessionStorage.getItem('OrgId')==1?
           '0000-0000'
           :sessionStorage.getItem('OrgId')==2?
           '0000-0000'
           :'0000-0000', //默认WBS
-        oab03_show_default: "公用项目",
+        oab03_show_default: "0000",
         oab07_show: "", // 单价
         oab11_show: "", //核算项一
         oab12_show: 
