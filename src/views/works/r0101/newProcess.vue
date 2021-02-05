@@ -467,7 +467,7 @@ export default {
           { name: "title", title: "合同名称" },
           { name: "number", title: "合同编号" },
           { name: "contract_value", title: "合同金额" },
-          { name: "status", title: "合同状态" },
+          { name: "status_show", title: "合同状态" },
         ],
       },
     };
