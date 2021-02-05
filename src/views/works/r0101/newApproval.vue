@@ -1134,6 +1134,9 @@ export default {
               if(res.status == 200){
                 this.tableData.oaa11 = res.data.pmc01
                 this.showData.oaa11_show = res.data.name;
+                this.tableData.oaa21 = res.data.bank_account
+                this.tableData.oaa22 = res.data.bank
+                this.tableData.oaa23 = res.data.bank_code
               }
             })
             break;
