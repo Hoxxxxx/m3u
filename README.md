@@ -5,9 +5,12 @@
 ### 推荐软件  
 * iOS系统  
 >APTV「多端」
+* 直播源解析需要连上vpn！直播源解析需要连上vpn！直播源解析需要连上vpn！
+* 后续使用无需vpn，最好是断开vpn再使用，否则延迟会很高！
 * 安卓系统  
 >TiviMate「电视端」  
->Televizo「手机端」    
+>Televizo「手机端」
+>potplayer「电脑端」
 ---
 ### 订阅地址「懒人必备」
 * [Gather.m3u](https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u)  
@@ -24,5 +27,5 @@
 
 ---
 另！
-* [XX.m3u](https://tv.iill.top/xx)  
+* [XX.m3u](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/XX.m3u)  
 >直接使用此地址,过滤 XX.m3u 中的无效直播.
