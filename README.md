@@ -1,8 +1,8 @@
 
-# 仓库简介
+# ㊙️㊙️㊙️ 食谱 ㊙️㊙️㊙️
 #### 个人爱好，收集整合！仅供个人使用，出现任何版权问题与本人无关！
 ---
-### 推荐软件  
+### ✨ 推荐软件  ✨
 * iOS系统  
 >APTV「多端」
 * 直播源解析需要连上vpn！直播源解析需要连上vpn！直播源解析需要连上vpn！
@@ -14,16 +14,16 @@
 ---
 ### 订阅地址「懒人必备」
 
-* [18禁频道（需要翻墙看）较慢](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Adult.m3u)
-* [* 央视卫视ipv4（延迟500左右）](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/China_v4.m3u)
-* [* 央视卫视ipv6](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/China_v6.m3u)
-* [斗鱼](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Douyu.m3u)
-* [虎牙](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Huya.m3u)
-* [合集（包含港澳台日韩、音乐、动物世界）](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Gather.m3u)
-* [*ipv6合集（包含港澳台日韩、音乐、动物世界）](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/HXGather.m3u)
-* [*延迟300（包含所有常规央视、卫视）]( https://raw.githubusercontent.com/goolguy007/radioer/main/TVradio)
-* [日本](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Japan.m3u)
-
+* 1️⃣[18禁频道（需要翻墙看）较慢](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Adult.m3u)
+* 2️⃣[* 央视卫视ipv4（延迟500左右）](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/China_v4.m3u)
+* 3️⃣[* 央视卫视ipv6](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/China_v6.m3u)
+* 4️⃣[斗鱼](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Douyu.m3u)
+* 5️⃣[虎牙](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Huya.m3u)
+* 6️⃣[合集（包含港澳台日韩、音乐、动物世界）](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Gather.m3u)
+* 7️⃣[* ipv6合集（包含港澳台日韩、音乐、动物世界）](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/HXGather.m3u)
+* 8️⃣[* 延迟300（包含所有常规央视、卫视）]( https://raw.githubusercontent.com/goolguy007/radioer/main/TVradio)
+* 9️⃣[日本](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/Japan.m3u)
+* 👍👍👍   推荐优先使用带 ' * ' 号的连接   👍👍👍
 ---
 另！
 * [XX.m3u](https://raw.githubusercontent.com/Hoxxxxx/m3u/master/XX.m3u)  
