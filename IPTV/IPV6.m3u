@@ -1,8 +1,4 @@
 #EXTM3U
-#EXT-X-APP APTV
-#EXT-X-APTV-TYPE remote
-#EXT-X-SUB-URL https://mirror.ghproxy.com/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
-
 #EXTINF:-1 tvg-id="1" tvg-name="❤️ 欢迎观看 ❤️" tvg-logo="https://raw.githubusercontent.com/Hoxxxxx/m3u/master/APTV.png" group-title="❤️ 欢迎观看 ❤️",📺IPTV
 https://n24-cdn-live.ntv.co.jp/ch01/index_high.m3u8
 
