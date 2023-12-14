@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="1" tvg-name="❤️ 欢迎观看 ❤️" tvg-logo="https://raw.githubusercontent.com/Hoxxxxx/m3u/master/APTV.png" group-title="❤️ 欢迎观看 ❤️",📺IPTV
+#EXTINF:-1 tvg-id="1" tvg-name="❤️ 欢迎观看 ❤️" tvg-logo="https://raw.githubusercontent.com/Hoxxxxx/m3u/master/APTV.png" group-title="❤️ 欢迎观看 ❤️",📺IPV6 测试频道
 https://n24-cdn-live.ntv.co.jp/ch01/index_high.m3u8
 
 #EXTINF:-1,tvg-id="" tvg-name="CCTV8K" tvg-logo="https://epg.112114.eu.org/logo/CCTV8K.png" group-title="央视-4K",CCTV8K
