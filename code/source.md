@@ -1,4 +1,4 @@
-### ✨ source  ✨
+### ✨ EDIT  ✨
 
 * [Gather](hououinkami/AppleTV/blob/main/Source/Gather.m3u)
 * [HXGather](YanG-1989/m3u/blob/main/Gather.m3u)
